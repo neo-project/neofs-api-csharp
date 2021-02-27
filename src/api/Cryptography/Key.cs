@@ -55,7 +55,6 @@ namespace NeoFS.API.v2.Cryptography
             };
         }
 
-        // encode point
         public static byte[] PublicKey(this ECDsa key)
         {
             var param = key.ExportParameters(false);
@@ -75,7 +74,10 @@ namespace NeoFS.API.v2.Cryptography
             return pubkey;
         }
 
-
+        public static byte[] PrivateKey(this ECDsa key)
+        {
+            return key.ExportParameters(true).D;
+        }
 
         public static ECDsa LoadPrivateKey(this byte[] private_key)
         {
@@ -100,7 +102,7 @@ namespace NeoFS.API.v2.Cryptography
             return LoadPrivateKey(private_key);
         }
 
-        private static byte[] DecodePublicKey(this byte[] public_key)
+        public static byte[] DecodePublicKey(this byte[] public_key)
         {
             return Neo.Cryptography.ECC.ECPoint.DecodePoint(public_key, Neo.Cryptography.ECC.ECCurve.Secp256r1).EncodePoint(false)[1..];
         }

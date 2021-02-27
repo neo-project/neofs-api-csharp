@@ -24,9 +24,6 @@ namespace NeoFS.API.v2.Cryptography
 
         public static byte[] Bytes(this Guid id)
         {
-            if (id == null)
-                return null;
-
             return id.ToString().Replace("-", String.Empty).HexToBytes();
         }
     }

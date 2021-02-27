@@ -21,8 +21,8 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var policy = new PlacementPolicy(2, new Replica[] { replica }, null, null);
             var container = new Container.Container
             {
-                // Version = Refs.Version.SDKVersion(),
-                // OwnerId = key.ToOwnerID(),
+                Version = Refs.Version.SDKVersion(),
+                OwnerId = key.ToOwnerID(),
                 Nonce = new Guid().ToByteString(),
                 BasicAcl = (uint)BasicAcl.PublicBasicRule,
                 PlacementPolicy = policy,
@@ -45,7 +45,7 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var host = "localhost:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(key, host);
-            var cid = ContainerID.FromBase58String("GcB1gWcwSDbATLQce4J81RYj9B4MhdFqevsnegQnMaye");
+            var cid = ContainerID.FromBase58String("Ga3wR1Gxm6gckLCUNBz7pec3DtHvvAm7Sag6WZvZJaiv");
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var container = client.GetContainer(source.Token, cid);

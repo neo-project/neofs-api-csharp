@@ -16,7 +16,7 @@ namespace NeoFS.API.v2.Client
                 Body = new LocalNodeInfoRequest.Types.Body { }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            req.SignRequest(key);
+            key.SignRequest(req);
             var resp = netmap_client.LocalNodeInfo(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");
@@ -32,7 +32,7 @@ namespace NeoFS.API.v2.Client
                 Body = new LocalNodeInfoRequest.Types.Body { }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            req.SignRequest(key);
+            key.SignRequest(req);
             var resp = netmap_client.LocalNodeInfo(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");

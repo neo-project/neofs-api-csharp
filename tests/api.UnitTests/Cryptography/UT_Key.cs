@@ -35,13 +35,21 @@ namespace NeoFS.API.v2.UnitTests.TestCryptography
         }
 
         [TestMethod]
-        public void TestWif()
+        public void TestWif1()
         {
             var key = "L4kWTNckyaWn2QdUrACCJR1qJNgFFGhTCy63ERk7ZK3NvBoXap6t".LoadWif();
             var address = key.ToAddress();
             Assert.AreEqual("NZtdBM2WNB7sWoeesKSjAeFPJea64HUmyd", address);
             key = "L1pBKpw4tR6CogySzye3GUcVPz5pAeemXbyupoWUEVrtfstBfDiN".LoadWif();
             Assert.AreEqual("Nix7r8QFw2MEzR9HSWnJcGPt6ZSj4gAS3V", key.ToAddress());
+        }
+
+        [TestMethod]
+        public void TestWif2()
+        {
+            var key = "L4kWTNckyaWn2QdUrACCJR1qJNgFFGhTCy63ERk7ZK3NvBoXap6t".LoadWif();
+            var private_key = key.ExportParameters(true).D;
+            Assert.AreEqual("e0b48fb95d04aa475a0da759218a85d9b03cf4e55b79458dcdf4d42a7fe29cd1", private_key.ToHexString());
         }
     }
 }

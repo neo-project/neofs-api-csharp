@@ -30,7 +30,7 @@ namespace NeoFS.API.v2.Client
                 }
             };
             req.MetaHeader = option?.GetRequestMetaHeader() ?? RequestMetaHeader.Default;
-            req.SignRequest(key);
+            key.SignRequest(req);
 
             var resp = session_client.Create(req, cancellationToken: context);
             if (!resp.VerifyResponse())

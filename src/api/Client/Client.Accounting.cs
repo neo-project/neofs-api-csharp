@@ -22,7 +22,7 @@ namespace NeoFS.API.v2.Client
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            req.SignRequest(key);
+            key.SignRequest(req);
             var resp = account_client.Balance(req);
             if (!resp.VerifyResponse())
                 throw new FormatException("invalid balance response");

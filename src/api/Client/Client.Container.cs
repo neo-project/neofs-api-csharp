@@ -24,7 +24,7 @@ namespace NeoFS.API.v2.Client
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            req.SignRequest(key);
+            key.SignRequest(req);
 
             var resp = container_client.Get(req, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -44,11 +44,11 @@ namespace NeoFS.API.v2.Client
                 Body = new PutRequest.Types.Body
                 {
                     Container = container,
-                    Signature = container.SignMessagePart(key),
+                    Signature = key.SignRFC6979(container),
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            req.SignRequest(key);
+            key.SignRequest(req);
             var resp = container_client.Put(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container put response");
@@ -68,7 +68,7 @@ namespace NeoFS.API.v2.Client
             };
             req.Body.Signature = req.Body.SignMessagePart(key);
             req.MetaHeader = opts.GetRequestMetaHeader();
-            req.SignRequest(key);
+            key.SignRequest(req);
 
             var resp = container_client.Delete(req, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -87,7 +87,7 @@ namespace NeoFS.API.v2.Client
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            req.SignRequest(key);
+            key.SignRequest(req);
 
             var resp = container_client.List(req, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -113,14 +113,14 @@ namespace NeoFS.API.v2.Client
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            req.SignRequest(key);
+            key.SignRequest(req);
 
             var resp = container_client.GetExtendedACL(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container put response");
             var eacl = resp.Body.Eacl;
             var sig = resp.Body.Signature;
-            if (!eacl.VerifyMessagePart(sig)) throw new InvalidOperationException("invalid eacl");
+            if (!sig.VerifyMessagePart(eacl)) throw new InvalidOperationException("invalid eacl");
             return new EAclWithSignature
             {
                 Table = eacl,
@@ -147,7 +147,7 @@ namespace NeoFS.API.v2.Client
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            req.SignRequest(key);
+            key.SignRequest(req);
 
             var resp = container_client.SetExtendedACL(req, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -165,7 +165,7 @@ namespace NeoFS.API.v2.Client
                 Body = body,
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            req.SignRequest(key);
+            key.SignRequest(req);
 
             var resp = container_client.AnnounceUsedSpace(req, cancellationToken: context);
             if (!resp.VerifyResponse())

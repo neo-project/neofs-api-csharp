@@ -1,8 +1,6 @@
-using Google.Protobuf;
 using NeoFS.API.v2.Refs;
 using NeoFS.API.v2.Cryptography;
 using System.Security.Cryptography;
-using System.Linq;
 
 namespace NeoFS.API.v2.Object
 {
@@ -57,7 +55,7 @@ namespace NeoFS.API.v2.Object
 
         public bool VerifyIDSignature()
         {
-            return ObjectId.VerifyMessagePart(Signature);
+            return Signature.VerifyMessagePart(ObjectId);
         }
 
         public void SetVerificationFields(ECDsa key)

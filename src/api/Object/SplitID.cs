@@ -42,7 +42,7 @@ namespace NeoFS.API.v2.Object
 
         public void SetGuid(Guid g)
         {
-            if (g != null && g != Guid.Empty)
+            if (g != Guid.Empty)
                 guid = g;
         }
 
