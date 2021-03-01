@@ -59,14 +59,13 @@ namespace NeoFS.API.v2.Client
         {
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
-            var req = new DeleteRequest
+            var body = new DeleteRequest.Types.Body
             {
-                Body = new DeleteRequest.Types.Body
-                {
-                    ContainerId = cid,
-                }
+                ContainerId = cid,
             };
-            req.Body.Signature = req.Body.SignMessagePart(key);
+            var req = new DeleteRequest();
+            body.Signature = key.SignRFC6979(body);
+            req.Body = body;
             req.MetaHeader = opts.GetRequestMetaHeader();
             key.SignRequest(req);
 
@@ -120,7 +119,6 @@ namespace NeoFS.API.v2.Client
                 throw new InvalidOperationException("invalid container put response");
             var eacl = resp.Body.Eacl;
             var sig = resp.Body.Signature;
-            if (!sig.VerifyMessagePart(eacl)) throw new InvalidOperationException("invalid eacl");
             return new EAclWithSignature
             {
                 Table = eacl,
@@ -131,6 +129,8 @@ namespace NeoFS.API.v2.Client
         public EACLTable GetEACL(CancellationToken context, ContainerID cid, CallOptions options = null)
         {
             var eacl_with_sig = GetEAclWithSignature(context, cid, options);
+            if (!eacl_with_sig.Signature.VerifyRFC6979(eacl_with_sig.Table))
+                throw new InvalidOperationException("invalid eacl signature");
             return eacl_with_sig.Table;
         }
 
@@ -138,12 +138,13 @@ namespace NeoFS.API.v2.Client
         {
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            eacl.Version = Refs.Version.SDKVersion();
             var req = new SetExtendedACLRequest
             {
                 Body = new SetExtendedACLRequest.Types.Body
                 {
                     Eacl = eacl,
-                    Signature = eacl.SignMessagePart(key),
+                    Signature = key.SignRFC6979(eacl),
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
