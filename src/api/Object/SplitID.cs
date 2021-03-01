@@ -12,14 +12,7 @@ namespace NeoFS.API.v2.Object
         public static SplitID FromBytes(byte[] bytes)
         {
             var sid = new SplitID();
-            try
-            {
-                sid.guid = new Guid(bytes);
-            }
-            catch (ArgumentException)
-            {
-                return null;
-            }
+            sid.guid = new Guid(bytes);
             return sid;
         }
 

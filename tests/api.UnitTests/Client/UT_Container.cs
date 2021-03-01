@@ -23,7 +23,7 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             {
                 Version = Refs.Version.SDKVersion(),
                 OwnerId = key.ToOwnerID(),
-                Nonce = new Guid().ToByteString(),
+                Nonce = Guid.NewGuid().ToByteString(),
                 BasicAcl = (uint)BasicAcl.PublicBasicRule,
                 PlacementPolicy = policy,
             };
