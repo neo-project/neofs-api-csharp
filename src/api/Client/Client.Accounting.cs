@@ -1,9 +1,6 @@
-using Google.Protobuf;
-using Neo;
 using NeoFS.API.v2.Accounting;
 using NeoFS.API.v2.Cryptography;
 using NeoFS.API.v2.Refs;
-using NeoFS.API.v2.Session;
 using System;
 
 namespace NeoFS.API.v2.Client

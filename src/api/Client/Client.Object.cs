@@ -123,7 +123,7 @@ namespace NeoFS.API.v2.Client
             return resp.Body.ObjectId;
         }
 
-        public bool DeleteObject(CancellationToken context, DeleteObjectParams param, CallOptions options = null)
+        public Address DeleteObject(CancellationToken context, DeleteObjectParams param, CallOptions options = null)
         {
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var object_address = param.Address;
@@ -143,7 +143,7 @@ namespace NeoFS.API.v2.Client
             var resp = object_client.Delete(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid object delete response");
-            return true;
+            return resp.Body.Tombstone;
         }
 
         public Object.Object GetObjectHeader(CancellationToken context, ObjectHeaderParams param, CallOptions options = null)
@@ -184,6 +184,8 @@ namespace NeoFS.API.v2.Client
                         header.OwnerId = short_header.OwnerId;
                         header.ObjectType = short_header.ObjectType;
                         header.CreationEpoch = short_header.CreationEpoch;
+                        header.PayloadHash = short_header.PayloadHash;
+                        header.HomomorphicHash = short_header.HomomorphicHash;
                         break;
                     }
                 case HeadResponse.Types.Body.HeadOneofCase.Header:
@@ -336,7 +338,7 @@ namespace NeoFS.API.v2.Client
 
             token.Body.Object = ctx;
             token.Body.Lifetime = lt;
-            token.Signature = token.Body.SignMessagePart(key);
+            token.Signature = key.SignMessagePart(token.Body);
 
             meta.SessionToken = token;
         }

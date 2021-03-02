@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 
 namespace NeoFS.API.v2.Cryptography
 {
-    public sealed class Murmur3_128 : HashAlgorithm
+    internal class Murmur3_128 : HashAlgorithm
     {
         private const ulong c1 = 0x87c37b91114253d5;
         private const ulong c2 = 0x4cf5ad432745937f;

@@ -1,3 +1,4 @@
+using System;
 
 namespace NeoFS.API.v2.Netmap.Normalize
 {

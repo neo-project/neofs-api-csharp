@@ -1,7 +1,5 @@
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Neo;
-using Neo.Cryptography;
 using NeoFS.API.v2.Client;
 using NeoFS.API.v2.Client.ObjectParams;
 using NeoFS.API.v2.Cryptography;
@@ -97,7 +95,7 @@ namespace NeoFS.API.v2.UnitTests.FSClient
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
             var o = client.DeleteObject(source2.Token, new DeleteObjectParams { Address = address }, new CallOptions { Ttl = 2, Session = session });
-            Assert.IsTrue(o);
+            Assert.AreEqual(address, o);
         }
 
         [TestMethod]

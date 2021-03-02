@@ -1,8 +1,10 @@
+using System;
+using System.Linq;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Neo;
 using NeoFS.API.v2.Cryptography;
-using System;
+using static NeoFS.API.v2.Cryptography.Helper;
+using static NeoFS.API.v2.Cryptography.KeyExtension;
 
 namespace NeoFS.API.v2.UnitTests.TestCryptography
 {
@@ -10,9 +12,26 @@ namespace NeoFS.API.v2.UnitTests.TestCryptography
     public class UT_Key
     {
         [TestMethod]
-        public void TestImportKey()
+        public void TestCreateSignatureRedeemScript()
         {
+            var public_key = "0203592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c1".HexToBytes();
+            Assert.AreEqual("0c210203592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c141747476aa", public_key.CreateSignatureRedeemScript().ToHexString());
+            Assert.AreEqual("967a501264e563ac81a6f7afbdb14949efb39a85", public_key.CreateSignatureRedeemScript().Sha256().RIPEMD160().ToHexString());
+            Assert.AreEqual("NZdd4yJPMjjMTXT8eimx55it16wzWiji5C", public_key.CreateSignatureRedeemScript().Sha256().RIPEMD160().ToAddress(NeoAddressVersion));
+        }
 
+        [TestMethod]
+        public void TestPublicKeyDecompress()
+        {
+            var public_key = "0203592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c1".HexToBytes();
+            Assert.AreEqual("0403592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c148f1d40b79783f97de100496226b2d378c5297ab766c0f07c2a8df6ec2deed30", public_key.Decompress().ToHexString());
+        }
+
+        [TestMethod]
+        public void TestPublicKeyCompress()
+        {
+            var public_key = "0403592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c148f1d40b79783f97de100496226b2d378c5297ab766c0f07c2a8df6ec2deed30".HexToBytes();
+            Assert.AreEqual("0203592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c1", public_key.Compress().ToHexString());
         }
 
         [TestMethod]
@@ -30,8 +49,9 @@ namespace NeoFS.API.v2.UnitTests.TestCryptography
         [TestMethod]
         public void TestPublicKey()
         {
-            var key = "02f0476c51a3bfb67e0452618aaa220fa17113d66b457662056a154d32e333b377".HexToBytes().LoadPublicKey();
-            Assert.AreEqual("02f0476c51a3bfb67e0452618aaa220fa17113d66b457662056a154d32e333b377", key.PublicKey().ToHexString());
+            var key = "0203592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c1".HexToBytes().LoadPublicKey();
+            Assert.AreEqual("0203592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c1", key.PublicKey().ToHexString());
+            Assert.AreEqual("NZdd4yJPMjjMTXT8eimx55it16wzWiji5C", key.ToAddress());
         }
 
         [TestMethod]
@@ -39,9 +59,9 @@ namespace NeoFS.API.v2.UnitTests.TestCryptography
         {
             var key = "L4kWTNckyaWn2QdUrACCJR1qJNgFFGhTCy63ERk7ZK3NvBoXap6t".LoadWif();
             var address = key.ToAddress();
-            Assert.AreEqual("NZtdBM2WNB7sWoeesKSjAeFPJea64HUmyd", address);
+            Assert.AreEqual("NNpKztcTN2XVve1mQVtF3ckWKKjEUcoPSs", address);
             key = "L1pBKpw4tR6CogySzye3GUcVPz5pAeemXbyupoWUEVrtfstBfDiN".LoadWif();
-            Assert.AreEqual("Nix7r8QFw2MEzR9HSWnJcGPt6ZSj4gAS3V", key.ToAddress());
+            Assert.AreEqual("NQ8qB87zoN1P4qG74V9fkN9Zp7twis3g2r", key.ToAddress());
         }
 
         [TestMethod]

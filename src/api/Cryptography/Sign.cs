@@ -56,7 +56,7 @@ namespace NeoFS.API.v2.Cryptography
             return hash;
         }
 
-        public static Signature SignMessagePart(this IMessage data, ECDsa key)
+        public static Signature SignMessagePart(this ECDsa key, IMessage data)
         {
             var data2sign = data is null ? Array.Empty<byte>() : data.ToByteArray();
             var sig = new Signature
@@ -79,13 +79,13 @@ namespace NeoFS.API.v2.Cryptography
 
                 if (verify_origin is null)
                 {
-                    verify_header.BodySignature = to_sign.GetBody().SignMessagePart(key);
+                    verify_header.BodySignature = key.SignMessagePart(to_sign.GetBody());
                 }
-                verify_header.MetaSignature = meta_header.SignMessagePart(key);
+                verify_header.MetaSignature = key.SignMessagePart(meta_header);
                 if (verify_origin is null)
-                    verify_header.OriginSignature = new RequestVerificationHeader().SignMessagePart(key);
+                    verify_header.OriginSignature = key.SignMessagePart(new RequestVerificationHeader());
                 else
-                    verify_header.OriginSignature = verify_origin.SignMessagePart(key);
+                    verify_header.OriginSignature = key.SignMessagePart(verify_origin);
                 verify_header.Origin = verify_origin;
                 to_sign.VerifyHeader = verify_header;
             }
@@ -107,13 +107,13 @@ namespace NeoFS.API.v2.Cryptography
 
                 if (verify_origin is null)
                 {
-                    verify_header.BodySignature = to_sign.GetBody().SignMessagePart(key);
+                    verify_header.BodySignature = key.SignMessagePart(to_sign.GetBody());
                 }
                 else
                 {
-                    verify_header.OriginSignature = verify_origin.SignMessagePart(key);
+                    verify_header.OriginSignature = key.SignMessagePart(verify_origin);
                 }
-                verify_header.MetaSignature = meta_header.SignMessagePart(key);
+                verify_header.MetaSignature = key.SignMessagePart(meta_header);
                 verify_header.Origin = verify_origin;
                 to_sign.VerifyHeader = verify_header;
             }

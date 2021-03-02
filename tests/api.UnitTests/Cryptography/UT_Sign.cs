@@ -2,7 +2,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NeoFS.API.v2.Cryptography;
 using NeoFS.API.v2.Accounting;
 using NeoFS.API.v2.Session;
-using Neo;
 
 namespace NeoFS.API.v2.UnitTests.TestCryptography
 {

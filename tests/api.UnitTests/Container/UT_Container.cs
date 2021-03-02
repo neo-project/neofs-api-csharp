@@ -1,6 +1,5 @@
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Neo;
 using NeoFS.API.v2.Cryptography;
 using NeoFS.API.v2.Container;
 using NeoFS.API.v2.Netmap;

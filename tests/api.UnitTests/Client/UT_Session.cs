@@ -1,5 +1,4 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Neo;
 using NeoFS.API.v2.Cryptography;
 using System;
 using System.Threading;

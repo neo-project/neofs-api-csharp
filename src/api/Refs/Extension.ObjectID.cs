@@ -1,7 +1,5 @@
 using Google.Protobuf;
-using Neo.Cryptography;
 using NeoFS.API.v2.Cryptography;
-using System;
 
 namespace NeoFS.API.v2.Refs
 {

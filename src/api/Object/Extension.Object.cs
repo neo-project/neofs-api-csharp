@@ -50,7 +50,7 @@ namespace NeoFS.API.v2.Object
 
         public Signature CalculateIDSignature(ECDsa key)
         {
-            return ObjectId.SignMessagePart(key);
+            return key.SignMessagePart(ObjectId);
         }
 
         public bool VerifyIDSignature()
