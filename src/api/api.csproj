@@ -8,10 +8,10 @@
     <TargetFramework>net5.0</TargetFramework>
     <PackageId>NeoFS.API</PackageId>
     <PackageTags>NEO;NeoFS</PackageTags>
-    <PackageProjectUrl>https://github.com/neo-project/neofs-api-csharp</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/neo-ngd/neofs-api-csharp</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/neo-project/neofs-api-csharp.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/neo-ngd/neofs-api-csharp.git</RepositoryUrl>
     <RootNamespace>NeoFS.API</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
