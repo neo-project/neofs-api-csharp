@@ -9,6 +9,16 @@ namespace NeoFS.API.v2.Object
 
         public SplitID() { }
 
+        public SplitID(byte[] bytes)
+        {
+            guid = new Guid(bytes);
+        }
+
+        public SplitID(ByteString bs)
+        {
+            guid = new Guid(bs.ToByteArray());
+        }
+
         public static SplitID FromBytes(byte[] bytes)
         {
             var sid = new SplitID();

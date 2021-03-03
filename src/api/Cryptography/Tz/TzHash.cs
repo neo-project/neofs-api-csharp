@@ -9,8 +9,9 @@ namespace NeoFS.API.v2.Cryptography.Tz
 {
     public class TzHash : HashAlgorithm
     {
+        public const int TzHashLength = 64;
         private GF127[] x;
-        public override int HashSize => 64;
+        public override int HashSize => TzHashLength;
 
         public override byte[] Hash => ToByteArray();
 

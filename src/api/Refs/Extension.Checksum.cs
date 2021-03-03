@@ -1,11 +1,31 @@
 using Google.Protobuf;
 using NeoFS.API.v2.Cryptography;
+using NeoFS.API.v2.Cryptography.Tz;
 using System;
 
 namespace NeoFS.API.v2.Refs
 {
     public sealed partial class Checksum
     {
+        public Checksum(byte[] hash)
+        {
+            if (hash.Length == Crypto.Sha256HashLength)
+            {
+                type_ = ChecksumType.Sha256;
+                sum_ = ByteString.CopyFrom(hash);
+            }
+            else if (hash.Length == TzHash.TzHashLength)
+            {
+                type_ = ChecksumType.Tz;
+                sum_ = ByteString.CopyFrom(hash);
+            }
+            else
+            {
+                throw new InvalidOperationException(nameof(Checksum) + " unsupported hash length");
+            }
+
+        }
+
         public bool Verify(ByteString data)
         {
             switch (type_)
@@ -34,10 +54,10 @@ namespace NeoFS.API.v2.Refs
             sum_ = ByteString.CopyFrom(str.HexToBytes());
             switch (sum_.Length)
             {
-                case 32:
+                case Crypto.Sha256HashLength:
                     type_ = ChecksumType.Sha256;
                     break;
-                case 64:
+                case TzHash.TzHashLength:
                     type_ = ChecksumType.Tz;
                     break;
                 default:

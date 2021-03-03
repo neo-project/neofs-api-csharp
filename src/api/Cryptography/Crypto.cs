@@ -9,6 +9,8 @@ namespace NeoFS.API.v2.Cryptography
 {
     public static class Crypto
     {
+        public const int Sha256HashLength = 32;
+
         public static byte[] RIPEMD160(this byte[] value)
         {
             var hash = new byte[20];
@@ -32,7 +34,7 @@ namespace NeoFS.API.v2.Cryptography
 
         public static byte[] Sha256(this ReadOnlySpan<byte> value)
         {
-            byte[] buffer = new byte[32];
+            byte[] buffer = new byte[Sha256HashLength];
             using var sha256 = SHA256.Create();
             sha256.TryComputeHash(value, buffer, out _);
             return buffer;

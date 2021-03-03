@@ -1,12 +1,51 @@
+using Google.Protobuf;
 using NeoFS.API.v2.Refs;
 using NeoFS.API.v2.Cryptography;
+using NeoFS.API.v2.Session;
+using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Linq;
 
 namespace NeoFS.API.v2.Object
 {
     public partial class Object
     {
         public const int ChunkSize = 3 * (1 << 20);
+
+        public Version Version => Header.Version;
+        public ulong PayloadSize => Header.PayloadLength;
+        public ContainerID ContainerID => Header.ContainerId;
+        public OwnerID OwnerID => Header.OwnerId;
+        public ulong CreationEpoch => Header.CreationEpoch;
+        public Checksum PayloadChecksum => Header.PayloadHash;
+        public Checksum PayloadHomomorphicHash => Header.HomomorphicHash;
+        public List<Header.Types.Attribute> Attributes => Header.Attributes.ToList();
+        public ObjectID PreviousID => Header.Split.Previous;
+        public List<ObjectID> Children => Header.Split.Children.ToList();
+        public SplitID SplitID => new SplitID(Header.Split.SplitId);
+        public ObjectID ParentID => Header.Split.Parent;
+        public SessionToken SessionToken => Header.SessionToken;
+        public ObjectType ObjectType => Header.ObjectType;
+        public bool HasParent => Header.Split != null;
+
+        public Object Parent
+        {
+            get
+            {
+                var splitHeader = Header?.Split;
+                if (splitHeader is null) return null;
+                var parentSig = splitHeader.ParentSignature;
+                var parentHeader = splitHeader.ParentHeader;
+                if (parentSig is null || parentHeader is null)
+                    return null;
+                Object obj = new Object
+                {
+                    Header = parentHeader,
+                    Signature = parentSig,
+                };
+                return obj;
+            }
+        }
 
         public ObjectID CalculateAndGetID
         {
@@ -73,19 +112,10 @@ namespace NeoFS.API.v2.Object
             return true;
         }
 
-        public Object Parent()
+        public Object CutPayload()
         {
-            var splitHeader = Header?.Split;
-            if (splitHeader is null) return null;
-            var parentSig = splitHeader.ParentSignature;
-            var parentHeader = splitHeader.ParentHeader;
-            if (parentSig is null || parentHeader is null)
-                return null;
-            Object obj = new Object
-            {
-                Header = parentHeader,
-                Signature = parentSig,
-            };
+            var obj = Parser.ParseFrom(this.ToByteArray());
+            obj.payload_ = ByteString.Empty;
             return obj;
         }
     }

@@ -14,6 +14,18 @@ namespace NeoFS.API.v2.Object
 
                 // SysAttributeExpEpoch tells GC to delete object after that epoch.
                 public const string SysAttributeExpEpoch = SysAttributePrefix + "EXPIRATION_EPOCH";
+
+                // AttributeName is an attribute key that is commonly used to denote
+                // human-friendly name.
+                public const string AttributeName = "Name";
+
+                // AttributeFileName is an attribute key that is commonly used to denote
+                // file name to be associated with the object on saving.
+                public const string AttributeFileName = "FileName";
+
+                // AttributeTimestamp is an attribute key that is commonly used to denote
+                // user-defined local time of object creation in Unix Timestamp format.
+                public const string AttributeTimestamp = "Timestamp";
             }
         }
     }
