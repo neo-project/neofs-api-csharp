@@ -45,7 +45,7 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
             var host = "localhost:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(key, host);
-            var cid = ContainerID.FromBase58String("Ga3wR1Gxm6gckLCUNBz7pec3DtHvvAm7Sag6WZvZJaiv");
+            var cid = ContainerID.FromBase58String("8F2ZAdt6XDkBXwFcV3rQAMu42cr2zsxWy6WLmTjiErew");
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var container = client.GetContainer(source.Token, cid).Result;

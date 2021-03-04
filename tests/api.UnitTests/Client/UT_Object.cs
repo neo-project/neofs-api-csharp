@@ -22,7 +22,7 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
         {
             var host = "localhost:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
-            var cid = ContainerID.FromBase58String("RuzuV3RDstuVtWoDzsTsuNFiakaaGGN24EbNSUFGaiQ");
+            var cid = ContainerID.FromBase58String("BERrKi1LRXGy1cHMhssxa4wWuHCdkYYGXBzdLGmmAJLK");
             var payload = Encoding.ASCII.GetBytes("hello");
             var obj = new V2Object
             {

@@ -6,13 +6,13 @@
     <Version>0.0.22</Version>
     <Authors>The Neo Project</Authors>
     <TargetFramework>net5.0</TargetFramework>
-    <PackageId>Neo.FileSystem.API</PackageId>
+    <PackageId>NeoFS.API</PackageId>
     <PackageTags>NEO;NeoFS</PackageTags>
     <PackageProjectUrl>https://github.com/neo-ngd/neofs-api-csharp</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/neo-ngd/neofs-api-csharp.git</RepositoryUrl>
-    <RootNamespace>NeoFS.API</RootNamespace>
+    <RootNamespace>Neo.FileSystem.API</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <Company>The Neo Project</Company>
