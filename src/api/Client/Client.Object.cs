@@ -36,7 +36,7 @@ namespace Neo.FileSystem.API.Client
 
             using var call = object_client.Get(req, cancellationToken: context);
             var obj = new Object.Object();
-            var payload = new byte[] { };
+            var payload = new byte[obj.PayloadSize];
             int offset = 0;
             while (await call.ResponseStream.MoveNext())
             {
@@ -55,8 +55,11 @@ namespace Neo.FileSystem.API.Client
                         }
                     case GetResponse.Types.Body.ObjectPartOneofCase.Chunk:
                         {
+                            var chunk = resp.Body.Chunk;
+                            if (obj.PayloadSize < (ulong)(offset + chunk.Length))
+                                throw new InvalidOperationException("data exceeds PayloadSize");
                             resp.Body.Chunk.CopyTo(payload, offset);
-                            offset += resp.Body.Chunk.Length;
+                            offset += chunk.Length;
                             break;
                         }
                     case GetResponse.Types.Body.ObjectPartOneofCase.SplitInfo:
@@ -67,6 +70,8 @@ namespace Neo.FileSystem.API.Client
                         throw new FormatException("malformed object get reponse");
                 }
             }
+            if ((ulong)offset < obj.PayloadSize)
+                throw new InvalidOperationException("data is less than PayloadSize");
             obj.Payload = ByteString.CopyFrom(payload);
             return obj;
         }
