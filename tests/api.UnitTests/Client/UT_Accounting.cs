@@ -13,7 +13,7 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
             var host = "localhost:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(key, host);
-            var balance = client.GetSelfBalance();
+            var balance = client.GetSelfBalance().Result;
             Assert.AreEqual(0, balance.Value);
         }
     }

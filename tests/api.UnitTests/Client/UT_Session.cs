@@ -16,7 +16,7 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
-            var token = client.CreateSession(source.Token, ulong.MaxValue);
+            var token = client.CreateSession(source.Token, ulong.MaxValue).Result;
             Assert.AreEqual(key.ToOwnerID(), token.Body.OwnerId);
             Console.WriteLine($"id={token.Body.Id.ToUUID()}, key={token.Body.SessionKey.ToByteArray().ToHexString()}");
         }

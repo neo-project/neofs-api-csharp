@@ -36,7 +36,7 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue);
+            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
@@ -56,7 +56,7 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue);
+            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
@@ -90,7 +90,7 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue);
+            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
@@ -109,11 +109,11 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue);
+            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectHeader(source2.Token, new ObjectHeaderParams { Address = address, Short = false }, new CallOptions { Ttl = 2, Session = session });
+            var o = client.GetObjectHeader(source2.Token, new ObjectHeaderParams { Address = address, Short = false }, new CallOptions { Ttl = 2, Session = session }).Result;
             Assert.AreEqual(oid, o.ObjectId);
         }
 
@@ -128,7 +128,7 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue);
+            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
@@ -147,11 +147,11 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue);
+            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectPayloadRangeHash(source2.Token, new RangeChecksumParams { Address = address, Ranges = new List<Object.Range> { new Object.Range { Offset = 0, Length = 3 } }, Salt = new byte[] { 0x00 }, Type = ChecksumType.Sha256 }, new CallOptions { Ttl = 2, Session = session });
+            var o = client.GetObjectPayloadRangeHash(source2.Token, new RangeChecksumParams { Address = address, Ranges = new List<Object.Range> { new Object.Range { Offset = 0, Length = 3 } }, Salt = new byte[] { 0x00 }, Type = ChecksumType.Sha256 }, new CallOptions { Ttl = 2, Session = session }).Result;
             Assert.AreEqual(1, o.Count);
             Assert.AreEqual(Encoding.ASCII.GetBytes("hello")[..3].Sha256().ToHexString(), o[0].ToHexString());
         }
@@ -165,7 +165,7 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue);
+            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));

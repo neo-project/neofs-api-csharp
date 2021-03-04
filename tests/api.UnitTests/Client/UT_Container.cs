@@ -34,7 +34,7 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
             });
             var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var cid = client.PutContainer(source.Token, container);
+            var cid = client.PutContainer(source.Token, container).Result;
             Console.WriteLine(cid.ToBase58String());
             Assert.AreEqual(container.CalCulateAndGetID, cid);
         }
@@ -48,7 +48,7 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
             var cid = ContainerID.FromBase58String("Ga3wR1Gxm6gckLCUNBz7pec3DtHvvAm7Sag6WZvZJaiv");
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
-            var container = client.GetContainer(source.Token, cid);
+            var container = client.GetContainer(source.Token, cid).Result;
             Assert.AreEqual(cid, container.CalCulateAndGetID);
         }
 
@@ -61,7 +61,7 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
             var cid = ContainerID.FromBase58String("Bun3sfMBpnjKc3Tx7SdwrMxyNi8ha8JT3dhuFGvYBRTz");
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
-            client.DeleteContainer(source.Token, cid);
+            client.DeleteContainer(source.Token, cid).Wait();
         }
 
         [TestMethod]
@@ -72,7 +72,7 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
-            var cids = client.ListContainers(source.Token, key.ToOwnerID());
+            var cids = client.ListContainers(source.Token, key.ToOwnerID()).Result;
             Assert.AreEqual(1, cids.Count);
             Assert.AreEqual("Bun3sfMBpnjKc3Tx7SdwrMxyNi8ha8JT3dhuFGvYBRTz", cids[0].ToBase58String());
         }
@@ -122,7 +122,7 @@ namespace Neo.FileSystem.API.UnitTests.FSClient
             record.Targets.Add(target);
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
-            client.SetEACL(source.Token, eacl);
+            client.SetEACL(source.Token, eacl).Wait();
         }
     }
 }
