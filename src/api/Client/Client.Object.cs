@@ -34,13 +34,13 @@ namespace Neo.FileSystem.API.Client
             req.MetaHeader = meta;
             key.SignRequest(req);
 
-            var stream = object_client.Get(req, cancellationToken: context).ResponseStream;
+            using var call = object_client.Get(req, cancellationToken: context);
             var obj = new Object.Object();
             var payload = new byte[] { };
             int offset = 0;
-            while (await stream.MoveNext())
+            while (await call.ResponseStream.MoveNext())
             {
-                var resp = stream.Current;
+                var resp = call.ResponseStream.Current;
                 if (!resp.VerifyResponse())
                     throw new InvalidOperationException("invalid object get response");
                 switch (resp.Body.ObjectPartCase)
@@ -75,10 +75,7 @@ namespace Neo.FileSystem.API.Client
         {
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var obj = param.Object;
-            var call = object_client.Put(cancellationToken: context);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
-            var req_stream = call.RequestStream;
-
             var req = new PutRequest();
             var body = new PutRequest.Types.Body();
             req.Body = body;
@@ -99,7 +96,8 @@ namespace Neo.FileSystem.API.Client
             req.Body.Init = init;
             key.SignRequest(req);
 
-            await req_stream.WriteAsync(req);
+            using var call = object_client.Put(cancellationToken: context);
+            await call.RequestStream.WriteAsync(req);
 
             int offset = 0;
             while (offset < obj.Payload.Length)
@@ -113,10 +111,10 @@ namespace Neo.FileSystem.API.Client
                 req.Body = chunk_body;
                 req.VerifyHeader = null;
                 key.SignRequest(req);
-                await req_stream.WriteAsync(req);
+                await call.RequestStream.WriteAsync(req);
                 offset = end;
             }
-            await req_stream.CompleteAsync();
+            await call.RequestStream.CompleteAsync();
             var resp = await call.ResponseAsync;
             if (!resp.VerifyResponse())
                 throw new System.InvalidOperationException("invalid object put response");
