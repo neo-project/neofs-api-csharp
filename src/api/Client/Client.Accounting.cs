@@ -2,12 +2,13 @@ using Neo.FileSystem.API.Accounting;
 using Neo.FileSystem.API.Cryptography;
 using Neo.FileSystem.API.Refs;
 using System;
+using System.Threading.Tasks;
 
 namespace Neo.FileSystem.API.Client
 {
     public partial class Client
     {
-        public Accounting.Decimal GetBalance(OwnerID owner, CallOptions options = null)
+        public async Task<Accounting.Decimal> GetBalance(OwnerID owner, CallOptions options = null)
         {
             var account_client = new AccountingService.AccountingServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -20,16 +21,16 @@ namespace Neo.FileSystem.API.Client
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
             key.SignRequest(req);
-            var resp = account_client.Balance(req);
+            var resp = await account_client.BalanceAsync(req);
             if (!resp.VerifyResponse())
                 throw new FormatException("invalid balance response");
             return resp.Body.Balance;
         }
 
-        public Accounting.Decimal GetSelfBalance()
+        public async Task<Accounting.Decimal> GetSelfBalance()
         {
             var w = key.ToOwnerID();
-            return GetBalance(w);
+            return await GetBalance(w);
         }
     }
 }

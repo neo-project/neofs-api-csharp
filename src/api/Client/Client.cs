@@ -22,6 +22,11 @@ namespace Neo.FileSystem.API.Client
             this.key = key;
         }
 
+        public void Close()
+        {
+            channel.ShutdownAsync().Wait();
+        }
+
         public CallOptions DefaultCallOptions
         {
             get

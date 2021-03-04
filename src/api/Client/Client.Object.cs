@@ -123,7 +123,7 @@ namespace Neo.FileSystem.API.Client
             return resp.Body.ObjectId;
         }
 
-        public Address DeleteObject(CancellationToken context, DeleteObjectParams param, CallOptions options = null)
+        public async Task<Address> DeleteObject(CancellationToken context, DeleteObjectParams param, CallOptions options = null)
         {
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var object_address = param.Address;
@@ -140,13 +140,13 @@ namespace Neo.FileSystem.API.Client
             req.MetaHeader = meta;
             key.SignRequest(req);
 
-            var resp = object_client.Delete(req, cancellationToken: context);
+            var resp = await object_client.DeleteAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid object delete response");
             return resp.Body.Tombstone;
         }
 
-        public Object.Object GetObjectHeader(CancellationToken context, ObjectHeaderParams param, CallOptions options = null)
+        public async Task<Object.Object> GetObjectHeader(CancellationToken context, ObjectHeaderParams param, CallOptions options = null)
         {
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -166,7 +166,7 @@ namespace Neo.FileSystem.API.Client
             req.MetaHeader = meta;
             key.SignRequest(req);
 
-            var resp = object_client.Head(req, cancellationToken: context);
+            var resp = await object_client.HeadAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid object get header response");
             var header = new Header();
@@ -252,7 +252,7 @@ namespace Neo.FileSystem.API.Client
             return payload;
         }
 
-        public List<byte[]> GetObjectPayloadRangeHash(CancellationToken context, RangeChecksumParams param, CallOptions options = null)
+        public async Task<List<byte[]>> GetObjectPayloadRangeHash(CancellationToken context, RangeChecksumParams param, CallOptions options = null)
         {
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -272,7 +272,7 @@ namespace Neo.FileSystem.API.Client
             req.MetaHeader = meta;
             key.SignRequest(req);
 
-            var resp = object_client.GetRangeHash(req, cancellationToken: context);
+            var resp = await object_client.GetRangeHashAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException("invalid object range hash response");
             return resp.Body.HashList.Select(p => p.ToByteArray()).ToList();

@@ -2,12 +2,13 @@ using Neo.FileSystem.API.Cryptography;
 using Neo.FileSystem.API.Netmap;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Neo.FileSystem.API.Client
 {
     public partial class Client
     {
-        public NodeInfo LocalNodeInfo(CancellationToken context, CallOptions options = null)
+        public async Task<NodeInfo> LocalNodeInfo(CancellationToken context, CallOptions options = null)
         {
             var netmap_client = new NetmapService.NetmapServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -17,13 +18,13 @@ namespace Neo.FileSystem.API.Client
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
             key.SignRequest(req);
-            var resp = netmap_client.LocalNodeInfo(req, cancellationToken: context);
+            var resp = await netmap_client.LocalNodeInfoAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");
             return resp.Body.NodeInfo;
         }
 
-        public ulong Epoch(CancellationToken context, CallOptions options = null)
+        public async Task<ulong> Epoch(CancellationToken context, CallOptions options = null)
         {
             var netmap_client = new NetmapService.NetmapServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -33,7 +34,7 @@ namespace Neo.FileSystem.API.Client
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
             key.SignRequest(req);
-            var resp = netmap_client.LocalNodeInfo(req, cancellationToken: context);
+            var resp = await netmap_client.LocalNodeInfoAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");
             return resp.MetaHeader.Epoch;

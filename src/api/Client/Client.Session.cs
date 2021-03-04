@@ -3,6 +3,7 @@ using Neo.FileSystem.API.Cryptography;
 using Neo.FileSystem.API.Session;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Neo.FileSystem.API.Client
 {
@@ -18,7 +19,7 @@ namespace Neo.FileSystem.API.Client
             bearer = token;
         }
 
-        public SessionToken CreateSession(CancellationToken context, ulong expiration, CallOptions option = null)
+        public async Task<SessionToken> CreateSession(CancellationToken context, ulong expiration, CallOptions option = null)
         {
             var session_client = new SessionService.SessionServiceClient(channel);
             var req = new CreateRequest
@@ -32,7 +33,7 @@ namespace Neo.FileSystem.API.Client
             req.MetaHeader = option?.GetRequestMetaHeader() ?? RequestMetaHeader.Default;
             key.SignRequest(req);
 
-            var resp = session_client.Create(req, cancellationToken: context);
+            var resp = await session_client.CreateAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException("invalid balance response");
             return new SessionToken

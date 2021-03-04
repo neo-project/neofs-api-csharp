@@ -6,13 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using UsedSpaceAnnouncement = Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement;
 
 namespace Neo.FileSystem.API.Client
 {
     public partial class Client
     {
-        public Container.Container GetContainer(CancellationToken context, ContainerID cid, CallOptions options = null)
+        public async Task<Container.Container> GetContainer(CancellationToken context, ContainerID cid, CallOptions options = null)
         {
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -26,13 +27,13 @@ namespace Neo.FileSystem.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             key.SignRequest(req);
 
-            var resp = container_client.Get(req, cancellationToken: context);
+            var resp = await container_client.GetAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container get response");
             return resp.Body.Container;
         }
 
-        public ContainerID PutContainer(CancellationToken context, Container.Container container, CallOptions options = null)
+        public async Task<ContainerID> PutContainer(CancellationToken context, Container.Container container, CallOptions options = null)
         {
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -49,13 +50,13 @@ namespace Neo.FileSystem.API.Client
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
             key.SignRequest(req);
-            var resp = container_client.Put(req, cancellationToken: context);
+            var resp = await container_client.PutAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container put response");
             return resp.Body.ContainerId;
         }
 
-        public void DeleteContainer(CancellationToken context, ContainerID cid, CallOptions options = null)
+        public async Task DeleteContainer(CancellationToken context, ContainerID cid, CallOptions options = null)
         {
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -69,12 +70,12 @@ namespace Neo.FileSystem.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             key.SignRequest(req);
 
-            var resp = container_client.Delete(req, cancellationToken: context);
+            var resp = await container_client.DeleteAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container put response");
         }
 
-        public List<ContainerID> ListContainers(CancellationToken context, OwnerID owner, CallOptions options = null)
+        public async Task<List<ContainerID>> ListContainers(CancellationToken context, OwnerID owner, CallOptions options = null)
         {
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -88,19 +89,19 @@ namespace Neo.FileSystem.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             key.SignRequest(req);
 
-            var resp = container_client.List(req, cancellationToken: context);
+            var resp = await container_client.ListAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container put response");
             return resp.Body.ContainerIds.ToList();
         }
 
-        public List<ContainerID> ListSelfContainers(CancellationToken context, CallOptions options = null)
+        public async Task<List<ContainerID>> ListSelfContainers(CancellationToken context, CallOptions options = null)
         {
             var w = key.ToOwnerID();
-            return ListContainers(context, w, options);
+            return await ListContainers(context, w, options);
         }
 
-        public EAclWithSignature GetEAclWithSignature(CancellationToken context, ContainerID cid, CallOptions options = null)
+        public async Task<EAclWithSignature> GetEAclWithSignature(CancellationToken context, ContainerID cid, CallOptions options = null)
         {
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -114,7 +115,7 @@ namespace Neo.FileSystem.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             key.SignRequest(req);
 
-            var resp = container_client.GetExtendedACL(req, cancellationToken: context);
+            var resp = await container_client.GetExtendedACLAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container put response");
             var eacl = resp.Body.Eacl;
@@ -126,15 +127,15 @@ namespace Neo.FileSystem.API.Client
             };
         }
 
-        public EACLTable GetEACL(CancellationToken context, ContainerID cid, CallOptions options = null)
+        public async Task<EACLTable> GetEACL(CancellationToken context, ContainerID cid, CallOptions options = null)
         {
-            var eacl_with_sig = GetEAclWithSignature(context, cid, options);
+            var eacl_with_sig = await GetEAclWithSignature(context, cid, options);
             if (!eacl_with_sig.Signature.VerifyRFC6979(eacl_with_sig.Table))
                 throw new InvalidOperationException("invalid eacl signature");
             return eacl_with_sig.Table;
         }
 
-        public void SetEACL(CancellationToken context, EACLTable eacl, CallOptions options = null)
+        public async Task SetEACL(CancellationToken context, EACLTable eacl, CallOptions options = null)
         {
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -150,12 +151,12 @@ namespace Neo.FileSystem.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             key.SignRequest(req);
 
-            var resp = container_client.SetExtendedACL(req, cancellationToken: context);
+            var resp = await container_client.SetExtendedACLAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container put response");
         }
 
-        public void AnnounceContainerUsedSpace(CancellationToken context, List<UsedSpaceAnnouncement> announcements, CallOptions options = null)
+        public async Task AnnounceContainerUsedSpace(CancellationToken context, List<UsedSpaceAnnouncement> announcements, CallOptions options = null)
         {
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -168,7 +169,7 @@ namespace Neo.FileSystem.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             key.SignRequest(req);
 
-            var resp = container_client.AnnounceUsedSpace(req, cancellationToken: context);
+            var resp = await container_client.AnnounceUsedSpaceAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid announce used space response");
         }
