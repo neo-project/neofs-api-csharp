@@ -36,7 +36,7 @@ namespace Neo.FileSystem.API.Client
 
             using var call = object_client.Get(req, cancellationToken: context);
             var obj = new Object.Object();
-            var payload = new byte[obj.PayloadSize];
+            var payload = Array.Empty<byte>();
             int offset = 0;
             while (await call.ResponseStream.MoveNext())
             {
@@ -50,11 +50,12 @@ namespace Neo.FileSystem.API.Client
                             obj.ObjectId = resp.Body.Init.ObjectId;
                             obj.Signature = resp.Body.Init.Signature;
                             obj.Header = resp.Body.Init.Header;
-                            payload = new byte[obj.Header.PayloadLength];
+                            payload = new byte[obj.PayloadSize];
                             break;
                         }
                     case GetResponse.Types.Body.ObjectPartOneofCase.Chunk:
                         {
+                            if (payload.Length == 0) throw new InvalidOperationException("missing init");
                             var chunk = resp.Body.Chunk;
                             if (obj.PayloadSize < (ulong)(offset + chunk.Length))
                                 throw new InvalidOperationException("data exceeds PayloadSize");
