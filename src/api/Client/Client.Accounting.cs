@@ -1,9 +1,9 @@
-using NeoFS.API.v2.Accounting;
-using NeoFS.API.v2.Cryptography;
-using NeoFS.API.v2.Refs;
+using Neo.FileSystem.API.Accounting;
+using Neo.FileSystem.API.Cryptography;
+using Neo.FileSystem.API.Refs;
 using System;
 
-namespace NeoFS.API.v2.Client
+namespace Neo.FileSystem.API.Client
 {
     public partial class Client
     {

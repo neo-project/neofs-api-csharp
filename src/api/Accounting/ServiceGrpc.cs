@@ -7,7 +7,7 @@
 
 using grpc = global::Grpc.Core;
 
-namespace NeoFS.API.v2.Accounting {
+namespace Neo.FileSystem.API.Accounting {
   /// <summary>
   /// Accounting service provides methods for interaction with NeoFS sidechain via
   /// other NeoFS nodes to get information about the account balance. Deposit and
@@ -19,10 +19,10 @@ namespace NeoFS.API.v2.Accounting {
   {
     static readonly string __ServiceName = "neo.fs.v2.accounting.AccountingService";
 
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Accounting.BalanceRequest> __Marshaller_neo_fs_v2_accounting_BalanceRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Accounting.BalanceRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Accounting.BalanceResponse> __Marshaller_neo_fs_v2_accounting_BalanceResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Accounting.BalanceResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Accounting.BalanceRequest> __Marshaller_neo_fs_v2_accounting_BalanceRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Accounting.BalanceRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Accounting.BalanceResponse> __Marshaller_neo_fs_v2_accounting_BalanceResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Accounting.BalanceResponse.Parser.ParseFrom);
 
-    static readonly grpc::Method<global::NeoFS.API.v2.Accounting.BalanceRequest, global::NeoFS.API.v2.Accounting.BalanceResponse> __Method_Balance = new grpc::Method<global::NeoFS.API.v2.Accounting.BalanceRequest, global::NeoFS.API.v2.Accounting.BalanceResponse>(
+    static readonly grpc::Method<global::Neo.FileSystem.API.Accounting.BalanceRequest, global::Neo.FileSystem.API.Accounting.BalanceResponse> __Method_Balance = new grpc::Method<global::Neo.FileSystem.API.Accounting.BalanceRequest, global::Neo.FileSystem.API.Accounting.BalanceResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "Balance",
@@ -32,7 +32,7 @@ namespace NeoFS.API.v2.Accounting {
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
-      get { return global::NeoFS.API.v2.Accounting.ServiceReflection.Descriptor.Services[0]; }
+      get { return global::Neo.FileSystem.API.Accounting.ServiceReflection.Descriptor.Services[0]; }
     }
 
     /// <summary>Base class for server-side implementations of AccountingService</summary>
@@ -45,7 +45,7 @@ namespace NeoFS.API.v2.Accounting {
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
-      public virtual global::System.Threading.Tasks.Task<global::NeoFS.API.v2.Accounting.BalanceResponse> Balance(global::NeoFS.API.v2.Accounting.BalanceRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileSystem.API.Accounting.BalanceResponse> Balance(global::Neo.FileSystem.API.Accounting.BalanceRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -83,7 +83,7 @@ namespace NeoFS.API.v2.Accounting {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
-      public virtual global::NeoFS.API.v2.Accounting.BalanceResponse Balance(global::NeoFS.API.v2.Accounting.BalanceRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Neo.FileSystem.API.Accounting.BalanceResponse Balance(global::Neo.FileSystem.API.Accounting.BalanceRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return Balance(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -93,7 +93,7 @@ namespace NeoFS.API.v2.Accounting {
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
-      public virtual global::NeoFS.API.v2.Accounting.BalanceResponse Balance(global::NeoFS.API.v2.Accounting.BalanceRequest request, grpc::CallOptions options)
+      public virtual global::Neo.FileSystem.API.Accounting.BalanceResponse Balance(global::Neo.FileSystem.API.Accounting.BalanceRequest request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_Balance, null, options, request);
       }
@@ -105,7 +105,7 @@ namespace NeoFS.API.v2.Accounting {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncUnaryCall<global::NeoFS.API.v2.Accounting.BalanceResponse> BalanceAsync(global::NeoFS.API.v2.Accounting.BalanceRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileSystem.API.Accounting.BalanceResponse> BalanceAsync(global::Neo.FileSystem.API.Accounting.BalanceRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return BalanceAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -115,7 +115,7 @@ namespace NeoFS.API.v2.Accounting {
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncUnaryCall<global::NeoFS.API.v2.Accounting.BalanceResponse> BalanceAsync(global::NeoFS.API.v2.Accounting.BalanceRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileSystem.API.Accounting.BalanceResponse> BalanceAsync(global::Neo.FileSystem.API.Accounting.BalanceRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_Balance, null, options, request);
       }
@@ -140,7 +140,7 @@ namespace NeoFS.API.v2.Accounting {
     /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
     public static void BindService(grpc::ServiceBinderBase serviceBinder, AccountingServiceBase serviceImpl)
     {
-      serviceBinder.AddMethod(__Method_Balance, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::NeoFS.API.v2.Accounting.BalanceRequest, global::NeoFS.API.v2.Accounting.BalanceResponse>(serviceImpl.Balance));
+      serviceBinder.AddMethod(__Method_Balance, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileSystem.API.Accounting.BalanceRequest, global::Neo.FileSystem.API.Accounting.BalanceResponse>(serviceImpl.Balance));
     }
 
   }

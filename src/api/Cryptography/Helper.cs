@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace NeoFS.API.v2.Cryptography
+namespace Neo.FileSystem.API.Cryptography
 {
     public static class Helper
     {

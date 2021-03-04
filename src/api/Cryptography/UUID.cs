@@ -1,8 +1,8 @@
 ﻿using System;
 using Google.Protobuf;
-using static NeoFS.API.v2.Cryptography.Helper;
+using static Neo.FileSystem.API.Cryptography.Helper;
 
-namespace NeoFS.API.v2.Cryptography
+namespace Neo.FileSystem.API.Cryptography
 {
     public static class UUIDExtension
     {

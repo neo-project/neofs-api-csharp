@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace NeoFS.API.v2.Cryptography.Tz
+namespace Neo.FileSystem.API.Cryptography.Tz
 {
     // GF127 represents element of GF(2^127)
     public class GF127 : IEquatable<GF127>

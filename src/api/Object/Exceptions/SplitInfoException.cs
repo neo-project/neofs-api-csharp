@@ -1,6 +1,6 @@
 using System;
 
-namespace NeoFS.API.v2.Object.Exceptions
+namespace Neo.FileSystem.API.Object.Exceptions
 {
     public class SplitInfoException : Exception
     {

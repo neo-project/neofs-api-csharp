@@ -1,13 +1,13 @@
 ﻿using Google.Protobuf;
-using NeoFS.API.v2.Refs;
+using Neo.FileSystem.API.Refs;
 using Org.BouncyCastle.Asn1.Sec;
 using Org.BouncyCastle.Math;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
-using static NeoFS.API.v2.Cryptography.Helper;
+using static Neo.FileSystem.API.Cryptography.Helper;
 
-namespace NeoFS.API.v2.Cryptography
+namespace Neo.FileSystem.API.Cryptography
 {
     public static class KeyExtension
     {

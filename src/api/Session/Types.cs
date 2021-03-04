@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace NeoFS.API.v2.Session {
+namespace Neo.FileSystem.API.Session {
 
   /// <summary>Holder for reflection information generated from session/types.proto</summary>
   public static partial class TypesReflection {
@@ -69,19 +69,19 @@ namespace NeoFS.API.v2.Session {
             "bmF0dXJlUg1tZXRhU2lnbmF0dXJlEkQKEG9yaWdpbl9zaWduYXR1cmUYAyAB",
             "KAsyGS5uZW8uZnMudjIucmVmcy5TaWduYXR1cmVSD29yaWdpblNpZ25hdHVy",
             "ZRJFCgZvcmlnaW4YBCABKAsyLS5uZW8uZnMudjIuc2Vzc2lvbi5SZXNwb25z",
-            "ZVZlcmlmaWNhdGlvbkhlYWRlclIGb3JpZ2luQlJaOWdpdGh1Yi5jb20vbnNw",
+            "ZVZlcmlmaWNhdGlvbkhlYWRlclIGb3JpZ2luQlhaOWdpdGh1Yi5jb20vbnNw",
             "Y2MtZGV2L25lb2ZzLWFwaS1nby92Mi9zZXNzaW9uL2dycGM7c2Vzc2lvbqoC",
-            "FE5lb0ZTLkFQSS52Mi5TZXNzaW9uYgZwcm90bzM="));
+            "Gk5lby5GaWxlU3lzdGVtLkFQSS5TZXNzaW9uYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::NeoFS.API.v2.Refs.TypesReflection.Descriptor, global::NeoFS.API.v2.Acl.TypesReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Neo.FileSystem.API.Refs.TypesReflection.Descriptor, global::Neo.FileSystem.API.Acl.TypesReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Session.ObjectSessionContext), global::NeoFS.API.v2.Session.ObjectSessionContext.Parser, new[]{ "Verb", "Address" }, null, new[]{ typeof(global::NeoFS.API.v2.Session.ObjectSessionContext.Types.Verb) }, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Session.SessionToken), global::NeoFS.API.v2.Session.SessionToken.Parser, new[]{ "Body", "Signature" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Session.SessionToken.Types.Body), global::NeoFS.API.v2.Session.SessionToken.Types.Body.Parser, new[]{ "Id", "OwnerId", "Lifetime", "SessionKey", "Object" }, new[]{ "Context" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Session.SessionToken.Types.Body.Types.TokenLifetime), global::NeoFS.API.v2.Session.SessionToken.Types.Body.Types.TokenLifetime.Parser, new[]{ "Exp", "Nbf", "Iat" }, null, null, null, null)})}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Session.XHeader), global::NeoFS.API.v2.Session.XHeader.Parser, new[]{ "Key", "Value" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Session.RequestMetaHeader), global::NeoFS.API.v2.Session.RequestMetaHeader.Parser, new[]{ "Version", "Epoch", "Ttl", "XHeaders", "SessionToken", "BearerToken", "Origin" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Session.ResponseMetaHeader), global::NeoFS.API.v2.Session.ResponseMetaHeader.Parser, new[]{ "Version", "Epoch", "Ttl", "XHeaders", "Origin" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Session.RequestVerificationHeader), global::NeoFS.API.v2.Session.RequestVerificationHeader.Parser, new[]{ "BodySignature", "MetaSignature", "OriginSignature", "Origin" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Session.ResponseVerificationHeader), global::NeoFS.API.v2.Session.ResponseVerificationHeader.Parser, new[]{ "BodySignature", "MetaSignature", "OriginSignature", "Origin" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Session.ObjectSessionContext), global::Neo.FileSystem.API.Session.ObjectSessionContext.Parser, new[]{ "Verb", "Address" }, null, new[]{ typeof(global::Neo.FileSystem.API.Session.ObjectSessionContext.Types.Verb) }, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Session.SessionToken), global::Neo.FileSystem.API.Session.SessionToken.Parser, new[]{ "Body", "Signature" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Session.SessionToken.Types.Body), global::Neo.FileSystem.API.Session.SessionToken.Types.Body.Parser, new[]{ "Id", "OwnerId", "Lifetime", "SessionKey", "Object" }, new[]{ "Context" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Session.SessionToken.Types.Body.Types.TokenLifetime), global::Neo.FileSystem.API.Session.SessionToken.Types.Body.Types.TokenLifetime.Parser, new[]{ "Exp", "Nbf", "Iat" }, null, null, null, null)})}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Session.XHeader), global::Neo.FileSystem.API.Session.XHeader.Parser, new[]{ "Key", "Value" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Session.RequestMetaHeader), global::Neo.FileSystem.API.Session.RequestMetaHeader.Parser, new[]{ "Version", "Epoch", "Ttl", "XHeaders", "SessionToken", "BearerToken", "Origin" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Session.ResponseMetaHeader), global::Neo.FileSystem.API.Session.ResponseMetaHeader.Parser, new[]{ "Version", "Epoch", "Ttl", "XHeaders", "Origin" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Session.RequestVerificationHeader), global::Neo.FileSystem.API.Session.RequestVerificationHeader.Parser, new[]{ "BodySignature", "MetaSignature", "OriginSignature", "Origin" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Session.ResponseVerificationHeader), global::Neo.FileSystem.API.Session.ResponseVerificationHeader.Parser, new[]{ "BodySignature", "MetaSignature", "OriginSignature", "Origin" }, null, null, null, null)
           }));
     }
     #endregion
@@ -99,7 +99,7 @@ namespace NeoFS.API.v2.Session {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Session.TypesReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Neo.FileSystem.API.Session.TypesReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -128,12 +128,12 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "verb" field.</summary>
     public const int VerbFieldNumber = 1;
-    private global::NeoFS.API.v2.Session.ObjectSessionContext.Types.Verb verb_ = global::NeoFS.API.v2.Session.ObjectSessionContext.Types.Verb.Unspecified;
+    private global::Neo.FileSystem.API.Session.ObjectSessionContext.Types.Verb verb_ = global::Neo.FileSystem.API.Session.ObjectSessionContext.Types.Verb.Unspecified;
     /// <summary>
     /// Type of request for which the token is issued
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ObjectSessionContext.Types.Verb Verb {
+    public global::Neo.FileSystem.API.Session.ObjectSessionContext.Types.Verb Verb {
       get { return verb_; }
       set {
         verb_ = value;
@@ -142,12 +142,12 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "address" field.</summary>
     public const int AddressFieldNumber = 2;
-    private global::NeoFS.API.v2.Refs.Address address_;
+    private global::Neo.FileSystem.API.Refs.Address address_;
     /// <summary>
     /// Related Object address
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Address Address {
+    public global::Neo.FileSystem.API.Refs.Address Address {
       get { return address_; }
       set {
         address_ = value;
@@ -175,7 +175,7 @@ namespace NeoFS.API.v2.Session {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Verb != global::NeoFS.API.v2.Session.ObjectSessionContext.Types.Verb.Unspecified) hash ^= Verb.GetHashCode();
+      if (Verb != global::Neo.FileSystem.API.Session.ObjectSessionContext.Types.Verb.Unspecified) hash ^= Verb.GetHashCode();
       if (address_ != null) hash ^= Address.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -190,7 +190,7 @@ namespace NeoFS.API.v2.Session {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (Verb != global::NeoFS.API.v2.Session.ObjectSessionContext.Types.Verb.Unspecified) {
+      if (Verb != global::Neo.FileSystem.API.Session.ObjectSessionContext.Types.Verb.Unspecified) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Verb);
       }
@@ -206,7 +206,7 @@ namespace NeoFS.API.v2.Session {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Verb != global::NeoFS.API.v2.Session.ObjectSessionContext.Types.Verb.Unspecified) {
+      if (Verb != global::Neo.FileSystem.API.Session.ObjectSessionContext.Types.Verb.Unspecified) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Verb);
       }
       if (address_ != null) {
@@ -223,12 +223,12 @@ namespace NeoFS.API.v2.Session {
       if (other == null) {
         return;
       }
-      if (other.Verb != global::NeoFS.API.v2.Session.ObjectSessionContext.Types.Verb.Unspecified) {
+      if (other.Verb != global::Neo.FileSystem.API.Session.ObjectSessionContext.Types.Verb.Unspecified) {
         Verb = other.Verb;
       }
       if (other.address_ != null) {
         if (address_ == null) {
-          Address = new global::NeoFS.API.v2.Refs.Address();
+          Address = new global::Neo.FileSystem.API.Refs.Address();
         }
         Address.MergeFrom(other.Address);
       }
@@ -244,12 +244,12 @@ namespace NeoFS.API.v2.Session {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Verb = (global::NeoFS.API.v2.Session.ObjectSessionContext.Types.Verb) input.ReadEnum();
+            Verb = (global::Neo.FileSystem.API.Session.ObjectSessionContext.Types.Verb) input.ReadEnum();
             break;
           }
           case 18: {
             if (address_ == null) {
-              Address = new global::NeoFS.API.v2.Refs.Address();
+              Address = new global::Neo.FileSystem.API.Refs.Address();
             }
             input.ReadMessage(Address);
             break;
@@ -316,7 +316,7 @@ namespace NeoFS.API.v2.Session {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Session.TypesReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Neo.FileSystem.API.Session.TypesReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -345,14 +345,14 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Session.SessionToken.Types.Body body_;
+    private global::Neo.FileSystem.API.Session.SessionToken.Types.Body body_;
     /// <summary>
     /// Session Token contains the proof of trust between peers to be attached in
     /// requests for further verification. Please see corresponding section of
     /// NeoFS Technical Specification for details.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.SessionToken.Types.Body Body {
+    public global::Neo.FileSystem.API.Session.SessionToken.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -361,12 +361,12 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "signature" field.</summary>
     public const int SignatureFieldNumber = 2;
-    private global::NeoFS.API.v2.Refs.Signature signature_;
+    private global::Neo.FileSystem.API.Refs.Signature signature_;
     /// <summary>
     /// Signature of `SessionToken` information
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Signature Signature {
+    public global::Neo.FileSystem.API.Refs.Signature Signature {
       get { return signature_; }
       set {
         signature_ = value;
@@ -444,13 +444,13 @@ namespace NeoFS.API.v2.Session {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Session.SessionToken.Types.Body();
+          Body = new global::Neo.FileSystem.API.Session.SessionToken.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.signature_ != null) {
         if (signature_ == null) {
-          Signature = new global::NeoFS.API.v2.Refs.Signature();
+          Signature = new global::Neo.FileSystem.API.Refs.Signature();
         }
         Signature.MergeFrom(other.Signature);
       }
@@ -467,14 +467,14 @@ namespace NeoFS.API.v2.Session {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Session.SessionToken.Types.Body();
+              Body = new global::Neo.FileSystem.API.Session.SessionToken.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (signature_ == null) {
-              Signature = new global::NeoFS.API.v2.Refs.Signature();
+              Signature = new global::Neo.FileSystem.API.Refs.Signature();
             }
             input.ReadMessage(Signature);
             break;
@@ -498,7 +498,7 @@ namespace NeoFS.API.v2.Session {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Session.SessionToken.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Session.SessionToken.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -549,12 +549,12 @@ namespace NeoFS.API.v2.Session {
 
         /// <summary>Field number for the "owner_id" field.</summary>
         public const int OwnerIdFieldNumber = 2;
-        private global::NeoFS.API.v2.Refs.OwnerID ownerId_;
+        private global::Neo.FileSystem.API.Refs.OwnerID ownerId_;
         /// <summary>
         /// Identifier of the session initiator
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Refs.OwnerID OwnerId {
+        public global::Neo.FileSystem.API.Refs.OwnerID OwnerId {
           get { return ownerId_; }
           set {
             ownerId_ = value;
@@ -563,12 +563,12 @@ namespace NeoFS.API.v2.Session {
 
         /// <summary>Field number for the "lifetime" field.</summary>
         public const int LifetimeFieldNumber = 3;
-        private global::NeoFS.API.v2.Session.SessionToken.Types.Body.Types.TokenLifetime lifetime_;
+        private global::Neo.FileSystem.API.Session.SessionToken.Types.Body.Types.TokenLifetime lifetime_;
         /// <summary>
         /// Lifetime of the session
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Session.SessionToken.Types.Body.Types.TokenLifetime Lifetime {
+        public global::Neo.FileSystem.API.Session.SessionToken.Types.Body.Types.TokenLifetime Lifetime {
           get { return lifetime_; }
           set {
             lifetime_ = value;
@@ -595,8 +595,8 @@ namespace NeoFS.API.v2.Session {
         /// ObjectService session context
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Session.ObjectSessionContext Object {
-          get { return contextCase_ == ContextOneofCase.Object ? (global::NeoFS.API.v2.Session.ObjectSessionContext) context_ : null; }
+        public global::Neo.FileSystem.API.Session.ObjectSessionContext Object {
+          get { return contextCase_ == ContextOneofCase.Object ? (global::Neo.FileSystem.API.Session.ObjectSessionContext) context_ : null; }
           set {
             context_ = value;
             contextCase_ = value == null ? ContextOneofCase.None : ContextOneofCase.Object;
@@ -724,13 +724,13 @@ namespace NeoFS.API.v2.Session {
           }
           if (other.ownerId_ != null) {
             if (ownerId_ == null) {
-              OwnerId = new global::NeoFS.API.v2.Refs.OwnerID();
+              OwnerId = new global::Neo.FileSystem.API.Refs.OwnerID();
             }
             OwnerId.MergeFrom(other.OwnerId);
           }
           if (other.lifetime_ != null) {
             if (lifetime_ == null) {
-              Lifetime = new global::NeoFS.API.v2.Session.SessionToken.Types.Body.Types.TokenLifetime();
+              Lifetime = new global::Neo.FileSystem.API.Session.SessionToken.Types.Body.Types.TokenLifetime();
             }
             Lifetime.MergeFrom(other.Lifetime);
           }
@@ -740,7 +740,7 @@ namespace NeoFS.API.v2.Session {
           switch (other.ContextCase) {
             case ContextOneofCase.Object:
               if (Object == null) {
-                Object = new global::NeoFS.API.v2.Session.ObjectSessionContext();
+                Object = new global::Neo.FileSystem.API.Session.ObjectSessionContext();
               }
               Object.MergeFrom(other.Object);
               break;
@@ -763,14 +763,14 @@ namespace NeoFS.API.v2.Session {
               }
               case 18: {
                 if (ownerId_ == null) {
-                  OwnerId = new global::NeoFS.API.v2.Refs.OwnerID();
+                  OwnerId = new global::Neo.FileSystem.API.Refs.OwnerID();
                 }
                 input.ReadMessage(OwnerId);
                 break;
               }
               case 26: {
                 if (lifetime_ == null) {
-                  Lifetime = new global::NeoFS.API.v2.Session.SessionToken.Types.Body.Types.TokenLifetime();
+                  Lifetime = new global::Neo.FileSystem.API.Session.SessionToken.Types.Body.Types.TokenLifetime();
                 }
                 input.ReadMessage(Lifetime);
                 break;
@@ -780,7 +780,7 @@ namespace NeoFS.API.v2.Session {
                 break;
               }
               case 42: {
-                global::NeoFS.API.v2.Session.ObjectSessionContext subBuilder = new global::NeoFS.API.v2.Session.ObjectSessionContext();
+                global::Neo.FileSystem.API.Session.ObjectSessionContext subBuilder = new global::Neo.FileSystem.API.Session.ObjectSessionContext();
                 if (contextCase_ == ContextOneofCase.Object) {
                   subBuilder.MergeFrom(Object);
                 }
@@ -807,7 +807,7 @@ namespace NeoFS.API.v2.Session {
 
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
             public static pbr::MessageDescriptor Descriptor {
-              get { return global::NeoFS.API.v2.Session.SessionToken.Types.Body.Descriptor.NestedTypes[0]; }
+              get { return global::Neo.FileSystem.API.Session.SessionToken.Types.Body.Descriptor.NestedTypes[0]; }
             }
 
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1032,7 +1032,7 @@ namespace NeoFS.API.v2.Session {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Session.TypesReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Neo.FileSystem.API.Session.TypesReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1199,7 +1199,7 @@ namespace NeoFS.API.v2.Session {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Session.TypesReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Neo.FileSystem.API.Session.TypesReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1233,12 +1233,12 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "version" field.</summary>
     public const int VersionFieldNumber = 1;
-    private global::NeoFS.API.v2.Refs.Version version_;
+    private global::Neo.FileSystem.API.Refs.Version version_;
     /// <summary>
     /// Peer's API version used
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Version Version {
+    public global::Neo.FileSystem.API.Refs.Version Version {
       get { return version_; }
       set {
         version_ = value;
@@ -1275,25 +1275,25 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "x_headers" field.</summary>
     public const int XHeadersFieldNumber = 4;
-    private static readonly pb::FieldCodec<global::NeoFS.API.v2.Session.XHeader> _repeated_xHeaders_codec
-        = pb::FieldCodec.ForMessage(34, global::NeoFS.API.v2.Session.XHeader.Parser);
-    private readonly pbc::RepeatedField<global::NeoFS.API.v2.Session.XHeader> xHeaders_ = new pbc::RepeatedField<global::NeoFS.API.v2.Session.XHeader>();
+    private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Session.XHeader> _repeated_xHeaders_codec
+        = pb::FieldCodec.ForMessage(34, global::Neo.FileSystem.API.Session.XHeader.Parser);
+    private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Session.XHeader> xHeaders_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Session.XHeader>();
     /// <summary>
     /// Request X-Headers
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::NeoFS.API.v2.Session.XHeader> XHeaders {
+    public pbc::RepeatedField<global::Neo.FileSystem.API.Session.XHeader> XHeaders {
       get { return xHeaders_; }
     }
 
     /// <summary>Field number for the "session_token" field.</summary>
     public const int SessionTokenFieldNumber = 5;
-    private global::NeoFS.API.v2.Session.SessionToken sessionToken_;
+    private global::Neo.FileSystem.API.Session.SessionToken sessionToken_;
     /// <summary>
     /// Session token within which the request is sent
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.SessionToken SessionToken {
+    public global::Neo.FileSystem.API.Session.SessionToken SessionToken {
       get { return sessionToken_; }
       set {
         sessionToken_ = value;
@@ -1302,12 +1302,12 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "bearer_token" field.</summary>
     public const int BearerTokenFieldNumber = 6;
-    private global::NeoFS.API.v2.Acl.BearerToken bearerToken_;
+    private global::Neo.FileSystem.API.Acl.BearerToken bearerToken_;
     /// <summary>
     /// `BearerToken` with eACL overrides for the request
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Acl.BearerToken BearerToken {
+    public global::Neo.FileSystem.API.Acl.BearerToken BearerToken {
       get { return bearerToken_; }
       set {
         bearerToken_ = value;
@@ -1316,12 +1316,12 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "origin" field.</summary>
     public const int OriginFieldNumber = 7;
-    private global::NeoFS.API.v2.Session.RequestMetaHeader origin_;
+    private global::Neo.FileSystem.API.Session.RequestMetaHeader origin_;
     /// <summary>
     /// `RequestMetaHeader` of the origin request
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestMetaHeader Origin {
+    public global::Neo.FileSystem.API.Session.RequestMetaHeader Origin {
       get { return origin_; }
       set {
         origin_ = value;
@@ -1439,7 +1439,7 @@ namespace NeoFS.API.v2.Session {
       }
       if (other.version_ != null) {
         if (version_ == null) {
-          Version = new global::NeoFS.API.v2.Refs.Version();
+          Version = new global::Neo.FileSystem.API.Refs.Version();
         }
         Version.MergeFrom(other.Version);
       }
@@ -1452,19 +1452,19 @@ namespace NeoFS.API.v2.Session {
       xHeaders_.Add(other.xHeaders_);
       if (other.sessionToken_ != null) {
         if (sessionToken_ == null) {
-          SessionToken = new global::NeoFS.API.v2.Session.SessionToken();
+          SessionToken = new global::Neo.FileSystem.API.Session.SessionToken();
         }
         SessionToken.MergeFrom(other.SessionToken);
       }
       if (other.bearerToken_ != null) {
         if (bearerToken_ == null) {
-          BearerToken = new global::NeoFS.API.v2.Acl.BearerToken();
+          BearerToken = new global::Neo.FileSystem.API.Acl.BearerToken();
         }
         BearerToken.MergeFrom(other.BearerToken);
       }
       if (other.origin_ != null) {
         if (origin_ == null) {
-          Origin = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+          Origin = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
         }
         Origin.MergeFrom(other.Origin);
       }
@@ -1481,7 +1481,7 @@ namespace NeoFS.API.v2.Session {
             break;
           case 10: {
             if (version_ == null) {
-              Version = new global::NeoFS.API.v2.Refs.Version();
+              Version = new global::Neo.FileSystem.API.Refs.Version();
             }
             input.ReadMessage(Version);
             break;
@@ -1500,21 +1500,21 @@ namespace NeoFS.API.v2.Session {
           }
           case 42: {
             if (sessionToken_ == null) {
-              SessionToken = new global::NeoFS.API.v2.Session.SessionToken();
+              SessionToken = new global::Neo.FileSystem.API.Session.SessionToken();
             }
             input.ReadMessage(SessionToken);
             break;
           }
           case 50: {
             if (bearerToken_ == null) {
-              BearerToken = new global::NeoFS.API.v2.Acl.BearerToken();
+              BearerToken = new global::Neo.FileSystem.API.Acl.BearerToken();
             }
             input.ReadMessage(BearerToken);
             break;
           }
           case 58: {
             if (origin_ == null) {
-              Origin = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+              Origin = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
             }
             input.ReadMessage(Origin);
             break;
@@ -1536,7 +1536,7 @@ namespace NeoFS.API.v2.Session {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Session.TypesReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Neo.FileSystem.API.Session.TypesReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1568,12 +1568,12 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "version" field.</summary>
     public const int VersionFieldNumber = 1;
-    private global::NeoFS.API.v2.Refs.Version version_;
+    private global::Neo.FileSystem.API.Refs.Version version_;
     /// <summary>
     /// Peer's API version used
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Version Version {
+    public global::Neo.FileSystem.API.Refs.Version Version {
       get { return version_; }
       set {
         version_ = value;
@@ -1610,25 +1610,25 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "x_headers" field.</summary>
     public const int XHeadersFieldNumber = 4;
-    private static readonly pb::FieldCodec<global::NeoFS.API.v2.Session.XHeader> _repeated_xHeaders_codec
-        = pb::FieldCodec.ForMessage(34, global::NeoFS.API.v2.Session.XHeader.Parser);
-    private readonly pbc::RepeatedField<global::NeoFS.API.v2.Session.XHeader> xHeaders_ = new pbc::RepeatedField<global::NeoFS.API.v2.Session.XHeader>();
+    private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Session.XHeader> _repeated_xHeaders_codec
+        = pb::FieldCodec.ForMessage(34, global::Neo.FileSystem.API.Session.XHeader.Parser);
+    private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Session.XHeader> xHeaders_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Session.XHeader>();
     /// <summary>
     /// Response X-Headers
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::NeoFS.API.v2.Session.XHeader> XHeaders {
+    public pbc::RepeatedField<global::Neo.FileSystem.API.Session.XHeader> XHeaders {
       get { return xHeaders_; }
     }
 
     /// <summary>Field number for the "origin" field.</summary>
     public const int OriginFieldNumber = 5;
-    private global::NeoFS.API.v2.Session.ResponseMetaHeader origin_;
+    private global::Neo.FileSystem.API.Session.ResponseMetaHeader origin_;
     /// <summary>
     /// `ResponseMetaHeader` of the origin request
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseMetaHeader Origin {
+    public global::Neo.FileSystem.API.Session.ResponseMetaHeader Origin {
       get { return origin_; }
       set {
         origin_ = value;
@@ -1728,7 +1728,7 @@ namespace NeoFS.API.v2.Session {
       }
       if (other.version_ != null) {
         if (version_ == null) {
-          Version = new global::NeoFS.API.v2.Refs.Version();
+          Version = new global::Neo.FileSystem.API.Refs.Version();
         }
         Version.MergeFrom(other.Version);
       }
@@ -1741,7 +1741,7 @@ namespace NeoFS.API.v2.Session {
       xHeaders_.Add(other.xHeaders_);
       if (other.origin_ != null) {
         if (origin_ == null) {
-          Origin = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+          Origin = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
         }
         Origin.MergeFrom(other.Origin);
       }
@@ -1758,7 +1758,7 @@ namespace NeoFS.API.v2.Session {
             break;
           case 10: {
             if (version_ == null) {
-              Version = new global::NeoFS.API.v2.Refs.Version();
+              Version = new global::Neo.FileSystem.API.Refs.Version();
             }
             input.ReadMessage(Version);
             break;
@@ -1777,7 +1777,7 @@ namespace NeoFS.API.v2.Session {
           }
           case 42: {
             if (origin_ == null) {
-              Origin = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+              Origin = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
             }
             input.ReadMessage(Origin);
             break;
@@ -1799,7 +1799,7 @@ namespace NeoFS.API.v2.Session {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Session.TypesReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Neo.FileSystem.API.Session.TypesReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1830,12 +1830,12 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "body_signature" field.</summary>
     public const int BodySignatureFieldNumber = 1;
-    private global::NeoFS.API.v2.Refs.Signature bodySignature_;
+    private global::Neo.FileSystem.API.Refs.Signature bodySignature_;
     /// <summary>
     /// Request Body signature. Should be generated once by request initiator.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Signature BodySignature {
+    public global::Neo.FileSystem.API.Refs.Signature BodySignature {
       get { return bodySignature_; }
       set {
         bodySignature_ = value;
@@ -1844,12 +1844,12 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "meta_signature" field.</summary>
     public const int MetaSignatureFieldNumber = 2;
-    private global::NeoFS.API.v2.Refs.Signature metaSignature_;
+    private global::Neo.FileSystem.API.Refs.Signature metaSignature_;
     /// <summary>
     /// Request Meta signature is added and signed by each intermediate node
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Signature MetaSignature {
+    public global::Neo.FileSystem.API.Refs.Signature MetaSignature {
       get { return metaSignature_; }
       set {
         metaSignature_ = value;
@@ -1858,12 +1858,12 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "origin_signature" field.</summary>
     public const int OriginSignatureFieldNumber = 3;
-    private global::NeoFS.API.v2.Refs.Signature originSignature_;
+    private global::Neo.FileSystem.API.Refs.Signature originSignature_;
     /// <summary>
     /// Signature of previous hops
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Signature OriginSignature {
+    public global::Neo.FileSystem.API.Refs.Signature OriginSignature {
       get { return originSignature_; }
       set {
         originSignature_ = value;
@@ -1872,12 +1872,12 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "origin" field.</summary>
     public const int OriginFieldNumber = 4;
-    private global::NeoFS.API.v2.Session.RequestVerificationHeader origin_;
+    private global::Neo.FileSystem.API.Session.RequestVerificationHeader origin_;
     /// <summary>
     /// Chain of previous hops signatures
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestVerificationHeader Origin {
+    public global::Neo.FileSystem.API.Session.RequestVerificationHeader Origin {
       get { return origin_; }
       set {
         origin_ = value;
@@ -1973,25 +1973,25 @@ namespace NeoFS.API.v2.Session {
       }
       if (other.bodySignature_ != null) {
         if (bodySignature_ == null) {
-          BodySignature = new global::NeoFS.API.v2.Refs.Signature();
+          BodySignature = new global::Neo.FileSystem.API.Refs.Signature();
         }
         BodySignature.MergeFrom(other.BodySignature);
       }
       if (other.metaSignature_ != null) {
         if (metaSignature_ == null) {
-          MetaSignature = new global::NeoFS.API.v2.Refs.Signature();
+          MetaSignature = new global::Neo.FileSystem.API.Refs.Signature();
         }
         MetaSignature.MergeFrom(other.MetaSignature);
       }
       if (other.originSignature_ != null) {
         if (originSignature_ == null) {
-          OriginSignature = new global::NeoFS.API.v2.Refs.Signature();
+          OriginSignature = new global::Neo.FileSystem.API.Refs.Signature();
         }
         OriginSignature.MergeFrom(other.OriginSignature);
       }
       if (other.origin_ != null) {
         if (origin_ == null) {
-          Origin = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+          Origin = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
         }
         Origin.MergeFrom(other.Origin);
       }
@@ -2008,28 +2008,28 @@ namespace NeoFS.API.v2.Session {
             break;
           case 10: {
             if (bodySignature_ == null) {
-              BodySignature = new global::NeoFS.API.v2.Refs.Signature();
+              BodySignature = new global::Neo.FileSystem.API.Refs.Signature();
             }
             input.ReadMessage(BodySignature);
             break;
           }
           case 18: {
             if (metaSignature_ == null) {
-              MetaSignature = new global::NeoFS.API.v2.Refs.Signature();
+              MetaSignature = new global::Neo.FileSystem.API.Refs.Signature();
             }
             input.ReadMessage(MetaSignature);
             break;
           }
           case 26: {
             if (originSignature_ == null) {
-              OriginSignature = new global::NeoFS.API.v2.Refs.Signature();
+              OriginSignature = new global::Neo.FileSystem.API.Refs.Signature();
             }
             input.ReadMessage(OriginSignature);
             break;
           }
           case 34: {
             if (origin_ == null) {
-              Origin = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+              Origin = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
             }
             input.ReadMessage(Origin);
             break;
@@ -2051,7 +2051,7 @@ namespace NeoFS.API.v2.Session {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Session.TypesReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Neo.FileSystem.API.Session.TypesReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2082,12 +2082,12 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "body_signature" field.</summary>
     public const int BodySignatureFieldNumber = 1;
-    private global::NeoFS.API.v2.Refs.Signature bodySignature_;
+    private global::Neo.FileSystem.API.Refs.Signature bodySignature_;
     /// <summary>
     /// Response Body signature. Should be generated once by answering node.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Signature BodySignature {
+    public global::Neo.FileSystem.API.Refs.Signature BodySignature {
       get { return bodySignature_; }
       set {
         bodySignature_ = value;
@@ -2096,12 +2096,12 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "meta_signature" field.</summary>
     public const int MetaSignatureFieldNumber = 2;
-    private global::NeoFS.API.v2.Refs.Signature metaSignature_;
+    private global::Neo.FileSystem.API.Refs.Signature metaSignature_;
     /// <summary>
     /// Response Meta signature is added and signed by each intermediate node
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Signature MetaSignature {
+    public global::Neo.FileSystem.API.Refs.Signature MetaSignature {
       get { return metaSignature_; }
       set {
         metaSignature_ = value;
@@ -2110,12 +2110,12 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "origin_signature" field.</summary>
     public const int OriginSignatureFieldNumber = 3;
-    private global::NeoFS.API.v2.Refs.Signature originSignature_;
+    private global::Neo.FileSystem.API.Refs.Signature originSignature_;
     /// <summary>
     /// Signature of previous hops
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Signature OriginSignature {
+    public global::Neo.FileSystem.API.Refs.Signature OriginSignature {
       get { return originSignature_; }
       set {
         originSignature_ = value;
@@ -2124,12 +2124,12 @@ namespace NeoFS.API.v2.Session {
 
     /// <summary>Field number for the "origin" field.</summary>
     public const int OriginFieldNumber = 4;
-    private global::NeoFS.API.v2.Session.ResponseVerificationHeader origin_;
+    private global::Neo.FileSystem.API.Session.ResponseVerificationHeader origin_;
     /// <summary>
     /// Chain of previous hops signatures
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseVerificationHeader Origin {
+    public global::Neo.FileSystem.API.Session.ResponseVerificationHeader Origin {
       get { return origin_; }
       set {
         origin_ = value;
@@ -2225,25 +2225,25 @@ namespace NeoFS.API.v2.Session {
       }
       if (other.bodySignature_ != null) {
         if (bodySignature_ == null) {
-          BodySignature = new global::NeoFS.API.v2.Refs.Signature();
+          BodySignature = new global::Neo.FileSystem.API.Refs.Signature();
         }
         BodySignature.MergeFrom(other.BodySignature);
       }
       if (other.metaSignature_ != null) {
         if (metaSignature_ == null) {
-          MetaSignature = new global::NeoFS.API.v2.Refs.Signature();
+          MetaSignature = new global::Neo.FileSystem.API.Refs.Signature();
         }
         MetaSignature.MergeFrom(other.MetaSignature);
       }
       if (other.originSignature_ != null) {
         if (originSignature_ == null) {
-          OriginSignature = new global::NeoFS.API.v2.Refs.Signature();
+          OriginSignature = new global::Neo.FileSystem.API.Refs.Signature();
         }
         OriginSignature.MergeFrom(other.OriginSignature);
       }
       if (other.origin_ != null) {
         if (origin_ == null) {
-          Origin = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+          Origin = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
         }
         Origin.MergeFrom(other.Origin);
       }
@@ -2260,28 +2260,28 @@ namespace NeoFS.API.v2.Session {
             break;
           case 10: {
             if (bodySignature_ == null) {
-              BodySignature = new global::NeoFS.API.v2.Refs.Signature();
+              BodySignature = new global::Neo.FileSystem.API.Refs.Signature();
             }
             input.ReadMessage(BodySignature);
             break;
           }
           case 18: {
             if (metaSignature_ == null) {
-              MetaSignature = new global::NeoFS.API.v2.Refs.Signature();
+              MetaSignature = new global::Neo.FileSystem.API.Refs.Signature();
             }
             input.ReadMessage(MetaSignature);
             break;
           }
           case 26: {
             if (originSignature_ == null) {
-              OriginSignature = new global::NeoFS.API.v2.Refs.Signature();
+              OriginSignature = new global::Neo.FileSystem.API.Refs.Signature();
             }
             input.ReadMessage(OriginSignature);
             break;
           }
           case 34: {
             if (origin_ == null) {
-              Origin = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+              Origin = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
             }
             input.ReadMessage(Origin);
             break;

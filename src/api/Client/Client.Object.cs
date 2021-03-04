@@ -1,18 +1,18 @@
 using Google.Protobuf;
 using Grpc.Core;
-using NeoFS.API.v2.Client.ObjectParams;
-using NeoFS.API.v2.Cryptography;
-using NeoFS.API.v2.Object;
-using NeoFS.API.v2.Object.Exceptions;
-using NeoFS.API.v2.Refs;
-using NeoFS.API.v2.Session;
+using Neo.FileSystem.API.Client.ObjectParams;
+using Neo.FileSystem.API.Cryptography;
+using Neo.FileSystem.API.Object;
+using Neo.FileSystem.API.Object.Exceptions;
+using Neo.FileSystem.API.Refs;
+using Neo.FileSystem.API.Session;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NeoFS.API.v2.Client
+namespace Neo.FileSystem.API.Client
 {
     public partial class Client
     {

@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace NeoFS.API.v2.Accounting {
+namespace Neo.FileSystem.API.Accounting {
 
   /// <summary>Holder for reflection information generated from accounting/types.proto</summary>
   public static partial class TypesReflection {
@@ -26,13 +26,13 @@ namespace NeoFS.API.v2.Accounting {
           string.Concat(
             "ChZhY2NvdW50aW5nL3R5cGVzLnByb3RvEhRuZW8uZnMudjIuYWNjb3VudGlu",
             "ZyI9CgdEZWNpbWFsEhQKBXZhbHVlGAEgASgDUgV2YWx1ZRIcCglwcmVjaXNp",
-            "b24YAiABKA1SCXByZWNpc2lvbkJbWj9naXRodWIuY29tL25zcGNjLWRldi9u",
-            "ZW9mcy1hcGktZ28vdjIvYWNjb3VudGluZy9ncnBjO2FjY291bnRpbmeqAhdO",
-            "ZW9GUy5BUEkudjIuQWNjb3VudGluZ2IGcHJvdG8z"));
+            "b24YAiABKA1SCXByZWNpc2lvbkJhWj9naXRodWIuY29tL25zcGNjLWRldi9u",
+            "ZW9mcy1hcGktZ28vdjIvYWNjb3VudGluZy9ncnBjO2FjY291bnRpbmeqAh1O",
+            "ZW8uRmlsZVN5c3RlbS5BUEkuQWNjb3VudGluZ2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Accounting.Decimal), global::NeoFS.API.v2.Accounting.Decimal.Parser, new[]{ "Value", "Precision" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Accounting.Decimal), global::Neo.FileSystem.API.Accounting.Decimal.Parser, new[]{ "Value", "Precision" }, null, null, null, null)
           }));
     }
     #endregion
@@ -56,7 +56,7 @@ namespace NeoFS.API.v2.Accounting {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Accounting.TypesReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Neo.FileSystem.API.Accounting.TypesReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

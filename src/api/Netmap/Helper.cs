@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using NeoFS.API.v2.Netmap.Normalize;
-using NeoFS.API.v2.Netmap.Aggregator;
+using Neo.FileSystem.API.Netmap.Normalize;
+using Neo.FileSystem.API.Netmap.Aggregator;
 
-namespace NeoFS.API.v2.Netmap
+namespace Neo.FileSystem.API.Netmap
 {
     public static class Helper
     {

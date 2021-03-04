@@ -1,8 +1,8 @@
-using NeoFS.API.v2.Acl;
-using NeoFS.API.v2.Session;
-using NeoFS.API.v2.Refs;
+using Neo.FileSystem.API.Acl;
+using Neo.FileSystem.API.Session;
+using Neo.FileSystem.API.Refs;
 
-namespace NeoFS.API.v2.Client
+namespace Neo.FileSystem.API.Client
 {
     public class CallOptions
     {

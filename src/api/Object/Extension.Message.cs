@@ -1,7 +1,7 @@
 using Google.Protobuf;
-using NeoFS.API.v2.Session;
+using Neo.FileSystem.API.Session;
 
-namespace NeoFS.API.v2.Object
+namespace Neo.FileSystem.API.Object
 {
     public partial class GetRequest : IRequest
     {

@@ -1,4 +1,4 @@
-﻿namespace NeoFS.API.v2.Session
+﻿namespace Neo.FileSystem.API.Session
 {
     public partial class XHeader
     {

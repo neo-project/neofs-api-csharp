@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace NeoFS.API.v2.Acl {
+namespace Neo.FileSystem.API.Acl {
 
   /// <summary>Holder for reflection information generated from acl/types.proto</summary>
   public static partial class TypesReflection {
@@ -57,15 +57,15 @@ namespace NeoFS.API.v2.Acl {
             "EhAKDEdFVFJBTkdFSEFTSBAHKjUKBkFjdGlvbhIWChJBQ1RJT05fVU5TUEVD",
             "SUZJRUQQABIJCgVBTExPVxABEggKBERFTlkQAio9CgpIZWFkZXJUeXBlEhYK",
             "EkhFQURFUl9VTlNQRUNJRklFRBAAEgsKB1JFUVVFU1QQARIKCgZPQkpFQ1QQ",
-            "AkJGWjFnaXRodWIuY29tL25zcGNjLWRldi9uZW9mcy1hcGktZ28vdjIvYWNs",
-            "L2dycGM7YWNsqgIQTmVvRlMuQVBJLnYyLkFjbGIGcHJvdG8z"));
+            "AkJMWjFnaXRodWIuY29tL25zcGNjLWRldi9uZW9mcy1hcGktZ28vdjIvYWNs",
+            "L2dycGM7YWNsqgIWTmVvLkZpbGVTeXN0ZW0uQVBJLkFjbGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::NeoFS.API.v2.Refs.TypesReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::NeoFS.API.v2.Acl.Role), typeof(global::NeoFS.API.v2.Acl.MatchType), typeof(global::NeoFS.API.v2.Acl.Operation), typeof(global::NeoFS.API.v2.Acl.Action), typeof(global::NeoFS.API.v2.Acl.HeaderType), }, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Acl.EACLRecord), global::NeoFS.API.v2.Acl.EACLRecord.Parser, new[]{ "Operation", "Action", "Filters", "Targets" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Acl.EACLRecord.Types.Filter), global::NeoFS.API.v2.Acl.EACLRecord.Types.Filter.Parser, new[]{ "HeaderType", "MatchType", "Key", "Value" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Acl.EACLRecord.Types.Target), global::NeoFS.API.v2.Acl.EACLRecord.Types.Target.Parser, new[]{ "Role", "Keys" }, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Acl.EACLTable), global::NeoFS.API.v2.Acl.EACLTable.Parser, new[]{ "Version", "ContainerId", "Records" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Acl.BearerToken), global::NeoFS.API.v2.Acl.BearerToken.Parser, new[]{ "Body", "Signature" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Acl.BearerToken.Types.Body), global::NeoFS.API.v2.Acl.BearerToken.Types.Body.Parser, new[]{ "EaclTable", "OwnerId", "Lifetime" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Acl.BearerToken.Types.Body.Types.TokenLifetime), global::NeoFS.API.v2.Acl.BearerToken.Types.Body.Types.TokenLifetime.Parser, new[]{ "Exp", "Nbf", "Iat" }, null, null, null)})})
+          new pbr::FileDescriptor[] { global::Neo.FileSystem.API.Refs.TypesReflection.Descriptor, },
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Neo.FileSystem.API.Acl.Role), typeof(global::Neo.FileSystem.API.Acl.MatchType), typeof(global::Neo.FileSystem.API.Acl.Operation), typeof(global::Neo.FileSystem.API.Acl.Action), typeof(global::Neo.FileSystem.API.Acl.HeaderType), }, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Acl.EACLRecord), global::Neo.FileSystem.API.Acl.EACLRecord.Parser, new[]{ "Operation", "Action", "Filters", "Targets" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Acl.EACLRecord.Types.Filter), global::Neo.FileSystem.API.Acl.EACLRecord.Types.Filter.Parser, new[]{ "HeaderType", "MatchType", "Key", "Value" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Acl.EACLRecord.Types.Target), global::Neo.FileSystem.API.Acl.EACLRecord.Types.Target.Parser, new[]{ "Role", "Keys" }, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Acl.EACLTable), global::Neo.FileSystem.API.Acl.EACLTable.Parser, new[]{ "Version", "ContainerId", "Records" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Acl.BearerToken), global::Neo.FileSystem.API.Acl.BearerToken.Parser, new[]{ "Body", "Signature" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Acl.BearerToken.Types.Body), global::Neo.FileSystem.API.Acl.BearerToken.Types.Body.Parser, new[]{ "EaclTable", "OwnerId", "Lifetime" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Acl.BearerToken.Types.Body.Types.TokenLifetime), global::Neo.FileSystem.API.Acl.BearerToken.Types.Body.Types.TokenLifetime.Parser, new[]{ "Exp", "Nbf", "Iat" }, null, null, null)})})
           }));
     }
     #endregion
@@ -203,7 +203,7 @@ namespace NeoFS.API.v2.Acl {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Acl.TypesReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Neo.FileSystem.API.Acl.TypesReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -234,12 +234,12 @@ namespace NeoFS.API.v2.Acl {
 
     /// <summary>Field number for the "operation" field.</summary>
     public const int OperationFieldNumber = 1;
-    private global::NeoFS.API.v2.Acl.Operation operation_ = 0;
+    private global::Neo.FileSystem.API.Acl.Operation operation_ = 0;
     /// <summary>
     /// NeoFS request Verb to match
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Acl.Operation Operation {
+    public global::Neo.FileSystem.API.Acl.Operation Operation {
       get { return operation_; }
       set {
         operation_ = value;
@@ -248,12 +248,12 @@ namespace NeoFS.API.v2.Acl {
 
     /// <summary>Field number for the "action" field.</summary>
     public const int ActionFieldNumber = 2;
-    private global::NeoFS.API.v2.Acl.Action action_ = 0;
+    private global::Neo.FileSystem.API.Acl.Action action_ = 0;
     /// <summary>
     /// Rule execution result. Either allows or denies access if filters match.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Acl.Action Action {
+    public global::Neo.FileSystem.API.Acl.Action Action {
       get { return action_; }
       set {
         action_ = value;
@@ -262,27 +262,27 @@ namespace NeoFS.API.v2.Acl {
 
     /// <summary>Field number for the "filters" field.</summary>
     public const int FiltersFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::NeoFS.API.v2.Acl.EACLRecord.Types.Filter> _repeated_filters_codec
-        = pb::FieldCodec.ForMessage(26, global::NeoFS.API.v2.Acl.EACLRecord.Types.Filter.Parser);
-    private readonly pbc::RepeatedField<global::NeoFS.API.v2.Acl.EACLRecord.Types.Filter> filters_ = new pbc::RepeatedField<global::NeoFS.API.v2.Acl.EACLRecord.Types.Filter>();
+    private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Acl.EACLRecord.Types.Filter> _repeated_filters_codec
+        = pb::FieldCodec.ForMessage(26, global::Neo.FileSystem.API.Acl.EACLRecord.Types.Filter.Parser);
+    private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Acl.EACLRecord.Types.Filter> filters_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Acl.EACLRecord.Types.Filter>();
     /// <summary>
     /// List of filters to match and see if rule is applicable
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::NeoFS.API.v2.Acl.EACLRecord.Types.Filter> Filters {
+    public pbc::RepeatedField<global::Neo.FileSystem.API.Acl.EACLRecord.Types.Filter> Filters {
       get { return filters_; }
     }
 
     /// <summary>Field number for the "targets" field.</summary>
     public const int TargetsFieldNumber = 4;
-    private static readonly pb::FieldCodec<global::NeoFS.API.v2.Acl.EACLRecord.Types.Target> _repeated_targets_codec
-        = pb::FieldCodec.ForMessage(34, global::NeoFS.API.v2.Acl.EACLRecord.Types.Target.Parser);
-    private readonly pbc::RepeatedField<global::NeoFS.API.v2.Acl.EACLRecord.Types.Target> targets_ = new pbc::RepeatedField<global::NeoFS.API.v2.Acl.EACLRecord.Types.Target>();
+    private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Acl.EACLRecord.Types.Target> _repeated_targets_codec
+        = pb::FieldCodec.ForMessage(34, global::Neo.FileSystem.API.Acl.EACLRecord.Types.Target.Parser);
+    private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Acl.EACLRecord.Types.Target> targets_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Acl.EACLRecord.Types.Target>();
     /// <summary>
     /// List of target subjects to apply ACL rule to
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::NeoFS.API.v2.Acl.EACLRecord.Types.Target> Targets {
+    public pbc::RepeatedField<global::Neo.FileSystem.API.Acl.EACLRecord.Types.Target> Targets {
       get { return targets_; }
     }
 
@@ -383,11 +383,11 @@ namespace NeoFS.API.v2.Acl {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Operation = (global::NeoFS.API.v2.Acl.Operation) input.ReadEnum();
+            Operation = (global::Neo.FileSystem.API.Acl.Operation) input.ReadEnum();
             break;
           }
           case 16: {
-            Action = (global::NeoFS.API.v2.Acl.Action) input.ReadEnum();
+            Action = (global::Neo.FileSystem.API.Acl.Action) input.ReadEnum();
             break;
           }
           case 26: {
@@ -446,7 +446,7 @@ namespace NeoFS.API.v2.Acl {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Acl.EACLRecord.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Acl.EACLRecord.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -477,12 +477,12 @@ namespace NeoFS.API.v2.Acl {
 
         /// <summary>Field number for the "header_type" field.</summary>
         public const int HeaderTypeFieldNumber = 1;
-        private global::NeoFS.API.v2.Acl.HeaderType headerType_ = 0;
+        private global::Neo.FileSystem.API.Acl.HeaderType headerType_ = 0;
         /// <summary>
         /// Define if Object or Request header will be used
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Acl.HeaderType HeaderType {
+        public global::Neo.FileSystem.API.Acl.HeaderType HeaderType {
           get { return headerType_; }
           set {
             headerType_ = value;
@@ -491,12 +491,12 @@ namespace NeoFS.API.v2.Acl {
 
         /// <summary>Field number for the "match_type" field.</summary>
         public const int MatchTypeFieldNumber = 2;
-        private global::NeoFS.API.v2.Acl.MatchType matchType_ = 0;
+        private global::Neo.FileSystem.API.Acl.MatchType matchType_ = 0;
         /// <summary>
         /// Match operation type
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Acl.MatchType MatchType {
+        public global::Neo.FileSystem.API.Acl.MatchType MatchType {
           get { return matchType_; }
           set {
             matchType_ = value;
@@ -642,11 +642,11 @@ namespace NeoFS.API.v2.Acl {
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
               case 8: {
-                HeaderType = (global::NeoFS.API.v2.Acl.HeaderType) input.ReadEnum();
+                HeaderType = (global::Neo.FileSystem.API.Acl.HeaderType) input.ReadEnum();
                 break;
               }
               case 16: {
-                MatchType = (global::NeoFS.API.v2.Acl.MatchType) input.ReadEnum();
+                MatchType = (global::Neo.FileSystem.API.Acl.MatchType) input.ReadEnum();
                 break;
               }
               case 26: {
@@ -675,7 +675,7 @@ namespace NeoFS.API.v2.Acl {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Acl.EACLRecord.Descriptor.NestedTypes[1]; }
+          get { return global::Neo.FileSystem.API.Acl.EACLRecord.Descriptor.NestedTypes[1]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -704,12 +704,12 @@ namespace NeoFS.API.v2.Acl {
 
         /// <summary>Field number for the "role" field.</summary>
         public const int RoleFieldNumber = 1;
-        private global::NeoFS.API.v2.Acl.Role role_ = 0;
+        private global::Neo.FileSystem.API.Acl.Role role_ = 0;
         /// <summary>
         /// Target subject's role class
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Acl.Role Role {
+        public global::Neo.FileSystem.API.Acl.Role Role {
           get { return role_; }
           set {
             role_ = value;
@@ -809,7 +809,7 @@ namespace NeoFS.API.v2.Acl {
                 _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
                 break;
               case 8: {
-                Role = (global::NeoFS.API.v2.Acl.Role) input.ReadEnum();
+                Role = (global::Neo.FileSystem.API.Acl.Role) input.ReadEnum();
                 break;
               }
               case 18: {
@@ -841,7 +841,7 @@ namespace NeoFS.API.v2.Acl {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Acl.TypesReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Neo.FileSystem.API.Acl.TypesReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -871,13 +871,13 @@ namespace NeoFS.API.v2.Acl {
 
     /// <summary>Field number for the "version" field.</summary>
     public const int VersionFieldNumber = 1;
-    private global::NeoFS.API.v2.Refs.Version version_;
+    private global::Neo.FileSystem.API.Refs.Version version_;
     /// <summary>
     /// eACL format version. Effectively the version of API library used to create
     /// eACL Table.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Version Version {
+    public global::Neo.FileSystem.API.Refs.Version Version {
       get { return version_; }
       set {
         version_ = value;
@@ -886,12 +886,12 @@ namespace NeoFS.API.v2.Acl {
 
     /// <summary>Field number for the "container_id" field.</summary>
     public const int ContainerIdFieldNumber = 2;
-    private global::NeoFS.API.v2.Refs.ContainerID containerId_;
+    private global::Neo.FileSystem.API.Refs.ContainerID containerId_;
     /// <summary>
     /// Identifier of the container that should use given access control rules
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.ContainerID ContainerId {
+    public global::Neo.FileSystem.API.Refs.ContainerID ContainerId {
       get { return containerId_; }
       set {
         containerId_ = value;
@@ -900,14 +900,14 @@ namespace NeoFS.API.v2.Acl {
 
     /// <summary>Field number for the "records" field.</summary>
     public const int RecordsFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::NeoFS.API.v2.Acl.EACLRecord> _repeated_records_codec
-        = pb::FieldCodec.ForMessage(26, global::NeoFS.API.v2.Acl.EACLRecord.Parser);
-    private readonly pbc::RepeatedField<global::NeoFS.API.v2.Acl.EACLRecord> records_ = new pbc::RepeatedField<global::NeoFS.API.v2.Acl.EACLRecord>();
+    private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Acl.EACLRecord> _repeated_records_codec
+        = pb::FieldCodec.ForMessage(26, global::Neo.FileSystem.API.Acl.EACLRecord.Parser);
+    private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Acl.EACLRecord> records_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Acl.EACLRecord>();
     /// <summary>
     /// List of Extended ACL rules
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::NeoFS.API.v2.Acl.EACLRecord> Records {
+    public pbc::RepeatedField<global::Neo.FileSystem.API.Acl.EACLRecord> Records {
       get { return records_; }
     }
 
@@ -986,13 +986,13 @@ namespace NeoFS.API.v2.Acl {
       }
       if (other.version_ != null) {
         if (version_ == null) {
-          Version = new global::NeoFS.API.v2.Refs.Version();
+          Version = new global::Neo.FileSystem.API.Refs.Version();
         }
         Version.MergeFrom(other.Version);
       }
       if (other.containerId_ != null) {
         if (containerId_ == null) {
-          ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+          ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
         }
         ContainerId.MergeFrom(other.ContainerId);
       }
@@ -1010,14 +1010,14 @@ namespace NeoFS.API.v2.Acl {
             break;
           case 10: {
             if (version_ == null) {
-              Version = new global::NeoFS.API.v2.Refs.Version();
+              Version = new global::Neo.FileSystem.API.Refs.Version();
             }
             input.ReadMessage(Version);
             break;
           }
           case 18: {
             if (containerId_ == null) {
-              ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+              ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
             }
             input.ReadMessage(ContainerId);
             break;
@@ -1051,7 +1051,7 @@ namespace NeoFS.API.v2.Acl {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Acl.TypesReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Neo.FileSystem.API.Acl.TypesReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1080,12 +1080,12 @@ namespace NeoFS.API.v2.Acl {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Acl.BearerToken.Types.Body body_;
+    private global::Neo.FileSystem.API.Acl.BearerToken.Types.Body body_;
     /// <summary>
     /// Bearer Token body
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Acl.BearerToken.Types.Body Body {
+    public global::Neo.FileSystem.API.Acl.BearerToken.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -1094,12 +1094,12 @@ namespace NeoFS.API.v2.Acl {
 
     /// <summary>Field number for the "signature" field.</summary>
     public const int SignatureFieldNumber = 2;
-    private global::NeoFS.API.v2.Refs.Signature signature_;
+    private global::Neo.FileSystem.API.Refs.Signature signature_;
     /// <summary>
     /// Signature of BearerToken body
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Signature Signature {
+    public global::Neo.FileSystem.API.Refs.Signature Signature {
       get { return signature_; }
       set {
         signature_ = value;
@@ -1177,13 +1177,13 @@ namespace NeoFS.API.v2.Acl {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Acl.BearerToken.Types.Body();
+          Body = new global::Neo.FileSystem.API.Acl.BearerToken.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.signature_ != null) {
         if (signature_ == null) {
-          Signature = new global::NeoFS.API.v2.Refs.Signature();
+          Signature = new global::Neo.FileSystem.API.Refs.Signature();
         }
         Signature.MergeFrom(other.Signature);
       }
@@ -1200,14 +1200,14 @@ namespace NeoFS.API.v2.Acl {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Acl.BearerToken.Types.Body();
+              Body = new global::Neo.FileSystem.API.Acl.BearerToken.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (signature_ == null) {
-              Signature = new global::NeoFS.API.v2.Refs.Signature();
+              Signature = new global::Neo.FileSystem.API.Refs.Signature();
             }
             input.ReadMessage(Signature);
             break;
@@ -1232,7 +1232,7 @@ namespace NeoFS.API.v2.Acl {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Acl.BearerToken.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Acl.BearerToken.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1262,13 +1262,13 @@ namespace NeoFS.API.v2.Acl {
 
         /// <summary>Field number for the "eacl_table" field.</summary>
         public const int EaclTableFieldNumber = 1;
-        private global::NeoFS.API.v2.Acl.EACLTable eaclTable_;
+        private global::Neo.FileSystem.API.Acl.EACLTable eaclTable_;
         /// <summary>
         /// Table of Extended ACL rules to use instead of the ones attached to the
         /// container
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Acl.EACLTable EaclTable {
+        public global::Neo.FileSystem.API.Acl.EACLTable EaclTable {
           get { return eaclTable_; }
           set {
             eaclTable_ = value;
@@ -1277,13 +1277,13 @@ namespace NeoFS.API.v2.Acl {
 
         /// <summary>Field number for the "owner_id" field.</summary>
         public const int OwnerIdFieldNumber = 2;
-        private global::NeoFS.API.v2.Refs.OwnerID ownerId_;
+        private global::Neo.FileSystem.API.Refs.OwnerID ownerId_;
         /// <summary>
         /// `OwnerID` to whom the token was issued. Must match the request
         /// originator's `OwnerID`. If empty, any token bearer will be accepted.
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Refs.OwnerID OwnerId {
+        public global::Neo.FileSystem.API.Refs.OwnerID OwnerId {
           get { return ownerId_; }
           set {
             ownerId_ = value;
@@ -1292,12 +1292,12 @@ namespace NeoFS.API.v2.Acl {
 
         /// <summary>Field number for the "lifetime" field.</summary>
         public const int LifetimeFieldNumber = 3;
-        private global::NeoFS.API.v2.Acl.BearerToken.Types.Body.Types.TokenLifetime lifetime_;
+        private global::Neo.FileSystem.API.Acl.BearerToken.Types.Body.Types.TokenLifetime lifetime_;
         /// <summary>
         /// Token expiration and valid time period parameters
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Acl.BearerToken.Types.Body.Types.TokenLifetime Lifetime {
+        public global::Neo.FileSystem.API.Acl.BearerToken.Types.Body.Types.TokenLifetime Lifetime {
           get { return lifetime_; }
           set {
             lifetime_ = value;
@@ -1384,19 +1384,19 @@ namespace NeoFS.API.v2.Acl {
           }
           if (other.eaclTable_ != null) {
             if (eaclTable_ == null) {
-              EaclTable = new global::NeoFS.API.v2.Acl.EACLTable();
+              EaclTable = new global::Neo.FileSystem.API.Acl.EACLTable();
             }
             EaclTable.MergeFrom(other.EaclTable);
           }
           if (other.ownerId_ != null) {
             if (ownerId_ == null) {
-              OwnerId = new global::NeoFS.API.v2.Refs.OwnerID();
+              OwnerId = new global::Neo.FileSystem.API.Refs.OwnerID();
             }
             OwnerId.MergeFrom(other.OwnerId);
           }
           if (other.lifetime_ != null) {
             if (lifetime_ == null) {
-              Lifetime = new global::NeoFS.API.v2.Acl.BearerToken.Types.Body.Types.TokenLifetime();
+              Lifetime = new global::Neo.FileSystem.API.Acl.BearerToken.Types.Body.Types.TokenLifetime();
             }
             Lifetime.MergeFrom(other.Lifetime);
           }
@@ -1413,21 +1413,21 @@ namespace NeoFS.API.v2.Acl {
                 break;
               case 10: {
                 if (eaclTable_ == null) {
-                  EaclTable = new global::NeoFS.API.v2.Acl.EACLTable();
+                  EaclTable = new global::Neo.FileSystem.API.Acl.EACLTable();
                 }
                 input.ReadMessage(EaclTable);
                 break;
               }
               case 18: {
                 if (ownerId_ == null) {
-                  OwnerId = new global::NeoFS.API.v2.Refs.OwnerID();
+                  OwnerId = new global::Neo.FileSystem.API.Refs.OwnerID();
                 }
                 input.ReadMessage(OwnerId);
                 break;
               }
               case 26: {
                 if (lifetime_ == null) {
-                  Lifetime = new global::NeoFS.API.v2.Acl.BearerToken.Types.Body.Types.TokenLifetime();
+                  Lifetime = new global::Neo.FileSystem.API.Acl.BearerToken.Types.Body.Types.TokenLifetime();
                 }
                 input.ReadMessage(Lifetime);
                 break;
@@ -1452,7 +1452,7 @@ namespace NeoFS.API.v2.Acl {
 
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
             public static pbr::MessageDescriptor Descriptor {
-              get { return global::NeoFS.API.v2.Acl.BearerToken.Types.Body.Descriptor.NestedTypes[0]; }
+              get { return global::Neo.FileSystem.API.Acl.BearerToken.Types.Body.Descriptor.NestedTypes[0]; }
             }
 
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

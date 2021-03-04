@@ -1,7 +1,7 @@
 using Google.Protobuf;
 using System;
 
-namespace NeoFS.API.v2.Object
+namespace Neo.FileSystem.API.Object
 {
     public class SplitID : IComparable<SplitID>, IEquatable<SplitID>
     {

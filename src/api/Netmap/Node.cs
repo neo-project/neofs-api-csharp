@@ -1,8 +1,8 @@
-using NeoFS.API.v2.Cryptography;
+using Neo.FileSystem.API.Cryptography;
 using System;
 using System.Collections.Generic;
 
-namespace NeoFS.API.v2.Netmap
+namespace Neo.FileSystem.API.Netmap
 {
     public class Node : IEquatable<Node>, IComparable<Node>
     {

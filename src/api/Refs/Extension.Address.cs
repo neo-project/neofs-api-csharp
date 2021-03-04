@@ -1,6 +1,6 @@
 using System;
 
-namespace NeoFS.API.v2.Refs
+namespace Neo.FileSystem.API.Refs
 {
     public partial class Address
     {

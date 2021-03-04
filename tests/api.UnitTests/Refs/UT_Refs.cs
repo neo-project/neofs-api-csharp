@@ -1,10 +1,10 @@
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Refs;
-using NeoFS.API.v2.Cryptography;
+using Neo.FileSystem.API.Refs;
+using Neo.FileSystem.API.Cryptography;
 using System;
 
-namespace NeoFS.API.v2.UnitTests.TestRefs
+namespace Neo.FileSystem.API.UnitTests.TestRefs
 {
     [TestClass]
     public class UT_Refs

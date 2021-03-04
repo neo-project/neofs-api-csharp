@@ -3,7 +3,7 @@ using System.Buffers.Binary;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
-namespace NeoFS.API.v2.Cryptography
+namespace Neo.FileSystem.API.Cryptography
 {
     internal class Murmur3_128 : HashAlgorithm
     {

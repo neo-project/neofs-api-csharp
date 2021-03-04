@@ -1,7 +1,7 @@
 using Google.Protobuf;
-using NeoFS.API.v2.Cryptography;
+using Neo.FileSystem.API.Cryptography;
 
-namespace NeoFS.API.v2.Refs
+namespace Neo.FileSystem.API.Refs
 {
     public partial class ContainerID
     {

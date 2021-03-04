@@ -1,7 +1,7 @@
-using NeoFS.API.v2.Object;
-using NeoFS.API.v2.Refs;
+using Neo.FileSystem.API.Object;
+using Neo.FileSystem.API.Refs;
 
-namespace NeoFS.API.v2.Client.ObjectParams
+namespace Neo.FileSystem.API.Client.ObjectParams
 {
     public class SearchObjectParams
     {

@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace NeoFS.API.v2.Object {
+namespace Neo.FileSystem.API.Object {
 
   /// <summary>Holder for reflection information generated from object/types.proto</summary>
   public static partial class TypesReflection {
@@ -67,17 +67,17 @@ namespace NeoFS.API.v2.Object {
             "Y3RJRCo7CgpPYmplY3RUeXBlEgsKB1JFR1VMQVIQABINCglUT01CU1RPTkUQ",
             "ARIRCg1TVE9SQUdFX0dST1VQEAIqYAoJTWF0Y2hUeXBlEhoKFk1BVENIX1RZ",
             "UEVfVU5TUEVDSUZJRUQQABIQCgxTVFJJTkdfRVFVQUwQARIUChBTVFJJTkdf",
-            "Tk9UX0VRVUFMEAISDwoLTk9UX1BSRVNFTlQQA0JPWjdnaXRodWIuY29tL25z",
-            "cGNjLWRldi9uZW9mcy1hcGktZ28vdjIvb2JqZWN0L2dycGM7b2JqZWN0qgIT",
-            "TmVvRlMuQVBJLnYyLk9iamVjdGIGcHJvdG8z"));
+            "Tk9UX0VRVUFMEAISDwoLTk9UX1BSRVNFTlQQA0JVWjdnaXRodWIuY29tL25z",
+            "cGNjLWRldi9uZW9mcy1hcGktZ28vdjIvb2JqZWN0L2dycGM7b2JqZWN0qgIZ",
+            "TmVvLkZpbGVTeXN0ZW0uQVBJLk9iamVjdGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::NeoFS.API.v2.Refs.TypesReflection.Descriptor, global::NeoFS.API.v2.Session.TypesReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::NeoFS.API.v2.Object.ObjectType), typeof(global::NeoFS.API.v2.Object.MatchType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Object.ShortHeader), global::NeoFS.API.v2.Object.ShortHeader.Parser, new[]{ "Version", "CreationEpoch", "OwnerId", "ObjectType", "PayloadLength", "PayloadHash", "HomomorphicHash" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Object.Header), global::NeoFS.API.v2.Object.Header.Parser, new[]{ "Version", "ContainerId", "OwnerId", "CreationEpoch", "PayloadLength", "PayloadHash", "ObjectType", "HomomorphicHash", "SessionToken", "Attributes", "Split" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Object.Header.Types.Attribute), global::NeoFS.API.v2.Object.Header.Types.Attribute.Parser, new[]{ "Key", "Value" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Object.Header.Types.Split), global::NeoFS.API.v2.Object.Header.Types.Split.Parser, new[]{ "Parent", "Previous", "ParentSignature", "ParentHeader", "Children", "SplitId" }, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Object.Object), global::NeoFS.API.v2.Object.Object.Parser, new[]{ "ObjectId", "Signature", "Header", "Payload" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Object.SplitInfo), global::NeoFS.API.v2.Object.SplitInfo.Parser, new[]{ "SplitId", "LastPart", "Link" }, null, null, null, null)
+          new pbr::FileDescriptor[] { global::Neo.FileSystem.API.Refs.TypesReflection.Descriptor, global::Neo.FileSystem.API.Session.TypesReflection.Descriptor, },
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Neo.FileSystem.API.Object.ObjectType), typeof(global::Neo.FileSystem.API.Object.MatchType), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Object.ShortHeader), global::Neo.FileSystem.API.Object.ShortHeader.Parser, new[]{ "Version", "CreationEpoch", "OwnerId", "ObjectType", "PayloadLength", "PayloadHash", "HomomorphicHash" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Object.Header), global::Neo.FileSystem.API.Object.Header.Parser, new[]{ "Version", "ContainerId", "OwnerId", "CreationEpoch", "PayloadLength", "PayloadHash", "ObjectType", "HomomorphicHash", "SessionToken", "Attributes", "Split" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Object.Header.Types.Attribute), global::Neo.FileSystem.API.Object.Header.Types.Attribute.Parser, new[]{ "Key", "Value" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Object.Header.Types.Split), global::Neo.FileSystem.API.Object.Header.Types.Split.Parser, new[]{ "Parent", "Previous", "ParentSignature", "ParentHeader", "Children", "SplitId" }, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Object.Object), global::Neo.FileSystem.API.Object.Object.Parser, new[]{ "ObjectId", "Signature", "Header", "Payload" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Object.SplitInfo), global::Neo.FileSystem.API.Object.SplitInfo.Parser, new[]{ "SplitId", "LastPart", "Link" }, null, null, null, null)
           }));
     }
     #endregion
@@ -146,7 +146,7 @@ namespace NeoFS.API.v2.Object {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Object.TypesReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Neo.FileSystem.API.Object.TypesReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -180,13 +180,13 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "version" field.</summary>
     public const int VersionFieldNumber = 1;
-    private global::NeoFS.API.v2.Refs.Version version_;
+    private global::Neo.FileSystem.API.Refs.Version version_;
     /// <summary>
     /// Object format version. Effectively the version of API library used to
     /// create particular object.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Version Version {
+    public global::Neo.FileSystem.API.Refs.Version Version {
       get { return version_; }
       set {
         version_ = value;
@@ -209,12 +209,12 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "owner_id" field.</summary>
     public const int OwnerIdFieldNumber = 3;
-    private global::NeoFS.API.v2.Refs.OwnerID ownerId_;
+    private global::Neo.FileSystem.API.Refs.OwnerID ownerId_;
     /// <summary>
     /// Object's owner
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.OwnerID OwnerId {
+    public global::Neo.FileSystem.API.Refs.OwnerID OwnerId {
       get { return ownerId_; }
       set {
         ownerId_ = value;
@@ -223,12 +223,12 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "object_type" field.</summary>
     public const int ObjectTypeFieldNumber = 4;
-    private global::NeoFS.API.v2.Object.ObjectType objectType_ = global::NeoFS.API.v2.Object.ObjectType.Regular;
+    private global::Neo.FileSystem.API.Object.ObjectType objectType_ = global::Neo.FileSystem.API.Object.ObjectType.Regular;
     /// <summary>
     /// Type of the object payload content
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Object.ObjectType ObjectType {
+    public global::Neo.FileSystem.API.Object.ObjectType ObjectType {
       get { return objectType_; }
       set {
         objectType_ = value;
@@ -252,12 +252,12 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "payload_hash" field.</summary>
     public const int PayloadHashFieldNumber = 6;
-    private global::NeoFS.API.v2.Refs.Checksum payloadHash_;
+    private global::Neo.FileSystem.API.Refs.Checksum payloadHash_;
     /// <summary>
     /// Hash of payload bytes
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Checksum PayloadHash {
+    public global::Neo.FileSystem.API.Refs.Checksum PayloadHash {
       get { return payloadHash_; }
       set {
         payloadHash_ = value;
@@ -266,12 +266,12 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "homomorphic_hash" field.</summary>
     public const int HomomorphicHashFieldNumber = 7;
-    private global::NeoFS.API.v2.Refs.Checksum homomorphicHash_;
+    private global::Neo.FileSystem.API.Refs.Checksum homomorphicHash_;
     /// <summary>
     /// Homomorphic hash of the object payload
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Checksum HomomorphicHash {
+    public global::Neo.FileSystem.API.Refs.Checksum HomomorphicHash {
       get { return homomorphicHash_; }
       set {
         homomorphicHash_ = value;
@@ -307,7 +307,7 @@ namespace NeoFS.API.v2.Object {
       if (version_ != null) hash ^= Version.GetHashCode();
       if (CreationEpoch != 0UL) hash ^= CreationEpoch.GetHashCode();
       if (ownerId_ != null) hash ^= OwnerId.GetHashCode();
-      if (ObjectType != global::NeoFS.API.v2.Object.ObjectType.Regular) hash ^= ObjectType.GetHashCode();
+      if (ObjectType != global::Neo.FileSystem.API.Object.ObjectType.Regular) hash ^= ObjectType.GetHashCode();
       if (PayloadLength != 0UL) hash ^= PayloadLength.GetHashCode();
       if (payloadHash_ != null) hash ^= PayloadHash.GetHashCode();
       if (homomorphicHash_ != null) hash ^= HomomorphicHash.GetHashCode();
@@ -336,7 +336,7 @@ namespace NeoFS.API.v2.Object {
         output.WriteRawTag(26);
         output.WriteMessage(OwnerId);
       }
-      if (ObjectType != global::NeoFS.API.v2.Object.ObjectType.Regular) {
+      if (ObjectType != global::Neo.FileSystem.API.Object.ObjectType.Regular) {
         output.WriteRawTag(32);
         output.WriteEnum((int) ObjectType);
       }
@@ -369,7 +369,7 @@ namespace NeoFS.API.v2.Object {
       if (ownerId_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(OwnerId);
       }
-      if (ObjectType != global::NeoFS.API.v2.Object.ObjectType.Regular) {
+      if (ObjectType != global::Neo.FileSystem.API.Object.ObjectType.Regular) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ObjectType);
       }
       if (PayloadLength != 0UL) {
@@ -394,7 +394,7 @@ namespace NeoFS.API.v2.Object {
       }
       if (other.version_ != null) {
         if (version_ == null) {
-          Version = new global::NeoFS.API.v2.Refs.Version();
+          Version = new global::Neo.FileSystem.API.Refs.Version();
         }
         Version.MergeFrom(other.Version);
       }
@@ -403,11 +403,11 @@ namespace NeoFS.API.v2.Object {
       }
       if (other.ownerId_ != null) {
         if (ownerId_ == null) {
-          OwnerId = new global::NeoFS.API.v2.Refs.OwnerID();
+          OwnerId = new global::Neo.FileSystem.API.Refs.OwnerID();
         }
         OwnerId.MergeFrom(other.OwnerId);
       }
-      if (other.ObjectType != global::NeoFS.API.v2.Object.ObjectType.Regular) {
+      if (other.ObjectType != global::Neo.FileSystem.API.Object.ObjectType.Regular) {
         ObjectType = other.ObjectType;
       }
       if (other.PayloadLength != 0UL) {
@@ -415,13 +415,13 @@ namespace NeoFS.API.v2.Object {
       }
       if (other.payloadHash_ != null) {
         if (payloadHash_ == null) {
-          PayloadHash = new global::NeoFS.API.v2.Refs.Checksum();
+          PayloadHash = new global::Neo.FileSystem.API.Refs.Checksum();
         }
         PayloadHash.MergeFrom(other.PayloadHash);
       }
       if (other.homomorphicHash_ != null) {
         if (homomorphicHash_ == null) {
-          HomomorphicHash = new global::NeoFS.API.v2.Refs.Checksum();
+          HomomorphicHash = new global::Neo.FileSystem.API.Refs.Checksum();
         }
         HomomorphicHash.MergeFrom(other.HomomorphicHash);
       }
@@ -438,7 +438,7 @@ namespace NeoFS.API.v2.Object {
             break;
           case 10: {
             if (version_ == null) {
-              Version = new global::NeoFS.API.v2.Refs.Version();
+              Version = new global::Neo.FileSystem.API.Refs.Version();
             }
             input.ReadMessage(Version);
             break;
@@ -449,13 +449,13 @@ namespace NeoFS.API.v2.Object {
           }
           case 26: {
             if (ownerId_ == null) {
-              OwnerId = new global::NeoFS.API.v2.Refs.OwnerID();
+              OwnerId = new global::Neo.FileSystem.API.Refs.OwnerID();
             }
             input.ReadMessage(OwnerId);
             break;
           }
           case 32: {
-            ObjectType = (global::NeoFS.API.v2.Object.ObjectType) input.ReadEnum();
+            ObjectType = (global::Neo.FileSystem.API.Object.ObjectType) input.ReadEnum();
             break;
           }
           case 40: {
@@ -464,14 +464,14 @@ namespace NeoFS.API.v2.Object {
           }
           case 50: {
             if (payloadHash_ == null) {
-              PayloadHash = new global::NeoFS.API.v2.Refs.Checksum();
+              PayloadHash = new global::Neo.FileSystem.API.Refs.Checksum();
             }
             input.ReadMessage(PayloadHash);
             break;
           }
           case 58: {
             if (homomorphicHash_ == null) {
-              HomomorphicHash = new global::NeoFS.API.v2.Refs.Checksum();
+              HomomorphicHash = new global::Neo.FileSystem.API.Refs.Checksum();
             }
             input.ReadMessage(HomomorphicHash);
             break;
@@ -493,7 +493,7 @@ namespace NeoFS.API.v2.Object {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Object.TypesReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Neo.FileSystem.API.Object.TypesReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -531,13 +531,13 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "version" field.</summary>
     public const int VersionFieldNumber = 1;
-    private global::NeoFS.API.v2.Refs.Version version_;
+    private global::Neo.FileSystem.API.Refs.Version version_;
     /// <summary>
     /// Object format version. Effectively the version of API library used to
     /// create particular object
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Version Version {
+    public global::Neo.FileSystem.API.Refs.Version Version {
       get { return version_; }
       set {
         version_ = value;
@@ -546,12 +546,12 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "container_id" field.</summary>
     public const int ContainerIdFieldNumber = 2;
-    private global::NeoFS.API.v2.Refs.ContainerID containerId_;
+    private global::Neo.FileSystem.API.Refs.ContainerID containerId_;
     /// <summary>
     /// Object's container
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.ContainerID ContainerId {
+    public global::Neo.FileSystem.API.Refs.ContainerID ContainerId {
       get { return containerId_; }
       set {
         containerId_ = value;
@@ -560,12 +560,12 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "owner_id" field.</summary>
     public const int OwnerIdFieldNumber = 3;
-    private global::NeoFS.API.v2.Refs.OwnerID ownerId_;
+    private global::Neo.FileSystem.API.Refs.OwnerID ownerId_;
     /// <summary>
     /// Object's owner
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.OwnerID OwnerId {
+    public global::Neo.FileSystem.API.Refs.OwnerID OwnerId {
       get { return ownerId_; }
       set {
         ownerId_ = value;
@@ -603,12 +603,12 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "payload_hash" field.</summary>
     public const int PayloadHashFieldNumber = 6;
-    private global::NeoFS.API.v2.Refs.Checksum payloadHash_;
+    private global::Neo.FileSystem.API.Refs.Checksum payloadHash_;
     /// <summary>
     /// Hash of payload bytes
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Checksum PayloadHash {
+    public global::Neo.FileSystem.API.Refs.Checksum PayloadHash {
       get { return payloadHash_; }
       set {
         payloadHash_ = value;
@@ -617,12 +617,12 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "object_type" field.</summary>
     public const int ObjectTypeFieldNumber = 7;
-    private global::NeoFS.API.v2.Object.ObjectType objectType_ = global::NeoFS.API.v2.Object.ObjectType.Regular;
+    private global::Neo.FileSystem.API.Object.ObjectType objectType_ = global::Neo.FileSystem.API.Object.ObjectType.Regular;
     /// <summary>
     /// Type of the object payload content
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Object.ObjectType ObjectType {
+    public global::Neo.FileSystem.API.Object.ObjectType ObjectType {
       get { return objectType_; }
       set {
         objectType_ = value;
@@ -631,12 +631,12 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "homomorphic_hash" field.</summary>
     public const int HomomorphicHashFieldNumber = 8;
-    private global::NeoFS.API.v2.Refs.Checksum homomorphicHash_;
+    private global::Neo.FileSystem.API.Refs.Checksum homomorphicHash_;
     /// <summary>
     /// Homomorphic hash of the object payload
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Checksum HomomorphicHash {
+    public global::Neo.FileSystem.API.Refs.Checksum HomomorphicHash {
       get { return homomorphicHash_; }
       set {
         homomorphicHash_ = value;
@@ -645,13 +645,13 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "session_token" field.</summary>
     public const int SessionTokenFieldNumber = 9;
-    private global::NeoFS.API.v2.Session.SessionToken sessionToken_;
+    private global::Neo.FileSystem.API.Session.SessionToken sessionToken_;
     /// <summary>
     /// Session token, if it was used during Object creation. Need it to verify
     /// integrity and authenticity out of Request scope.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.SessionToken SessionToken {
+    public global::Neo.FileSystem.API.Session.SessionToken SessionToken {
       get { return sessionToken_; }
       set {
         sessionToken_ = value;
@@ -660,25 +660,25 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "attributes" field.</summary>
     public const int AttributesFieldNumber = 10;
-    private static readonly pb::FieldCodec<global::NeoFS.API.v2.Object.Header.Types.Attribute> _repeated_attributes_codec
-        = pb::FieldCodec.ForMessage(82, global::NeoFS.API.v2.Object.Header.Types.Attribute.Parser);
-    private readonly pbc::RepeatedField<global::NeoFS.API.v2.Object.Header.Types.Attribute> attributes_ = new pbc::RepeatedField<global::NeoFS.API.v2.Object.Header.Types.Attribute>();
+    private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Object.Header.Types.Attribute> _repeated_attributes_codec
+        = pb::FieldCodec.ForMessage(82, global::Neo.FileSystem.API.Object.Header.Types.Attribute.Parser);
+    private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Object.Header.Types.Attribute> attributes_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Object.Header.Types.Attribute>();
     /// <summary>
     /// User-defined object attributes
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::NeoFS.API.v2.Object.Header.Types.Attribute> Attributes {
+    public pbc::RepeatedField<global::Neo.FileSystem.API.Object.Header.Types.Attribute> Attributes {
       get { return attributes_; }
     }
 
     /// <summary>Field number for the "split" field.</summary>
     public const int SplitFieldNumber = 11;
-    private global::NeoFS.API.v2.Object.Header.Types.Split split_;
+    private global::Neo.FileSystem.API.Object.Header.Types.Split split_;
     /// <summary>
     /// Position of the object in the split hierarchy
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Object.Header.Types.Split Split {
+    public global::Neo.FileSystem.API.Object.Header.Types.Split Split {
       get { return split_; }
       set {
         split_ = value;
@@ -721,7 +721,7 @@ namespace NeoFS.API.v2.Object {
       if (CreationEpoch != 0UL) hash ^= CreationEpoch.GetHashCode();
       if (PayloadLength != 0UL) hash ^= PayloadLength.GetHashCode();
       if (payloadHash_ != null) hash ^= PayloadHash.GetHashCode();
-      if (ObjectType != global::NeoFS.API.v2.Object.ObjectType.Regular) hash ^= ObjectType.GetHashCode();
+      if (ObjectType != global::Neo.FileSystem.API.Object.ObjectType.Regular) hash ^= ObjectType.GetHashCode();
       if (homomorphicHash_ != null) hash ^= HomomorphicHash.GetHashCode();
       if (sessionToken_ != null) hash ^= SessionToken.GetHashCode();
       hash ^= attributes_.GetHashCode();
@@ -763,7 +763,7 @@ namespace NeoFS.API.v2.Object {
         output.WriteRawTag(50);
         output.WriteMessage(PayloadHash);
       }
-      if (ObjectType != global::NeoFS.API.v2.Object.ObjectType.Regular) {
+      if (ObjectType != global::Neo.FileSystem.API.Object.ObjectType.Regular) {
         output.WriteRawTag(56);
         output.WriteEnum((int) ObjectType);
       }
@@ -806,7 +806,7 @@ namespace NeoFS.API.v2.Object {
       if (payloadHash_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(PayloadHash);
       }
-      if (ObjectType != global::NeoFS.API.v2.Object.ObjectType.Regular) {
+      if (ObjectType != global::Neo.FileSystem.API.Object.ObjectType.Regular) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ObjectType);
       }
       if (homomorphicHash_ != null) {
@@ -832,19 +832,19 @@ namespace NeoFS.API.v2.Object {
       }
       if (other.version_ != null) {
         if (version_ == null) {
-          Version = new global::NeoFS.API.v2.Refs.Version();
+          Version = new global::Neo.FileSystem.API.Refs.Version();
         }
         Version.MergeFrom(other.Version);
       }
       if (other.containerId_ != null) {
         if (containerId_ == null) {
-          ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+          ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
         }
         ContainerId.MergeFrom(other.ContainerId);
       }
       if (other.ownerId_ != null) {
         if (ownerId_ == null) {
-          OwnerId = new global::NeoFS.API.v2.Refs.OwnerID();
+          OwnerId = new global::Neo.FileSystem.API.Refs.OwnerID();
         }
         OwnerId.MergeFrom(other.OwnerId);
       }
@@ -856,29 +856,29 @@ namespace NeoFS.API.v2.Object {
       }
       if (other.payloadHash_ != null) {
         if (payloadHash_ == null) {
-          PayloadHash = new global::NeoFS.API.v2.Refs.Checksum();
+          PayloadHash = new global::Neo.FileSystem.API.Refs.Checksum();
         }
         PayloadHash.MergeFrom(other.PayloadHash);
       }
-      if (other.ObjectType != global::NeoFS.API.v2.Object.ObjectType.Regular) {
+      if (other.ObjectType != global::Neo.FileSystem.API.Object.ObjectType.Regular) {
         ObjectType = other.ObjectType;
       }
       if (other.homomorphicHash_ != null) {
         if (homomorphicHash_ == null) {
-          HomomorphicHash = new global::NeoFS.API.v2.Refs.Checksum();
+          HomomorphicHash = new global::Neo.FileSystem.API.Refs.Checksum();
         }
         HomomorphicHash.MergeFrom(other.HomomorphicHash);
       }
       if (other.sessionToken_ != null) {
         if (sessionToken_ == null) {
-          SessionToken = new global::NeoFS.API.v2.Session.SessionToken();
+          SessionToken = new global::Neo.FileSystem.API.Session.SessionToken();
         }
         SessionToken.MergeFrom(other.SessionToken);
       }
       attributes_.Add(other.attributes_);
       if (other.split_ != null) {
         if (split_ == null) {
-          Split = new global::NeoFS.API.v2.Object.Header.Types.Split();
+          Split = new global::Neo.FileSystem.API.Object.Header.Types.Split();
         }
         Split.MergeFrom(other.Split);
       }
@@ -895,21 +895,21 @@ namespace NeoFS.API.v2.Object {
             break;
           case 10: {
             if (version_ == null) {
-              Version = new global::NeoFS.API.v2.Refs.Version();
+              Version = new global::Neo.FileSystem.API.Refs.Version();
             }
             input.ReadMessage(Version);
             break;
           }
           case 18: {
             if (containerId_ == null) {
-              ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+              ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
             }
             input.ReadMessage(ContainerId);
             break;
           }
           case 26: {
             if (ownerId_ == null) {
-              OwnerId = new global::NeoFS.API.v2.Refs.OwnerID();
+              OwnerId = new global::Neo.FileSystem.API.Refs.OwnerID();
             }
             input.ReadMessage(OwnerId);
             break;
@@ -924,25 +924,25 @@ namespace NeoFS.API.v2.Object {
           }
           case 50: {
             if (payloadHash_ == null) {
-              PayloadHash = new global::NeoFS.API.v2.Refs.Checksum();
+              PayloadHash = new global::Neo.FileSystem.API.Refs.Checksum();
             }
             input.ReadMessage(PayloadHash);
             break;
           }
           case 56: {
-            ObjectType = (global::NeoFS.API.v2.Object.ObjectType) input.ReadEnum();
+            ObjectType = (global::Neo.FileSystem.API.Object.ObjectType) input.ReadEnum();
             break;
           }
           case 66: {
             if (homomorphicHash_ == null) {
-              HomomorphicHash = new global::NeoFS.API.v2.Refs.Checksum();
+              HomomorphicHash = new global::Neo.FileSystem.API.Refs.Checksum();
             }
             input.ReadMessage(HomomorphicHash);
             break;
           }
           case 74: {
             if (sessionToken_ == null) {
-              SessionToken = new global::NeoFS.API.v2.Session.SessionToken();
+              SessionToken = new global::Neo.FileSystem.API.Session.SessionToken();
             }
             input.ReadMessage(SessionToken);
             break;
@@ -953,7 +953,7 @@ namespace NeoFS.API.v2.Object {
           }
           case 90: {
             if (split_ == null) {
-              Split = new global::NeoFS.API.v2.Object.Header.Types.Split();
+              Split = new global::Neo.FileSystem.API.Object.Header.Types.Split();
             }
             input.ReadMessage(Split);
             break;
@@ -1002,7 +1002,7 @@ namespace NeoFS.API.v2.Object {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Object.Header.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Object.Header.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1171,7 +1171,7 @@ namespace NeoFS.API.v2.Object {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Object.Header.Descriptor.NestedTypes[1]; }
+          get { return global::Neo.FileSystem.API.Object.Header.Descriptor.NestedTypes[1]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1204,12 +1204,12 @@ namespace NeoFS.API.v2.Object {
 
         /// <summary>Field number for the "parent" field.</summary>
         public const int ParentFieldNumber = 1;
-        private global::NeoFS.API.v2.Refs.ObjectID parent_;
+        private global::Neo.FileSystem.API.Refs.ObjectID parent_;
         /// <summary>
         /// Identifier of the origin object. Known only to the minor child.
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Refs.ObjectID Parent {
+        public global::Neo.FileSystem.API.Refs.ObjectID Parent {
           get { return parent_; }
           set {
             parent_ = value;
@@ -1218,12 +1218,12 @@ namespace NeoFS.API.v2.Object {
 
         /// <summary>Field number for the "previous" field.</summary>
         public const int PreviousFieldNumber = 2;
-        private global::NeoFS.API.v2.Refs.ObjectID previous_;
+        private global::Neo.FileSystem.API.Refs.ObjectID previous_;
         /// <summary>
         /// Identifier of the left split neighbor
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Refs.ObjectID Previous {
+        public global::Neo.FileSystem.API.Refs.ObjectID Previous {
           get { return previous_; }
           set {
             previous_ = value;
@@ -1232,12 +1232,12 @@ namespace NeoFS.API.v2.Object {
 
         /// <summary>Field number for the "parent_signature" field.</summary>
         public const int ParentSignatureFieldNumber = 3;
-        private global::NeoFS.API.v2.Refs.Signature parentSignature_;
+        private global::Neo.FileSystem.API.Refs.Signature parentSignature_;
         /// <summary>
         /// `signature` field of the parent object. Used to reconstruct parent.
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Refs.Signature ParentSignature {
+        public global::Neo.FileSystem.API.Refs.Signature ParentSignature {
           get { return parentSignature_; }
           set {
             parentSignature_ = value;
@@ -1246,12 +1246,12 @@ namespace NeoFS.API.v2.Object {
 
         /// <summary>Field number for the "parent_header" field.</summary>
         public const int ParentHeaderFieldNumber = 4;
-        private global::NeoFS.API.v2.Object.Header parentHeader_;
+        private global::Neo.FileSystem.API.Object.Header parentHeader_;
         /// <summary>
         /// `header` field of the parent object. Used to reconstruct parent.
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Object.Header ParentHeader {
+        public global::Neo.FileSystem.API.Object.Header ParentHeader {
           get { return parentHeader_; }
           set {
             parentHeader_ = value;
@@ -1260,14 +1260,14 @@ namespace NeoFS.API.v2.Object {
 
         /// <summary>Field number for the "children" field.</summary>
         public const int ChildrenFieldNumber = 5;
-        private static readonly pb::FieldCodec<global::NeoFS.API.v2.Refs.ObjectID> _repeated_children_codec
-            = pb::FieldCodec.ForMessage(42, global::NeoFS.API.v2.Refs.ObjectID.Parser);
-        private readonly pbc::RepeatedField<global::NeoFS.API.v2.Refs.ObjectID> children_ = new pbc::RepeatedField<global::NeoFS.API.v2.Refs.ObjectID>();
+        private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Refs.ObjectID> _repeated_children_codec
+            = pb::FieldCodec.ForMessage(42, global::Neo.FileSystem.API.Refs.ObjectID.Parser);
+        private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Refs.ObjectID> children_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Refs.ObjectID>();
         /// <summary>
         /// List of identifiers of the objects generated by splitting current one.
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public pbc::RepeatedField<global::NeoFS.API.v2.Refs.ObjectID> Children {
+        public pbc::RepeatedField<global::Neo.FileSystem.API.Refs.ObjectID> Children {
           get { return children_; }
         }
 
@@ -1389,25 +1389,25 @@ namespace NeoFS.API.v2.Object {
           }
           if (other.parent_ != null) {
             if (parent_ == null) {
-              Parent = new global::NeoFS.API.v2.Refs.ObjectID();
+              Parent = new global::Neo.FileSystem.API.Refs.ObjectID();
             }
             Parent.MergeFrom(other.Parent);
           }
           if (other.previous_ != null) {
             if (previous_ == null) {
-              Previous = new global::NeoFS.API.v2.Refs.ObjectID();
+              Previous = new global::Neo.FileSystem.API.Refs.ObjectID();
             }
             Previous.MergeFrom(other.Previous);
           }
           if (other.parentSignature_ != null) {
             if (parentSignature_ == null) {
-              ParentSignature = new global::NeoFS.API.v2.Refs.Signature();
+              ParentSignature = new global::Neo.FileSystem.API.Refs.Signature();
             }
             ParentSignature.MergeFrom(other.ParentSignature);
           }
           if (other.parentHeader_ != null) {
             if (parentHeader_ == null) {
-              ParentHeader = new global::NeoFS.API.v2.Object.Header();
+              ParentHeader = new global::Neo.FileSystem.API.Object.Header();
             }
             ParentHeader.MergeFrom(other.ParentHeader);
           }
@@ -1428,28 +1428,28 @@ namespace NeoFS.API.v2.Object {
                 break;
               case 10: {
                 if (parent_ == null) {
-                  Parent = new global::NeoFS.API.v2.Refs.ObjectID();
+                  Parent = new global::Neo.FileSystem.API.Refs.ObjectID();
                 }
                 input.ReadMessage(Parent);
                 break;
               }
               case 18: {
                 if (previous_ == null) {
-                  Previous = new global::NeoFS.API.v2.Refs.ObjectID();
+                  Previous = new global::Neo.FileSystem.API.Refs.ObjectID();
                 }
                 input.ReadMessage(Previous);
                 break;
               }
               case 26: {
                 if (parentSignature_ == null) {
-                  ParentSignature = new global::NeoFS.API.v2.Refs.Signature();
+                  ParentSignature = new global::Neo.FileSystem.API.Refs.Signature();
                 }
                 input.ReadMessage(ParentSignature);
                 break;
               }
               case 34: {
                 if (parentHeader_ == null) {
-                  ParentHeader = new global::NeoFS.API.v2.Object.Header();
+                  ParentHeader = new global::Neo.FileSystem.API.Object.Header();
                 }
                 input.ReadMessage(ParentHeader);
                 break;
@@ -1486,7 +1486,7 @@ namespace NeoFS.API.v2.Object {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Object.TypesReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Neo.FileSystem.API.Object.TypesReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1517,12 +1517,12 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "object_id" field.</summary>
     public const int ObjectIdFieldNumber = 1;
-    private global::NeoFS.API.v2.Refs.ObjectID objectId_;
+    private global::Neo.FileSystem.API.Refs.ObjectID objectId_;
     /// <summary>
     /// Object's unique identifier.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.ObjectID ObjectId {
+    public global::Neo.FileSystem.API.Refs.ObjectID ObjectId {
       get { return objectId_; }
       set {
         objectId_ = value;
@@ -1531,12 +1531,12 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "signature" field.</summary>
     public const int SignatureFieldNumber = 2;
-    private global::NeoFS.API.v2.Refs.Signature signature_;
+    private global::Neo.FileSystem.API.Refs.Signature signature_;
     /// <summary>
     /// Signed object_id
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Signature Signature {
+    public global::Neo.FileSystem.API.Refs.Signature Signature {
       get { return signature_; }
       set {
         signature_ = value;
@@ -1545,12 +1545,12 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "header" field.</summary>
     public const int HeaderFieldNumber = 3;
-    private global::NeoFS.API.v2.Object.Header header_;
+    private global::Neo.FileSystem.API.Object.Header header_;
     /// <summary>
     /// Object metadata headers
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Object.Header Header {
+    public global::Neo.FileSystem.API.Object.Header Header {
       get { return header_; }
       set {
         header_ = value;
@@ -1660,19 +1660,19 @@ namespace NeoFS.API.v2.Object {
       }
       if (other.objectId_ != null) {
         if (objectId_ == null) {
-          ObjectId = new global::NeoFS.API.v2.Refs.ObjectID();
+          ObjectId = new global::Neo.FileSystem.API.Refs.ObjectID();
         }
         ObjectId.MergeFrom(other.ObjectId);
       }
       if (other.signature_ != null) {
         if (signature_ == null) {
-          Signature = new global::NeoFS.API.v2.Refs.Signature();
+          Signature = new global::Neo.FileSystem.API.Refs.Signature();
         }
         Signature.MergeFrom(other.Signature);
       }
       if (other.header_ != null) {
         if (header_ == null) {
-          Header = new global::NeoFS.API.v2.Object.Header();
+          Header = new global::Neo.FileSystem.API.Object.Header();
         }
         Header.MergeFrom(other.Header);
       }
@@ -1692,21 +1692,21 @@ namespace NeoFS.API.v2.Object {
             break;
           case 10: {
             if (objectId_ == null) {
-              ObjectId = new global::NeoFS.API.v2.Refs.ObjectID();
+              ObjectId = new global::Neo.FileSystem.API.Refs.ObjectID();
             }
             input.ReadMessage(ObjectId);
             break;
           }
           case 18: {
             if (signature_ == null) {
-              Signature = new global::NeoFS.API.v2.Refs.Signature();
+              Signature = new global::Neo.FileSystem.API.Refs.Signature();
             }
             input.ReadMessage(Signature);
             break;
           }
           case 26: {
             if (header_ == null) {
-              Header = new global::NeoFS.API.v2.Object.Header();
+              Header = new global::Neo.FileSystem.API.Object.Header();
             }
             input.ReadMessage(Header);
             break;
@@ -1735,7 +1735,7 @@ namespace NeoFS.API.v2.Object {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Object.TypesReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Neo.FileSystem.API.Object.TypesReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1779,13 +1779,13 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "last_part" field.</summary>
     public const int LastPartFieldNumber = 2;
-    private global::NeoFS.API.v2.Refs.ObjectID lastPart_;
+    private global::Neo.FileSystem.API.Refs.ObjectID lastPart_;
     /// <summary>
     /// Identifier of the last object in split hierarchy parts. It contains
     /// split header with original object header.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.ObjectID LastPart {
+    public global::Neo.FileSystem.API.Refs.ObjectID LastPart {
       get { return lastPart_; }
       set {
         lastPart_ = value;
@@ -1794,14 +1794,14 @@ namespace NeoFS.API.v2.Object {
 
     /// <summary>Field number for the "link" field.</summary>
     public const int LinkFieldNumber = 3;
-    private global::NeoFS.API.v2.Refs.ObjectID link_;
+    private global::Neo.FileSystem.API.Refs.ObjectID link_;
     /// <summary>
     /// Identifier of linking object for split hierarchy parts. It contains
     /// split header with original object header and sorted list of
     /// object parts.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.ObjectID Link {
+    public global::Neo.FileSystem.API.Refs.ObjectID Link {
       get { return link_; }
       set {
         link_ = value;
@@ -1891,13 +1891,13 @@ namespace NeoFS.API.v2.Object {
       }
       if (other.lastPart_ != null) {
         if (lastPart_ == null) {
-          LastPart = new global::NeoFS.API.v2.Refs.ObjectID();
+          LastPart = new global::Neo.FileSystem.API.Refs.ObjectID();
         }
         LastPart.MergeFrom(other.LastPart);
       }
       if (other.link_ != null) {
         if (link_ == null) {
-          Link = new global::NeoFS.API.v2.Refs.ObjectID();
+          Link = new global::Neo.FileSystem.API.Refs.ObjectID();
         }
         Link.MergeFrom(other.Link);
       }
@@ -1918,14 +1918,14 @@ namespace NeoFS.API.v2.Object {
           }
           case 18: {
             if (lastPart_ == null) {
-              LastPart = new global::NeoFS.API.v2.Refs.ObjectID();
+              LastPart = new global::Neo.FileSystem.API.Refs.ObjectID();
             }
             input.ReadMessage(LastPart);
             break;
           }
           case 26: {
             if (link_ == null) {
-              Link = new global::NeoFS.API.v2.Refs.ObjectID();
+              Link = new global::Neo.FileSystem.API.Refs.ObjectID();
             }
             input.ReadMessage(Link);
             break;

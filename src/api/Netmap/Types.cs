@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace NeoFS.API.v2.Netmap {
+namespace Neo.FileSystem.API.Netmap {
 
   /// <summary>Holder for reflection information generated from netmap/types.proto</summary>
   public static partial class TypesReflection {
@@ -49,17 +49,17 @@ namespace NeoFS.API.v2.Netmap {
             "RRACKmcKCU9wZXJhdGlvbhIZChVPUEVSQVRJT05fVU5TUEVDSUZJRUQQABIG",
             "CgJFURABEgYKAk5FEAISBgoCR1QQAxIGCgJHRRAEEgYKAkxUEAUSBgoCTEUQ",
             "BhIGCgJPUhAHEgcKA0FORBAIKjgKBkNsYXVzZRIWChJDTEFVU0VfVU5TUEVD",
-            "SUZJRUQQABIICgRTQU1FEAESDAoIRElTVElOQ1QQAkJPWjdnaXRodWIuY29t",
+            "SUZJRUQQABIICgRTQU1FEAESDAoIRElTVElOQ1QQAkJVWjdnaXRodWIuY29t",
             "L25zcGNjLWRldi9uZW9mcy1hcGktZ28vdjIvbmV0bWFwL2dycGM7bmV0bWFw",
-            "qgITTmVvRlMuQVBJLnYyLk5ldG1hcGIGcHJvdG8z"));
+            "qgIZTmVvLkZpbGVTeXN0ZW0uQVBJLk5ldG1hcGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::NeoFS.API.v2.Netmap.Operation), typeof(global::NeoFS.API.v2.Netmap.Clause), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Netmap.Filter), global::NeoFS.API.v2.Netmap.Filter.Parser, new[]{ "Name", "Key", "Op", "Value", "Filters" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Netmap.Selector), global::NeoFS.API.v2.Netmap.Selector.Parser, new[]{ "Name", "Count", "Clause", "Attribute", "Filter" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Netmap.Replica), global::NeoFS.API.v2.Netmap.Replica.Parser, new[]{ "Count", "Selector" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Netmap.PlacementPolicy), global::NeoFS.API.v2.Netmap.PlacementPolicy.Parser, new[]{ "Replicas", "ContainerBackupFactor", "Selectors", "Filters" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Netmap.NodeInfo), global::NeoFS.API.v2.Netmap.NodeInfo.Parser, new[]{ "PublicKey", "Address", "Attributes", "State" }, null, new[]{ typeof(global::NeoFS.API.v2.Netmap.NodeInfo.Types.State) }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Netmap.NodeInfo.Types.Attribute), global::NeoFS.API.v2.Netmap.NodeInfo.Types.Attribute.Parser, new[]{ "Key", "Value", "Parents" }, null, null, null, null)})
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Neo.FileSystem.API.Netmap.Operation), typeof(global::Neo.FileSystem.API.Netmap.Clause), }, null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Netmap.Filter), global::Neo.FileSystem.API.Netmap.Filter.Parser, new[]{ "Name", "Key", "Op", "Value", "Filters" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Netmap.Selector), global::Neo.FileSystem.API.Netmap.Selector.Parser, new[]{ "Name", "Count", "Clause", "Attribute", "Filter" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Netmap.Replica), global::Neo.FileSystem.API.Netmap.Replica.Parser, new[]{ "Count", "Selector" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Netmap.PlacementPolicy), global::Neo.FileSystem.API.Netmap.PlacementPolicy.Parser, new[]{ "Replicas", "ContainerBackupFactor", "Selectors", "Filters" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Netmap.NodeInfo), global::Neo.FileSystem.API.Netmap.NodeInfo.Parser, new[]{ "PublicKey", "Address", "Attributes", "State" }, null, new[]{ typeof(global::Neo.FileSystem.API.Netmap.NodeInfo.Types.State) }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Netmap.NodeInfo.Types.Attribute), global::Neo.FileSystem.API.Netmap.NodeInfo.Types.Attribute.Parser, new[]{ "Key", "Value", "Parents" }, null, null, null, null)})
           }));
     }
     #endregion
@@ -143,7 +143,7 @@ namespace NeoFS.API.v2.Netmap {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Netmap.TypesReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Neo.FileSystem.API.Netmap.TypesReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -206,12 +206,12 @@ namespace NeoFS.API.v2.Netmap {
 
     /// <summary>Field number for the "op" field.</summary>
     public const int OpFieldNumber = 3;
-    private global::NeoFS.API.v2.Netmap.Operation op_ = global::NeoFS.API.v2.Netmap.Operation.Unspecified;
+    private global::Neo.FileSystem.API.Netmap.Operation op_ = global::Neo.FileSystem.API.Netmap.Operation.Unspecified;
     /// <summary>
     /// Filtering operation
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Netmap.Operation Op {
+    public global::Neo.FileSystem.API.Netmap.Operation Op {
       get { return op_; }
       set {
         op_ = value;
@@ -234,15 +234,15 @@ namespace NeoFS.API.v2.Netmap {
 
     /// <summary>Field number for the "filters" field.</summary>
     public const int FiltersFieldNumber = 5;
-    private static readonly pb::FieldCodec<global::NeoFS.API.v2.Netmap.Filter> _repeated_filters_codec
-        = pb::FieldCodec.ForMessage(42, global::NeoFS.API.v2.Netmap.Filter.Parser);
-    private readonly pbc::RepeatedField<global::NeoFS.API.v2.Netmap.Filter> filters_ = new pbc::RepeatedField<global::NeoFS.API.v2.Netmap.Filter>();
+    private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Netmap.Filter> _repeated_filters_codec
+        = pb::FieldCodec.ForMessage(42, global::Neo.FileSystem.API.Netmap.Filter.Parser);
+    private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Netmap.Filter> filters_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Netmap.Filter>();
     /// <summary>
     /// List of inner filters. Top level operation will be applied to the whole
     /// list.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::NeoFS.API.v2.Netmap.Filter> Filters {
+    public pbc::RepeatedField<global::Neo.FileSystem.API.Netmap.Filter> Filters {
       get { return filters_; }
     }
 
@@ -272,7 +272,7 @@ namespace NeoFS.API.v2.Netmap {
       int hash = 1;
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (Key.Length != 0) hash ^= Key.GetHashCode();
-      if (Op != global::NeoFS.API.v2.Netmap.Operation.Unspecified) hash ^= Op.GetHashCode();
+      if (Op != global::Neo.FileSystem.API.Netmap.Operation.Unspecified) hash ^= Op.GetHashCode();
       if (Value.Length != 0) hash ^= Value.GetHashCode();
       hash ^= filters_.GetHashCode();
       if (_unknownFields != null) {
@@ -296,7 +296,7 @@ namespace NeoFS.API.v2.Netmap {
         output.WriteRawTag(18);
         output.WriteString(Key);
       }
-      if (Op != global::NeoFS.API.v2.Netmap.Operation.Unspecified) {
+      if (Op != global::Neo.FileSystem.API.Netmap.Operation.Unspecified) {
         output.WriteRawTag(24);
         output.WriteEnum((int) Op);
       }
@@ -319,7 +319,7 @@ namespace NeoFS.API.v2.Netmap {
       if (Key.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Key);
       }
-      if (Op != global::NeoFS.API.v2.Netmap.Operation.Unspecified) {
+      if (Op != global::Neo.FileSystem.API.Netmap.Operation.Unspecified) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Op);
       }
       if (Value.Length != 0) {
@@ -343,7 +343,7 @@ namespace NeoFS.API.v2.Netmap {
       if (other.Key.Length != 0) {
         Key = other.Key;
       }
-      if (other.Op != global::NeoFS.API.v2.Netmap.Operation.Unspecified) {
+      if (other.Op != global::Neo.FileSystem.API.Netmap.Operation.Unspecified) {
         Op = other.Op;
       }
       if (other.Value.Length != 0) {
@@ -370,7 +370,7 @@ namespace NeoFS.API.v2.Netmap {
             break;
           }
           case 24: {
-            Op = (global::NeoFS.API.v2.Netmap.Operation) input.ReadEnum();
+            Op = (global::Neo.FileSystem.API.Netmap.Operation) input.ReadEnum();
             break;
           }
           case 34: {
@@ -399,7 +399,7 @@ namespace NeoFS.API.v2.Netmap {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Netmap.TypesReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Neo.FileSystem.API.Netmap.TypesReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -459,12 +459,12 @@ namespace NeoFS.API.v2.Netmap {
 
     /// <summary>Field number for the "clause" field.</summary>
     public const int ClauseFieldNumber = 3;
-    private global::NeoFS.API.v2.Netmap.Clause clause_ = global::NeoFS.API.v2.Netmap.Clause.Unspecified;
+    private global::Neo.FileSystem.API.Netmap.Clause clause_ = global::Neo.FileSystem.API.Netmap.Clause.Unspecified;
     /// <summary>
     /// Selector modifier showing how to form a bucket
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Netmap.Clause Clause {
+    public global::Neo.FileSystem.API.Netmap.Clause Clause {
       get { return clause_; }
       set {
         clause_ = value;
@@ -525,7 +525,7 @@ namespace NeoFS.API.v2.Netmap {
       int hash = 1;
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (Count != 0) hash ^= Count.GetHashCode();
-      if (Clause != global::NeoFS.API.v2.Netmap.Clause.Unspecified) hash ^= Clause.GetHashCode();
+      if (Clause != global::Neo.FileSystem.API.Netmap.Clause.Unspecified) hash ^= Clause.GetHashCode();
       if (Attribute.Length != 0) hash ^= Attribute.GetHashCode();
       if (Filter.Length != 0) hash ^= Filter.GetHashCode();
       if (_unknownFields != null) {
@@ -549,7 +549,7 @@ namespace NeoFS.API.v2.Netmap {
         output.WriteRawTag(16);
         output.WriteUInt32(Count);
       }
-      if (Clause != global::NeoFS.API.v2.Netmap.Clause.Unspecified) {
+      if (Clause != global::Neo.FileSystem.API.Netmap.Clause.Unspecified) {
         output.WriteRawTag(24);
         output.WriteEnum((int) Clause);
       }
@@ -575,7 +575,7 @@ namespace NeoFS.API.v2.Netmap {
       if (Count != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Count);
       }
-      if (Clause != global::NeoFS.API.v2.Netmap.Clause.Unspecified) {
+      if (Clause != global::Neo.FileSystem.API.Netmap.Clause.Unspecified) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Clause);
       }
       if (Attribute.Length != 0) {
@@ -601,7 +601,7 @@ namespace NeoFS.API.v2.Netmap {
       if (other.Count != 0) {
         Count = other.Count;
       }
-      if (other.Clause != global::NeoFS.API.v2.Netmap.Clause.Unspecified) {
+      if (other.Clause != global::Neo.FileSystem.API.Netmap.Clause.Unspecified) {
         Clause = other.Clause;
       }
       if (other.Attribute.Length != 0) {
@@ -630,7 +630,7 @@ namespace NeoFS.API.v2.Netmap {
             break;
           }
           case 24: {
-            Clause = (global::NeoFS.API.v2.Netmap.Clause) input.ReadEnum();
+            Clause = (global::Neo.FileSystem.API.Netmap.Clause) input.ReadEnum();
             break;
           }
           case 34: {
@@ -660,7 +660,7 @@ namespace NeoFS.API.v2.Netmap {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Netmap.TypesReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Neo.FileSystem.API.Netmap.TypesReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -828,7 +828,7 @@ namespace NeoFS.API.v2.Netmap {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Netmap.TypesReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Neo.FileSystem.API.Netmap.TypesReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -859,15 +859,15 @@ namespace NeoFS.API.v2.Netmap {
 
     /// <summary>Field number for the "replicas" field.</summary>
     public const int ReplicasFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::NeoFS.API.v2.Netmap.Replica> _repeated_replicas_codec
-        = pb::FieldCodec.ForMessage(10, global::NeoFS.API.v2.Netmap.Replica.Parser);
-    private readonly pbc::RepeatedField<global::NeoFS.API.v2.Netmap.Replica> replicas_ = new pbc::RepeatedField<global::NeoFS.API.v2.Netmap.Replica>();
+    private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Netmap.Replica> _repeated_replicas_codec
+        = pb::FieldCodec.ForMessage(10, global::Neo.FileSystem.API.Netmap.Replica.Parser);
+    private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Netmap.Replica> replicas_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Netmap.Replica>();
     /// <summary>
     /// Rules to set number of object replicas and place each one into a named
     /// bucket
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::NeoFS.API.v2.Netmap.Replica> Replicas {
+    public pbc::RepeatedField<global::Neo.FileSystem.API.Netmap.Replica> Replicas {
       get { return replicas_; }
     }
 
@@ -888,27 +888,27 @@ namespace NeoFS.API.v2.Netmap {
 
     /// <summary>Field number for the "selectors" field.</summary>
     public const int SelectorsFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::NeoFS.API.v2.Netmap.Selector> _repeated_selectors_codec
-        = pb::FieldCodec.ForMessage(26, global::NeoFS.API.v2.Netmap.Selector.Parser);
-    private readonly pbc::RepeatedField<global::NeoFS.API.v2.Netmap.Selector> selectors_ = new pbc::RepeatedField<global::NeoFS.API.v2.Netmap.Selector>();
+    private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Netmap.Selector> _repeated_selectors_codec
+        = pb::FieldCodec.ForMessage(26, global::Neo.FileSystem.API.Netmap.Selector.Parser);
+    private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Netmap.Selector> selectors_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Netmap.Selector>();
     /// <summary>
     /// Set of Selectors to form the container's nodes subset
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::NeoFS.API.v2.Netmap.Selector> Selectors {
+    public pbc::RepeatedField<global::Neo.FileSystem.API.Netmap.Selector> Selectors {
       get { return selectors_; }
     }
 
     /// <summary>Field number for the "filters" field.</summary>
     public const int FiltersFieldNumber = 4;
-    private static readonly pb::FieldCodec<global::NeoFS.API.v2.Netmap.Filter> _repeated_filters_codec
-        = pb::FieldCodec.ForMessage(34, global::NeoFS.API.v2.Netmap.Filter.Parser);
-    private readonly pbc::RepeatedField<global::NeoFS.API.v2.Netmap.Filter> filters_ = new pbc::RepeatedField<global::NeoFS.API.v2.Netmap.Filter>();
+    private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Netmap.Filter> _repeated_filters_codec
+        = pb::FieldCodec.ForMessage(34, global::Neo.FileSystem.API.Netmap.Filter.Parser);
+    private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Netmap.Filter> filters_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Netmap.Filter>();
     /// <summary>
     /// List of named filters to reference in selectors
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::NeoFS.API.v2.Netmap.Filter> Filters {
+    public pbc::RepeatedField<global::Neo.FileSystem.API.Netmap.Filter> Filters {
       get { return filters_; }
     }
 
@@ -1034,7 +1034,7 @@ namespace NeoFS.API.v2.Netmap {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Netmap.TypesReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Neo.FileSystem.API.Netmap.TypesReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1093,9 +1093,9 @@ namespace NeoFS.API.v2.Netmap {
 
     /// <summary>Field number for the "attributes" field.</summary>
     public const int AttributesFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::NeoFS.API.v2.Netmap.NodeInfo.Types.Attribute> _repeated_attributes_codec
-        = pb::FieldCodec.ForMessage(26, global::NeoFS.API.v2.Netmap.NodeInfo.Types.Attribute.Parser);
-    private readonly pbc::RepeatedField<global::NeoFS.API.v2.Netmap.NodeInfo.Types.Attribute> attributes_ = new pbc::RepeatedField<global::NeoFS.API.v2.Netmap.NodeInfo.Types.Attribute>();
+    private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Netmap.NodeInfo.Types.Attribute> _repeated_attributes_codec
+        = pb::FieldCodec.ForMessage(26, global::Neo.FileSystem.API.Netmap.NodeInfo.Types.Attribute.Parser);
+    private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Netmap.NodeInfo.Types.Attribute> attributes_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Netmap.NodeInfo.Types.Attribute>();
     /// <summary>
     /// Carries list of the NeoFS node attributes in a key-value form. Key name
     /// must be a node-unique valid UTF-8 string. Value can't be empty. NodeInfo
@@ -1103,18 +1103,18 @@ namespace NeoFS.API.v2.Netmap {
     /// will be considered invalid.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::NeoFS.API.v2.Netmap.NodeInfo.Types.Attribute> Attributes {
+    public pbc::RepeatedField<global::Neo.FileSystem.API.Netmap.NodeInfo.Types.Attribute> Attributes {
       get { return attributes_; }
     }
 
     /// <summary>Field number for the "state" field.</summary>
     public const int StateFieldNumber = 4;
-    private global::NeoFS.API.v2.Netmap.NodeInfo.Types.State state_ = global::NeoFS.API.v2.Netmap.NodeInfo.Types.State.Unspecified;
+    private global::Neo.FileSystem.API.Netmap.NodeInfo.Types.State state_ = global::Neo.FileSystem.API.Netmap.NodeInfo.Types.State.Unspecified;
     /// <summary>
     /// Carries state of the NeoFS node.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Netmap.NodeInfo.Types.State State {
+    public global::Neo.FileSystem.API.Netmap.NodeInfo.Types.State State {
       get { return state_; }
       set {
         state_ = value;
@@ -1147,7 +1147,7 @@ namespace NeoFS.API.v2.Netmap {
       if (PublicKey.Length != 0) hash ^= PublicKey.GetHashCode();
       if (Address.Length != 0) hash ^= Address.GetHashCode();
       hash ^= attributes_.GetHashCode();
-      if (State != global::NeoFS.API.v2.Netmap.NodeInfo.Types.State.Unspecified) hash ^= State.GetHashCode();
+      if (State != global::Neo.FileSystem.API.Netmap.NodeInfo.Types.State.Unspecified) hash ^= State.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1170,7 +1170,7 @@ namespace NeoFS.API.v2.Netmap {
         output.WriteString(Address);
       }
       attributes_.WriteTo(output, _repeated_attributes_codec);
-      if (State != global::NeoFS.API.v2.Netmap.NodeInfo.Types.State.Unspecified) {
+      if (State != global::Neo.FileSystem.API.Netmap.NodeInfo.Types.State.Unspecified) {
         output.WriteRawTag(32);
         output.WriteEnum((int) State);
       }
@@ -1189,7 +1189,7 @@ namespace NeoFS.API.v2.Netmap {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Address);
       }
       size += attributes_.CalculateSize(_repeated_attributes_codec);
-      if (State != global::NeoFS.API.v2.Netmap.NodeInfo.Types.State.Unspecified) {
+      if (State != global::Neo.FileSystem.API.Netmap.NodeInfo.Types.State.Unspecified) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) State);
       }
       if (_unknownFields != null) {
@@ -1210,7 +1210,7 @@ namespace NeoFS.API.v2.Netmap {
         Address = other.Address;
       }
       attributes_.Add(other.attributes_);
-      if (other.State != global::NeoFS.API.v2.Netmap.NodeInfo.Types.State.Unspecified) {
+      if (other.State != global::Neo.FileSystem.API.Netmap.NodeInfo.Types.State.Unspecified) {
         State = other.State;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -1237,7 +1237,7 @@ namespace NeoFS.API.v2.Netmap {
             break;
           }
           case 32: {
-            State = (global::NeoFS.API.v2.Netmap.NodeInfo.Types.State) input.ReadEnum();
+            State = (global::Neo.FileSystem.API.Netmap.NodeInfo.Types.State) input.ReadEnum();
             break;
           }
         }
@@ -1331,7 +1331,7 @@ namespace NeoFS.API.v2.Netmap {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Netmap.NodeInfo.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Netmap.NodeInfo.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

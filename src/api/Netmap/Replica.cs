@@ -1,5 +1,5 @@
 
-namespace NeoFS.API.v2.Netmap
+namespace Neo.FileSystem.API.Netmap
 {
     public partial class Replica
     {

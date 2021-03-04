@@ -1,7 +1,7 @@
-using NeoFS.API.v2.Session;
+using Neo.FileSystem.API.Session;
 using Google.Protobuf;
 
-namespace NeoFS.API.v2.Session
+namespace Neo.FileSystem.API.Session
 {
     public interface IRequestMeta
     {

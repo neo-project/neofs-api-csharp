@@ -1,18 +1,18 @@
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Client;
-using NeoFS.API.v2.Client.ObjectParams;
-using NeoFS.API.v2.Cryptography;
-using NeoFS.API.v2.Refs;
-using NeoFS.API.v2.Object;
-using V2Object = NeoFS.API.v2.Object.Object;
+using Neo.FileSystem.API.Client;
+using Neo.FileSystem.API.Client.ObjectParams;
+using Neo.FileSystem.API.Cryptography;
+using Neo.FileSystem.API.Refs;
+using Neo.FileSystem.API.Object;
+using V2Object = Neo.FileSystem.API.Object.Object;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Threading;
 
-namespace NeoFS.API.v2.UnitTests.FSClient
+namespace Neo.FileSystem.API.UnitTests.FSClient
 {
     [TestClass]
     public class UT_Object

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace NeoFS.API.v2.Cryptography.Tz
+namespace Neo.FileSystem.API.Cryptography.Tz
 {
     public class SL2 : IEquatable<SL2>
     {

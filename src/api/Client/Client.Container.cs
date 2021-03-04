@@ -1,14 +1,14 @@
-using NeoFS.API.v2.Acl;
-using NeoFS.API.v2.Container;
-using NeoFS.API.v2.Cryptography;
-using NeoFS.API.v2.Refs;
+using Neo.FileSystem.API.Acl;
+using Neo.FileSystem.API.Container;
+using Neo.FileSystem.API.Cryptography;
+using Neo.FileSystem.API.Refs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using UsedSpaceAnnouncement = NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement;
+using UsedSpaceAnnouncement = Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement;
 
-namespace NeoFS.API.v2.Client
+namespace Neo.FileSystem.API.Client
 {
     public partial class Client
     {

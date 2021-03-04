@@ -1,12 +1,12 @@
 using Google.Protobuf;
-using NeoFS.API.v2.Refs;
-using NeoFS.API.v2.Cryptography;
-using NeoFS.API.v2.Session;
+using Neo.FileSystem.API.Refs;
+using Neo.FileSystem.API.Cryptography;
+using Neo.FileSystem.API.Session;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Linq;
 
-namespace NeoFS.API.v2.Object
+namespace Neo.FileSystem.API.Object
 {
     public partial class Object
     {

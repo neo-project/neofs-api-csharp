@@ -1,9 +1,9 @@
-using NeoFS.API.v2.Refs;
-using static NeoFS.API.v2.Object.SearchRequest.Types.Body.Types;
+using Neo.FileSystem.API.Refs;
+using static Neo.FileSystem.API.Object.SearchRequest.Types.Body.Types;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NeoFS.API.v2.Object
+namespace Neo.FileSystem.API.Object
 {
     public class SearchFilters
     {

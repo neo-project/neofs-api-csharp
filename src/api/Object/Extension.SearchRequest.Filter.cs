@@ -1,5 +1,5 @@
 
-namespace NeoFS.API.v2.Object
+namespace Neo.FileSystem.API.Object
 {
     public partial class SearchRequest
     {

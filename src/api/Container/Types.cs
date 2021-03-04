@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace NeoFS.API.v2.Container {
+namespace Neo.FileSystem.API.Container {
 
   /// <summary>Holder for reflection information generated from container/types.proto</summary>
   public static partial class TypesReflection {
@@ -34,13 +34,13 @@ namespace NeoFS.API.v2.Container {
             "dHRyaWJ1dGVzEkwKEHBsYWNlbWVudF9wb2xpY3kYBiABKAsyIS5uZW8uZnMu",
             "djIubmV0bWFwLlBsYWNlbWVudFBvbGljeVIPcGxhY2VtZW50UG9saWN5GjMK",
             "CUF0dHJpYnV0ZRIQCgNrZXkYASABKAlSA2tleRIUCgV2YWx1ZRgCIAEoCVIF",
-            "dmFsdWVCWFo9Z2l0aHViLmNvbS9uc3BjYy1kZXYvbmVvZnMtYXBpLWdvL3Yy",
-            "L2NvbnRhaW5lci9ncnBjO2NvbnRhaW5lcqoCFk5lb0ZTLkFQSS52Mi5Db250",
-            "YWluZXJiBnByb3RvMw=="));
+            "dmFsdWVCXlo9Z2l0aHViLmNvbS9uc3BjYy1kZXYvbmVvZnMtYXBpLWdvL3Yy",
+            "L2NvbnRhaW5lci9ncnBjO2NvbnRhaW5lcqoCHE5lby5GaWxlU3lzdGVtLkFQ",
+            "SS5Db250YWluZXJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::NeoFS.API.v2.Netmap.TypesReflection.Descriptor, global::NeoFS.API.v2.Refs.TypesReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Neo.FileSystem.API.Netmap.TypesReflection.Descriptor, global::Neo.FileSystem.API.Refs.TypesReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.Container), global::NeoFS.API.v2.Container.Container.Parser, new[]{ "Version", "OwnerId", "Nonce", "BasicAcl", "Attributes", "PlacementPolicy" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.Container.Types.Attribute), global::NeoFS.API.v2.Container.Container.Types.Attribute.Parser, new[]{ "Key", "Value" }, null, null, null, null)})
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.Container), global::Neo.FileSystem.API.Container.Container.Parser, new[]{ "Version", "OwnerId", "Nonce", "BasicAcl", "Attributes", "PlacementPolicy" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.Container.Types.Attribute), global::Neo.FileSystem.API.Container.Container.Types.Attribute.Parser, new[]{ "Key", "Value" }, null, null, null, null)})
           }));
     }
     #endregion
@@ -61,7 +61,7 @@ namespace NeoFS.API.v2.Container {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Container.TypesReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Neo.FileSystem.API.Container.TypesReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -94,13 +94,13 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "version" field.</summary>
     public const int VersionFieldNumber = 1;
-    private global::NeoFS.API.v2.Refs.Version version_;
+    private global::Neo.FileSystem.API.Refs.Version version_;
     /// <summary>
     /// Container format version. Effectively the version of API library used to
     /// create container.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Version Version {
+    public global::Neo.FileSystem.API.Refs.Version Version {
       get { return version_; }
       set {
         version_ = value;
@@ -109,12 +109,12 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "owner_id" field.</summary>
     public const int OwnerIdFieldNumber = 2;
-    private global::NeoFS.API.v2.Refs.OwnerID ownerId_;
+    private global::Neo.FileSystem.API.Refs.OwnerID ownerId_;
     /// <summary>
     /// Identifier of the container owner
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.OwnerID OwnerId {
+    public global::Neo.FileSystem.API.Refs.OwnerID OwnerId {
       get { return ownerId_; }
       set {
         ownerId_ = value;
@@ -152,25 +152,25 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "attributes" field.</summary>
     public const int AttributesFieldNumber = 5;
-    private static readonly pb::FieldCodec<global::NeoFS.API.v2.Container.Container.Types.Attribute> _repeated_attributes_codec
-        = pb::FieldCodec.ForMessage(42, global::NeoFS.API.v2.Container.Container.Types.Attribute.Parser);
-    private readonly pbc::RepeatedField<global::NeoFS.API.v2.Container.Container.Types.Attribute> attributes_ = new pbc::RepeatedField<global::NeoFS.API.v2.Container.Container.Types.Attribute>();
+    private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Container.Container.Types.Attribute> _repeated_attributes_codec
+        = pb::FieldCodec.ForMessage(42, global::Neo.FileSystem.API.Container.Container.Types.Attribute.Parser);
+    private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Container.Container.Types.Attribute> attributes_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Container.Container.Types.Attribute>();
     /// <summary>
     /// Attributes represent immutable container's meta data
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::NeoFS.API.v2.Container.Container.Types.Attribute> Attributes {
+    public pbc::RepeatedField<global::Neo.FileSystem.API.Container.Container.Types.Attribute> Attributes {
       get { return attributes_; }
     }
 
     /// <summary>Field number for the "placement_policy" field.</summary>
     public const int PlacementPolicyFieldNumber = 6;
-    private global::NeoFS.API.v2.Netmap.PlacementPolicy placementPolicy_;
+    private global::Neo.FileSystem.API.Netmap.PlacementPolicy placementPolicy_;
     /// <summary>
     /// Placement policy for the object inside the container
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Netmap.PlacementPolicy PlacementPolicy {
+    public global::Neo.FileSystem.API.Netmap.PlacementPolicy PlacementPolicy {
       get { return placementPolicy_; }
       set {
         placementPolicy_ = value;
@@ -279,13 +279,13 @@ namespace NeoFS.API.v2.Container {
       }
       if (other.version_ != null) {
         if (version_ == null) {
-          Version = new global::NeoFS.API.v2.Refs.Version();
+          Version = new global::Neo.FileSystem.API.Refs.Version();
         }
         Version.MergeFrom(other.Version);
       }
       if (other.ownerId_ != null) {
         if (ownerId_ == null) {
-          OwnerId = new global::NeoFS.API.v2.Refs.OwnerID();
+          OwnerId = new global::Neo.FileSystem.API.Refs.OwnerID();
         }
         OwnerId.MergeFrom(other.OwnerId);
       }
@@ -298,7 +298,7 @@ namespace NeoFS.API.v2.Container {
       attributes_.Add(other.attributes_);
       if (other.placementPolicy_ != null) {
         if (placementPolicy_ == null) {
-          PlacementPolicy = new global::NeoFS.API.v2.Netmap.PlacementPolicy();
+          PlacementPolicy = new global::Neo.FileSystem.API.Netmap.PlacementPolicy();
         }
         PlacementPolicy.MergeFrom(other.PlacementPolicy);
       }
@@ -315,14 +315,14 @@ namespace NeoFS.API.v2.Container {
             break;
           case 10: {
             if (version_ == null) {
-              Version = new global::NeoFS.API.v2.Refs.Version();
+              Version = new global::Neo.FileSystem.API.Refs.Version();
             }
             input.ReadMessage(Version);
             break;
           }
           case 18: {
             if (ownerId_ == null) {
-              OwnerId = new global::NeoFS.API.v2.Refs.OwnerID();
+              OwnerId = new global::Neo.FileSystem.API.Refs.OwnerID();
             }
             input.ReadMessage(OwnerId);
             break;
@@ -341,7 +341,7 @@ namespace NeoFS.API.v2.Container {
           }
           case 50: {
             if (placementPolicy_ == null) {
-              PlacementPolicy = new global::NeoFS.API.v2.Netmap.PlacementPolicy();
+              PlacementPolicy = new global::Neo.FileSystem.API.Netmap.PlacementPolicy();
             }
             input.ReadMessage(PlacementPolicy);
             break;
@@ -384,7 +384,7 @@ namespace NeoFS.API.v2.Container {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Container.Container.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Container.Container.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

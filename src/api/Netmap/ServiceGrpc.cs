@@ -7,7 +7,7 @@
 
 using grpc = global::Grpc.Core;
 
-namespace NeoFS.API.v2.Netmap {
+namespace Neo.FileSystem.API.Netmap {
   /// <summary>
   /// `NetmapService` provides methods to work with `Network Map` and information
   /// required to build it. The resulting `Network Map` is stored in sidechain
@@ -18,10 +18,10 @@ namespace NeoFS.API.v2.Netmap {
   {
     static readonly string __ServiceName = "neo.fs.v2.netmap.NetmapService";
 
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Netmap.LocalNodeInfoRequest> __Marshaller_neo_fs_v2_netmap_LocalNodeInfoRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Netmap.LocalNodeInfoRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Netmap.LocalNodeInfoResponse> __Marshaller_neo_fs_v2_netmap_LocalNodeInfoResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Netmap.LocalNodeInfoResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Netmap.LocalNodeInfoRequest> __Marshaller_neo_fs_v2_netmap_LocalNodeInfoRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Netmap.LocalNodeInfoRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Netmap.LocalNodeInfoResponse> __Marshaller_neo_fs_v2_netmap_LocalNodeInfoResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Netmap.LocalNodeInfoResponse.Parser.ParseFrom);
 
-    static readonly grpc::Method<global::NeoFS.API.v2.Netmap.LocalNodeInfoRequest, global::NeoFS.API.v2.Netmap.LocalNodeInfoResponse> __Method_LocalNodeInfo = new grpc::Method<global::NeoFS.API.v2.Netmap.LocalNodeInfoRequest, global::NeoFS.API.v2.Netmap.LocalNodeInfoResponse>(
+    static readonly grpc::Method<global::Neo.FileSystem.API.Netmap.LocalNodeInfoRequest, global::Neo.FileSystem.API.Netmap.LocalNodeInfoResponse> __Method_LocalNodeInfo = new grpc::Method<global::Neo.FileSystem.API.Netmap.LocalNodeInfoRequest, global::Neo.FileSystem.API.Netmap.LocalNodeInfoResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "LocalNodeInfo",
@@ -31,7 +31,7 @@ namespace NeoFS.API.v2.Netmap {
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
-      get { return global::NeoFS.API.v2.Netmap.ServiceReflection.Descriptor.Services[0]; }
+      get { return global::Neo.FileSystem.API.Netmap.ServiceReflection.Descriptor.Services[0]; }
     }
 
     /// <summary>Base class for server-side implementations of NetmapService</summary>
@@ -48,7 +48,7 @@ namespace NeoFS.API.v2.Netmap {
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
-      public virtual global::System.Threading.Tasks.Task<global::NeoFS.API.v2.Netmap.LocalNodeInfoResponse> LocalNodeInfo(global::NeoFS.API.v2.Netmap.LocalNodeInfoRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileSystem.API.Netmap.LocalNodeInfoResponse> LocalNodeInfo(global::Neo.FileSystem.API.Netmap.LocalNodeInfoRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -90,7 +90,7 @@ namespace NeoFS.API.v2.Netmap {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
-      public virtual global::NeoFS.API.v2.Netmap.LocalNodeInfoResponse LocalNodeInfo(global::NeoFS.API.v2.Netmap.LocalNodeInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Neo.FileSystem.API.Netmap.LocalNodeInfoResponse LocalNodeInfo(global::Neo.FileSystem.API.Netmap.LocalNodeInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return LocalNodeInfo(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -104,7 +104,7 @@ namespace NeoFS.API.v2.Netmap {
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
-      public virtual global::NeoFS.API.v2.Netmap.LocalNodeInfoResponse LocalNodeInfo(global::NeoFS.API.v2.Netmap.LocalNodeInfoRequest request, grpc::CallOptions options)
+      public virtual global::Neo.FileSystem.API.Netmap.LocalNodeInfoResponse LocalNodeInfo(global::Neo.FileSystem.API.Netmap.LocalNodeInfoRequest request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_LocalNodeInfo, null, options, request);
       }
@@ -120,7 +120,7 @@ namespace NeoFS.API.v2.Netmap {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncUnaryCall<global::NeoFS.API.v2.Netmap.LocalNodeInfoResponse> LocalNodeInfoAsync(global::NeoFS.API.v2.Netmap.LocalNodeInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileSystem.API.Netmap.LocalNodeInfoResponse> LocalNodeInfoAsync(global::Neo.FileSystem.API.Netmap.LocalNodeInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return LocalNodeInfoAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -134,7 +134,7 @@ namespace NeoFS.API.v2.Netmap {
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncUnaryCall<global::NeoFS.API.v2.Netmap.LocalNodeInfoResponse> LocalNodeInfoAsync(global::NeoFS.API.v2.Netmap.LocalNodeInfoRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileSystem.API.Netmap.LocalNodeInfoResponse> LocalNodeInfoAsync(global::Neo.FileSystem.API.Netmap.LocalNodeInfoRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_LocalNodeInfo, null, options, request);
       }
@@ -159,7 +159,7 @@ namespace NeoFS.API.v2.Netmap {
     /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
     public static void BindService(grpc::ServiceBinderBase serviceBinder, NetmapServiceBase serviceImpl)
     {
-      serviceBinder.AddMethod(__Method_LocalNodeInfo, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::NeoFS.API.v2.Netmap.LocalNodeInfoRequest, global::NeoFS.API.v2.Netmap.LocalNodeInfoResponse>(serviceImpl.LocalNodeInfo));
+      serviceBinder.AddMethod(__Method_LocalNodeInfo, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileSystem.API.Netmap.LocalNodeInfoRequest, global::Neo.FileSystem.API.Netmap.LocalNodeInfoResponse>(serviceImpl.LocalNodeInfo));
     }
 
   }

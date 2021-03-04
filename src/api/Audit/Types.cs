@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace NeoFS.API.v2.Audit {
+namespace Neo.FileSystem.API.Audit {
 
   /// <summary>Holder for reflection information generated from audit/types.proto</summary>
   public static partial class TypesReflection {
@@ -36,13 +36,13 @@ namespace NeoFS.API.v2.Audit {
             "Lm5lby5mcy52Mi5yZWZzLk9iamVjdElEUgZmYWlsU0cSEAoDaGl0GAogASgN",
             "UgNoaXQSEgoEbWlzcxgLIAEoDVIEbWlzcxISCgRmYWlsGAwgASgNUgRmYWls",
             "Eh0KCnBhc3Nfbm9kZXMYDSADKAxSCXBhc3NOb2RlcxIdCgpmYWlsX25vZGVz",
-            "GA4gAygMUglmYWlsTm9kZXNCTFo1Z2l0aHViLmNvbS9uc3BjYy1kZXYvbmVv",
-            "ZnMtYXBpLWdvL3YyL2F1ZGl0L2dycGM7YXVkaXSqAhJOZW9GUy5BUEkudjIu",
-            "QXVkaXRiBnByb3RvMw=="));
+            "GA4gAygMUglmYWlsTm9kZXNCUlo1Z2l0aHViLmNvbS9uc3BjYy1kZXYvbmVv",
+            "ZnMtYXBpLWdvL3YyL2F1ZGl0L2dycGM7YXVkaXSqAhhOZW8uRmlsZVN5c3Rl",
+            "bS5BUEkuQXVkaXRiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::NeoFS.API.v2.Refs.TypesReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Neo.FileSystem.API.Refs.TypesReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Audit.DataAuditResult), global::NeoFS.API.v2.Audit.DataAuditResult.Parser, new[]{ "Version", "AuditEpoch", "ContainerId", "PublicKey", "Complete", "Requests", "Retries", "PassSg", "FailSg", "Hit", "Miss", "Fail", "PassNodes", "FailNodes" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Audit.DataAuditResult), global::Neo.FileSystem.API.Audit.DataAuditResult.Parser, new[]{ "Version", "AuditEpoch", "ContainerId", "PublicKey", "Complete", "Requests", "Retries", "PassSg", "FailSg", "Hit", "Miss", "Fail", "PassNodes", "FailNodes" }, null, null, null, null)
           }));
     }
     #endregion
@@ -61,7 +61,7 @@ namespace NeoFS.API.v2.Audit {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Audit.TypesReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Neo.FileSystem.API.Audit.TypesReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -102,13 +102,13 @@ namespace NeoFS.API.v2.Audit {
 
     /// <summary>Field number for the "version" field.</summary>
     public const int VersionFieldNumber = 1;
-    private global::NeoFS.API.v2.Refs.Version version_;
+    private global::Neo.FileSystem.API.Refs.Version version_;
     /// <summary>
     /// Data Audit Result format version. Effectively the version of API library
     /// used to report DataAuditResult structure.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.Version Version {
+    public global::Neo.FileSystem.API.Refs.Version Version {
       get { return version_; }
       set {
         version_ = value;
@@ -131,12 +131,12 @@ namespace NeoFS.API.v2.Audit {
 
     /// <summary>Field number for the "container_id" field.</summary>
     public const int ContainerIdFieldNumber = 3;
-    private global::NeoFS.API.v2.Refs.ContainerID containerId_;
+    private global::Neo.FileSystem.API.Refs.ContainerID containerId_;
     /// <summary>
     /// Container under audit
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Refs.ContainerID ContainerId {
+    public global::Neo.FileSystem.API.Refs.ContainerID ContainerId {
       get { return containerId_; }
       set {
         containerId_ = value;
@@ -201,27 +201,27 @@ namespace NeoFS.API.v2.Audit {
 
     /// <summary>Field number for the "pass_sg" field.</summary>
     public const int PassSgFieldNumber = 8;
-    private static readonly pb::FieldCodec<global::NeoFS.API.v2.Refs.ObjectID> _repeated_passSg_codec
-        = pb::FieldCodec.ForMessage(66, global::NeoFS.API.v2.Refs.ObjectID.Parser);
-    private readonly pbc::RepeatedField<global::NeoFS.API.v2.Refs.ObjectID> passSg_ = new pbc::RepeatedField<global::NeoFS.API.v2.Refs.ObjectID>();
+    private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Refs.ObjectID> _repeated_passSg_codec
+        = pb::FieldCodec.ForMessage(66, global::Neo.FileSystem.API.Refs.ObjectID.Parser);
+    private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Refs.ObjectID> passSg_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Refs.ObjectID>();
     /// <summary>
     /// List of Storage Groups that passed audit PoR stage
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::NeoFS.API.v2.Refs.ObjectID> PassSg {
+    public pbc::RepeatedField<global::Neo.FileSystem.API.Refs.ObjectID> PassSg {
       get { return passSg_; }
     }
 
     /// <summary>Field number for the "fail_sg" field.</summary>
     public const int FailSgFieldNumber = 9;
-    private static readonly pb::FieldCodec<global::NeoFS.API.v2.Refs.ObjectID> _repeated_failSg_codec
-        = pb::FieldCodec.ForMessage(74, global::NeoFS.API.v2.Refs.ObjectID.Parser);
-    private readonly pbc::RepeatedField<global::NeoFS.API.v2.Refs.ObjectID> failSg_ = new pbc::RepeatedField<global::NeoFS.API.v2.Refs.ObjectID>();
+    private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Refs.ObjectID> _repeated_failSg_codec
+        = pb::FieldCodec.ForMessage(74, global::Neo.FileSystem.API.Refs.ObjectID.Parser);
+    private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Refs.ObjectID> failSg_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Refs.ObjectID>();
     /// <summary>
     /// List of Storage Groups that failed audit PoR stage
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::NeoFS.API.v2.Refs.ObjectID> FailSg {
+    public pbc::RepeatedField<global::Neo.FileSystem.API.Refs.ObjectID> FailSg {
       get { return failSg_; }
     }
 
@@ -456,7 +456,7 @@ namespace NeoFS.API.v2.Audit {
       }
       if (other.version_ != null) {
         if (version_ == null) {
-          Version = new global::NeoFS.API.v2.Refs.Version();
+          Version = new global::Neo.FileSystem.API.Refs.Version();
         }
         Version.MergeFrom(other.Version);
       }
@@ -465,7 +465,7 @@ namespace NeoFS.API.v2.Audit {
       }
       if (other.containerId_ != null) {
         if (containerId_ == null) {
-          ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+          ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
         }
         ContainerId.MergeFrom(other.ContainerId);
       }
@@ -507,7 +507,7 @@ namespace NeoFS.API.v2.Audit {
             break;
           case 10: {
             if (version_ == null) {
-              Version = new global::NeoFS.API.v2.Refs.Version();
+              Version = new global::Neo.FileSystem.API.Refs.Version();
             }
             input.ReadMessage(Version);
             break;
@@ -518,7 +518,7 @@ namespace NeoFS.API.v2.Audit {
           }
           case 26: {
             if (containerId_ == null) {
-              ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+              ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
             }
             input.ReadMessage(ContainerId);
             break;

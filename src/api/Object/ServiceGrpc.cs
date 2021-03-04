@@ -7,7 +7,7 @@
 
 using grpc = global::Grpc.Core;
 
-namespace NeoFS.API.v2.Object {
+namespace Neo.FileSystem.API.Object {
   /// <summary>
   /// `ObjectService` provides API for manipulating objects. Object operations do
   /// not interact with sidechain and are only served by nodes in p2p style.
@@ -16,64 +16,64 @@ namespace NeoFS.API.v2.Object {
   {
     static readonly string __ServiceName = "neo.fs.v2.object.ObjectService";
 
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Object.GetRequest> __Marshaller_neo_fs_v2_object_GetRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Object.GetRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Object.GetResponse> __Marshaller_neo_fs_v2_object_GetResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Object.GetResponse.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Object.PutRequest> __Marshaller_neo_fs_v2_object_PutRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Object.PutRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Object.PutResponse> __Marshaller_neo_fs_v2_object_PutResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Object.PutResponse.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Object.DeleteRequest> __Marshaller_neo_fs_v2_object_DeleteRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Object.DeleteRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Object.DeleteResponse> __Marshaller_neo_fs_v2_object_DeleteResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Object.DeleteResponse.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Object.HeadRequest> __Marshaller_neo_fs_v2_object_HeadRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Object.HeadRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Object.HeadResponse> __Marshaller_neo_fs_v2_object_HeadResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Object.HeadResponse.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Object.SearchRequest> __Marshaller_neo_fs_v2_object_SearchRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Object.SearchRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Object.SearchResponse> __Marshaller_neo_fs_v2_object_SearchResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Object.SearchResponse.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Object.GetRangeRequest> __Marshaller_neo_fs_v2_object_GetRangeRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Object.GetRangeRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Object.GetRangeResponse> __Marshaller_neo_fs_v2_object_GetRangeResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Object.GetRangeResponse.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Object.GetRangeHashRequest> __Marshaller_neo_fs_v2_object_GetRangeHashRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Object.GetRangeHashRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Object.GetRangeHashResponse> __Marshaller_neo_fs_v2_object_GetRangeHashResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Object.GetRangeHashResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Object.GetRequest> __Marshaller_neo_fs_v2_object_GetRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Object.GetRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Object.GetResponse> __Marshaller_neo_fs_v2_object_GetResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Object.GetResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Object.PutRequest> __Marshaller_neo_fs_v2_object_PutRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Object.PutRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Object.PutResponse> __Marshaller_neo_fs_v2_object_PutResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Object.PutResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Object.DeleteRequest> __Marshaller_neo_fs_v2_object_DeleteRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Object.DeleteRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Object.DeleteResponse> __Marshaller_neo_fs_v2_object_DeleteResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Object.DeleteResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Object.HeadRequest> __Marshaller_neo_fs_v2_object_HeadRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Object.HeadRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Object.HeadResponse> __Marshaller_neo_fs_v2_object_HeadResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Object.HeadResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Object.SearchRequest> __Marshaller_neo_fs_v2_object_SearchRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Object.SearchRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Object.SearchResponse> __Marshaller_neo_fs_v2_object_SearchResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Object.SearchResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Object.GetRangeRequest> __Marshaller_neo_fs_v2_object_GetRangeRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Object.GetRangeRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Object.GetRangeResponse> __Marshaller_neo_fs_v2_object_GetRangeResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Object.GetRangeResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Object.GetRangeHashRequest> __Marshaller_neo_fs_v2_object_GetRangeHashRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Object.GetRangeHashRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Object.GetRangeHashResponse> __Marshaller_neo_fs_v2_object_GetRangeHashResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Object.GetRangeHashResponse.Parser.ParseFrom);
 
-    static readonly grpc::Method<global::NeoFS.API.v2.Object.GetRequest, global::NeoFS.API.v2.Object.GetResponse> __Method_Get = new grpc::Method<global::NeoFS.API.v2.Object.GetRequest, global::NeoFS.API.v2.Object.GetResponse>(
+    static readonly grpc::Method<global::Neo.FileSystem.API.Object.GetRequest, global::Neo.FileSystem.API.Object.GetResponse> __Method_Get = new grpc::Method<global::Neo.FileSystem.API.Object.GetRequest, global::Neo.FileSystem.API.Object.GetResponse>(
         grpc::MethodType.ServerStreaming,
         __ServiceName,
         "Get",
         __Marshaller_neo_fs_v2_object_GetRequest,
         __Marshaller_neo_fs_v2_object_GetResponse);
 
-    static readonly grpc::Method<global::NeoFS.API.v2.Object.PutRequest, global::NeoFS.API.v2.Object.PutResponse> __Method_Put = new grpc::Method<global::NeoFS.API.v2.Object.PutRequest, global::NeoFS.API.v2.Object.PutResponse>(
+    static readonly grpc::Method<global::Neo.FileSystem.API.Object.PutRequest, global::Neo.FileSystem.API.Object.PutResponse> __Method_Put = new grpc::Method<global::Neo.FileSystem.API.Object.PutRequest, global::Neo.FileSystem.API.Object.PutResponse>(
         grpc::MethodType.ClientStreaming,
         __ServiceName,
         "Put",
         __Marshaller_neo_fs_v2_object_PutRequest,
         __Marshaller_neo_fs_v2_object_PutResponse);
 
-    static readonly grpc::Method<global::NeoFS.API.v2.Object.DeleteRequest, global::NeoFS.API.v2.Object.DeleteResponse> __Method_Delete = new grpc::Method<global::NeoFS.API.v2.Object.DeleteRequest, global::NeoFS.API.v2.Object.DeleteResponse>(
+    static readonly grpc::Method<global::Neo.FileSystem.API.Object.DeleteRequest, global::Neo.FileSystem.API.Object.DeleteResponse> __Method_Delete = new grpc::Method<global::Neo.FileSystem.API.Object.DeleteRequest, global::Neo.FileSystem.API.Object.DeleteResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "Delete",
         __Marshaller_neo_fs_v2_object_DeleteRequest,
         __Marshaller_neo_fs_v2_object_DeleteResponse);
 
-    static readonly grpc::Method<global::NeoFS.API.v2.Object.HeadRequest, global::NeoFS.API.v2.Object.HeadResponse> __Method_Head = new grpc::Method<global::NeoFS.API.v2.Object.HeadRequest, global::NeoFS.API.v2.Object.HeadResponse>(
+    static readonly grpc::Method<global::Neo.FileSystem.API.Object.HeadRequest, global::Neo.FileSystem.API.Object.HeadResponse> __Method_Head = new grpc::Method<global::Neo.FileSystem.API.Object.HeadRequest, global::Neo.FileSystem.API.Object.HeadResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "Head",
         __Marshaller_neo_fs_v2_object_HeadRequest,
         __Marshaller_neo_fs_v2_object_HeadResponse);
 
-    static readonly grpc::Method<global::NeoFS.API.v2.Object.SearchRequest, global::NeoFS.API.v2.Object.SearchResponse> __Method_Search = new grpc::Method<global::NeoFS.API.v2.Object.SearchRequest, global::NeoFS.API.v2.Object.SearchResponse>(
+    static readonly grpc::Method<global::Neo.FileSystem.API.Object.SearchRequest, global::Neo.FileSystem.API.Object.SearchResponse> __Method_Search = new grpc::Method<global::Neo.FileSystem.API.Object.SearchRequest, global::Neo.FileSystem.API.Object.SearchResponse>(
         grpc::MethodType.ServerStreaming,
         __ServiceName,
         "Search",
         __Marshaller_neo_fs_v2_object_SearchRequest,
         __Marshaller_neo_fs_v2_object_SearchResponse);
 
-    static readonly grpc::Method<global::NeoFS.API.v2.Object.GetRangeRequest, global::NeoFS.API.v2.Object.GetRangeResponse> __Method_GetRange = new grpc::Method<global::NeoFS.API.v2.Object.GetRangeRequest, global::NeoFS.API.v2.Object.GetRangeResponse>(
+    static readonly grpc::Method<global::Neo.FileSystem.API.Object.GetRangeRequest, global::Neo.FileSystem.API.Object.GetRangeResponse> __Method_GetRange = new grpc::Method<global::Neo.FileSystem.API.Object.GetRangeRequest, global::Neo.FileSystem.API.Object.GetRangeResponse>(
         grpc::MethodType.ServerStreaming,
         __ServiceName,
         "GetRange",
         __Marshaller_neo_fs_v2_object_GetRangeRequest,
         __Marshaller_neo_fs_v2_object_GetRangeResponse);
 
-    static readonly grpc::Method<global::NeoFS.API.v2.Object.GetRangeHashRequest, global::NeoFS.API.v2.Object.GetRangeHashResponse> __Method_GetRangeHash = new grpc::Method<global::NeoFS.API.v2.Object.GetRangeHashRequest, global::NeoFS.API.v2.Object.GetRangeHashResponse>(
+    static readonly grpc::Method<global::Neo.FileSystem.API.Object.GetRangeHashRequest, global::Neo.FileSystem.API.Object.GetRangeHashResponse> __Method_GetRangeHash = new grpc::Method<global::Neo.FileSystem.API.Object.GetRangeHashRequest, global::Neo.FileSystem.API.Object.GetRangeHashResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "GetRangeHash",
@@ -83,7 +83,7 @@ namespace NeoFS.API.v2.Object {
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
-      get { return global::NeoFS.API.v2.Object.ServiceReflection.Descriptor.Services[0]; }
+      get { return global::Neo.FileSystem.API.Object.ServiceReflection.Descriptor.Services[0]; }
     }
 
     /// <summary>Base class for server-side implementations of ObjectService</summary>
@@ -102,7 +102,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="responseStream">Used for sending responses back to the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>A task indicating completion of the handler.</returns>
-      public virtual global::System.Threading.Tasks.Task Get(global::NeoFS.API.v2.Object.GetRequest request, grpc::IServerStreamWriter<global::NeoFS.API.v2.Object.GetResponse> responseStream, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task Get(global::Neo.FileSystem.API.Object.GetRequest request, grpc::IServerStreamWriter<global::Neo.FileSystem.API.Object.GetResponse> responseStream, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -118,7 +118,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="requestStream">Used for reading requests from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
-      public virtual global::System.Threading.Tasks.Task<global::NeoFS.API.v2.Object.PutResponse> Put(grpc::IAsyncStreamReader<global::NeoFS.API.v2.Object.PutRequest> requestStream, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileSystem.API.Object.PutResponse> Put(grpc::IAsyncStreamReader<global::Neo.FileSystem.API.Object.PutRequest> requestStream, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -130,7 +130,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
-      public virtual global::System.Threading.Tasks.Task<global::NeoFS.API.v2.Object.DeleteResponse> Delete(global::NeoFS.API.v2.Object.DeleteRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileSystem.API.Object.DeleteResponse> Delete(global::Neo.FileSystem.API.Object.DeleteRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -143,7 +143,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
-      public virtual global::System.Threading.Tasks.Task<global::NeoFS.API.v2.Object.HeadResponse> Head(global::NeoFS.API.v2.Object.HeadRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileSystem.API.Object.HeadResponse> Head(global::Neo.FileSystem.API.Object.HeadRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -157,7 +157,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="responseStream">Used for sending responses back to the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>A task indicating completion of the handler.</returns>
-      public virtual global::System.Threading.Tasks.Task Search(global::NeoFS.API.v2.Object.SearchRequest request, grpc::IServerStreamWriter<global::NeoFS.API.v2.Object.SearchResponse> responseStream, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task Search(global::Neo.FileSystem.API.Object.SearchRequest request, grpc::IServerStreamWriter<global::Neo.FileSystem.API.Object.SearchResponse> responseStream, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -172,7 +172,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="responseStream">Used for sending responses back to the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>A task indicating completion of the handler.</returns>
-      public virtual global::System.Threading.Tasks.Task GetRange(global::NeoFS.API.v2.Object.GetRangeRequest request, grpc::IServerStreamWriter<global::NeoFS.API.v2.Object.GetRangeResponse> responseStream, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task GetRange(global::Neo.FileSystem.API.Object.GetRangeRequest request, grpc::IServerStreamWriter<global::Neo.FileSystem.API.Object.GetRangeResponse> responseStream, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -186,7 +186,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
-      public virtual global::System.Threading.Tasks.Task<global::NeoFS.API.v2.Object.GetRangeHashResponse> GetRangeHash(global::NeoFS.API.v2.Object.GetRangeHashRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileSystem.API.Object.GetRangeHashResponse> GetRangeHash(global::Neo.FileSystem.API.Object.GetRangeHashRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -229,7 +229,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncServerStreamingCall<global::NeoFS.API.v2.Object.GetResponse> Get(global::NeoFS.API.v2.Object.GetRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncServerStreamingCall<global::Neo.FileSystem.API.Object.GetResponse> Get(global::Neo.FileSystem.API.Object.GetRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return Get(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -244,7 +244,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncServerStreamingCall<global::NeoFS.API.v2.Object.GetResponse> Get(global::NeoFS.API.v2.Object.GetRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncServerStreamingCall<global::Neo.FileSystem.API.Object.GetResponse> Get(global::Neo.FileSystem.API.Object.GetRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncServerStreamingCall(__Method_Get, null, options, request);
       }
@@ -260,7 +260,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncClientStreamingCall<global::NeoFS.API.v2.Object.PutRequest, global::NeoFS.API.v2.Object.PutResponse> Put(grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncClientStreamingCall<global::Neo.FileSystem.API.Object.PutRequest, global::Neo.FileSystem.API.Object.PutResponse> Put(grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return Put(new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -274,7 +274,7 @@ namespace NeoFS.API.v2.Object {
       /// </summary>
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncClientStreamingCall<global::NeoFS.API.v2.Object.PutRequest, global::NeoFS.API.v2.Object.PutResponse> Put(grpc::CallOptions options)
+      public virtual grpc::AsyncClientStreamingCall<global::Neo.FileSystem.API.Object.PutRequest, global::Neo.FileSystem.API.Object.PutResponse> Put(grpc::CallOptions options)
       {
         return CallInvoker.AsyncClientStreamingCall(__Method_Put, null, options);
       }
@@ -287,7 +287,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
-      public virtual global::NeoFS.API.v2.Object.DeleteResponse Delete(global::NeoFS.API.v2.Object.DeleteRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Neo.FileSystem.API.Object.DeleteResponse Delete(global::Neo.FileSystem.API.Object.DeleteRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return Delete(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -298,7 +298,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
-      public virtual global::NeoFS.API.v2.Object.DeleteResponse Delete(global::NeoFS.API.v2.Object.DeleteRequest request, grpc::CallOptions options)
+      public virtual global::Neo.FileSystem.API.Object.DeleteResponse Delete(global::Neo.FileSystem.API.Object.DeleteRequest request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_Delete, null, options, request);
       }
@@ -311,7 +311,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncUnaryCall<global::NeoFS.API.v2.Object.DeleteResponse> DeleteAsync(global::NeoFS.API.v2.Object.DeleteRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileSystem.API.Object.DeleteResponse> DeleteAsync(global::Neo.FileSystem.API.Object.DeleteRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return DeleteAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -322,7 +322,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncUnaryCall<global::NeoFS.API.v2.Object.DeleteResponse> DeleteAsync(global::NeoFS.API.v2.Object.DeleteRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileSystem.API.Object.DeleteResponse> DeleteAsync(global::Neo.FileSystem.API.Object.DeleteRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_Delete, null, options, request);
       }
@@ -336,7 +336,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
-      public virtual global::NeoFS.API.v2.Object.HeadResponse Head(global::NeoFS.API.v2.Object.HeadRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Neo.FileSystem.API.Object.HeadResponse Head(global::Neo.FileSystem.API.Object.HeadRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return Head(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -348,7 +348,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
-      public virtual global::NeoFS.API.v2.Object.HeadResponse Head(global::NeoFS.API.v2.Object.HeadRequest request, grpc::CallOptions options)
+      public virtual global::Neo.FileSystem.API.Object.HeadResponse Head(global::Neo.FileSystem.API.Object.HeadRequest request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_Head, null, options, request);
       }
@@ -362,7 +362,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncUnaryCall<global::NeoFS.API.v2.Object.HeadResponse> HeadAsync(global::NeoFS.API.v2.Object.HeadRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileSystem.API.Object.HeadResponse> HeadAsync(global::Neo.FileSystem.API.Object.HeadRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return HeadAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -374,7 +374,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncUnaryCall<global::NeoFS.API.v2.Object.HeadResponse> HeadAsync(global::NeoFS.API.v2.Object.HeadRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileSystem.API.Object.HeadResponse> HeadAsync(global::Neo.FileSystem.API.Object.HeadRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_Head, null, options, request);
       }
@@ -388,7 +388,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncServerStreamingCall<global::NeoFS.API.v2.Object.SearchResponse> Search(global::NeoFS.API.v2.Object.SearchRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncServerStreamingCall<global::Neo.FileSystem.API.Object.SearchResponse> Search(global::Neo.FileSystem.API.Object.SearchRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return Search(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -400,7 +400,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncServerStreamingCall<global::NeoFS.API.v2.Object.SearchResponse> Search(global::NeoFS.API.v2.Object.SearchRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncServerStreamingCall<global::Neo.FileSystem.API.Object.SearchResponse> Search(global::Neo.FileSystem.API.Object.SearchRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncServerStreamingCall(__Method_Search, null, options, request);
       }
@@ -415,7 +415,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncServerStreamingCall<global::NeoFS.API.v2.Object.GetRangeResponse> GetRange(global::NeoFS.API.v2.Object.GetRangeRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncServerStreamingCall<global::Neo.FileSystem.API.Object.GetRangeResponse> GetRange(global::Neo.FileSystem.API.Object.GetRangeRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return GetRange(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -428,7 +428,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncServerStreamingCall<global::NeoFS.API.v2.Object.GetRangeResponse> GetRange(global::NeoFS.API.v2.Object.GetRangeRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncServerStreamingCall<global::Neo.FileSystem.API.Object.GetRangeResponse> GetRange(global::Neo.FileSystem.API.Object.GetRangeRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncServerStreamingCall(__Method_GetRange, null, options, request);
       }
@@ -443,7 +443,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
-      public virtual global::NeoFS.API.v2.Object.GetRangeHashResponse GetRangeHash(global::NeoFS.API.v2.Object.GetRangeHashRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Neo.FileSystem.API.Object.GetRangeHashResponse GetRangeHash(global::Neo.FileSystem.API.Object.GetRangeHashRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return GetRangeHash(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -456,7 +456,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
-      public virtual global::NeoFS.API.v2.Object.GetRangeHashResponse GetRangeHash(global::NeoFS.API.v2.Object.GetRangeHashRequest request, grpc::CallOptions options)
+      public virtual global::Neo.FileSystem.API.Object.GetRangeHashResponse GetRangeHash(global::Neo.FileSystem.API.Object.GetRangeHashRequest request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_GetRangeHash, null, options, request);
       }
@@ -471,7 +471,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncUnaryCall<global::NeoFS.API.v2.Object.GetRangeHashResponse> GetRangeHashAsync(global::NeoFS.API.v2.Object.GetRangeHashRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileSystem.API.Object.GetRangeHashResponse> GetRangeHashAsync(global::Neo.FileSystem.API.Object.GetRangeHashRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return GetRangeHashAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -484,7 +484,7 @@ namespace NeoFS.API.v2.Object {
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncUnaryCall<global::NeoFS.API.v2.Object.GetRangeHashResponse> GetRangeHashAsync(global::NeoFS.API.v2.Object.GetRangeHashRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileSystem.API.Object.GetRangeHashResponse> GetRangeHashAsync(global::Neo.FileSystem.API.Object.GetRangeHashRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_GetRangeHash, null, options, request);
       }
@@ -515,13 +515,13 @@ namespace NeoFS.API.v2.Object {
     /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
     public static void BindService(grpc::ServiceBinderBase serviceBinder, ObjectServiceBase serviceImpl)
     {
-      serviceBinder.AddMethod(__Method_Get, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::NeoFS.API.v2.Object.GetRequest, global::NeoFS.API.v2.Object.GetResponse>(serviceImpl.Get));
-      serviceBinder.AddMethod(__Method_Put, serviceImpl == null ? null : new grpc::ClientStreamingServerMethod<global::NeoFS.API.v2.Object.PutRequest, global::NeoFS.API.v2.Object.PutResponse>(serviceImpl.Put));
-      serviceBinder.AddMethod(__Method_Delete, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::NeoFS.API.v2.Object.DeleteRequest, global::NeoFS.API.v2.Object.DeleteResponse>(serviceImpl.Delete));
-      serviceBinder.AddMethod(__Method_Head, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::NeoFS.API.v2.Object.HeadRequest, global::NeoFS.API.v2.Object.HeadResponse>(serviceImpl.Head));
-      serviceBinder.AddMethod(__Method_Search, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::NeoFS.API.v2.Object.SearchRequest, global::NeoFS.API.v2.Object.SearchResponse>(serviceImpl.Search));
-      serviceBinder.AddMethod(__Method_GetRange, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::NeoFS.API.v2.Object.GetRangeRequest, global::NeoFS.API.v2.Object.GetRangeResponse>(serviceImpl.GetRange));
-      serviceBinder.AddMethod(__Method_GetRangeHash, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::NeoFS.API.v2.Object.GetRangeHashRequest, global::NeoFS.API.v2.Object.GetRangeHashResponse>(serviceImpl.GetRangeHash));
+      serviceBinder.AddMethod(__Method_Get, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::Neo.FileSystem.API.Object.GetRequest, global::Neo.FileSystem.API.Object.GetResponse>(serviceImpl.Get));
+      serviceBinder.AddMethod(__Method_Put, serviceImpl == null ? null : new grpc::ClientStreamingServerMethod<global::Neo.FileSystem.API.Object.PutRequest, global::Neo.FileSystem.API.Object.PutResponse>(serviceImpl.Put));
+      serviceBinder.AddMethod(__Method_Delete, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileSystem.API.Object.DeleteRequest, global::Neo.FileSystem.API.Object.DeleteResponse>(serviceImpl.Delete));
+      serviceBinder.AddMethod(__Method_Head, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileSystem.API.Object.HeadRequest, global::Neo.FileSystem.API.Object.HeadResponse>(serviceImpl.Head));
+      serviceBinder.AddMethod(__Method_Search, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::Neo.FileSystem.API.Object.SearchRequest, global::Neo.FileSystem.API.Object.SearchResponse>(serviceImpl.Search));
+      serviceBinder.AddMethod(__Method_GetRange, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::Neo.FileSystem.API.Object.GetRangeRequest, global::Neo.FileSystem.API.Object.GetRangeResponse>(serviceImpl.GetRange));
+      serviceBinder.AddMethod(__Method_GetRangeHash, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileSystem.API.Object.GetRangeHashRequest, global::Neo.FileSystem.API.Object.GetRangeHashResponse>(serviceImpl.GetRangeHash));
     }
 
   }

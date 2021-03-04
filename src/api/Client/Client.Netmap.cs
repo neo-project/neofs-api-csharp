@@ -1,9 +1,9 @@
-using NeoFS.API.v2.Cryptography;
-using NeoFS.API.v2.Netmap;
+using Neo.FileSystem.API.Cryptography;
+using Neo.FileSystem.API.Netmap;
 using System;
 using System.Threading;
 
-namespace NeoFS.API.v2.Client
+namespace Neo.FileSystem.API.Client
 {
     public partial class Client
     {

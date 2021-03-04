@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace NeoFS.API.v2.Container {
+namespace Neo.FileSystem.API.Container {
 
   /// <summary>Holder for reflection information generated from container/service.proto</summary>
   public static partial class ServiceReflection {
@@ -127,26 +127,27 @@ namespace NeoFS.API.v2.Container {
             "Q0xSZXF1ZXN0GisubmVvLmZzLnYyLmNvbnRhaW5lci5HZXRFeHRlbmRlZEFD",
             "TFJlc3BvbnNlEnIKEUFubm91bmNlVXNlZFNwYWNlEi0ubmVvLmZzLnYyLmNv",
             "bnRhaW5lci5Bbm5vdW5jZVVzZWRTcGFjZVJlcXVlc3QaLi5uZW8uZnMudjIu",
-            "Y29udGFpbmVyLkFubm91bmNlVXNlZFNwYWNlUmVzcG9uc2VCWFo9Z2l0aHVi",
+            "Y29udGFpbmVyLkFubm91bmNlVXNlZFNwYWNlUmVzcG9uc2VCXlo9Z2l0aHVi",
             "LmNvbS9uc3BjYy1kZXYvbmVvZnMtYXBpLWdvL3YyL2NvbnRhaW5lci9ncnBj",
-            "O2NvbnRhaW5lcqoCFk5lb0ZTLkFQSS52Mi5Db250YWluZXJiBnByb3RvMw=="));
+            "O2NvbnRhaW5lcqoCHE5lby5GaWxlU3lzdGVtLkFQSS5Db250YWluZXJiBnBy",
+            "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::NeoFS.API.v2.Acl.TypesReflection.Descriptor, global::NeoFS.API.v2.Container.TypesReflection.Descriptor, global::NeoFS.API.v2.Refs.TypesReflection.Descriptor, global::NeoFS.API.v2.Session.TypesReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Neo.FileSystem.API.Acl.TypesReflection.Descriptor, global::Neo.FileSystem.API.Container.TypesReflection.Descriptor, global::Neo.FileSystem.API.Refs.TypesReflection.Descriptor, global::Neo.FileSystem.API.Session.TypesReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.PutRequest), global::NeoFS.API.v2.Container.PutRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.PutRequest.Types.Body), global::NeoFS.API.v2.Container.PutRequest.Types.Body.Parser, new[]{ "Container", "Signature" }, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.PutResponse), global::NeoFS.API.v2.Container.PutResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.PutResponse.Types.Body), global::NeoFS.API.v2.Container.PutResponse.Types.Body.Parser, new[]{ "ContainerId" }, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.DeleteRequest), global::NeoFS.API.v2.Container.DeleteRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.DeleteRequest.Types.Body), global::NeoFS.API.v2.Container.DeleteRequest.Types.Body.Parser, new[]{ "ContainerId", "Signature" }, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.DeleteResponse), global::NeoFS.API.v2.Container.DeleteResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.DeleteResponse.Types.Body), global::NeoFS.API.v2.Container.DeleteResponse.Types.Body.Parser, null, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.GetRequest), global::NeoFS.API.v2.Container.GetRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.GetRequest.Types.Body), global::NeoFS.API.v2.Container.GetRequest.Types.Body.Parser, new[]{ "ContainerId" }, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.GetResponse), global::NeoFS.API.v2.Container.GetResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.GetResponse.Types.Body), global::NeoFS.API.v2.Container.GetResponse.Types.Body.Parser, new[]{ "Container" }, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.ListRequest), global::NeoFS.API.v2.Container.ListRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.ListRequest.Types.Body), global::NeoFS.API.v2.Container.ListRequest.Types.Body.Parser, new[]{ "OwnerId" }, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.ListResponse), global::NeoFS.API.v2.Container.ListResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.ListResponse.Types.Body), global::NeoFS.API.v2.Container.ListResponse.Types.Body.Parser, new[]{ "ContainerIds" }, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.SetExtendedACLRequest), global::NeoFS.API.v2.Container.SetExtendedACLRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.SetExtendedACLRequest.Types.Body), global::NeoFS.API.v2.Container.SetExtendedACLRequest.Types.Body.Parser, new[]{ "Eacl", "Signature" }, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.SetExtendedACLResponse), global::NeoFS.API.v2.Container.SetExtendedACLResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.SetExtendedACLResponse.Types.Body), global::NeoFS.API.v2.Container.SetExtendedACLResponse.Types.Body.Parser, null, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.GetExtendedACLRequest), global::NeoFS.API.v2.Container.GetExtendedACLRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.GetExtendedACLRequest.Types.Body), global::NeoFS.API.v2.Container.GetExtendedACLRequest.Types.Body.Parser, new[]{ "ContainerId" }, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.GetExtendedACLResponse), global::NeoFS.API.v2.Container.GetExtendedACLResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.GetExtendedACLResponse.Types.Body), global::NeoFS.API.v2.Container.GetExtendedACLResponse.Types.Body.Parser, new[]{ "Eacl", "Signature" }, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest), global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Types.Body), global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Types.Body.Parser, new[]{ "Announcements" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement), global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement.Parser, new[]{ "Epoch", "ContainerId", "UsedSpace" }, null, null, null, null)})}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.AnnounceUsedSpaceResponse), global::NeoFS.API.v2.Container.AnnounceUsedSpaceResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::NeoFS.API.v2.Container.AnnounceUsedSpaceResponse.Types.Body), global::NeoFS.API.v2.Container.AnnounceUsedSpaceResponse.Types.Body.Parser, null, null, null, null, null)})
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.PutRequest), global::Neo.FileSystem.API.Container.PutRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.PutRequest.Types.Body), global::Neo.FileSystem.API.Container.PutRequest.Types.Body.Parser, new[]{ "Container", "Signature" }, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.PutResponse), global::Neo.FileSystem.API.Container.PutResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.PutResponse.Types.Body), global::Neo.FileSystem.API.Container.PutResponse.Types.Body.Parser, new[]{ "ContainerId" }, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.DeleteRequest), global::Neo.FileSystem.API.Container.DeleteRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.DeleteRequest.Types.Body), global::Neo.FileSystem.API.Container.DeleteRequest.Types.Body.Parser, new[]{ "ContainerId", "Signature" }, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.DeleteResponse), global::Neo.FileSystem.API.Container.DeleteResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.DeleteResponse.Types.Body), global::Neo.FileSystem.API.Container.DeleteResponse.Types.Body.Parser, null, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.GetRequest), global::Neo.FileSystem.API.Container.GetRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.GetRequest.Types.Body), global::Neo.FileSystem.API.Container.GetRequest.Types.Body.Parser, new[]{ "ContainerId" }, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.GetResponse), global::Neo.FileSystem.API.Container.GetResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.GetResponse.Types.Body), global::Neo.FileSystem.API.Container.GetResponse.Types.Body.Parser, new[]{ "Container" }, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.ListRequest), global::Neo.FileSystem.API.Container.ListRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.ListRequest.Types.Body), global::Neo.FileSystem.API.Container.ListRequest.Types.Body.Parser, new[]{ "OwnerId" }, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.ListResponse), global::Neo.FileSystem.API.Container.ListResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.ListResponse.Types.Body), global::Neo.FileSystem.API.Container.ListResponse.Types.Body.Parser, new[]{ "ContainerIds" }, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.SetExtendedACLRequest), global::Neo.FileSystem.API.Container.SetExtendedACLRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.SetExtendedACLRequest.Types.Body), global::Neo.FileSystem.API.Container.SetExtendedACLRequest.Types.Body.Parser, new[]{ "Eacl", "Signature" }, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.SetExtendedACLResponse), global::Neo.FileSystem.API.Container.SetExtendedACLResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.SetExtendedACLResponse.Types.Body), global::Neo.FileSystem.API.Container.SetExtendedACLResponse.Types.Body.Parser, null, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.GetExtendedACLRequest), global::Neo.FileSystem.API.Container.GetExtendedACLRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.GetExtendedACLRequest.Types.Body), global::Neo.FileSystem.API.Container.GetExtendedACLRequest.Types.Body.Parser, new[]{ "ContainerId" }, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.GetExtendedACLResponse), global::Neo.FileSystem.API.Container.GetExtendedACLResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.GetExtendedACLResponse.Types.Body), global::Neo.FileSystem.API.Container.GetExtendedACLResponse.Types.Body.Parser, new[]{ "Eacl", "Signature" }, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest), global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body), global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body.Parser, new[]{ "Announcements" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement), global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement.Parser, new[]{ "Epoch", "ContainerId", "UsedSpace" }, null, null, null, null)})}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.AnnounceUsedSpaceResponse), global::Neo.FileSystem.API.Container.AnnounceUsedSpaceResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileSystem.API.Container.AnnounceUsedSpaceResponse.Types.Body), global::Neo.FileSystem.API.Container.AnnounceUsedSpaceResponse.Types.Body.Parser, null, null, null, null, null)})
           }));
     }
     #endregion
@@ -164,7 +165,7 @@ namespace NeoFS.API.v2.Container {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Container.ServiceReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Neo.FileSystem.API.Container.ServiceReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -194,12 +195,12 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Container.PutRequest.Types.Body body_;
+    private global::Neo.FileSystem.API.Container.PutRequest.Types.Body body_;
     /// <summary>
     /// Body of container put request message.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Container.PutRequest.Types.Body Body {
+    public global::Neo.FileSystem.API.Container.PutRequest.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -208,13 +209,13 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "meta_header" field.</summary>
     public const int MetaHeaderFieldNumber = 2;
-    private global::NeoFS.API.v2.Session.RequestMetaHeader metaHeader_;
+    private global::Neo.FileSystem.API.Session.RequestMetaHeader metaHeader_;
     /// <summary>
     /// Carries request meta information. Header data is used only to regulate
     /// message transport and does not affect request execution.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestMetaHeader MetaHeader {
+    public global::Neo.FileSystem.API.Session.RequestMetaHeader MetaHeader {
       get { return metaHeader_; }
       set {
         metaHeader_ = value;
@@ -223,14 +224,14 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "verify_header" field.</summary>
     public const int VerifyHeaderFieldNumber = 3;
-    private global::NeoFS.API.v2.Session.RequestVerificationHeader verifyHeader_;
+    private global::Neo.FileSystem.API.Session.RequestVerificationHeader verifyHeader_;
     /// <summary>
     /// Carries request verification information. This header is used to
     /// authenticate the nodes of the message route and check the correctness of
     /// transmission.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestVerificationHeader VerifyHeader {
+    public global::Neo.FileSystem.API.Session.RequestVerificationHeader VerifyHeader {
       get { return verifyHeader_; }
       set {
         verifyHeader_ = value;
@@ -317,19 +318,19 @@ namespace NeoFS.API.v2.Container {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Container.PutRequest.Types.Body();
+          Body = new global::Neo.FileSystem.API.Container.PutRequest.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.metaHeader_ != null) {
         if (metaHeader_ == null) {
-          MetaHeader = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+          MetaHeader = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
         }
         MetaHeader.MergeFrom(other.MetaHeader);
       }
       if (other.verifyHeader_ != null) {
         if (verifyHeader_ == null) {
-          VerifyHeader = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+          VerifyHeader = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
         }
         VerifyHeader.MergeFrom(other.VerifyHeader);
       }
@@ -346,21 +347,21 @@ namespace NeoFS.API.v2.Container {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Container.PutRequest.Types.Body();
+              Body = new global::Neo.FileSystem.API.Container.PutRequest.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (metaHeader_ == null) {
-              MetaHeader = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+              MetaHeader = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
             }
             input.ReadMessage(MetaHeader);
             break;
           }
           case 26: {
             if (verifyHeader_ == null) {
-              VerifyHeader = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+              VerifyHeader = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
             }
             input.ReadMessage(VerifyHeader);
             break;
@@ -388,7 +389,7 @@ namespace NeoFS.API.v2.Container {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Container.PutRequest.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Container.PutRequest.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -417,12 +418,12 @@ namespace NeoFS.API.v2.Container {
 
         /// <summary>Field number for the "container" field.</summary>
         public const int ContainerFieldNumber = 1;
-        private global::NeoFS.API.v2.Container.Container container_;
+        private global::Neo.FileSystem.API.Container.Container container_;
         /// <summary>
         /// Container structure to register in NeoFS
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Container.Container Container {
+        public global::Neo.FileSystem.API.Container.Container Container {
           get { return container_; }
           set {
             container_ = value;
@@ -431,12 +432,12 @@ namespace NeoFS.API.v2.Container {
 
         /// <summary>Field number for the "signature" field.</summary>
         public const int SignatureFieldNumber = 2;
-        private global::NeoFS.API.v2.Refs.Signature signature_;
+        private global::Neo.FileSystem.API.Refs.Signature signature_;
         /// <summary>
         /// Signature of a stable-marshalled container according to RFC-6979
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Refs.Signature Signature {
+        public global::Neo.FileSystem.API.Refs.Signature Signature {
           get { return signature_; }
           set {
             signature_ = value;
@@ -514,13 +515,13 @@ namespace NeoFS.API.v2.Container {
           }
           if (other.container_ != null) {
             if (container_ == null) {
-              Container = new global::NeoFS.API.v2.Container.Container();
+              Container = new global::Neo.FileSystem.API.Container.Container();
             }
             Container.MergeFrom(other.Container);
           }
           if (other.signature_ != null) {
             if (signature_ == null) {
-              Signature = new global::NeoFS.API.v2.Refs.Signature();
+              Signature = new global::Neo.FileSystem.API.Refs.Signature();
             }
             Signature.MergeFrom(other.Signature);
           }
@@ -537,14 +538,14 @@ namespace NeoFS.API.v2.Container {
                 break;
               case 10: {
                 if (container_ == null) {
-                  Container = new global::NeoFS.API.v2.Container.Container();
+                  Container = new global::Neo.FileSystem.API.Container.Container();
                 }
                 input.ReadMessage(Container);
                 break;
               }
               case 18: {
                 if (signature_ == null) {
-                  Signature = new global::NeoFS.API.v2.Refs.Signature();
+                  Signature = new global::Neo.FileSystem.API.Refs.Signature();
                 }
                 input.ReadMessage(Signature);
                 break;
@@ -571,7 +572,7 @@ namespace NeoFS.API.v2.Container {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Container.ServiceReflection.Descriptor.MessageTypes[1]; }
+      get { return global::Neo.FileSystem.API.Container.ServiceReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -601,12 +602,12 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Container.PutResponse.Types.Body body_;
+    private global::Neo.FileSystem.API.Container.PutResponse.Types.Body body_;
     /// <summary>
     /// Body of container put response message.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Container.PutResponse.Types.Body Body {
+    public global::Neo.FileSystem.API.Container.PutResponse.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -615,13 +616,13 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "meta_header" field.</summary>
     public const int MetaHeaderFieldNumber = 2;
-    private global::NeoFS.API.v2.Session.ResponseMetaHeader metaHeader_;
+    private global::Neo.FileSystem.API.Session.ResponseMetaHeader metaHeader_;
     /// <summary>
     /// Carries response meta information. Header data is used only to regulate
     /// message transport and does not affect request execution.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseMetaHeader MetaHeader {
+    public global::Neo.FileSystem.API.Session.ResponseMetaHeader MetaHeader {
       get { return metaHeader_; }
       set {
         metaHeader_ = value;
@@ -630,14 +631,14 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "verify_header" field.</summary>
     public const int VerifyHeaderFieldNumber = 3;
-    private global::NeoFS.API.v2.Session.ResponseVerificationHeader verifyHeader_;
+    private global::Neo.FileSystem.API.Session.ResponseVerificationHeader verifyHeader_;
     /// <summary>
     /// Carries response verification information. This header is used to
     /// authenticate the nodes of the message route and check the correctness of
     /// transmission.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseVerificationHeader VerifyHeader {
+    public global::Neo.FileSystem.API.Session.ResponseVerificationHeader VerifyHeader {
       get { return verifyHeader_; }
       set {
         verifyHeader_ = value;
@@ -724,19 +725,19 @@ namespace NeoFS.API.v2.Container {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Container.PutResponse.Types.Body();
+          Body = new global::Neo.FileSystem.API.Container.PutResponse.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.metaHeader_ != null) {
         if (metaHeader_ == null) {
-          MetaHeader = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+          MetaHeader = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
         }
         MetaHeader.MergeFrom(other.MetaHeader);
       }
       if (other.verifyHeader_ != null) {
         if (verifyHeader_ == null) {
-          VerifyHeader = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+          VerifyHeader = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
         }
         VerifyHeader.MergeFrom(other.VerifyHeader);
       }
@@ -753,21 +754,21 @@ namespace NeoFS.API.v2.Container {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Container.PutResponse.Types.Body();
+              Body = new global::Neo.FileSystem.API.Container.PutResponse.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (metaHeader_ == null) {
-              MetaHeader = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+              MetaHeader = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
             }
             input.ReadMessage(MetaHeader);
             break;
           }
           case 26: {
             if (verifyHeader_ == null) {
-              VerifyHeader = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+              VerifyHeader = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
             }
             input.ReadMessage(VerifyHeader);
             break;
@@ -794,7 +795,7 @@ namespace NeoFS.API.v2.Container {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Container.PutResponse.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Container.PutResponse.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -822,12 +823,12 @@ namespace NeoFS.API.v2.Container {
 
         /// <summary>Field number for the "container_id" field.</summary>
         public const int ContainerIdFieldNumber = 1;
-        private global::NeoFS.API.v2.Refs.ContainerID containerId_;
+        private global::Neo.FileSystem.API.Refs.ContainerID containerId_;
         /// <summary>
         /// Unique identifier of the newly created container
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Refs.ContainerID ContainerId {
+        public global::Neo.FileSystem.API.Refs.ContainerID ContainerId {
           get { return containerId_; }
           set {
             containerId_ = value;
@@ -896,7 +897,7 @@ namespace NeoFS.API.v2.Container {
           }
           if (other.containerId_ != null) {
             if (containerId_ == null) {
-              ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+              ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
             }
             ContainerId.MergeFrom(other.ContainerId);
           }
@@ -913,7 +914,7 @@ namespace NeoFS.API.v2.Container {
                 break;
               case 10: {
                 if (containerId_ == null) {
-                  ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+                  ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
                 }
                 input.ReadMessage(ContainerId);
                 break;
@@ -940,7 +941,7 @@ namespace NeoFS.API.v2.Container {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Container.ServiceReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Neo.FileSystem.API.Container.ServiceReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -970,12 +971,12 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Container.DeleteRequest.Types.Body body_;
+    private global::Neo.FileSystem.API.Container.DeleteRequest.Types.Body body_;
     /// <summary>
     /// Body of container delete request message.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Container.DeleteRequest.Types.Body Body {
+    public global::Neo.FileSystem.API.Container.DeleteRequest.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -984,13 +985,13 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "meta_header" field.</summary>
     public const int MetaHeaderFieldNumber = 2;
-    private global::NeoFS.API.v2.Session.RequestMetaHeader metaHeader_;
+    private global::Neo.FileSystem.API.Session.RequestMetaHeader metaHeader_;
     /// <summary>
     /// Carries request meta information. Header data is used only to regulate
     /// message transport and does not affect request execution.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestMetaHeader MetaHeader {
+    public global::Neo.FileSystem.API.Session.RequestMetaHeader MetaHeader {
       get { return metaHeader_; }
       set {
         metaHeader_ = value;
@@ -999,14 +1000,14 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "verify_header" field.</summary>
     public const int VerifyHeaderFieldNumber = 3;
-    private global::NeoFS.API.v2.Session.RequestVerificationHeader verifyHeader_;
+    private global::Neo.FileSystem.API.Session.RequestVerificationHeader verifyHeader_;
     /// <summary>
     /// Carries request verification information. This header is used to
     /// authenticate the nodes of the message route and check the correctness of
     /// transmission.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestVerificationHeader VerifyHeader {
+    public global::Neo.FileSystem.API.Session.RequestVerificationHeader VerifyHeader {
       get { return verifyHeader_; }
       set {
         verifyHeader_ = value;
@@ -1093,19 +1094,19 @@ namespace NeoFS.API.v2.Container {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Container.DeleteRequest.Types.Body();
+          Body = new global::Neo.FileSystem.API.Container.DeleteRequest.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.metaHeader_ != null) {
         if (metaHeader_ == null) {
-          MetaHeader = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+          MetaHeader = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
         }
         MetaHeader.MergeFrom(other.MetaHeader);
       }
       if (other.verifyHeader_ != null) {
         if (verifyHeader_ == null) {
-          VerifyHeader = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+          VerifyHeader = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
         }
         VerifyHeader.MergeFrom(other.VerifyHeader);
       }
@@ -1122,21 +1123,21 @@ namespace NeoFS.API.v2.Container {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Container.DeleteRequest.Types.Body();
+              Body = new global::Neo.FileSystem.API.Container.DeleteRequest.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (metaHeader_ == null) {
-              MetaHeader = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+              MetaHeader = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
             }
             input.ReadMessage(MetaHeader);
             break;
           }
           case 26: {
             if (verifyHeader_ == null) {
-              VerifyHeader = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+              VerifyHeader = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
             }
             input.ReadMessage(VerifyHeader);
             break;
@@ -1162,7 +1163,7 @@ namespace NeoFS.API.v2.Container {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Container.DeleteRequest.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Container.DeleteRequest.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1191,12 +1192,12 @@ namespace NeoFS.API.v2.Container {
 
         /// <summary>Field number for the "container_id" field.</summary>
         public const int ContainerIdFieldNumber = 1;
-        private global::NeoFS.API.v2.Refs.ContainerID containerId_;
+        private global::Neo.FileSystem.API.Refs.ContainerID containerId_;
         /// <summary>
         /// Identifier of the container to delete from NeoFS
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Refs.ContainerID ContainerId {
+        public global::Neo.FileSystem.API.Refs.ContainerID ContainerId {
           get { return containerId_; }
           set {
             containerId_ = value;
@@ -1205,12 +1206,12 @@ namespace NeoFS.API.v2.Container {
 
         /// <summary>Field number for the "signature" field.</summary>
         public const int SignatureFieldNumber = 2;
-        private global::NeoFS.API.v2.Refs.Signature signature_;
+        private global::Neo.FileSystem.API.Refs.Signature signature_;
         /// <summary>
         /// `ContainerID` signed with the container owner's key according to RFC-6979
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Refs.Signature Signature {
+        public global::Neo.FileSystem.API.Refs.Signature Signature {
           get { return signature_; }
           set {
             signature_ = value;
@@ -1288,13 +1289,13 @@ namespace NeoFS.API.v2.Container {
           }
           if (other.containerId_ != null) {
             if (containerId_ == null) {
-              ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+              ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
             }
             ContainerId.MergeFrom(other.ContainerId);
           }
           if (other.signature_ != null) {
             if (signature_ == null) {
-              Signature = new global::NeoFS.API.v2.Refs.Signature();
+              Signature = new global::Neo.FileSystem.API.Refs.Signature();
             }
             Signature.MergeFrom(other.Signature);
           }
@@ -1311,14 +1312,14 @@ namespace NeoFS.API.v2.Container {
                 break;
               case 10: {
                 if (containerId_ == null) {
-                  ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+                  ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
                 }
                 input.ReadMessage(ContainerId);
                 break;
               }
               case 18: {
                 if (signature_ == null) {
-                  Signature = new global::NeoFS.API.v2.Refs.Signature();
+                  Signature = new global::Neo.FileSystem.API.Refs.Signature();
                 }
                 input.ReadMessage(Signature);
                 break;
@@ -1346,7 +1347,7 @@ namespace NeoFS.API.v2.Container {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Container.ServiceReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Neo.FileSystem.API.Container.ServiceReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1376,12 +1377,12 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Container.DeleteResponse.Types.Body body_;
+    private global::Neo.FileSystem.API.Container.DeleteResponse.Types.Body body_;
     /// <summary>
     /// Body of container delete response message.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Container.DeleteResponse.Types.Body Body {
+    public global::Neo.FileSystem.API.Container.DeleteResponse.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -1390,13 +1391,13 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "meta_header" field.</summary>
     public const int MetaHeaderFieldNumber = 2;
-    private global::NeoFS.API.v2.Session.ResponseMetaHeader metaHeader_;
+    private global::Neo.FileSystem.API.Session.ResponseMetaHeader metaHeader_;
     /// <summary>
     /// Carries response meta information. Header data is used only to regulate
     /// message transport and does not affect request execution.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseMetaHeader MetaHeader {
+    public global::Neo.FileSystem.API.Session.ResponseMetaHeader MetaHeader {
       get { return metaHeader_; }
       set {
         metaHeader_ = value;
@@ -1405,14 +1406,14 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "verify_header" field.</summary>
     public const int VerifyHeaderFieldNumber = 3;
-    private global::NeoFS.API.v2.Session.ResponseVerificationHeader verifyHeader_;
+    private global::Neo.FileSystem.API.Session.ResponseVerificationHeader verifyHeader_;
     /// <summary>
     /// Carries response verification information. This header is used to
     /// authenticate the nodes of the message route and check the correctness of
     /// transmission.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseVerificationHeader VerifyHeader {
+    public global::Neo.FileSystem.API.Session.ResponseVerificationHeader VerifyHeader {
       get { return verifyHeader_; }
       set {
         verifyHeader_ = value;
@@ -1499,19 +1500,19 @@ namespace NeoFS.API.v2.Container {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Container.DeleteResponse.Types.Body();
+          Body = new global::Neo.FileSystem.API.Container.DeleteResponse.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.metaHeader_ != null) {
         if (metaHeader_ == null) {
-          MetaHeader = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+          MetaHeader = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
         }
         MetaHeader.MergeFrom(other.MetaHeader);
       }
       if (other.verifyHeader_ != null) {
         if (verifyHeader_ == null) {
-          VerifyHeader = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+          VerifyHeader = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
         }
         VerifyHeader.MergeFrom(other.VerifyHeader);
       }
@@ -1528,21 +1529,21 @@ namespace NeoFS.API.v2.Container {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Container.DeleteResponse.Types.Body();
+              Body = new global::Neo.FileSystem.API.Container.DeleteResponse.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (metaHeader_ == null) {
-              MetaHeader = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+              MetaHeader = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
             }
             input.ReadMessage(MetaHeader);
             break;
           }
           case 26: {
             if (verifyHeader_ == null) {
-              VerifyHeader = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+              VerifyHeader = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
             }
             input.ReadMessage(VerifyHeader);
             break;
@@ -1567,7 +1568,7 @@ namespace NeoFS.API.v2.Container {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Container.DeleteResponse.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Container.DeleteResponse.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1676,7 +1677,7 @@ namespace NeoFS.API.v2.Container {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Container.ServiceReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Neo.FileSystem.API.Container.ServiceReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1706,12 +1707,12 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Container.GetRequest.Types.Body body_;
+    private global::Neo.FileSystem.API.Container.GetRequest.Types.Body body_;
     /// <summary>
     /// Body of container get request message.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Container.GetRequest.Types.Body Body {
+    public global::Neo.FileSystem.API.Container.GetRequest.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -1720,13 +1721,13 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "meta_header" field.</summary>
     public const int MetaHeaderFieldNumber = 2;
-    private global::NeoFS.API.v2.Session.RequestMetaHeader metaHeader_;
+    private global::Neo.FileSystem.API.Session.RequestMetaHeader metaHeader_;
     /// <summary>
     /// Carries request meta information. Header data is used only to regulate
     /// message transport and does not affect request execution.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestMetaHeader MetaHeader {
+    public global::Neo.FileSystem.API.Session.RequestMetaHeader MetaHeader {
       get { return metaHeader_; }
       set {
         metaHeader_ = value;
@@ -1735,14 +1736,14 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "verify_header" field.</summary>
     public const int VerifyHeaderFieldNumber = 3;
-    private global::NeoFS.API.v2.Session.RequestVerificationHeader verifyHeader_;
+    private global::Neo.FileSystem.API.Session.RequestVerificationHeader verifyHeader_;
     /// <summary>
     /// Carries request verification information. This header is used to
     /// authenticate the nodes of the message route and check the correctness of
     /// transmission.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestVerificationHeader VerifyHeader {
+    public global::Neo.FileSystem.API.Session.RequestVerificationHeader VerifyHeader {
       get { return verifyHeader_; }
       set {
         verifyHeader_ = value;
@@ -1829,19 +1830,19 @@ namespace NeoFS.API.v2.Container {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Container.GetRequest.Types.Body();
+          Body = new global::Neo.FileSystem.API.Container.GetRequest.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.metaHeader_ != null) {
         if (metaHeader_ == null) {
-          MetaHeader = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+          MetaHeader = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
         }
         MetaHeader.MergeFrom(other.MetaHeader);
       }
       if (other.verifyHeader_ != null) {
         if (verifyHeader_ == null) {
-          VerifyHeader = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+          VerifyHeader = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
         }
         VerifyHeader.MergeFrom(other.VerifyHeader);
       }
@@ -1858,21 +1859,21 @@ namespace NeoFS.API.v2.Container {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Container.GetRequest.Types.Body();
+              Body = new global::Neo.FileSystem.API.Container.GetRequest.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (metaHeader_ == null) {
-              MetaHeader = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+              MetaHeader = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
             }
             input.ReadMessage(MetaHeader);
             break;
           }
           case 26: {
             if (verifyHeader_ == null) {
-              VerifyHeader = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+              VerifyHeader = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
             }
             input.ReadMessage(VerifyHeader);
             break;
@@ -1896,7 +1897,7 @@ namespace NeoFS.API.v2.Container {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Container.GetRequest.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Container.GetRequest.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1924,12 +1925,12 @@ namespace NeoFS.API.v2.Container {
 
         /// <summary>Field number for the "container_id" field.</summary>
         public const int ContainerIdFieldNumber = 1;
-        private global::NeoFS.API.v2.Refs.ContainerID containerId_;
+        private global::Neo.FileSystem.API.Refs.ContainerID containerId_;
         /// <summary>
         /// Identifier of the container to get
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Refs.ContainerID ContainerId {
+        public global::Neo.FileSystem.API.Refs.ContainerID ContainerId {
           get { return containerId_; }
           set {
             containerId_ = value;
@@ -1998,7 +1999,7 @@ namespace NeoFS.API.v2.Container {
           }
           if (other.containerId_ != null) {
             if (containerId_ == null) {
-              ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+              ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
             }
             ContainerId.MergeFrom(other.ContainerId);
           }
@@ -2015,7 +2016,7 @@ namespace NeoFS.API.v2.Container {
                 break;
               case 10: {
                 if (containerId_ == null) {
-                  ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+                  ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
                 }
                 input.ReadMessage(ContainerId);
                 break;
@@ -2042,7 +2043,7 @@ namespace NeoFS.API.v2.Container {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Container.ServiceReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Neo.FileSystem.API.Container.ServiceReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2072,12 +2073,12 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Container.GetResponse.Types.Body body_;
+    private global::Neo.FileSystem.API.Container.GetResponse.Types.Body body_;
     /// <summary>
     /// Body of container get response message.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Container.GetResponse.Types.Body Body {
+    public global::Neo.FileSystem.API.Container.GetResponse.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -2086,13 +2087,13 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "meta_header" field.</summary>
     public const int MetaHeaderFieldNumber = 2;
-    private global::NeoFS.API.v2.Session.ResponseMetaHeader metaHeader_;
+    private global::Neo.FileSystem.API.Session.ResponseMetaHeader metaHeader_;
     /// <summary>
     /// Carries response meta information. Header data is used only to regulate
     /// message transport and does not affect request execution.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseMetaHeader MetaHeader {
+    public global::Neo.FileSystem.API.Session.ResponseMetaHeader MetaHeader {
       get { return metaHeader_; }
       set {
         metaHeader_ = value;
@@ -2101,14 +2102,14 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "verify_header" field.</summary>
     public const int VerifyHeaderFieldNumber = 3;
-    private global::NeoFS.API.v2.Session.ResponseVerificationHeader verifyHeader_;
+    private global::Neo.FileSystem.API.Session.ResponseVerificationHeader verifyHeader_;
     /// <summary>
     /// Carries response verification information. This header is used to
     /// authenticate the nodes of the message route and check the correctness of
     /// transmission.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseVerificationHeader VerifyHeader {
+    public global::Neo.FileSystem.API.Session.ResponseVerificationHeader VerifyHeader {
       get { return verifyHeader_; }
       set {
         verifyHeader_ = value;
@@ -2195,19 +2196,19 @@ namespace NeoFS.API.v2.Container {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Container.GetResponse.Types.Body();
+          Body = new global::Neo.FileSystem.API.Container.GetResponse.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.metaHeader_ != null) {
         if (metaHeader_ == null) {
-          MetaHeader = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+          MetaHeader = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
         }
         MetaHeader.MergeFrom(other.MetaHeader);
       }
       if (other.verifyHeader_ != null) {
         if (verifyHeader_ == null) {
-          VerifyHeader = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+          VerifyHeader = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
         }
         VerifyHeader.MergeFrom(other.VerifyHeader);
       }
@@ -2224,21 +2225,21 @@ namespace NeoFS.API.v2.Container {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Container.GetResponse.Types.Body();
+              Body = new global::Neo.FileSystem.API.Container.GetResponse.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (metaHeader_ == null) {
-              MetaHeader = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+              MetaHeader = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
             }
             input.ReadMessage(MetaHeader);
             break;
           }
           case 26: {
             if (verifyHeader_ == null) {
-              VerifyHeader = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+              VerifyHeader = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
             }
             input.ReadMessage(VerifyHeader);
             break;
@@ -2263,7 +2264,7 @@ namespace NeoFS.API.v2.Container {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Container.GetResponse.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Container.GetResponse.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2291,12 +2292,12 @@ namespace NeoFS.API.v2.Container {
 
         /// <summary>Field number for the "container" field.</summary>
         public const int ContainerFieldNumber = 1;
-        private global::NeoFS.API.v2.Container.Container container_;
+        private global::Neo.FileSystem.API.Container.Container container_;
         /// <summary>
         /// Requested container structure
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Container.Container Container {
+        public global::Neo.FileSystem.API.Container.Container Container {
           get { return container_; }
           set {
             container_ = value;
@@ -2365,7 +2366,7 @@ namespace NeoFS.API.v2.Container {
           }
           if (other.container_ != null) {
             if (container_ == null) {
-              Container = new global::NeoFS.API.v2.Container.Container();
+              Container = new global::Neo.FileSystem.API.Container.Container();
             }
             Container.MergeFrom(other.Container);
           }
@@ -2382,7 +2383,7 @@ namespace NeoFS.API.v2.Container {
                 break;
               case 10: {
                 if (container_ == null) {
-                  Container = new global::NeoFS.API.v2.Container.Container();
+                  Container = new global::Neo.FileSystem.API.Container.Container();
                 }
                 input.ReadMessage(Container);
                 break;
@@ -2409,7 +2410,7 @@ namespace NeoFS.API.v2.Container {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Container.ServiceReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Neo.FileSystem.API.Container.ServiceReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2439,12 +2440,12 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Container.ListRequest.Types.Body body_;
+    private global::Neo.FileSystem.API.Container.ListRequest.Types.Body body_;
     /// <summary>
     /// Body of list containers request message
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Container.ListRequest.Types.Body Body {
+    public global::Neo.FileSystem.API.Container.ListRequest.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -2453,13 +2454,13 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "meta_header" field.</summary>
     public const int MetaHeaderFieldNumber = 2;
-    private global::NeoFS.API.v2.Session.RequestMetaHeader metaHeader_;
+    private global::Neo.FileSystem.API.Session.RequestMetaHeader metaHeader_;
     /// <summary>
     /// Carries request meta information. Header data is used only to regulate
     /// message transport and does not affect request execution.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestMetaHeader MetaHeader {
+    public global::Neo.FileSystem.API.Session.RequestMetaHeader MetaHeader {
       get { return metaHeader_; }
       set {
         metaHeader_ = value;
@@ -2468,14 +2469,14 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "verify_header" field.</summary>
     public const int VerifyHeaderFieldNumber = 3;
-    private global::NeoFS.API.v2.Session.RequestVerificationHeader verifyHeader_;
+    private global::Neo.FileSystem.API.Session.RequestVerificationHeader verifyHeader_;
     /// <summary>
     /// Carries request verification information. This header is used to
     /// authenticate the nodes of the message route and check the correctness of
     /// transmission.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestVerificationHeader VerifyHeader {
+    public global::Neo.FileSystem.API.Session.RequestVerificationHeader VerifyHeader {
       get { return verifyHeader_; }
       set {
         verifyHeader_ = value;
@@ -2562,19 +2563,19 @@ namespace NeoFS.API.v2.Container {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Container.ListRequest.Types.Body();
+          Body = new global::Neo.FileSystem.API.Container.ListRequest.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.metaHeader_ != null) {
         if (metaHeader_ == null) {
-          MetaHeader = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+          MetaHeader = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
         }
         MetaHeader.MergeFrom(other.MetaHeader);
       }
       if (other.verifyHeader_ != null) {
         if (verifyHeader_ == null) {
-          VerifyHeader = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+          VerifyHeader = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
         }
         VerifyHeader.MergeFrom(other.VerifyHeader);
       }
@@ -2591,21 +2592,21 @@ namespace NeoFS.API.v2.Container {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Container.ListRequest.Types.Body();
+              Body = new global::Neo.FileSystem.API.Container.ListRequest.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (metaHeader_ == null) {
-              MetaHeader = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+              MetaHeader = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
             }
             input.ReadMessage(MetaHeader);
             break;
           }
           case 26: {
             if (verifyHeader_ == null) {
-              VerifyHeader = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+              VerifyHeader = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
             }
             input.ReadMessage(VerifyHeader);
             break;
@@ -2629,7 +2630,7 @@ namespace NeoFS.API.v2.Container {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Container.ListRequest.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Container.ListRequest.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2657,12 +2658,12 @@ namespace NeoFS.API.v2.Container {
 
         /// <summary>Field number for the "owner_id" field.</summary>
         public const int OwnerIdFieldNumber = 1;
-        private global::NeoFS.API.v2.Refs.OwnerID ownerId_;
+        private global::Neo.FileSystem.API.Refs.OwnerID ownerId_;
         /// <summary>
         /// Identifier of the container owner
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Refs.OwnerID OwnerId {
+        public global::Neo.FileSystem.API.Refs.OwnerID OwnerId {
           get { return ownerId_; }
           set {
             ownerId_ = value;
@@ -2731,7 +2732,7 @@ namespace NeoFS.API.v2.Container {
           }
           if (other.ownerId_ != null) {
             if (ownerId_ == null) {
-              OwnerId = new global::NeoFS.API.v2.Refs.OwnerID();
+              OwnerId = new global::Neo.FileSystem.API.Refs.OwnerID();
             }
             OwnerId.MergeFrom(other.OwnerId);
           }
@@ -2748,7 +2749,7 @@ namespace NeoFS.API.v2.Container {
                 break;
               case 10: {
                 if (ownerId_ == null) {
-                  OwnerId = new global::NeoFS.API.v2.Refs.OwnerID();
+                  OwnerId = new global::Neo.FileSystem.API.Refs.OwnerID();
                 }
                 input.ReadMessage(OwnerId);
                 break;
@@ -2775,7 +2776,7 @@ namespace NeoFS.API.v2.Container {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Container.ServiceReflection.Descriptor.MessageTypes[7]; }
+      get { return global::Neo.FileSystem.API.Container.ServiceReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2805,12 +2806,12 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Container.ListResponse.Types.Body body_;
+    private global::Neo.FileSystem.API.Container.ListResponse.Types.Body body_;
     /// <summary>
     /// Body of list containers response message.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Container.ListResponse.Types.Body Body {
+    public global::Neo.FileSystem.API.Container.ListResponse.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -2819,13 +2820,13 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "meta_header" field.</summary>
     public const int MetaHeaderFieldNumber = 2;
-    private global::NeoFS.API.v2.Session.ResponseMetaHeader metaHeader_;
+    private global::Neo.FileSystem.API.Session.ResponseMetaHeader metaHeader_;
     /// <summary>
     /// Carries response meta information. Header data is used only to regulate
     /// message transport and does not affect request execution.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseMetaHeader MetaHeader {
+    public global::Neo.FileSystem.API.Session.ResponseMetaHeader MetaHeader {
       get { return metaHeader_; }
       set {
         metaHeader_ = value;
@@ -2834,14 +2835,14 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "verify_header" field.</summary>
     public const int VerifyHeaderFieldNumber = 3;
-    private global::NeoFS.API.v2.Session.ResponseVerificationHeader verifyHeader_;
+    private global::Neo.FileSystem.API.Session.ResponseVerificationHeader verifyHeader_;
     /// <summary>
     /// Carries response verification information. This header is used to
     /// authenticate the nodes of the message route and check the correctness of
     /// transmission.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseVerificationHeader VerifyHeader {
+    public global::Neo.FileSystem.API.Session.ResponseVerificationHeader VerifyHeader {
       get { return verifyHeader_; }
       set {
         verifyHeader_ = value;
@@ -2928,19 +2929,19 @@ namespace NeoFS.API.v2.Container {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Container.ListResponse.Types.Body();
+          Body = new global::Neo.FileSystem.API.Container.ListResponse.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.metaHeader_ != null) {
         if (metaHeader_ == null) {
-          MetaHeader = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+          MetaHeader = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
         }
         MetaHeader.MergeFrom(other.MetaHeader);
       }
       if (other.verifyHeader_ != null) {
         if (verifyHeader_ == null) {
-          VerifyHeader = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+          VerifyHeader = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
         }
         VerifyHeader.MergeFrom(other.VerifyHeader);
       }
@@ -2957,21 +2958,21 @@ namespace NeoFS.API.v2.Container {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Container.ListResponse.Types.Body();
+              Body = new global::Neo.FileSystem.API.Container.ListResponse.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (metaHeader_ == null) {
-              MetaHeader = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+              MetaHeader = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
             }
             input.ReadMessage(MetaHeader);
             break;
           }
           case 26: {
             if (verifyHeader_ == null) {
-              VerifyHeader = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+              VerifyHeader = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
             }
             input.ReadMessage(VerifyHeader);
             break;
@@ -2995,7 +2996,7 @@ namespace NeoFS.API.v2.Container {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Container.ListResponse.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Container.ListResponse.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3023,14 +3024,14 @@ namespace NeoFS.API.v2.Container {
 
         /// <summary>Field number for the "container_ids" field.</summary>
         public const int ContainerIdsFieldNumber = 1;
-        private static readonly pb::FieldCodec<global::NeoFS.API.v2.Refs.ContainerID> _repeated_containerIds_codec
-            = pb::FieldCodec.ForMessage(10, global::NeoFS.API.v2.Refs.ContainerID.Parser);
-        private readonly pbc::RepeatedField<global::NeoFS.API.v2.Refs.ContainerID> containerIds_ = new pbc::RepeatedField<global::NeoFS.API.v2.Refs.ContainerID>();
+        private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Refs.ContainerID> _repeated_containerIds_codec
+            = pb::FieldCodec.ForMessage(10, global::Neo.FileSystem.API.Refs.ContainerID.Parser);
+        private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Refs.ContainerID> containerIds_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Refs.ContainerID>();
         /// <summary>
         /// List of `ContainerID`s belonging to the requested `OwnerID`
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public pbc::RepeatedField<global::NeoFS.API.v2.Refs.ContainerID> ContainerIds {
+        public pbc::RepeatedField<global::Neo.FileSystem.API.Refs.ContainerID> ContainerIds {
           get { return containerIds_; }
         }
 
@@ -3127,7 +3128,7 @@ namespace NeoFS.API.v2.Container {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Container.ServiceReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Neo.FileSystem.API.Container.ServiceReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3157,12 +3158,12 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Container.SetExtendedACLRequest.Types.Body body_;
+    private global::Neo.FileSystem.API.Container.SetExtendedACLRequest.Types.Body body_;
     /// <summary>
     /// Body of set extended acl request message.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Container.SetExtendedACLRequest.Types.Body Body {
+    public global::Neo.FileSystem.API.Container.SetExtendedACLRequest.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -3171,13 +3172,13 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "meta_header" field.</summary>
     public const int MetaHeaderFieldNumber = 2;
-    private global::NeoFS.API.v2.Session.RequestMetaHeader metaHeader_;
+    private global::Neo.FileSystem.API.Session.RequestMetaHeader metaHeader_;
     /// <summary>
     /// Carries request meta information. Header data is used only to regulate
     /// message transport and does not affect request execution.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestMetaHeader MetaHeader {
+    public global::Neo.FileSystem.API.Session.RequestMetaHeader MetaHeader {
       get { return metaHeader_; }
       set {
         metaHeader_ = value;
@@ -3186,14 +3187,14 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "verify_header" field.</summary>
     public const int VerifyHeaderFieldNumber = 3;
-    private global::NeoFS.API.v2.Session.RequestVerificationHeader verifyHeader_;
+    private global::Neo.FileSystem.API.Session.RequestVerificationHeader verifyHeader_;
     /// <summary>
     /// Carries request verification information. This header is used to
     /// authenticate the nodes of the message route and check the correctness of
     /// transmission.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestVerificationHeader VerifyHeader {
+    public global::Neo.FileSystem.API.Session.RequestVerificationHeader VerifyHeader {
       get { return verifyHeader_; }
       set {
         verifyHeader_ = value;
@@ -3280,19 +3281,19 @@ namespace NeoFS.API.v2.Container {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Container.SetExtendedACLRequest.Types.Body();
+          Body = new global::Neo.FileSystem.API.Container.SetExtendedACLRequest.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.metaHeader_ != null) {
         if (metaHeader_ == null) {
-          MetaHeader = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+          MetaHeader = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
         }
         MetaHeader.MergeFrom(other.MetaHeader);
       }
       if (other.verifyHeader_ != null) {
         if (verifyHeader_ == null) {
-          VerifyHeader = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+          VerifyHeader = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
         }
         VerifyHeader.MergeFrom(other.VerifyHeader);
       }
@@ -3309,21 +3310,21 @@ namespace NeoFS.API.v2.Container {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Container.SetExtendedACLRequest.Types.Body();
+              Body = new global::Neo.FileSystem.API.Container.SetExtendedACLRequest.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (metaHeader_ == null) {
-              MetaHeader = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+              MetaHeader = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
             }
             input.ReadMessage(MetaHeader);
             break;
           }
           case 26: {
             if (verifyHeader_ == null) {
-              VerifyHeader = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+              VerifyHeader = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
             }
             input.ReadMessage(VerifyHeader);
             break;
@@ -3348,7 +3349,7 @@ namespace NeoFS.API.v2.Container {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Container.SetExtendedACLRequest.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Container.SetExtendedACLRequest.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3377,12 +3378,12 @@ namespace NeoFS.API.v2.Container {
 
         /// <summary>Field number for the "eacl" field.</summary>
         public const int EaclFieldNumber = 1;
-        private global::NeoFS.API.v2.Acl.EACLTable eacl_;
+        private global::Neo.FileSystem.API.Acl.EACLTable eacl_;
         /// <summary>
         /// Extended ACL table to set for container
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Acl.EACLTable Eacl {
+        public global::Neo.FileSystem.API.Acl.EACLTable Eacl {
           get { return eacl_; }
           set {
             eacl_ = value;
@@ -3391,12 +3392,12 @@ namespace NeoFS.API.v2.Container {
 
         /// <summary>Field number for the "signature" field.</summary>
         public const int SignatureFieldNumber = 2;
-        private global::NeoFS.API.v2.Refs.Signature signature_;
+        private global::Neo.FileSystem.API.Refs.Signature signature_;
         /// <summary>
         /// Signature of stable-marshalled Extended ACL table according to RFC-6979
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Refs.Signature Signature {
+        public global::Neo.FileSystem.API.Refs.Signature Signature {
           get { return signature_; }
           set {
             signature_ = value;
@@ -3474,13 +3475,13 @@ namespace NeoFS.API.v2.Container {
           }
           if (other.eacl_ != null) {
             if (eacl_ == null) {
-              Eacl = new global::NeoFS.API.v2.Acl.EACLTable();
+              Eacl = new global::Neo.FileSystem.API.Acl.EACLTable();
             }
             Eacl.MergeFrom(other.Eacl);
           }
           if (other.signature_ != null) {
             if (signature_ == null) {
-              Signature = new global::NeoFS.API.v2.Refs.Signature();
+              Signature = new global::Neo.FileSystem.API.Refs.Signature();
             }
             Signature.MergeFrom(other.Signature);
           }
@@ -3497,14 +3498,14 @@ namespace NeoFS.API.v2.Container {
                 break;
               case 10: {
                 if (eacl_ == null) {
-                  Eacl = new global::NeoFS.API.v2.Acl.EACLTable();
+                  Eacl = new global::Neo.FileSystem.API.Acl.EACLTable();
                 }
                 input.ReadMessage(Eacl);
                 break;
               }
               case 18: {
                 if (signature_ == null) {
-                  Signature = new global::NeoFS.API.v2.Refs.Signature();
+                  Signature = new global::Neo.FileSystem.API.Refs.Signature();
                 }
                 input.ReadMessage(Signature);
                 break;
@@ -3531,7 +3532,7 @@ namespace NeoFS.API.v2.Container {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Container.ServiceReflection.Descriptor.MessageTypes[9]; }
+      get { return global::Neo.FileSystem.API.Container.ServiceReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3561,12 +3562,12 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Container.SetExtendedACLResponse.Types.Body body_;
+    private global::Neo.FileSystem.API.Container.SetExtendedACLResponse.Types.Body body_;
     /// <summary>
     /// Body of set extended acl response message.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Container.SetExtendedACLResponse.Types.Body Body {
+    public global::Neo.FileSystem.API.Container.SetExtendedACLResponse.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -3575,13 +3576,13 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "meta_header" field.</summary>
     public const int MetaHeaderFieldNumber = 2;
-    private global::NeoFS.API.v2.Session.ResponseMetaHeader metaHeader_;
+    private global::Neo.FileSystem.API.Session.ResponseMetaHeader metaHeader_;
     /// <summary>
     /// Carries response meta information. Header data is used only to regulate
     /// message transport and does not affect request execution.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseMetaHeader MetaHeader {
+    public global::Neo.FileSystem.API.Session.ResponseMetaHeader MetaHeader {
       get { return metaHeader_; }
       set {
         metaHeader_ = value;
@@ -3590,14 +3591,14 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "verify_header" field.</summary>
     public const int VerifyHeaderFieldNumber = 3;
-    private global::NeoFS.API.v2.Session.ResponseVerificationHeader verifyHeader_;
+    private global::Neo.FileSystem.API.Session.ResponseVerificationHeader verifyHeader_;
     /// <summary>
     /// Carries response verification information. This header is used to
     /// authenticate the nodes of the message route and check the correctness of
     /// transmission.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseVerificationHeader VerifyHeader {
+    public global::Neo.FileSystem.API.Session.ResponseVerificationHeader VerifyHeader {
       get { return verifyHeader_; }
       set {
         verifyHeader_ = value;
@@ -3684,19 +3685,19 @@ namespace NeoFS.API.v2.Container {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Container.SetExtendedACLResponse.Types.Body();
+          Body = new global::Neo.FileSystem.API.Container.SetExtendedACLResponse.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.metaHeader_ != null) {
         if (metaHeader_ == null) {
-          MetaHeader = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+          MetaHeader = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
         }
         MetaHeader.MergeFrom(other.MetaHeader);
       }
       if (other.verifyHeader_ != null) {
         if (verifyHeader_ == null) {
-          VerifyHeader = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+          VerifyHeader = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
         }
         VerifyHeader.MergeFrom(other.VerifyHeader);
       }
@@ -3713,21 +3714,21 @@ namespace NeoFS.API.v2.Container {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Container.SetExtendedACLResponse.Types.Body();
+              Body = new global::Neo.FileSystem.API.Container.SetExtendedACLResponse.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (metaHeader_ == null) {
-              MetaHeader = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+              MetaHeader = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
             }
             input.ReadMessage(MetaHeader);
             break;
           }
           case 26: {
             if (verifyHeader_ == null) {
-              VerifyHeader = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+              VerifyHeader = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
             }
             input.ReadMessage(VerifyHeader);
             break;
@@ -3753,7 +3754,7 @@ namespace NeoFS.API.v2.Container {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Container.SetExtendedACLResponse.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Container.SetExtendedACLResponse.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3862,7 +3863,7 @@ namespace NeoFS.API.v2.Container {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Container.ServiceReflection.Descriptor.MessageTypes[10]; }
+      get { return global::Neo.FileSystem.API.Container.ServiceReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3892,12 +3893,12 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Container.GetExtendedACLRequest.Types.Body body_;
+    private global::Neo.FileSystem.API.Container.GetExtendedACLRequest.Types.Body body_;
     /// <summary>
     /// Body of get extended acl request message.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Container.GetExtendedACLRequest.Types.Body Body {
+    public global::Neo.FileSystem.API.Container.GetExtendedACLRequest.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -3906,13 +3907,13 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "meta_header" field.</summary>
     public const int MetaHeaderFieldNumber = 2;
-    private global::NeoFS.API.v2.Session.RequestMetaHeader metaHeader_;
+    private global::Neo.FileSystem.API.Session.RequestMetaHeader metaHeader_;
     /// <summary>
     /// Carries request meta information. Header data is used only to regulate
     /// message transport and does not affect request execution.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestMetaHeader MetaHeader {
+    public global::Neo.FileSystem.API.Session.RequestMetaHeader MetaHeader {
       get { return metaHeader_; }
       set {
         metaHeader_ = value;
@@ -3921,14 +3922,14 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "verify_header" field.</summary>
     public const int VerifyHeaderFieldNumber = 3;
-    private global::NeoFS.API.v2.Session.RequestVerificationHeader verifyHeader_;
+    private global::Neo.FileSystem.API.Session.RequestVerificationHeader verifyHeader_;
     /// <summary>
     /// Carries request verification information. This header is used to
     /// authenticate the nodes of the message route and check the correctness of
     /// transmission.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestVerificationHeader VerifyHeader {
+    public global::Neo.FileSystem.API.Session.RequestVerificationHeader VerifyHeader {
       get { return verifyHeader_; }
       set {
         verifyHeader_ = value;
@@ -4015,19 +4016,19 @@ namespace NeoFS.API.v2.Container {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Container.GetExtendedACLRequest.Types.Body();
+          Body = new global::Neo.FileSystem.API.Container.GetExtendedACLRequest.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.metaHeader_ != null) {
         if (metaHeader_ == null) {
-          MetaHeader = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+          MetaHeader = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
         }
         MetaHeader.MergeFrom(other.MetaHeader);
       }
       if (other.verifyHeader_ != null) {
         if (verifyHeader_ == null) {
-          VerifyHeader = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+          VerifyHeader = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
         }
         VerifyHeader.MergeFrom(other.VerifyHeader);
       }
@@ -4044,21 +4045,21 @@ namespace NeoFS.API.v2.Container {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Container.GetExtendedACLRequest.Types.Body();
+              Body = new global::Neo.FileSystem.API.Container.GetExtendedACLRequest.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (metaHeader_ == null) {
-              MetaHeader = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+              MetaHeader = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
             }
             input.ReadMessage(MetaHeader);
             break;
           }
           case 26: {
             if (verifyHeader_ == null) {
-              VerifyHeader = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+              VerifyHeader = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
             }
             input.ReadMessage(VerifyHeader);
             break;
@@ -4082,7 +4083,7 @@ namespace NeoFS.API.v2.Container {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Container.GetExtendedACLRequest.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Container.GetExtendedACLRequest.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4110,12 +4111,12 @@ namespace NeoFS.API.v2.Container {
 
         /// <summary>Field number for the "container_id" field.</summary>
         public const int ContainerIdFieldNumber = 1;
-        private global::NeoFS.API.v2.Refs.ContainerID containerId_;
+        private global::Neo.FileSystem.API.Refs.ContainerID containerId_;
         /// <summary>
         /// Identifier of the container having Extended ACL
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Refs.ContainerID ContainerId {
+        public global::Neo.FileSystem.API.Refs.ContainerID ContainerId {
           get { return containerId_; }
           set {
             containerId_ = value;
@@ -4184,7 +4185,7 @@ namespace NeoFS.API.v2.Container {
           }
           if (other.containerId_ != null) {
             if (containerId_ == null) {
-              ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+              ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
             }
             ContainerId.MergeFrom(other.ContainerId);
           }
@@ -4201,7 +4202,7 @@ namespace NeoFS.API.v2.Container {
                 break;
               case 10: {
                 if (containerId_ == null) {
-                  ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+                  ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
                 }
                 input.ReadMessage(ContainerId);
                 break;
@@ -4228,7 +4229,7 @@ namespace NeoFS.API.v2.Container {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Container.ServiceReflection.Descriptor.MessageTypes[11]; }
+      get { return global::Neo.FileSystem.API.Container.ServiceReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4258,12 +4259,12 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Container.GetExtendedACLResponse.Types.Body body_;
+    private global::Neo.FileSystem.API.Container.GetExtendedACLResponse.Types.Body body_;
     /// <summary>
     /// Body of get extended acl response message.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Container.GetExtendedACLResponse.Types.Body Body {
+    public global::Neo.FileSystem.API.Container.GetExtendedACLResponse.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -4272,13 +4273,13 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "meta_header" field.</summary>
     public const int MetaHeaderFieldNumber = 2;
-    private global::NeoFS.API.v2.Session.ResponseMetaHeader metaHeader_;
+    private global::Neo.FileSystem.API.Session.ResponseMetaHeader metaHeader_;
     /// <summary>
     /// Carries response meta information. Header data is used only to regulate
     /// message transport and does not affect request execution.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseMetaHeader MetaHeader {
+    public global::Neo.FileSystem.API.Session.ResponseMetaHeader MetaHeader {
       get { return metaHeader_; }
       set {
         metaHeader_ = value;
@@ -4287,14 +4288,14 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "verify_header" field.</summary>
     public const int VerifyHeaderFieldNumber = 3;
-    private global::NeoFS.API.v2.Session.ResponseVerificationHeader verifyHeader_;
+    private global::Neo.FileSystem.API.Session.ResponseVerificationHeader verifyHeader_;
     /// <summary>
     /// Carries response verification information. This header is used to
     /// authenticate the nodes of the message route and check the correctness of
     /// transmission.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseVerificationHeader VerifyHeader {
+    public global::Neo.FileSystem.API.Session.ResponseVerificationHeader VerifyHeader {
       get { return verifyHeader_; }
       set {
         verifyHeader_ = value;
@@ -4381,19 +4382,19 @@ namespace NeoFS.API.v2.Container {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Container.GetExtendedACLResponse.Types.Body();
+          Body = new global::Neo.FileSystem.API.Container.GetExtendedACLResponse.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.metaHeader_ != null) {
         if (metaHeader_ == null) {
-          MetaHeader = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+          MetaHeader = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
         }
         MetaHeader.MergeFrom(other.MetaHeader);
       }
       if (other.verifyHeader_ != null) {
         if (verifyHeader_ == null) {
-          VerifyHeader = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+          VerifyHeader = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
         }
         VerifyHeader.MergeFrom(other.VerifyHeader);
       }
@@ -4410,21 +4411,21 @@ namespace NeoFS.API.v2.Container {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Container.GetExtendedACLResponse.Types.Body();
+              Body = new global::Neo.FileSystem.API.Container.GetExtendedACLResponse.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (metaHeader_ == null) {
-              MetaHeader = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+              MetaHeader = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
             }
             input.ReadMessage(MetaHeader);
             break;
           }
           case 26: {
             if (verifyHeader_ == null) {
-              VerifyHeader = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+              VerifyHeader = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
             }
             input.ReadMessage(VerifyHeader);
             break;
@@ -4450,7 +4451,7 @@ namespace NeoFS.API.v2.Container {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Container.GetExtendedACLResponse.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Container.GetExtendedACLResponse.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4479,12 +4480,12 @@ namespace NeoFS.API.v2.Container {
 
         /// <summary>Field number for the "eacl" field.</summary>
         public const int EaclFieldNumber = 1;
-        private global::NeoFS.API.v2.Acl.EACLTable eacl_;
+        private global::Neo.FileSystem.API.Acl.EACLTable eacl_;
         /// <summary>
         /// Extended ACL requested, if available
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Acl.EACLTable Eacl {
+        public global::Neo.FileSystem.API.Acl.EACLTable Eacl {
           get { return eacl_; }
           set {
             eacl_ = value;
@@ -4493,12 +4494,12 @@ namespace NeoFS.API.v2.Container {
 
         /// <summary>Field number for the "signature" field.</summary>
         public const int SignatureFieldNumber = 2;
-        private global::NeoFS.API.v2.Refs.Signature signature_;
+        private global::Neo.FileSystem.API.Refs.Signature signature_;
         /// <summary>
         /// Signature of stable-marshalled Extended ACL according to RFC-6979
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public global::NeoFS.API.v2.Refs.Signature Signature {
+        public global::Neo.FileSystem.API.Refs.Signature Signature {
           get { return signature_; }
           set {
             signature_ = value;
@@ -4576,13 +4577,13 @@ namespace NeoFS.API.v2.Container {
           }
           if (other.eacl_ != null) {
             if (eacl_ == null) {
-              Eacl = new global::NeoFS.API.v2.Acl.EACLTable();
+              Eacl = new global::Neo.FileSystem.API.Acl.EACLTable();
             }
             Eacl.MergeFrom(other.Eacl);
           }
           if (other.signature_ != null) {
             if (signature_ == null) {
-              Signature = new global::NeoFS.API.v2.Refs.Signature();
+              Signature = new global::Neo.FileSystem.API.Refs.Signature();
             }
             Signature.MergeFrom(other.Signature);
           }
@@ -4599,14 +4600,14 @@ namespace NeoFS.API.v2.Container {
                 break;
               case 10: {
                 if (eacl_ == null) {
-                  Eacl = new global::NeoFS.API.v2.Acl.EACLTable();
+                  Eacl = new global::Neo.FileSystem.API.Acl.EACLTable();
                 }
                 input.ReadMessage(Eacl);
                 break;
               }
               case 18: {
                 if (signature_ == null) {
-                  Signature = new global::NeoFS.API.v2.Refs.Signature();
+                  Signature = new global::Neo.FileSystem.API.Refs.Signature();
                 }
                 input.ReadMessage(Signature);
                 break;
@@ -4633,7 +4634,7 @@ namespace NeoFS.API.v2.Container {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Container.ServiceReflection.Descriptor.MessageTypes[12]; }
+      get { return global::Neo.FileSystem.API.Container.ServiceReflection.Descriptor.MessageTypes[12]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4663,12 +4664,12 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Types.Body body_;
+    private global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body body_;
     /// <summary>
     /// Body of announce used space request message.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Types.Body Body {
+    public global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -4677,13 +4678,13 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "meta_header" field.</summary>
     public const int MetaHeaderFieldNumber = 2;
-    private global::NeoFS.API.v2.Session.RequestMetaHeader metaHeader_;
+    private global::Neo.FileSystem.API.Session.RequestMetaHeader metaHeader_;
     /// <summary>
     /// Carries request meta information. Header data is used only to regulate
     /// message transport and does not affect request execution.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestMetaHeader MetaHeader {
+    public global::Neo.FileSystem.API.Session.RequestMetaHeader MetaHeader {
       get { return metaHeader_; }
       set {
         metaHeader_ = value;
@@ -4692,14 +4693,14 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "verify_header" field.</summary>
     public const int VerifyHeaderFieldNumber = 3;
-    private global::NeoFS.API.v2.Session.RequestVerificationHeader verifyHeader_;
+    private global::Neo.FileSystem.API.Session.RequestVerificationHeader verifyHeader_;
     /// <summary>
     /// Carries request verification information. This header is used to
     /// authenticate the nodes of the message route and check the correctness of
     /// transmission.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.RequestVerificationHeader VerifyHeader {
+    public global::Neo.FileSystem.API.Session.RequestVerificationHeader VerifyHeader {
       get { return verifyHeader_; }
       set {
         verifyHeader_ = value;
@@ -4786,19 +4787,19 @@ namespace NeoFS.API.v2.Container {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Types.Body();
+          Body = new global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.metaHeader_ != null) {
         if (metaHeader_ == null) {
-          MetaHeader = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+          MetaHeader = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
         }
         MetaHeader.MergeFrom(other.MetaHeader);
       }
       if (other.verifyHeader_ != null) {
         if (verifyHeader_ == null) {
-          VerifyHeader = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+          VerifyHeader = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
         }
         VerifyHeader.MergeFrom(other.VerifyHeader);
       }
@@ -4815,21 +4816,21 @@ namespace NeoFS.API.v2.Container {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Types.Body();
+              Body = new global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (metaHeader_ == null) {
-              MetaHeader = new global::NeoFS.API.v2.Session.RequestMetaHeader();
+              MetaHeader = new global::Neo.FileSystem.API.Session.RequestMetaHeader();
             }
             input.ReadMessage(MetaHeader);
             break;
           }
           case 26: {
             if (verifyHeader_ == null) {
-              VerifyHeader = new global::NeoFS.API.v2.Session.RequestVerificationHeader();
+              VerifyHeader = new global::Neo.FileSystem.API.Session.RequestVerificationHeader();
             }
             input.ReadMessage(VerifyHeader);
             break;
@@ -4853,7 +4854,7 @@ namespace NeoFS.API.v2.Container {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4881,15 +4882,15 @@ namespace NeoFS.API.v2.Container {
 
         /// <summary>Field number for the "announcements" field.</summary>
         public const int AnnouncementsFieldNumber = 1;
-        private static readonly pb::FieldCodec<global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement> _repeated_announcements_codec
-            = pb::FieldCodec.ForMessage(10, global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement.Parser);
-        private readonly pbc::RepeatedField<global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement> announcements_ = new pbc::RepeatedField<global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement>();
+        private static readonly pb::FieldCodec<global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement> _repeated_announcements_codec
+            = pb::FieldCodec.ForMessage(10, global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement.Parser);
+        private readonly pbc::RepeatedField<global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement> announcements_ = new pbc::RepeatedField<global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement>();
         /// <summary>
         /// List of announcements. If nodes share several containers, then
         /// announcements transferred in a batch.
         /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public pbc::RepeatedField<global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement> Announcements {
+        public pbc::RepeatedField<global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement> Announcements {
           get { return announcements_; }
         }
 
@@ -4983,7 +4984,7 @@ namespace NeoFS.API.v2.Container {
 
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
             public static pbr::MessageDescriptor Descriptor {
-              get { return global::NeoFS.API.v2.Container.AnnounceUsedSpaceRequest.Types.Body.Descriptor.NestedTypes[0]; }
+              get { return global::Neo.FileSystem.API.Container.AnnounceUsedSpaceRequest.Types.Body.Descriptor.NestedTypes[0]; }
             }
 
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5027,12 +5028,12 @@ namespace NeoFS.API.v2.Container {
 
             /// <summary>Field number for the "container_id" field.</summary>
             public const int ContainerIdFieldNumber = 2;
-            private global::NeoFS.API.v2.Refs.ContainerID containerId_;
+            private global::Neo.FileSystem.API.Refs.ContainerID containerId_;
             /// <summary>
             /// Identifier of the container.
             /// </summary>
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-            public global::NeoFS.API.v2.Refs.ContainerID ContainerId {
+            public global::Neo.FileSystem.API.Refs.ContainerID ContainerId {
               get { return containerId_; }
               set {
                 containerId_ = value;
@@ -5137,7 +5138,7 @@ namespace NeoFS.API.v2.Container {
               }
               if (other.containerId_ != null) {
                 if (containerId_ == null) {
-                  ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+                  ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
                 }
                 ContainerId.MergeFrom(other.ContainerId);
               }
@@ -5161,7 +5162,7 @@ namespace NeoFS.API.v2.Container {
                   }
                   case 18: {
                     if (containerId_ == null) {
-                      ContainerId = new global::NeoFS.API.v2.Refs.ContainerID();
+                      ContainerId = new global::Neo.FileSystem.API.Refs.ContainerID();
                     }
                     input.ReadMessage(ContainerId);
                     break;
@@ -5197,7 +5198,7 @@ namespace NeoFS.API.v2.Container {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NeoFS.API.v2.Container.ServiceReflection.Descriptor.MessageTypes[13]; }
+      get { return global::Neo.FileSystem.API.Container.ServiceReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5227,12 +5228,12 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "body" field.</summary>
     public const int BodyFieldNumber = 1;
-    private global::NeoFS.API.v2.Container.AnnounceUsedSpaceResponse.Types.Body body_;
+    private global::Neo.FileSystem.API.Container.AnnounceUsedSpaceResponse.Types.Body body_;
     /// <summary>
     /// Body of announce used space response message.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Container.AnnounceUsedSpaceResponse.Types.Body Body {
+    public global::Neo.FileSystem.API.Container.AnnounceUsedSpaceResponse.Types.Body Body {
       get { return body_; }
       set {
         body_ = value;
@@ -5241,13 +5242,13 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "meta_header" field.</summary>
     public const int MetaHeaderFieldNumber = 2;
-    private global::NeoFS.API.v2.Session.ResponseMetaHeader metaHeader_;
+    private global::Neo.FileSystem.API.Session.ResponseMetaHeader metaHeader_;
     /// <summary>
     /// Carries response meta information. Header data is used only to regulate
     /// message transport and does not affect request execution.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseMetaHeader MetaHeader {
+    public global::Neo.FileSystem.API.Session.ResponseMetaHeader MetaHeader {
       get { return metaHeader_; }
       set {
         metaHeader_ = value;
@@ -5256,14 +5257,14 @@ namespace NeoFS.API.v2.Container {
 
     /// <summary>Field number for the "verify_header" field.</summary>
     public const int VerifyHeaderFieldNumber = 3;
-    private global::NeoFS.API.v2.Session.ResponseVerificationHeader verifyHeader_;
+    private global::Neo.FileSystem.API.Session.ResponseVerificationHeader verifyHeader_;
     /// <summary>
     /// Carries response verification information. This header is used to
     /// authenticate the nodes of the message route and check the correctness of
     /// transmission.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::NeoFS.API.v2.Session.ResponseVerificationHeader VerifyHeader {
+    public global::Neo.FileSystem.API.Session.ResponseVerificationHeader VerifyHeader {
       get { return verifyHeader_; }
       set {
         verifyHeader_ = value;
@@ -5350,19 +5351,19 @@ namespace NeoFS.API.v2.Container {
       }
       if (other.body_ != null) {
         if (body_ == null) {
-          Body = new global::NeoFS.API.v2.Container.AnnounceUsedSpaceResponse.Types.Body();
+          Body = new global::Neo.FileSystem.API.Container.AnnounceUsedSpaceResponse.Types.Body();
         }
         Body.MergeFrom(other.Body);
       }
       if (other.metaHeader_ != null) {
         if (metaHeader_ == null) {
-          MetaHeader = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+          MetaHeader = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
         }
         MetaHeader.MergeFrom(other.MetaHeader);
       }
       if (other.verifyHeader_ != null) {
         if (verifyHeader_ == null) {
-          VerifyHeader = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+          VerifyHeader = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
         }
         VerifyHeader.MergeFrom(other.VerifyHeader);
       }
@@ -5379,21 +5380,21 @@ namespace NeoFS.API.v2.Container {
             break;
           case 10: {
             if (body_ == null) {
-              Body = new global::NeoFS.API.v2.Container.AnnounceUsedSpaceResponse.Types.Body();
+              Body = new global::Neo.FileSystem.API.Container.AnnounceUsedSpaceResponse.Types.Body();
             }
             input.ReadMessage(Body);
             break;
           }
           case 18: {
             if (metaHeader_ == null) {
-              MetaHeader = new global::NeoFS.API.v2.Session.ResponseMetaHeader();
+              MetaHeader = new global::Neo.FileSystem.API.Session.ResponseMetaHeader();
             }
             input.ReadMessage(MetaHeader);
             break;
           }
           case 26: {
             if (verifyHeader_ == null) {
-              VerifyHeader = new global::NeoFS.API.v2.Session.ResponseVerificationHeader();
+              VerifyHeader = new global::Neo.FileSystem.API.Session.ResponseVerificationHeader();
             }
             input.ReadMessage(VerifyHeader);
             break;
@@ -5418,7 +5419,7 @@ namespace NeoFS.API.v2.Container {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public static pbr::MessageDescriptor Descriptor {
-          get { return global::NeoFS.API.v2.Container.AnnounceUsedSpaceResponse.Descriptor.NestedTypes[0]; }
+          get { return global::Neo.FileSystem.API.Container.AnnounceUsedSpaceResponse.Descriptor.NestedTypes[0]; }
         }
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

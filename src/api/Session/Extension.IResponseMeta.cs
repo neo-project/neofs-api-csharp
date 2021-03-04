@@ -1,6 +1,6 @@
-using NeoFS.API.v2.Acl;
+using Neo.FileSystem.API.Acl;
 
-namespace NeoFS.API.v2.Session
+namespace Neo.FileSystem.API.Session
 {
     public static partial class SessionExtension
     {

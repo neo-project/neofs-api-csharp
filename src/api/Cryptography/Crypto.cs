@@ -1,11 +1,11 @@
 using Google.Protobuf;
-using NeoFS.API.v2.Refs;
+using Neo.FileSystem.API.Refs;
 using Org.BouncyCastle.Crypto.Digests;
 using System;
 using System.Buffers.Binary;
 using System.Security.Cryptography;
 
-namespace NeoFS.API.v2.Cryptography
+namespace Neo.FileSystem.API.Cryptography
 {
     public static class Crypto
     {

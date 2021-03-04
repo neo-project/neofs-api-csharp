@@ -1,6 +1,6 @@
 using System;
 
-namespace NeoFS.API.v2.Netmap.Normalize
+namespace Neo.FileSystem.API.Netmap.Normalize
 {
     public interface INormalizer
     {

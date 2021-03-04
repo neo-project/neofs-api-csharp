@@ -2,9 +2,9 @@ using System;
 using System.Linq;
 using System.Numerics;
 using System.Text;
-using static NeoFS.API.v2.Cryptography.Helper;
+using static Neo.FileSystem.API.Cryptography.Helper;
 
-namespace NeoFS.API.v2.Cryptography
+namespace Neo.FileSystem.API.Cryptography
 {
     internal static class Base58
     {

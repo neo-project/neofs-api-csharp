@@ -1,12 +1,12 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NeoFS.API.v2.Acl;
-using NeoFS.API.v2.Cryptography;
-using NeoFS.API.v2.Netmap;
-using NeoFS.API.v2.Refs;
+using Neo.FileSystem.API.Acl;
+using Neo.FileSystem.API.Cryptography;
+using Neo.FileSystem.API.Netmap;
+using Neo.FileSystem.API.Refs;
 using System;
 using System.Threading;
 
-namespace NeoFS.API.v2.UnitTests.FSClient
+namespace Neo.FileSystem.API.UnitTests.FSClient
 {
     [TestClass]
     public class UT_Container

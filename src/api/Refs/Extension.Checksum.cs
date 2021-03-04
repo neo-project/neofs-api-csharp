@@ -1,9 +1,9 @@
 using Google.Protobuf;
-using NeoFS.API.v2.Cryptography;
-using NeoFS.API.v2.Cryptography.Tz;
+using Neo.FileSystem.API.Cryptography;
+using Neo.FileSystem.API.Cryptography.Tz;
 using System;
 
-namespace NeoFS.API.v2.Refs
+namespace Neo.FileSystem.API.Refs
 {
     public sealed partial class Checksum
     {

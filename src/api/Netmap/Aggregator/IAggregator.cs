@@ -1,5 +1,5 @@
 
-namespace NeoFS.API.v2.Netmap.Aggregator
+namespace Neo.FileSystem.API.Netmap.Aggregator
 {
     public interface IAggregator
     {

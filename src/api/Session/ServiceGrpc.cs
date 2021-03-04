@@ -7,7 +7,7 @@
 
 using grpc = global::Grpc.Core;
 
-namespace NeoFS.API.v2.Session {
+namespace Neo.FileSystem.API.Session {
   /// <summary>
   /// `SessionService` allows to establish a temporary trust relationship between
   /// two peer nodes and generate a `SessionToken` as the proof of trust to be
@@ -18,10 +18,10 @@ namespace NeoFS.API.v2.Session {
   {
     static readonly string __ServiceName = "neo.fs.v2.session.SessionService";
 
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Session.CreateRequest> __Marshaller_neo_fs_v2_session_CreateRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Session.CreateRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::NeoFS.API.v2.Session.CreateResponse> __Marshaller_neo_fs_v2_session_CreateResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::NeoFS.API.v2.Session.CreateResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Session.CreateRequest> __Marshaller_neo_fs_v2_session_CreateRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Session.CreateRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Neo.FileSystem.API.Session.CreateResponse> __Marshaller_neo_fs_v2_session_CreateResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileSystem.API.Session.CreateResponse.Parser.ParseFrom);
 
-    static readonly grpc::Method<global::NeoFS.API.v2.Session.CreateRequest, global::NeoFS.API.v2.Session.CreateResponse> __Method_Create = new grpc::Method<global::NeoFS.API.v2.Session.CreateRequest, global::NeoFS.API.v2.Session.CreateResponse>(
+    static readonly grpc::Method<global::Neo.FileSystem.API.Session.CreateRequest, global::Neo.FileSystem.API.Session.CreateResponse> __Method_Create = new grpc::Method<global::Neo.FileSystem.API.Session.CreateRequest, global::Neo.FileSystem.API.Session.CreateResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "Create",
@@ -31,7 +31,7 @@ namespace NeoFS.API.v2.Session {
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
-      get { return global::NeoFS.API.v2.Session.ServiceReflection.Descriptor.Services[0]; }
+      get { return global::Neo.FileSystem.API.Session.ServiceReflection.Descriptor.Services[0]; }
     }
 
     /// <summary>Base class for server-side implementations of SessionService</summary>
@@ -44,7 +44,7 @@ namespace NeoFS.API.v2.Session {
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
-      public virtual global::System.Threading.Tasks.Task<global::NeoFS.API.v2.Session.CreateResponse> Create(global::NeoFS.API.v2.Session.CreateRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileSystem.API.Session.CreateResponse> Create(global::Neo.FileSystem.API.Session.CreateRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -82,7 +82,7 @@ namespace NeoFS.API.v2.Session {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The response received from the server.</returns>
-      public virtual global::NeoFS.API.v2.Session.CreateResponse Create(global::NeoFS.API.v2.Session.CreateRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Neo.FileSystem.API.Session.CreateResponse Create(global::Neo.FileSystem.API.Session.CreateRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return Create(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -92,7 +92,7 @@ namespace NeoFS.API.v2.Session {
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The response received from the server.</returns>
-      public virtual global::NeoFS.API.v2.Session.CreateResponse Create(global::NeoFS.API.v2.Session.CreateRequest request, grpc::CallOptions options)
+      public virtual global::Neo.FileSystem.API.Session.CreateResponse Create(global::Neo.FileSystem.API.Session.CreateRequest request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_Create, null, options, request);
       }
@@ -104,7 +104,7 @@ namespace NeoFS.API.v2.Session {
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
       /// <param name="cancellationToken">An optional token for canceling the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncUnaryCall<global::NeoFS.API.v2.Session.CreateResponse> CreateAsync(global::NeoFS.API.v2.Session.CreateRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileSystem.API.Session.CreateResponse> CreateAsync(global::Neo.FileSystem.API.Session.CreateRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return CreateAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
@@ -114,7 +114,7 @@ namespace NeoFS.API.v2.Session {
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
-      public virtual grpc::AsyncUnaryCall<global::NeoFS.API.v2.Session.CreateResponse> CreateAsync(global::NeoFS.API.v2.Session.CreateRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileSystem.API.Session.CreateResponse> CreateAsync(global::Neo.FileSystem.API.Session.CreateRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_Create, null, options, request);
       }
@@ -139,7 +139,7 @@ namespace NeoFS.API.v2.Session {
     /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
     public static void BindService(grpc::ServiceBinderBase serviceBinder, SessionServiceBase serviceImpl)
     {
-      serviceBinder.AddMethod(__Method_Create, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::NeoFS.API.v2.Session.CreateRequest, global::NeoFS.API.v2.Session.CreateResponse>(serviceImpl.Create));
+      serviceBinder.AddMethod(__Method_Create, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileSystem.API.Session.CreateRequest, global::Neo.FileSystem.API.Session.CreateResponse>(serviceImpl.Create));
     }
 
   }

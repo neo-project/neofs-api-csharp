@@ -1,5 +1,5 @@
 
-namespace NeoFS.API.v2.Acl
+namespace Neo.FileSystem.API.Acl
 {
     public sealed partial class EACLRecord
     {
