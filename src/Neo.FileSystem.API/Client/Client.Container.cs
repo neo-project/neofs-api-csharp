@@ -15,6 +15,7 @@ namespace Neo.FileSystem.API.Client
     {
         public async Task<Container.Container> GetContainer(CancellationToken context, ContainerID cid, CallOptions options = null)
         {
+            if (cid is null) throw new ArgumentNullException(nameof(cid));
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var req = new GetRequest
@@ -35,6 +36,7 @@ namespace Neo.FileSystem.API.Client
 
         public async Task<ContainerID> PutContainer(CancellationToken context, Container.Container container, CallOptions options = null)
         {
+            if (container is null) throw new ArgumentNullException(nameof(container));
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
 
@@ -58,6 +60,7 @@ namespace Neo.FileSystem.API.Client
 
         public async Task DeleteContainer(CancellationToken context, ContainerID cid, CallOptions options = null)
         {
+            if (cid is null) throw new ArgumentNullException(nameof(cid));
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var body = new DeleteRequest.Types.Body
@@ -77,6 +80,7 @@ namespace Neo.FileSystem.API.Client
 
         public async Task<List<ContainerID>> ListContainers(CancellationToken context, OwnerID owner, CallOptions options = null)
         {
+            if (owner is null) throw new ArgumentNullException(nameof(owner));
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var req = new ListRequest
@@ -103,6 +107,7 @@ namespace Neo.FileSystem.API.Client
 
         public async Task<EAclWithSignature> GetEAclWithSignature(CancellationToken context, ContainerID cid, CallOptions options = null)
         {
+            if (cid is null) throw new ArgumentNullException(nameof(cid));
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var req = new GetExtendedACLRequest
@@ -129,6 +134,7 @@ namespace Neo.FileSystem.API.Client
 
         public async Task<EACLTable> GetEACL(CancellationToken context, ContainerID cid, CallOptions options = null)
         {
+            if (cid is null) throw new ArgumentNullException(nameof(cid));
             var eacl_with_sig = await GetEAclWithSignature(context, cid, options);
             if (!eacl_with_sig.Signature.VerifyRFC6979(eacl_with_sig.Table))
                 throw new InvalidOperationException("invalid eacl signature");
@@ -137,6 +143,7 @@ namespace Neo.FileSystem.API.Client
 
         public async Task SetEACL(CancellationToken context, EACLTable eacl, CallOptions options = null)
         {
+            if (eacl is null) throw new ArgumentNullException(nameof(eacl));
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             eacl.Version = Refs.Version.SDKVersion();
@@ -158,6 +165,7 @@ namespace Neo.FileSystem.API.Client
 
         public async Task AnnounceContainerUsedSpace(CancellationToken context, List<UsedSpaceAnnouncement> announcements, CallOptions options = null)
         {
+            if (announcements is null) throw new ArgumentNullException(nameof(announcements));
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var body = new AnnounceUsedSpaceRequest.Types.Body();

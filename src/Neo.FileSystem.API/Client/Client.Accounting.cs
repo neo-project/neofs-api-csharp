@@ -10,6 +10,7 @@ namespace Neo.FileSystem.API.Client
     {
         public async Task<Accounting.Decimal> GetBalance(OwnerID owner, CallOptions options = null)
         {
+            if (owner is null) throw new ArgumentNullException(nameof(owner));
             var account_client = new AccountingService.AccountingServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var req = new BalanceRequest

@@ -20,6 +20,7 @@ namespace Neo.FileSystem.API.Client
         {
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var object_address = param.Address;
+            if (object_address is null) throw new ArgumentNullException("no address");
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var req = new GetRequest
             {
@@ -79,12 +80,17 @@ namespace Neo.FileSystem.API.Client
 
         public async Task<ObjectID> PutObject(CancellationToken context, PutObjectParams param, CallOptions options = null)
         {
-            var object_client = new ObjectService.ObjectServiceClient(channel);
             var obj = param.Object;
+            if (obj is null) throw new ArgumentNullException($"No Object in {nameof(PutObjectParams)}");
+            if (obj.Header is null) throw new ArgumentNullException($"No Header in {nameof(PutObjectParams)}");
+            if (obj.ObjectId is null) throw new ArgumentNullException($"No ObjectID in {nameof(PutObjectParams)}");
+            if (obj.Payload is null || obj.Payload.Length == 0) throw new ArgumentNullException($"No Payload in {nameof(PutObjectParams)}");
+            var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var req = new PutRequest();
             var body = new PutRequest.Types.Body();
             req.Body = body;
+
             var address = new Address
             {
                 ContainerId = obj.Header.ContainerId,
@@ -123,14 +129,15 @@ namespace Neo.FileSystem.API.Client
             await call.RequestStream.CompleteAsync();
             var resp = await call.ResponseAsync;
             if (!resp.VerifyResponse())
-                throw new System.InvalidOperationException("invalid object put response");
+                throw new InvalidOperationException("invalid object put response");
             return resp.Body.ObjectId;
         }
 
         public async Task<Address> DeleteObject(CancellationToken context, DeleteObjectParams param, CallOptions options = null)
         {
-            var object_client = new ObjectService.ObjectServiceClient(channel);
             var object_address = param.Address;
+            if (object_address is null) throw new ArgumentNullException($"No Address in {nameof(DeleteObjectParams)}");
+            var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var req = new DeleteRequest
             {
@@ -152,9 +159,10 @@ namespace Neo.FileSystem.API.Client
 
         public async Task<Object.Object> GetObjectHeader(CancellationToken context, ObjectHeaderParams param, CallOptions options = null)
         {
+            var object_address = param.Address;
+            if (object_address is null) throw new ArgumentNullException($"No Address in {nameof(ObjectHeaderParams)}");
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
-            var object_address = param.Address;
             var minimal = param.Short;
             var req = new HeadRequest
             {
@@ -224,10 +232,12 @@ namespace Neo.FileSystem.API.Client
 
         public async Task<byte[]> GetObjectPayloadRangeData(CancellationToken context, RangeDataParams param, CallOptions options = null)
         {
+            var object_address = param.Address;
+            if (object_address is null) throw new ArgumentNullException($"No Address in {nameof(RangeDataParams)}");
+            var range = param.Range;
+            if (range is null) throw new ArgumentNullException($"No Range in {nameof(RangeDataParams)}");
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
-            var object_address = param.Address;
-            var range = param.Range;
             var req = new GetRangeRequest
             {
                 Body = new GetRangeRequest.Types.Body
@@ -258,15 +268,16 @@ namespace Neo.FileSystem.API.Client
 
         public async Task<List<byte[]>> GetObjectPayloadRangeHash(CancellationToken context, RangeChecksumParams param, CallOptions options = null)
         {
+            var object_address = param.Address;
+            if (object_address is null) throw new ArgumentNullException($"No Address in {nameof(RangeChecksumParams)}");
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
-            var object_address = param.Address;
             var req = new GetRangeHashRequest
             {
                 Body = new GetRangeHashRequest.Types.Body
                 {
                     Address = object_address,
-                    Salt = ByteString.CopyFrom(param.Salt),
+                    Salt = param.Salt is null ? ByteString.Empty : ByteString.CopyFrom(param.Salt),
                     Type = param.Type,
                 }
             };
@@ -284,6 +295,7 @@ namespace Neo.FileSystem.API.Client
 
         public async Task<List<ObjectID>> SearchObject(CancellationToken context, SearchObjectParams param, CallOptions options = null)
         {
+            if (param.ContainerID is null) throw new ArgumentNullException($"No ContainerID in {nameof(SearchObjectParams)}");
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             var req = new SearchRequest
