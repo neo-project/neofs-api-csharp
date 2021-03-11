@@ -92,3 +92,4 @@ protoc: deps
 			$$f; \
  	done
 	@find src/Neo.FileStorage.API -name "*.cs" | xargs grep -rl "NeoFS.API.v2" | xargs sed -i "" "s/NeoFS.API.v2/Neo.FileStorage.API/g"
+	
