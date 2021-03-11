@@ -18,8 +18,38 @@ namespace Neo.FileStorage.API.Session {
   {
     static readonly string __ServiceName = "neo.fs.v2.session.SessionService";
 
-    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Session.CreateRequest> __Marshaller_neo_fs_v2_session_CreateRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Session.CreateRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Session.CreateResponse> __Marshaller_neo_fs_v2_session_CreateResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Session.CreateResponse.Parser.ParseFrom);
+    static void __Helper_SerializeMessage(global::Google.Protobuf.IMessage message, grpc::SerializationContext context)
+    {
+      #if !GRPC_DISABLE_PROTOBUF_BUFFER_SERIALIZATION
+      if (message is global::Google.Protobuf.IBufferMessage)
+      {
+        context.SetPayloadLength(message.CalculateSize());
+        global::Google.Protobuf.MessageExtensions.WriteTo(message, context.GetBufferWriter());
+        context.Complete();
+        return;
+      }
+      #endif
+      context.Complete(global::Google.Protobuf.MessageExtensions.ToByteArray(message));
+    }
+
+    static class __Helper_MessageCache<T>
+    {
+      public static readonly bool IsBufferMessage = global::System.Reflection.IntrospectionExtensions.GetTypeInfo(typeof(global::Google.Protobuf.IBufferMessage)).IsAssignableFrom(typeof(T));
+    }
+
+    static T __Helper_DeserializeMessage<T>(grpc::DeserializationContext context, global::Google.Protobuf.MessageParser<T> parser) where T : global::Google.Protobuf.IMessage<T>
+    {
+      #if !GRPC_DISABLE_PROTOBUF_BUFFER_SERIALIZATION
+      if (__Helper_MessageCache<T>.IsBufferMessage)
+      {
+        return parser.ParseFrom(context.PayloadAsReadOnlySequence());
+      }
+      #endif
+      return parser.ParseFrom(context.PayloadAsNewBuffer());
+    }
+
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Session.CreateRequest> __Marshaller_neo_fs_v2_session_CreateRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Session.CreateRequest.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Session.CreateResponse> __Marshaller_neo_fs_v2_session_CreateResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Session.CreateResponse.Parser));
 
     static readonly grpc::Method<global::Neo.FileStorage.API.Session.CreateRequest, global::Neo.FileStorage.API.Session.CreateResponse> __Method_Create = new grpc::Method<global::Neo.FileStorage.API.Session.CreateRequest, global::Neo.FileStorage.API.Session.CreateResponse>(
         grpc::MethodType.Unary,

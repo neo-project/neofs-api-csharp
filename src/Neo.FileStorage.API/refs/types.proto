@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+package neo.fs.v2.refs;
+
+option go_package = "github.com/nspcc-dev/neofs-api-go/v2/refs/grpc;refs";
+option csharp_namespace = "NeoFS.API.v2.Refs";
+
+// Objects in NeoFS are addressed by their ContainerID and ObjectID.
+//
+// String presentation of `Address` is the concatenation of string encoded
+// `ContainerID` and `ObjectID` delimited by '/' character.
+message Address {
+  // Container identifier
+  ContainerID container_id = 1 [json_name = "containerID"];
+  // Object identifier
+  ObjectID object_id = 2 [json_name = "objectID"];
+}
+
+// NeoFS Object unique identifier. Objects are immutable and content-addressed.
+// It means `ObjectID` will change if `header` or `payload` changes.
+//
+// `ObjectID` is a 32 byte long
+// [SHA256](https://csrc.nist.gov/publications/detail/fips/180/4/final) hash of
+// object's `header` field, which, in it's turn, contains hash of object's
+// payload.
+//
+// String presentation is
+// [base58](https://tools.ietf.org/html/draft-msporny-base58-02) encoded string.
+//
+// JSON value will be the data encoded as a string using standard base64
+// encoding with paddings. Either
+// [standard](https://tools.ietf.org/html/rfc4648#section-4) or
+// [URL-safe](https://tools.ietf.org/html/rfc4648#section-5) base64 encoding
+// with/without paddings are accepted.
+message ObjectID {
+  // Object identifier in a binary format
+  bytes value = 1 [json_name = "value"];
+}
+
+// NeoFS container identifier. Container structures are immutable and
+// content-addressed.
+//
+// `ContainerID` is a 32 byte long
+// [SHA256](https://csrc.nist.gov/publications/detail/fips/180/4/final) hash of
+// stable-marshalled container message.
+//
+// String presentation is
+// [base58](https://tools.ietf.org/html/draft-msporny-base58-02) encoded string.
+//
+// JSON value will be the data encoded as a string using standard base64
+// encoding with paddings. Either
+// [standard](https://tools.ietf.org/html/rfc4648#section-4) or
+// [URL-safe](https://tools.ietf.org/html/rfc4648#section-5) base64 encoding
+// with/without paddings are accepted.
+message ContainerID {
+  // Container identifier in a binary format.
+  bytes value = 1 [json_name = "value"];
+}
+
+// `OwnerID` is a derivative of a user's main public key. The transformation
+// algorithm is the same as for Neo3 wallet addresses. Neo3 wallet address can
+// be directly used as `OwnerID`.
+//
+// `OwnerID` is a 25 bytes sequence starting with Neo version prefix byte
+// followed by 20 bytes of ScrptHash and 4 bytes of checksum.
+//
+// String presentation is [Base58
+// Check](https://en.bitcoin.it/wiki/Base58Check_encoding) Encoded string.
+//
+// JSON value will be the data encoded as a string using standard base64
+// encoding with paddings. Either
+// [standard](https://tools.ietf.org/html/rfc4648#section-4) or
+// [URL-safe](https://tools.ietf.org/html/rfc4648#section-5) base64 encoding
+// with/without paddings are accepted.
+message OwnerID {
+  // Identifier of the container owner in a binary format
+  bytes value = 1 [json_name = "value"];
+}
+
+// API version used by a node.
+//
+// String presentation is a Semantic Versioning 2.0.0 compatible version string
+// with 'v' prefix. I.e. `vX.Y`, where `X` - major number, `Y` - minor number.
+message Version {
+  // Major API version
+  uint32 major = 1 [json_name = "major"];
+
+  // Minor API version
+  uint32 minor = 2 [json_name = "minor"];
+}
+
+// Signature of something in NeoFS.
+message Signature {
+  // Public key used for signing
+  bytes key = 1 [json_name = "key"];
+  // Signature
+  bytes sign = 2 [json_name = "signature"];
+}
+
+// Checksum algorithm type.
+enum ChecksumType {
+  // Unknown. Not used
+  CHECKSUM_TYPE_UNSPECIFIED = 0;
+
+  // Tillich-Zemor homomorphic hash function
+  TZ = 1;
+
+  // SHA-256
+  SHA256 = 2;
+}
+
+// Checksum message.
+// Depending on checksum algorithm type the string presentation may vary:
+//
+// * TZ \
+//   Hex encoded string without `0x` prefix
+// * SHA256 \
+//   Hex encoded string without `0x` prefix
+message Checksum {
+  // Checksum algorithm type
+  ChecksumType type = 1 [json_name = "type"];
+
+  // Checksum itself
+  bytes sum = 2 [json_name = "sum"];
+}

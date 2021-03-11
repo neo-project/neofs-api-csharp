@@ -39,9 +39,9 @@ namespace Neo.FileStorage.API.Session {
             "ZmljYXRpb25IZWFkZXIaJwoEQm9keRIKCgJpZBgBIAEoDBITCgtzZXNzaW9u",
             "X2tleRgCIAEoDDJfCg5TZXNzaW9uU2VydmljZRJNCgZDcmVhdGUSIC5uZW8u",
             "ZnMudjIuc2Vzc2lvbi5DcmVhdGVSZXF1ZXN0GiEubmVvLmZzLnYyLnNlc3Np",
-            "b24uQ3JlYXRlUmVzcG9uc2VCWFo5Z2l0aHViLmNvbS9uc3BjYy1kZXYvbmVv",
-            "ZnMtYXBpLWdvL3YyL3Nlc3Npb24vZ3JwYztzZXNzaW9uqgIaTmVvLkZpbGVT",
-            "eXN0ZW0uQVBJLlNlc3Npb25iBnByb3RvMw=="));
+            "b24uQ3JlYXRlUmVzcG9uc2VCUlo5Z2l0aHViLmNvbS9uc3BjYy1kZXYvbmVv",
+            "ZnMtYXBpLWdvL3YyL3Nlc3Npb24vZ3JwYztzZXNzaW9uqgIUTmVvRlMuQVBJ",
+            "LnYyLlNlc3Npb25iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Neo.FileStorage.API.Refs.TypesReflection.Descriptor, global::Neo.FileStorage.API.Session.TypesReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -56,7 +56,11 @@ namespace Neo.FileStorage.API.Session {
   /// <summary>
   /// Information necessary for opening a session.
   /// </summary>
-  public sealed partial class CreateRequest : pb::IMessage<CreateRequest> {
+  public sealed partial class CreateRequest : pb::IMessage<CreateRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
     private static readonly pb::MessageParser<CreateRequest> _parser = new pb::MessageParser<CreateRequest>(() => new CreateRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -238,6 +242,9 @@ namespace Neo.FileStorage.API.Session {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
@@ -267,7 +274,43 @@ namespace Neo.FileStorage.API.Session {
           }
         }
       }
+    #endif
     }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (body_ == null) {
+              Body = new global::Neo.FileStorage.API.Session.CreateRequest.Types.Body();
+            }
+            input.ReadMessage(Body);
+            break;
+          }
+          case 18: {
+            if (metaHeader_ == null) {
+              MetaHeader = new global::Neo.FileStorage.API.Session.RequestMetaHeader();
+            }
+            input.ReadMessage(MetaHeader);
+            break;
+          }
+          case 26: {
+            if (verifyHeader_ == null) {
+              VerifyHeader = new global::Neo.FileStorage.API.Session.RequestVerificationHeader();
+            }
+            input.ReadMessage(VerifyHeader);
+            break;
+          }
+        }
+      }
+    }
+    #endif
 
     #region Nested types
     /// <summary>Container for nested types declared in the CreateRequest message type.</summary>
@@ -276,7 +319,11 @@ namespace Neo.FileStorage.API.Session {
       /// <summary>
       /// Session creation request body
       /// </summary>
-      public sealed partial class Body : pb::IMessage<Body> {
+      public sealed partial class Body : pb::IMessage<Body>
+      #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+          , pb::IBufferMessage
+      #endif
+      {
         private static readonly pb::MessageParser<Body> _parser = new pb::MessageParser<Body>(() => new Body());
         private pb::UnknownFieldSet _unknownFields;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -422,6 +469,9 @@ namespace Neo.FileStorage.API.Session {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public void MergeFrom(pb::CodedInputStream input) {
+        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+          input.ReadRawMessage(this);
+        #else
           uint tag;
           while ((tag = input.ReadTag()) != 0) {
             switch(tag) {
@@ -441,7 +491,33 @@ namespace Neo.FileStorage.API.Session {
               }
             }
           }
+        #endif
         }
+
+        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+          uint tag;
+          while ((tag = input.ReadTag()) != 0) {
+            switch(tag) {
+              default:
+                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+                break;
+              case 10: {
+                if (ownerId_ == null) {
+                  OwnerId = new global::Neo.FileStorage.API.Refs.OwnerID();
+                }
+                input.ReadMessage(OwnerId);
+                break;
+              }
+              case 16: {
+                Expiration = input.ReadUInt64();
+                break;
+              }
+            }
+          }
+        }
+        #endif
 
       }
 
@@ -453,7 +529,11 @@ namespace Neo.FileStorage.API.Session {
   /// <summary>
   /// Information about the opened session.
   /// </summary>
-  public sealed partial class CreateResponse : pb::IMessage<CreateResponse> {
+  public sealed partial class CreateResponse : pb::IMessage<CreateResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
     private static readonly pb::MessageParser<CreateResponse> _parser = new pb::MessageParser<CreateResponse>(() => new CreateResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -635,6 +715,9 @@ namespace Neo.FileStorage.API.Session {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
@@ -664,7 +747,43 @@ namespace Neo.FileStorage.API.Session {
           }
         }
       }
+    #endif
     }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (body_ == null) {
+              Body = new global::Neo.FileStorage.API.Session.CreateResponse.Types.Body();
+            }
+            input.ReadMessage(Body);
+            break;
+          }
+          case 18: {
+            if (metaHeader_ == null) {
+              MetaHeader = new global::Neo.FileStorage.API.Session.ResponseMetaHeader();
+            }
+            input.ReadMessage(MetaHeader);
+            break;
+          }
+          case 26: {
+            if (verifyHeader_ == null) {
+              VerifyHeader = new global::Neo.FileStorage.API.Session.ResponseVerificationHeader();
+            }
+            input.ReadMessage(VerifyHeader);
+            break;
+          }
+        }
+      }
+    }
+    #endif
 
     #region Nested types
     /// <summary>Container for nested types declared in the CreateResponse message type.</summary>
@@ -673,7 +792,11 @@ namespace Neo.FileStorage.API.Session {
       /// <summary>
       /// Session creation response body
       /// </summary>
-      public sealed partial class Body : pb::IMessage<Body> {
+      public sealed partial class Body : pb::IMessage<Body>
+      #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+          , pb::IBufferMessage
+      #endif
+      {
         private static readonly pb::MessageParser<Body> _parser = new pb::MessageParser<Body>(() => new Body());
         private pb::UnknownFieldSet _unknownFields;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -816,6 +939,9 @@ namespace Neo.FileStorage.API.Session {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public void MergeFrom(pb::CodedInputStream input) {
+        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+          input.ReadRawMessage(this);
+        #else
           uint tag;
           while ((tag = input.ReadTag()) != 0) {
             switch(tag) {
@@ -832,7 +958,30 @@ namespace Neo.FileStorage.API.Session {
               }
             }
           }
+        #endif
         }
+
+        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+          uint tag;
+          while ((tag = input.ReadTag()) != 0) {
+            switch(tag) {
+              default:
+                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+                break;
+              case 10: {
+                Id = input.ReadBytes();
+                break;
+              }
+              case 18: {
+                SessionKey = input.ReadBytes();
+                break;
+              }
+            }
+          }
+        }
+        #endif
 
       }
 

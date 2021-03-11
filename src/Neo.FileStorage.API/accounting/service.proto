@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package neo.fs.v2.accounting;
+
+option go_package = "github.com/nspcc-dev/neofs-api-go/v2/accounting/grpc;accounting";
+option csharp_namespace = "NeoFS.API.v2.Accounting";
+
+import "accounting/types.proto";
+import "refs/types.proto";
+import "session/types.proto";
+
+// Accounting service provides methods for interaction with NeoFS sidechain via
+// other NeoFS nodes to get information about the account balance. Deposit and
+// Withdraw operations can't be implemented here, as they require Mainnet NeoFS
+// smart contract invocation. Transfer operations between internal NeoFS
+// accounts are possible, if both use the same token type.
+service AccountingService {
+  // Returns the amount of funds in GAS token for the requested NeoFS account.
+  rpc Balance (BalanceRequest) returns (BalanceResponse);
+}
+
+// BalanceRequest message
+message BalanceRequest {
+  // To indicate the account for which the balance is requested, it's identifier
+  // is used. It can be any existing account in NeoFS sidechain `Balance` smart
+  // contract. If omitted, client implementation MUST set it to the request's
+  // signer `OwnerID`.
+  message Body {
+    // Valid user identifier in `OwnerID` format for which the balance is
+    // requested. Required field.
+    neo.fs.v2.refs.OwnerID owner_id = 1;
+  }
+  // Body of the balance request message.
+  Body body = 1;
+
+  // Carries request meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.RequestMetaHeader meta_header = 2;
+
+  // Carries request verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.RequestVerificationHeader verify_header = 3;
+}
+
+// BalanceResponse message
+message BalanceResponse {
+  // The amount of funds in GAS token for the `OwnerID`'s account requested.
+  // Balance is `Decimal` format to avoid precision issues with rounding.
+  message Body {
+    // Amount of funds in GAS token for the requested account.
+    Decimal balance = 1;
+  }
+  // Body of the balance response message.
+  Body body = 1;
+
+  // Carries response meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.ResponseMetaHeader meta_header = 2;
+
+  // Carries response verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.ResponseVerificationHeader verify_header = 3;
+}

@@ -1,0 +1,202 @@
+syntax = "proto3";
+
+package neo.fs.v2.object;
+
+option go_package = "github.com/nspcc-dev/neofs-api-go/v2/object/grpc;object";
+option csharp_namespace = "NeoFS.API.v2.Object";
+
+import "refs/types.proto";
+import "session/types.proto";
+
+// Type of the object payload content. Only `REGULAR` type objects can be split,
+// hence `TOMBSTONE` and `STORAGEGROUP` payload is limited by maximal object
+// size.
+//
+// String presentation of object type is PascalCased `ObjectType` enumeration
+// item name:
+// * Regular
+// * Tombstone
+// * StorageGroup
+enum ObjectType {
+  // Just a normal object
+  REGULAR = 0;
+
+  // Used internally to identify deleted objects
+  TOMBSTONE = 1;
+
+  // StorageGroup information
+  STORAGE_GROUP = 2;
+}
+
+// Type of match expression
+enum MatchType {
+  // Unknown. Not used
+  MATCH_TYPE_UNSPECIFIED = 0;
+
+  // Full string match
+  STRING_EQUAL = 1;
+
+  // Full string mismatch
+  STRING_NOT_EQUAL = 2;
+
+  // Lack of key
+  NOT_PRESENT = 3;
+}
+
+// Short header fields
+message ShortHeader {
+  // Object format version. Effectively the version of API library used to
+  // create particular object.
+  neo.fs.v2.refs.Version version = 1 [json_name = "version"];
+
+  // Epoch when the object was created
+  uint64 creation_epoch = 2 [json_name = "creationEpoch"];
+
+  // Object's owner
+  neo.fs.v2.refs.OwnerID owner_id = 3 [json_name = "ownerID"];
+
+  // Type of the object payload content
+  ObjectType object_type = 4 [json_name = "objectType"];
+
+  // Size of payload in bytes.
+  // `0xFFFFFFFFFFFFFFFF` means `payload_length` is unknown
+  uint64 payload_length = 5 [json_name = "payloadLength"];
+
+  // Hash of payload bytes
+  neo.fs.v2.refs.Checksum payload_hash = 6 [json_name = "payloadHash"];
+
+  // Homomorphic hash of the object payload
+  neo.fs.v2.refs.Checksum homomorphic_hash = 7 [json_name = "homomorphicHash"];
+}
+
+// Object Header
+message Header {
+  // Object format version. Effectively the version of API library used to
+  // create particular object
+  neo.fs.v2.refs.Version version = 1 [json_name = "version"];
+
+  // Object's container
+  neo.fs.v2.refs.ContainerID container_id = 2 [json_name = "containerID"];
+
+  // Object's owner
+  neo.fs.v2.refs.OwnerID owner_id = 3 [json_name = "ownerID"];
+
+  // Object creation Epoch
+  uint64 creation_epoch = 4 [json_name = "creationEpoch"];
+
+  // Size of payload in bytes.
+  // `0xFFFFFFFFFFFFFFFF` means `payload_length` is unknown.
+  uint64 payload_length = 5 [json_name = "payloadLength"];
+
+  // Hash of payload bytes
+  neo.fs.v2.refs.Checksum payload_hash = 6 [json_name = "payloadHash"];
+
+  // Type of the object payload content
+  ObjectType object_type = 7 [json_name = "objectType"];
+
+  // Homomorphic hash of the object payload
+  neo.fs.v2.refs.Checksum homomorphic_hash = 8 [json_name = "homomorphicHash"];
+
+  // Session token, if it was used during Object creation. Need it to verify
+  // integrity and authenticity out of Request scope.
+  neo.fs.v2.session.SessionToken session_token = 9 [json_name = "sessionToken"];
+
+  // `Attribute` is a user-defined Key-Value metadata pair attached to the
+  // object.
+  //
+  // Key name must be a object-unique valid UTF-8 string. Value can't be empty.
+  // Objects with duplicated attribute names or attributes with empty values
+  // will be considered invalid.
+  //
+  // There are some "well-known" attributes starting with `__NEOFS__` prefix
+  // that affect system behaviour:
+  //
+  // * __NEOFS__UPLOAD_ID \
+  //   Marks smaller parts of a split bigger object
+  // * __NEOFS__EXPIRATION_EPOCH \
+  //   Tells GC to delete object after that epoch
+  //
+  // And some well-known attributes used by applications only:
+  //
+  // * Name \
+  //   Human-friendly name
+  // * FileName \
+  //   File name to be associated with the object on saving
+  // * Timestamp \
+  //   User-defined local time of object creation in Unix Timestamp format
+  //
+  // For detailed description of each well-known attribute please see the
+  // corresponding section in NeoFS Technical specification.
+  message Attribute {
+    // string key to the object attribute
+    string key = 1 [json_name = "key"];
+    // string value of the object attribute
+    string value = 2 [json_name = "value"];
+  }
+  // User-defined object attributes
+  repeated Attribute attributes = 10 [json_name = "attributes"];
+
+  // Bigger objects can be split into a chain of smaller objects. Information
+  // about inter-dependencies between spawned objects and how to re-construct
+  // the original one is in the `Split` headers. Parent and children objects
+  // must be within the same container.
+  message Split {
+    // Identifier of the origin object. Known only to the minor child.
+    neo.fs.v2.refs.ObjectID parent = 1 [json_name = "parent"];
+
+    // Identifier of the left split neighbor
+    neo.fs.v2.refs.ObjectID previous = 2 [json_name = "previous"];
+
+    // `signature` field of the parent object. Used to reconstruct parent.
+    neo.fs.v2.refs.Signature parent_signature = 3 [json_name = "parentSignature"];
+
+    // `header` field of the parent object. Used to reconstruct parent.
+    Header parent_header = 4 [json_name = "parentHeader"];
+
+    // List of identifiers of the objects generated by splitting current one.
+    repeated neo.fs.v2.refs.ObjectID children = 5 [json_name = "children"];
+
+    // 16 byte UUIDv4 used to identify the split object hierarchy parts. Must be
+    // unique inside container. All objects participating in the split must have
+    // the same `split_id` value.
+    bytes split_id = 6 [json_name = "splitID"];
+
+  }
+  // Position of the object in the split hierarchy
+  Split split = 11 [json_name = "split"];
+}
+
+// Object structure. Object is immutable and content-addressed. It means
+// `ObjectID` will change if header or payload changes. It's calculated as a
+// hash of header field, which contains hash of object's payload.
+message Object {
+  // Object's unique identifier.
+  neo.fs.v2.refs.ObjectID object_id = 1 [json_name = "objectID"];
+
+  // Signed object_id
+  neo.fs.v2.refs.Signature signature = 2 [json_name = "signature"];
+
+  // Object metadata headers
+  Header header = 3 [json_name = "header"];
+
+  // Payload bytes
+  bytes payload = 4 [json_name = "payload"];
+}
+
+// Meta information of split hierarchy for object assembly. With last part
+// one can traverse linked list of split hierarchy back to first part and
+// assemble original object. With linking object one can assembly object
+// straight away from the object parts.
+message SplitInfo {
+  // 16 byte UUID used to identify the split object hierarchy parts.
+  bytes split_id = 1;
+
+  // Identifier of the last object in split hierarchy parts. It contains
+  // split header with original object header.
+  neo.fs.v2.refs.ObjectID last_part = 2;
+
+  // Identifier of linking object for split hierarchy parts. It contains
+  // split header with original object header and sorted list of
+  // object parts.
+  neo.fs.v2.refs.ObjectID link = 3;
+}

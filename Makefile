@@ -38,7 +38,7 @@ deps:
 	@rm -rf vendor/github.com/gogo/protobuf
 	@rm -rf vendor/github.com/pseudomuto/protoc-gen-doc
 
-	@find src/api -type f -name '*.proto' -not -name '*_test.proto' -exec rm {} \;
+	@find src/Neo.FileStorage.API -type f -name '*.proto' -not -name '*_test.proto' -exec rm {} \;
 
 	@printf "${B}${G}⇒ Install Proto-dependencies ${R}\n"
 	@mkdir -p vendor/proto
@@ -53,8 +53,8 @@ deps:
 
 	@printf "${B}${G}⇒ NeoFS Proto files ${R}\n"
 	@for f in `find vendor/proto -type f -name '*.proto' -exec dirname {} \; | sort -u `; do \
-		mkdir -p src/api/$$(basename $$f); \
-		cp $$f/*.proto src/api/$$(basename $$f)/; \
+		mkdir -p src/Neo.FileStorage.API/$$(basename $$f); \
+		cp $$f/*.proto src/Neo.FileStorage.API/$$(basename $$f)/; \
 	done
 
 	@printf "${B}${G}⇒ Cleanup ${R}\n"
@@ -65,29 +65,30 @@ deps:
 # Regenerate documentation for protot files:
 docgen: deps
 	@mkdir -p ./docs
-	@for f in `find src/api -type f -name '*.proto' -exec dirname {} \; | sort -u `; do \
+	@for f in `find src/Neo.FileStorage.API -type f -name '*.proto' -exec dirname {} \; | sort -u `; do \
 		printf "${B}${G}⇒ Documentation for $$(basename $$f) ${R}\n"; \
 		protoc \
 			--plugin=protoc-gen-doc=./vendor/github.com/pseudomuto/protoc-gen-doc/protoc-gen-doc \
 			--doc_opt=.github/markdown.tmpl,$${f}.md \
-			--proto_path=src/api:vendor:/usr/local/include \
+			--proto_path=src/Neo.FileStorage.API:vendor:/usr/local/include \
 			--doc_out=docs/ $${f}/*.proto; \
 	done
 
 # Regenerate proto files:
 protoc: deps
 	@printf "${B}${G}⇒ Cleanup old files ${R}\n"
-	@find src/api -depth -type d -empty -delete
-	@find src/api -type f -name '*.pb.cs' -exec rm {} \;
-	@find src/api -type f -name '*Grpc.cs' -exec rm {} \;
+	@find src/Neo.FileStorage.API -depth -type d -empty -delete
+	@find src/Neo.FileStorage.API -type f -name '*.pb.cs' -exec rm {} \;
+	@find src/Neo.FileStorage.API -type f -name '*Grpc.cs' -exec rm {} \;
 	@printf "${B}${G}⇒ Protoc generate ${R}\n"
-	@for f in `find src/api -type f -name '*.proto'`; do \
+	@for f in `find src/Neo.FileStorage.API -type f -name '*.proto'`; do \
  		printf "${B}${G}⇒ Processing $$f ${R}\n"; \
  		protoc \
 			--plugin=protoc-gen-grpc=$(PROTO_TOOLS_BIN)/grpc_csharp_plugin \
 			--csharp_out=$$(dirname $$f) \
 			--csharp_opt=file_extension=.cs \
 			--grpc_out=$$(dirname $$f) \
-			--proto_path=src/api:vendor:/usr/local/include \
+			--proto_path=src/Neo.FileStorage.API:vendor:/usr/local/include \
 			$$f; \
  	done
+	@find src/Neo.FileStorage.API -name "*.cs" | xargs grep -rl "NeoFS.API.v2" | xargs sed -i "" "s/NeoFS.API.v2/Neo.FileStorage.API/g"
