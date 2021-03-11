@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CE8B80C9-E6F1-4331-8FCE-E5A872621850}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F7421333-45F3-4D10-9B35-27C9E29B1B61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neo.FileSystem.API", "src\Neo.FileSystem.API\Neo.FileSystem.API.csproj", "{17022D09-EBE7-4277-B73A-A2FD76578C5D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neo.FileStorage.API", "src\Neo.FileStorage.API\Neo.FileStorage.API.csproj", "{DA2A9253-2C16-4C6E-8779-F44D4003051A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BCA595E6-79CA-4E13-949F-6088FE13C8E7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8B49FDBE-0430-4F7A-A2D1-F379855CDD11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neo.FileSystem.API.UnitTests", "tests\Neo.FileSystem.API.UnitTests\Neo.FileSystem.API.UnitTests.csproj", "{62D6AFF0-7E4F-4E19-AB9F-F6055E2EE55C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neo.FileStorage.API.UnitTests", "tests\Neo.FileStorage.API.UnitTests\Neo.FileStorage.API.UnitTests.csproj", "{FCE6FA86-FF15-4811-B96E-A6379D3E0AC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,34 +24,30 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{17022D09-EBE7-4277-B73A-A2FD76578C5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{17022D09-EBE7-4277-B73A-A2FD76578C5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{17022D09-EBE7-4277-B73A-A2FD76578C5D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{17022D09-EBE7-4277-B73A-A2FD76578C5D}.Debug|x64.Build.0 = Debug|Any CPU
-		{17022D09-EBE7-4277-B73A-A2FD76578C5D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{17022D09-EBE7-4277-B73A-A2FD76578C5D}.Debug|x86.Build.0 = Debug|Any CPU
-		{17022D09-EBE7-4277-B73A-A2FD76578C5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{17022D09-EBE7-4277-B73A-A2FD76578C5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{17022D09-EBE7-4277-B73A-A2FD76578C5D}.Release|x64.ActiveCfg = Release|Any CPU
-		{17022D09-EBE7-4277-B73A-A2FD76578C5D}.Release|x64.Build.0 = Release|Any CPU
-		{17022D09-EBE7-4277-B73A-A2FD76578C5D}.Release|x86.ActiveCfg = Release|Any CPU
-		{17022D09-EBE7-4277-B73A-A2FD76578C5D}.Release|x86.Build.0 = Release|Any CPU
-		{62D6AFF0-7E4F-4E19-AB9F-F6055E2EE55C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62D6AFF0-7E4F-4E19-AB9F-F6055E2EE55C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{62D6AFF0-7E4F-4E19-AB9F-F6055E2EE55C}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{62D6AFF0-7E4F-4E19-AB9F-F6055E2EE55C}.Debug|x64.Build.0 = Debug|Any CPU
-		{62D6AFF0-7E4F-4E19-AB9F-F6055E2EE55C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{62D6AFF0-7E4F-4E19-AB9F-F6055E2EE55C}.Debug|x86.Build.0 = Debug|Any CPU
-		{62D6AFF0-7E4F-4E19-AB9F-F6055E2EE55C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62D6AFF0-7E4F-4E19-AB9F-F6055E2EE55C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{62D6AFF0-7E4F-4E19-AB9F-F6055E2EE55C}.Release|x64.ActiveCfg = Release|Any CPU
-		{62D6AFF0-7E4F-4E19-AB9F-F6055E2EE55C}.Release|x64.Build.0 = Release|Any CPU
-		{62D6AFF0-7E4F-4E19-AB9F-F6055E2EE55C}.Release|x86.ActiveCfg = Release|Any CPU
-		{62D6AFF0-7E4F-4E19-AB9F-F6055E2EE55C}.Release|x86.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{17022D09-EBE7-4277-B73A-A2FD76578C5D} = {CE8B80C9-E6F1-4331-8FCE-E5A872621850}
-		{62D6AFF0-7E4F-4E19-AB9F-F6055E2EE55C} = {BCA595E6-79CA-4E13-949F-6088FE13C8E7}
+		{DA2A9253-2C16-4C6E-8779-F44D4003051A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA2A9253-2C16-4C6E-8779-F44D4003051A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA2A9253-2C16-4C6E-8779-F44D4003051A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DA2A9253-2C16-4C6E-8779-F44D4003051A}.Debug|x64.Build.0 = Debug|Any CPU
+		{DA2A9253-2C16-4C6E-8779-F44D4003051A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DA2A9253-2C16-4C6E-8779-F44D4003051A}.Debug|x86.Build.0 = Debug|Any CPU
+		{DA2A9253-2C16-4C6E-8779-F44D4003051A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA2A9253-2C16-4C6E-8779-F44D4003051A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA2A9253-2C16-4C6E-8779-F44D4003051A}.Release|x64.ActiveCfg = Release|Any CPU
+		{DA2A9253-2C16-4C6E-8779-F44D4003051A}.Release|x64.Build.0 = Release|Any CPU
+		{DA2A9253-2C16-4C6E-8779-F44D4003051A}.Release|x86.ActiveCfg = Release|Any CPU
+		{DA2A9253-2C16-4C6E-8779-F44D4003051A}.Release|x86.Build.0 = Release|Any CPU
+		{FCE6FA86-FF15-4811-B96E-A6379D3E0AC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCE6FA86-FF15-4811-B96E-A6379D3E0AC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCE6FA86-FF15-4811-B96E-A6379D3E0AC5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FCE6FA86-FF15-4811-B96E-A6379D3E0AC5}.Debug|x64.Build.0 = Debug|Any CPU
+		{FCE6FA86-FF15-4811-B96E-A6379D3E0AC5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FCE6FA86-FF15-4811-B96E-A6379D3E0AC5}.Debug|x86.Build.0 = Debug|Any CPU
+		{FCE6FA86-FF15-4811-B96E-A6379D3E0AC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCE6FA86-FF15-4811-B96E-A6379D3E0AC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCE6FA86-FF15-4811-B96E-A6379D3E0AC5}.Release|x64.ActiveCfg = Release|Any CPU
+		{FCE6FA86-FF15-4811-B96E-A6379D3E0AC5}.Release|x64.Build.0 = Release|Any CPU
+		{FCE6FA86-FF15-4811-B96E-A6379D3E0AC5}.Release|x86.ActiveCfg = Release|Any CPU
+		{FCE6FA86-FF15-4811-B96E-A6379D3E0AC5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
@@ -67,5 +63,9 @@ Global
 		$3.TabsToSpaces = True
 		$3.EolMarker = Unix
 		$3.scope = text/plain
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DA2A9253-2C16-4C6E-8779-F44D4003051A} = {F7421333-45F3-4D10-9B35-27C9E29B1B61}
+		{FCE6FA86-FF15-4811-B96E-A6379D3E0AC5} = {8B49FDBE-0430-4F7A-A2D1-F379855CDD11}
 	EndGlobalSection
 EndGlobal
