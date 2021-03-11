@@ -1,7 +1,11 @@
 # NeoFS API CSharp
 
+[docs](./docs)
+
+[nuget package](https://www.nuget.org/packages/NeoFS.API/)
+
 ### Requirements
-- DotNet SDK (3.1.1+)
+- DotNet SDK (v5.0.0+)
 - protobuf / protoc (3.11.4+)
 
 ### Regenerate NeoFS Proto files and documentation
