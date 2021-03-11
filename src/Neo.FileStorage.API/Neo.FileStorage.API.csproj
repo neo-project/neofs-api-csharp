@@ -17,6 +17,7 @@
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <Company>The Neo Project</Company>
     <Description>NeoFS API for CSharp</Description>
+    <DefineConstants>$(DefineConstants);GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE</DefineConstants> 
   </PropertyGroup>
 
   <ItemGroup>

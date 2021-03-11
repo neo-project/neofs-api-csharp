@@ -30,10 +30,9 @@ namespace Neo.FileStorage.API.StorageGroup {
             "EkEKD3ZhbGlkYXRpb25faGFzaBgCIAEoCzIYLm5lby5mcy52Mi5yZWZzLkNo",
             "ZWNrc3VtUg52YWxpZGF0aW9uSGFzaBIpChBleHBpcmF0aW9uX2Vwb2NoGAMg",
             "ASgEUg9leHBpcmF0aW9uRXBvY2gSMgoHbWVtYmVycxgEIAMoCzIYLm5lby5m",
-            "cy52Mi5yZWZzLk9iamVjdElEUgdtZW1iZXJzQmdaQ2dpdGh1Yi5jb20vbnNw",
+            "cy52Mi5yZWZzLk9iamVjdElEUgdtZW1iZXJzQmFaQ2dpdGh1Yi5jb20vbnNw",
             "Y2MtZGV2L25lb2ZzLWFwaS1nby92Mi9zdG9yYWdlZ3JvdXAvZ3JwYztzdG9y",
-            "YWdlZ3JvdXCqAh9OZW8uRmlsZVN5c3RlbS5BUEkuU3RvcmFnZUdyb3VwYgZw",
-            "cm90bzM="));
+            "YWdlZ3JvdXCqAhlOZW9GUy5BUEkudjIuU3RvcmFnZUdyb3VwYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Neo.FileStorage.API.Refs.TypesReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -50,7 +49,11 @@ namespace Neo.FileStorage.API.StorageGroup {
   /// additional information used for proof of storage. `StorageGroup` only
   /// contains objects from the same container.
   /// </summary>
-  public sealed partial class StorageGroup : pb::IMessage<StorageGroup> {
+  public sealed partial class StorageGroup : pb::IMessage<StorageGroup>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
     private static readonly pb::MessageParser<StorageGroup> _parser = new pb::MessageParser<StorageGroup>(() => new StorageGroup());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -244,6 +247,9 @@ namespace Neo.FileStorage.API.StorageGroup {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
@@ -271,7 +277,41 @@ namespace Neo.FileStorage.API.StorageGroup {
           }
         }
       }
+    #endif
     }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            ValidationDataSize = input.ReadUInt64();
+            break;
+          }
+          case 18: {
+            if (validationHash_ == null) {
+              ValidationHash = new global::Neo.FileStorage.API.Refs.Checksum();
+            }
+            input.ReadMessage(ValidationHash);
+            break;
+          }
+          case 24: {
+            ExpirationEpoch = input.ReadUInt64();
+            break;
+          }
+          case 34: {
+            members_.AddEntriesFrom(ref input, _repeated_members_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
 
   }
 

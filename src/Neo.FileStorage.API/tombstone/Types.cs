@@ -28,9 +28,9 @@ namespace Neo.FileStorage.API.Tombstone {
             "EHJlZnMvdHlwZXMucHJvdG8ihQEKCVRvbWJzdG9uZRIpChBleHBpcmF0aW9u",
             "X2Vwb2NoGAEgASgEUg9leHBpcmF0aW9uRXBvY2gSGQoIc3BsaXRfaWQYAiAB",
             "KAxSB3NwbGl0SUQSMgoHbWVtYmVycxgDIAMoCzIYLm5lby5mcy52Mi5yZWZz",
-            "Lk9iamVjdElEUgdtZW1iZXJzQl5aPWdpdGh1Yi5jb20vbnNwY2MtZGV2L25l",
-            "b2ZzLWFwaS1nby92Mi90b21ic3RvbmUvZ3JwYzt0b21ic3RvbmWqAhxOZW8u",
-            "RmlsZVN5c3RlbS5BUEkuVG9tYnN0b25lYgZwcm90bzM="));
+            "Lk9iamVjdElEUgdtZW1iZXJzQlhaPWdpdGh1Yi5jb20vbnNwY2MtZGV2L25l",
+            "b2ZzLWFwaS1nby92Mi90b21ic3RvbmUvZ3JwYzt0b21ic3RvbmWqAhZOZW9G",
+            "Uy5BUEkudjIuVG9tYnN0b25lYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Neo.FileStorage.API.Refs.TypesReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -45,7 +45,11 @@ namespace Neo.FileStorage.API.Tombstone {
   /// Tombstone keeps record of deleted objects for few epochs until they are
   /// purged from the NeoFS network.
   /// </summary>
-  public sealed partial class Tombstone : pb::IMessage<Tombstone> {
+  public sealed partial class Tombstone : pb::IMessage<Tombstone>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
     private static readonly pb::MessageParser<Tombstone> _parser = new pb::MessageParser<Tombstone>(() => new Tombstone());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -210,6 +214,9 @@ namespace Neo.FileStorage.API.Tombstone {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
@@ -230,7 +237,34 @@ namespace Neo.FileStorage.API.Tombstone {
           }
         }
       }
+    #endif
     }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            ExpirationEpoch = input.ReadUInt64();
+            break;
+          }
+          case 18: {
+            SplitId = input.ReadBytes();
+            break;
+          }
+          case 26: {
+            members_.AddEntriesFrom(ref input, _repeated_members_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
 
   }
 

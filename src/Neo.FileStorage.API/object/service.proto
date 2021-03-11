@@ -1,0 +1,520 @@
+syntax = "proto3";
+
+package neo.fs.v2.object;
+
+option go_package = "github.com/nspcc-dev/neofs-api-go/v2/object/grpc;object";
+option csharp_namespace = "NeoFS.API.v2.Object";
+
+import "object/types.proto";
+import "refs/types.proto";
+import "session/types.proto";
+
+// `ObjectService` provides API for manipulating objects. Object operations do
+// not interact with sidechain and are only served by nodes in p2p style.
+service ObjectService {
+  // Receive full object structure, including Headers and payload. Response uses
+  // gRPC stream. First response message carries object with requested address.
+  // Chunk messages are parts of the object's payload if it is needed. All
+  // messages, except the first one, carry payload chunks. Requested object can
+  // be restored by concatenation of object message payload and all chunks
+  // keeping receiving order.
+  rpc Get(GetRequest) returns (stream GetResponse);
+
+  // Put the object into container. Request uses gRPC stream. First message
+  // SHOULD be of PutHeader type. `ContainerID` and `OwnerID` of an object
+  // SHOULD be set. Session token SHOULD be obtained before `PUT` operation (see
+  // session package). Chunk messages are considered by server as a part of an
+  // object payload. All messages, except first one, SHOULD be payload chunks.
+  // Chunk messages SHOULD be sent in direct order of fragmentation.
+  rpc Put(stream PutRequest) returns (PutResponse);
+
+  // Delete the object from a container. There is no immediate removal
+  // guarantee. Object will be marked for removal and deleted eventually.
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+
+  // Returns the object Headers without data payload. By default full header is
+  // returned. If `main_only` request field is set, the short header with only
+  // the very minimal information would be returned instead.
+  rpc Head(HeadRequest) returns (HeadResponse);
+
+  // Search objects in container. Search query allows to match by Object
+  // Header's filed values. Please see the corresponding NeoFS Technical
+  // Specification section for more details.
+  rpc Search(SearchRequest) returns (stream SearchResponse);
+
+  // Get byte range of data payload. Range is set as an (offset, length) tuple.
+  // Like in `Get` method, the response uses gRPC stream. Requested range can be
+  // restored by concatenation of all received payload chunks keeping receiving
+  // order.
+  rpc GetRange(GetRangeRequest) returns (stream GetRangeResponse);
+
+  // Returns homomorphic or regular hash of object's payload range after
+  // applying XOR operation with the provided `salt`. Ranges are set of (offset,
+  // length) tuples. Hashes order in response corresponds to ranges order in
+  // request. Note that hash is calculated for XORed data.
+  rpc GetRangeHash(GetRangeHashRequest) returns (GetRangeHashResponse);
+}
+
+// GET object request
+message GetRequest {
+  // GET Object request body
+  message Body {
+    // Address of the requested object
+    neo.fs.v2.refs.Address address = 1;
+
+    // If `raw` flag is set, request will work only with objects that are
+    // physically stored on the peer node
+    bool raw = 2;
+  }
+  // Body of get object request message.
+  Body body = 1;
+
+  // Carries request meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.RequestMetaHeader meta_header = 2;
+
+  // Carries request verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.RequestVerificationHeader verify_header = 3;
+}
+
+// GET object response
+message GetResponse {
+  // GET Object Response body
+  message Body {
+    // Initial part of the `Object` structure stream. Technically it's a
+    // set of all `Object` structure's fields except `payload`.
+    message Init {
+      // Object's unique identifier.
+      neo.fs.v2.refs.ObjectID object_id = 1;
+
+      // Signed `ObjectID`
+      neo.fs.v2.refs.Signature signature = 2;
+
+      // Object metadata headers
+      Header header = 3;
+    }
+    // Single message in the response stream.
+    oneof object_part {
+      // Initial part of the object stream
+      Init init = 1;
+
+      // Chunked object payload
+      bytes chunk = 2;
+
+      // Meta information of split hierarchy for object assembly.
+      SplitInfo split_info = 3;
+    }
+  }
+  // Body of get object response message.
+  Body body = 1;
+
+  // Carries response meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.ResponseMetaHeader meta_header = 2;
+
+  // Carries response verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.ResponseVerificationHeader verify_header = 3;
+}
+
+// PUT object request
+message PutRequest {
+  // PUT request body
+  message Body {
+    // Newly created object structure parameters. If some optional parameters
+    // are not set, they will be calculated by a peer node.
+    message Init {
+      // ObjectID if available.
+      neo.fs.v2.refs.ObjectID object_id = 1;
+
+      // Object signature if available
+      neo.fs.v2.refs.Signature signature = 2;
+
+      // Object's Header
+      Header header = 3;
+
+      // Number of the object copies to store within the RPC call. By default
+      // object is processed according to the container's placement policy.
+      uint32 copies_number = 4;
+    }
+    // Single message in the request stream.
+    oneof object_part {
+      // Initial part of the object stream
+      Init init = 1;
+
+      // Chunked object payload
+      bytes chunk = 2;
+    }
+  }
+  // Body of put object request message.
+  Body body = 1;
+
+  // Carries request meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.RequestMetaHeader meta_header = 2;
+
+  // Carries request verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.RequestVerificationHeader verify_header = 3;
+}
+
+// PUT Object response
+message PutResponse {
+  // PUT Object response body
+  message Body {
+    // Identifier of the saved object
+    neo.fs.v2.refs.ObjectID object_id = 1;
+  }
+  // Body of put object response message.
+  Body body = 1;
+
+  // Carries response meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.ResponseMetaHeader meta_header = 2;
+
+  // Carries response verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.ResponseVerificationHeader verify_header = 3;
+}
+
+// Object DELETE request
+message DeleteRequest {
+  // Object DELETE request body
+  message Body {
+    // Address of the object to be deleted
+    neo.fs.v2.refs.Address address = 1;
+ }
+  // Body of delete object request message.
+  Body body = 1;
+
+  // Carries request meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.RequestMetaHeader meta_header = 2;
+
+  // Carries request verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.RequestVerificationHeader verify_header = 3;
+}
+
+// DeleteResponse body is empty because we cannot guarantee permanent object
+// removal in distributed system.
+message DeleteResponse {
+  // Object DELETE Response has an empty body.
+  message Body {
+    // Address of the tombstone created for the deleted object
+    neo.fs.v2.refs.Address tombstone = 1;
+  }
+
+  // Body of delete object response message.
+  Body body = 1;
+
+  // Carries response meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.ResponseMetaHeader meta_header = 2;
+
+  // Carries response verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.ResponseVerificationHeader verify_header = 3;
+}
+
+// Object HEAD request
+message HeadRequest {
+  // Object HEAD request body
+  message Body {
+    // Address of the object with the requested Header
+    neo.fs.v2.refs.Address address = 1;
+
+    // Return only minimal header subset
+    bool main_only = 2;
+
+    // If `raw` flag is set, request will work only with objects that are
+    // physically stored on the peer node
+    bool raw = 3;
+  }
+  // Body of head object request message.
+  Body body = 1;
+
+  // Carries request meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.RequestMetaHeader meta_header = 2;
+
+  // Carries request verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.RequestVerificationHeader verify_header = 3;
+}
+
+// Tuple of full object header and signature of `ObjectID`. \
+// Signed `ObjectID` is present to verify full header's authenticity through the
+// following steps:
+//
+// 1. Calculate `SHA-256` of marshalled `Header` structure
+// 2. Check if the resulting hash matched `ObjectID`
+// 3. Check if `ObjectID` signature in `signature` field is correct
+message HeaderWithSignature {
+  // Full object header
+  Header header = 1 [json_name = "header"];
+
+  // Signed `ObjectID` to verify full header's authenticity
+  neo.fs.v2.refs.Signature signature = 2 [json_name = "signature"];
+}
+
+// Object HEAD response
+message HeadResponse {
+  // Object HEAD response body
+  message Body {
+    // Requested object header, it's part or meta information about split
+    // object.
+    oneof head{
+      // Full object's `Header` with `ObjectID` signature
+      HeaderWithSignature header = 1;
+
+      // Short object header
+      ShortHeader short_header = 2;
+
+      // Meta information of split hierarchy.
+      SplitInfo split_info = 3;
+    }
+  }
+  // Body of head object response message.
+  Body body = 1;
+
+  // Carries response meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.ResponseMetaHeader meta_header = 2;
+
+  // Carries response verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.ResponseVerificationHeader verify_header = 3;
+}
+
+// Object Search request
+message SearchRequest {
+  // Object Search request body
+  message Body {
+    // Container identifier were to search
+    neo.fs.v2.refs.ContainerID container_id = 1;
+
+    // Version of the Query Language used
+    uint32 version = 2;
+    // Filter structure checks if object header field or attribute content
+    // matches a value.
+    //
+    // By default `key` field refers to the corresponding object's `Attribute`.
+    // Some Object's header fields can also be accessed by adding `$Object:`
+    // prefix to the name. Here is the list of fields available via this prefix:
+    //
+    // * $Object:version \
+    //   version
+    // * $Object:objectID \
+    //   object_id
+    // * $Object:containerID \
+    //   container_id
+    // * $Object:ownerID \
+    //   owner_id
+    // * $Object:creationEpoch \
+    //   creation_epoch
+    // * $Object:payloadLength \
+    //   payload_length
+    // * $Object:payloadHash \
+    //   payload_hash
+    // * $Object:objectType \
+    //   object_type
+    // * $Object:homomorphicHash \
+    //   homomorphic_hash
+    // * $Object:split.parent \
+    //   object_id of parent
+    // * $Object:split.splitID \
+    //   16 byte UUIDv4 used to identify the split object hierarchy parts
+    //
+    // There are some well-known filter aliases to match objects by certain
+    // properties:
+    //
+    // * $Object:ROOT \
+    //   Returns only `REGULAR` type objects that are not split or are the top
+    //   level root objects in a split hierarchy. This includes objects not
+    //   present physically, like large objects split into smaller objects
+    //   without separate top-level root object. Other type objects like
+    //   StorageGroups and Tombstones will not be shown. This filter may be
+    //   useful for listing objects like `ls` command of some virtual file
+    //   system. This filter is activated if the `key` exists, disregarding the
+    //   value and matcher type.
+    // * $Object:PHY \
+    //   Returns only objects physically stored in the system. This filter is
+    //   activated if the `key` exists, disregarding the value and matcher type.
+    //
+    // Note: using filters with a key with prefix `$Object:` and match type
+    // `NOT_PRESENT `is not recommended since this is not a cross-version approach.
+    // Behavior when processing this kind of filters is undefined.
+    message Filter {
+      // Match type to use
+      MatchType match_type = 1 [json_name = "matchType"];
+
+      // Attribute or Header fields to match
+      string key = 2 [json_name = "key"];
+
+      // Value to match
+      string value = 3 [json_name = "value"];
+    }
+    // List of search expressions
+    repeated Filter filters = 3;
+  }
+  // Body of search object request message.
+  Body body = 1;
+
+  // Carries request meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.RequestMetaHeader meta_header = 2;
+
+  // Carries request verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.RequestVerificationHeader verify_header = 3;
+}
+
+// Search response
+message SearchResponse {
+  // Object Search response body
+  message Body {
+    // List of `ObjectID`s that match the search query
+    repeated neo.fs.v2.refs.ObjectID id_list = 1;
+  }
+  // Body of search object response message.
+  Body body = 1;
+
+  // Carries response meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.ResponseMetaHeader meta_header = 2;
+
+  // Carries response verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.ResponseVerificationHeader verify_header = 3;
+}
+
+// Object payload range.Ranges of zero length SHOULD be considered as invalid.
+message Range {
+  // Offset of the range from the object payload start
+  uint64 offset = 1;
+
+  // Length in bytes of the object payload range
+  uint64 length = 2;
+}
+
+// Request part of object's payload
+message GetRangeRequest {
+  // Byte range of object's payload request body
+  message Body {
+    // Address of the object containing the requested payload range
+    neo.fs.v2.refs.Address address = 1;
+
+    // Requested payload range
+    Range range = 2;
+
+    // If `raw` flag is set, request will work only with objects that are
+    // physically stored on the peer node.
+    bool raw = 3;
+  }
+
+  // Body of get range object request message.
+  Body body = 1;
+
+  // Carries request meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.RequestMetaHeader meta_header = 2;
+
+  // Carries request verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.RequestVerificationHeader verify_header = 3;
+}
+
+// Get part of object's payload
+message GetRangeResponse {
+  // Get Range response body uses streams to transfer the response. Because
+  // object payload considered a byte sequence, there is no need to have some
+  // initial preamble message. The requested byte range is sent as a series
+  // chunks.
+  message Body {
+    // Requested object range or meta information about split object.
+    oneof range_part{
+      // Chunked object payload's range.
+      bytes chunk = 1;
+
+      // Meta information of split hierarchy.
+      SplitInfo split_info = 2;
+    }
+  }
+
+  // Body of get range object response message.
+  Body body = 1;
+
+  // Carries response meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.ResponseMetaHeader meta_header = 2;
+
+  // Carries response verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.ResponseVerificationHeader verify_header = 3;
+}
+
+// Get hash of object's payload part
+message GetRangeHashRequest {
+  // Get hash of object's payload part request body.
+  message Body {
+    // Address of the object that containing the requested payload range
+    neo.fs.v2.refs.Address address = 1;
+
+    // List of object's payload ranges to calculate homomorphic hash
+    repeated Range ranges = 2;
+
+    // Binary salt to XOR object's payload ranges before hash calculation
+    bytes salt = 3;
+
+    // Checksum algorithm type
+    neo.fs.v2.refs.ChecksumType type = 4;
+  }
+  // Body of get range hash object request message.
+  Body body = 1;
+
+  // Carries request meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.RequestMetaHeader meta_header = 2;
+
+  // Carries request verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.RequestVerificationHeader verify_header = 3;
+}
+
+// Get hash of object's payload part
+message GetRangeHashResponse {
+  // Get hash of object's payload part response body.
+  message Body {
+    // Checksum algorithm type
+    neo.fs.v2.refs.ChecksumType type = 1;
+
+    // List of range hashes in a binary format
+    repeated bytes hash_list = 2;
+  }
+  // Body of get range hash object response message.
+  Body body = 1;
+
+  // Carries response meta information. Header data is used only to regulate
+  // message transport and does not affect request execution.
+  neo.fs.v2.session.ResponseMetaHeader meta_header = 2;
+
+  // Carries response verification information. This header is used to
+  // authenticate the nodes of the message route and check the correctness of
+  // transmission.
+  neo.fs.v2.session.ResponseVerificationHeader verify_header = 3;
+}

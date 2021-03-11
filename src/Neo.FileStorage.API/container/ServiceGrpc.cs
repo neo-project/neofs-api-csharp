@@ -7,583 +7,612 @@
 
 using grpc = global::Grpc.Core;
 
-namespace Neo.FileStorage.API.Container
-{
-    /// <summary>
-    /// `ContainerService` provides API to interact with `Container` smart contract
-    /// in NeoFS sidechain via other NeoFS nodes. All of those actions can be done
-    /// equivalently by directly issuing transactions and RPC calls to sidechain
-    /// nodes.
-    /// </summary>
-    public static partial class ContainerService
+namespace Neo.FileStorage.API.Container {
+  /// <summary>
+  /// `ContainerService` provides API to interact with `Container` smart contract
+  /// in NeoFS sidechain via other NeoFS nodes. All of those actions can be done
+  /// equivalently by directly issuing transactions and RPC calls to sidechain
+  /// nodes.
+  /// </summary>
+  public static partial class ContainerService
+  {
+    static readonly string __ServiceName = "neo.fs.v2.container.ContainerService";
+
+    static void __Helper_SerializeMessage(global::Google.Protobuf.IMessage message, grpc::SerializationContext context)
     {
-        static readonly string __ServiceName = "neo.fs.v2.container.ContainerService";
+      #if !GRPC_DISABLE_PROTOBUF_BUFFER_SERIALIZATION
+      if (message is global::Google.Protobuf.IBufferMessage)
+      {
+        context.SetPayloadLength(message.CalculateSize());
+        global::Google.Protobuf.MessageExtensions.WriteTo(message, context.GetBufferWriter());
+        context.Complete();
+        return;
+      }
+      #endif
+      context.Complete(global::Google.Protobuf.MessageExtensions.ToByteArray(message));
+    }
 
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.PutRequest> __Marshaller_neo_fs_v2_container_PutRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Container.PutRequest.Parser.ParseFrom);
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.PutResponse> __Marshaller_neo_fs_v2_container_PutResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Container.PutResponse.Parser.ParseFrom);
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.DeleteRequest> __Marshaller_neo_fs_v2_container_DeleteRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Container.DeleteRequest.Parser.ParseFrom);
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.DeleteResponse> __Marshaller_neo_fs_v2_container_DeleteResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Container.DeleteResponse.Parser.ParseFrom);
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.GetRequest> __Marshaller_neo_fs_v2_container_GetRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Container.GetRequest.Parser.ParseFrom);
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.GetResponse> __Marshaller_neo_fs_v2_container_GetResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Container.GetResponse.Parser.ParseFrom);
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.ListRequest> __Marshaller_neo_fs_v2_container_ListRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Container.ListRequest.Parser.ParseFrom);
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.ListResponse> __Marshaller_neo_fs_v2_container_ListResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Container.ListResponse.Parser.ParseFrom);
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.SetExtendedACLRequest> __Marshaller_neo_fs_v2_container_SetExtendedACLRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Container.SetExtendedACLRequest.Parser.ParseFrom);
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.SetExtendedACLResponse> __Marshaller_neo_fs_v2_container_SetExtendedACLResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Container.SetExtendedACLResponse.Parser.ParseFrom);
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.GetExtendedACLRequest> __Marshaller_neo_fs_v2_container_GetExtendedACLRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Container.GetExtendedACLRequest.Parser.ParseFrom);
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.GetExtendedACLResponse> __Marshaller_neo_fs_v2_container_GetExtendedACLResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Container.GetExtendedACLResponse.Parser.ParseFrom);
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest> __Marshaller_neo_fs_v2_container_AnnounceUsedSpaceRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest.Parser.ParseFrom);
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse> __Marshaller_neo_fs_v2_container_AnnounceUsedSpaceResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse.Parser.ParseFrom);
+    static class __Helper_MessageCache<T>
+    {
+      public static readonly bool IsBufferMessage = global::System.Reflection.IntrospectionExtensions.GetTypeInfo(typeof(global::Google.Protobuf.IBufferMessage)).IsAssignableFrom(typeof(T));
+    }
 
-        static readonly grpc::Method<global::Neo.FileStorage.API.Container.PutRequest, global::Neo.FileStorage.API.Container.PutResponse> __Method_Put = new grpc::Method<global::Neo.FileStorage.API.Container.PutRequest, global::Neo.FileStorage.API.Container.PutResponse>(
-            grpc::MethodType.Unary,
-            __ServiceName,
-            "Put",
-            __Marshaller_neo_fs_v2_container_PutRequest,
-            __Marshaller_neo_fs_v2_container_PutResponse);
+    static T __Helper_DeserializeMessage<T>(grpc::DeserializationContext context, global::Google.Protobuf.MessageParser<T> parser) where T : global::Google.Protobuf.IMessage<T>
+    {
+      #if !GRPC_DISABLE_PROTOBUF_BUFFER_SERIALIZATION
+      if (__Helper_MessageCache<T>.IsBufferMessage)
+      {
+        return parser.ParseFrom(context.PayloadAsReadOnlySequence());
+      }
+      #endif
+      return parser.ParseFrom(context.PayloadAsNewBuffer());
+    }
 
-        static readonly grpc::Method<global::Neo.FileStorage.API.Container.DeleteRequest, global::Neo.FileStorage.API.Container.DeleteResponse> __Method_Delete = new grpc::Method<global::Neo.FileStorage.API.Container.DeleteRequest, global::Neo.FileStorage.API.Container.DeleteResponse>(
-            grpc::MethodType.Unary,
-            __ServiceName,
-            "Delete",
-            __Marshaller_neo_fs_v2_container_DeleteRequest,
-            __Marshaller_neo_fs_v2_container_DeleteResponse);
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.PutRequest> __Marshaller_neo_fs_v2_container_PutRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Container.PutRequest.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.PutResponse> __Marshaller_neo_fs_v2_container_PutResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Container.PutResponse.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.DeleteRequest> __Marshaller_neo_fs_v2_container_DeleteRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Container.DeleteRequest.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.DeleteResponse> __Marshaller_neo_fs_v2_container_DeleteResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Container.DeleteResponse.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.GetRequest> __Marshaller_neo_fs_v2_container_GetRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Container.GetRequest.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.GetResponse> __Marshaller_neo_fs_v2_container_GetResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Container.GetResponse.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.ListRequest> __Marshaller_neo_fs_v2_container_ListRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Container.ListRequest.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.ListResponse> __Marshaller_neo_fs_v2_container_ListResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Container.ListResponse.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.SetExtendedACLRequest> __Marshaller_neo_fs_v2_container_SetExtendedACLRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Container.SetExtendedACLRequest.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.SetExtendedACLResponse> __Marshaller_neo_fs_v2_container_SetExtendedACLResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Container.SetExtendedACLResponse.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.GetExtendedACLRequest> __Marshaller_neo_fs_v2_container_GetExtendedACLRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Container.GetExtendedACLRequest.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.GetExtendedACLResponse> __Marshaller_neo_fs_v2_container_GetExtendedACLResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Container.GetExtendedACLResponse.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest> __Marshaller_neo_fs_v2_container_AnnounceUsedSpaceRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse> __Marshaller_neo_fs_v2_container_AnnounceUsedSpaceResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse.Parser));
 
-        static readonly grpc::Method<global::Neo.FileStorage.API.Container.GetRequest, global::Neo.FileStorage.API.Container.GetResponse> __Method_Get = new grpc::Method<global::Neo.FileStorage.API.Container.GetRequest, global::Neo.FileStorage.API.Container.GetResponse>(
-            grpc::MethodType.Unary,
-            __ServiceName,
-            "Get",
-            __Marshaller_neo_fs_v2_container_GetRequest,
-            __Marshaller_neo_fs_v2_container_GetResponse);
+    static readonly grpc::Method<global::Neo.FileStorage.API.Container.PutRequest, global::Neo.FileStorage.API.Container.PutResponse> __Method_Put = new grpc::Method<global::Neo.FileStorage.API.Container.PutRequest, global::Neo.FileStorage.API.Container.PutResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "Put",
+        __Marshaller_neo_fs_v2_container_PutRequest,
+        __Marshaller_neo_fs_v2_container_PutResponse);
 
-        static readonly grpc::Method<global::Neo.FileStorage.API.Container.ListRequest, global::Neo.FileStorage.API.Container.ListResponse> __Method_List = new grpc::Method<global::Neo.FileStorage.API.Container.ListRequest, global::Neo.FileStorage.API.Container.ListResponse>(
-            grpc::MethodType.Unary,
-            __ServiceName,
-            "List",
-            __Marshaller_neo_fs_v2_container_ListRequest,
-            __Marshaller_neo_fs_v2_container_ListResponse);
+    static readonly grpc::Method<global::Neo.FileStorage.API.Container.DeleteRequest, global::Neo.FileStorage.API.Container.DeleteResponse> __Method_Delete = new grpc::Method<global::Neo.FileStorage.API.Container.DeleteRequest, global::Neo.FileStorage.API.Container.DeleteResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "Delete",
+        __Marshaller_neo_fs_v2_container_DeleteRequest,
+        __Marshaller_neo_fs_v2_container_DeleteResponse);
 
-        static readonly grpc::Method<global::Neo.FileStorage.API.Container.SetExtendedACLRequest, global::Neo.FileStorage.API.Container.SetExtendedACLResponse> __Method_SetExtendedACL = new grpc::Method<global::Neo.FileStorage.API.Container.SetExtendedACLRequest, global::Neo.FileStorage.API.Container.SetExtendedACLResponse>(
-            grpc::MethodType.Unary,
-            __ServiceName,
-            "SetExtendedACL",
-            __Marshaller_neo_fs_v2_container_SetExtendedACLRequest,
-            __Marshaller_neo_fs_v2_container_SetExtendedACLResponse);
+    static readonly grpc::Method<global::Neo.FileStorage.API.Container.GetRequest, global::Neo.FileStorage.API.Container.GetResponse> __Method_Get = new grpc::Method<global::Neo.FileStorage.API.Container.GetRequest, global::Neo.FileStorage.API.Container.GetResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "Get",
+        __Marshaller_neo_fs_v2_container_GetRequest,
+        __Marshaller_neo_fs_v2_container_GetResponse);
 
-        static readonly grpc::Method<global::Neo.FileStorage.API.Container.GetExtendedACLRequest, global::Neo.FileStorage.API.Container.GetExtendedACLResponse> __Method_GetExtendedACL = new grpc::Method<global::Neo.FileStorage.API.Container.GetExtendedACLRequest, global::Neo.FileStorage.API.Container.GetExtendedACLResponse>(
-            grpc::MethodType.Unary,
-            __ServiceName,
-            "GetExtendedACL",
-            __Marshaller_neo_fs_v2_container_GetExtendedACLRequest,
-            __Marshaller_neo_fs_v2_container_GetExtendedACLResponse);
+    static readonly grpc::Method<global::Neo.FileStorage.API.Container.ListRequest, global::Neo.FileStorage.API.Container.ListResponse> __Method_List = new grpc::Method<global::Neo.FileStorage.API.Container.ListRequest, global::Neo.FileStorage.API.Container.ListResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "List",
+        __Marshaller_neo_fs_v2_container_ListRequest,
+        __Marshaller_neo_fs_v2_container_ListResponse);
 
-        static readonly grpc::Method<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest, global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse> __Method_AnnounceUsedSpace = new grpc::Method<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest, global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse>(
-            grpc::MethodType.Unary,
-            __ServiceName,
-            "AnnounceUsedSpace",
-            __Marshaller_neo_fs_v2_container_AnnounceUsedSpaceRequest,
-            __Marshaller_neo_fs_v2_container_AnnounceUsedSpaceResponse);
+    static readonly grpc::Method<global::Neo.FileStorage.API.Container.SetExtendedACLRequest, global::Neo.FileStorage.API.Container.SetExtendedACLResponse> __Method_SetExtendedACL = new grpc::Method<global::Neo.FileStorage.API.Container.SetExtendedACLRequest, global::Neo.FileStorage.API.Container.SetExtendedACLResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "SetExtendedACL",
+        __Marshaller_neo_fs_v2_container_SetExtendedACLRequest,
+        __Marshaller_neo_fs_v2_container_SetExtendedACLResponse);
 
-        /// <summary>Service descriptor</summary>
-        public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
-        {
-            get { return global::Neo.FileStorage.API.Container.ServiceReflection.Descriptor.Services[0]; }
-        }
+    static readonly grpc::Method<global::Neo.FileStorage.API.Container.GetExtendedACLRequest, global::Neo.FileStorage.API.Container.GetExtendedACLResponse> __Method_GetExtendedACL = new grpc::Method<global::Neo.FileStorage.API.Container.GetExtendedACLRequest, global::Neo.FileStorage.API.Container.GetExtendedACLResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GetExtendedACL",
+        __Marshaller_neo_fs_v2_container_GetExtendedACLRequest,
+        __Marshaller_neo_fs_v2_container_GetExtendedACLResponse);
 
-        /// <summary>Base class for server-side implementations of ContainerService</summary>
-        [grpc::BindServiceMethod(typeof(ContainerService), "BindService")]
-        public abstract partial class ContainerServiceBase
-        {
-            /// <summary>
-            /// `Put` invokes `Container` smart contract's `Put` method and returns
-            /// response immediately. After a new block is issued in sidechain, request is
-            /// verified by Inner Ring nodes. After one more block in sidechain, container
-            /// is added into smart contract storage.
-            /// </summary>
-            /// <param name="request">The request received from the client.</param>
-            /// <param name="context">The context of the server-side call handler being invoked.</param>
-            /// <returns>The response to send back to the client (wrapped by a task).</returns>
-            public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Container.PutResponse> Put(global::Neo.FileStorage.API.Container.PutRequest request, grpc::ServerCallContext context)
-            {
-                throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-            }
+    static readonly grpc::Method<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest, global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse> __Method_AnnounceUsedSpace = new grpc::Method<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest, global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "AnnounceUsedSpace",
+        __Marshaller_neo_fs_v2_container_AnnounceUsedSpaceRequest,
+        __Marshaller_neo_fs_v2_container_AnnounceUsedSpaceResponse);
 
-            /// <summary>
-            /// `Delete` invokes `Container` smart contract's `Delete` method and returns
-            /// response immediately. After a new block is issued in sidechain, request is
-            /// verified by Inner Ring nodes. After one more block in sidechain, container
-            /// is added into smart contract storage.
-            /// </summary>
-            /// <param name="request">The request received from the client.</param>
-            /// <param name="context">The context of the server-side call handler being invoked.</param>
-            /// <returns>The response to send back to the client (wrapped by a task).</returns>
-            public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Container.DeleteResponse> Delete(global::Neo.FileStorage.API.Container.DeleteRequest request, grpc::ServerCallContext context)
-            {
-                throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-            }
+    /// <summary>Service descriptor</summary>
+    public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
+    {
+      get { return global::Neo.FileStorage.API.Container.ServiceReflection.Descriptor.Services[0]; }
+    }
 
-            /// <summary>
-            /// Returns container structure from `Container` smart contract storage.
-            /// </summary>
-            /// <param name="request">The request received from the client.</param>
-            /// <param name="context">The context of the server-side call handler being invoked.</param>
-            /// <returns>The response to send back to the client (wrapped by a task).</returns>
-            public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Container.GetResponse> Get(global::Neo.FileStorage.API.Container.GetRequest request, grpc::ServerCallContext context)
-            {
-                throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-            }
+    /// <summary>Base class for server-side implementations of ContainerService</summary>
+    [grpc::BindServiceMethod(typeof(ContainerService), "BindService")]
+    public abstract partial class ContainerServiceBase
+    {
+      /// <summary>
+      /// `Put` invokes `Container` smart contract's `Put` method and returns
+      /// response immediately. After a new block is issued in sidechain, request is
+      /// verified by Inner Ring nodes. After one more block in sidechain, container
+      /// is added into smart contract storage.
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Container.PutResponse> Put(global::Neo.FileStorage.API.Container.PutRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
 
-            /// <summary>
-            /// Returns all owner's containers from 'Container` smart contract' storage.
-            /// </summary>
-            /// <param name="request">The request received from the client.</param>
-            /// <param name="context">The context of the server-side call handler being invoked.</param>
-            /// <returns>The response to send back to the client (wrapped by a task).</returns>
-            public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Container.ListResponse> List(global::Neo.FileStorage.API.Container.ListRequest request, grpc::ServerCallContext context)
-            {
-                throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-            }
+      /// <summary>
+      /// `Delete` invokes `Container` smart contract's `Delete` method and returns
+      /// response immediately. After a new block is issued in sidechain, request is
+      /// verified by Inner Ring nodes. After one more block in sidechain, container
+      /// is added into smart contract storage.
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Container.DeleteResponse> Delete(global::Neo.FileStorage.API.Container.DeleteRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
 
-            /// <summary>
-            /// Invokes 'SetEACL' method of 'Container` smart contract and returns response
-            /// immediately. After one more block in sidechain, Extended ACL changes are
-            /// added into smart contract storage.
-            /// </summary>
-            /// <param name="request">The request received from the client.</param>
-            /// <param name="context">The context of the server-side call handler being invoked.</param>
-            /// <returns>The response to send back to the client (wrapped by a task).</returns>
-            public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Container.SetExtendedACLResponse> SetExtendedACL(global::Neo.FileStorage.API.Container.SetExtendedACLRequest request, grpc::ServerCallContext context)
-            {
-                throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-            }
+      /// <summary>
+      /// Returns container structure from `Container` smart contract storage.
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Container.GetResponse> Get(global::Neo.FileStorage.API.Container.GetRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
 
-            /// <summary>
-            /// Returns Extended ACL table and signature from `Container` smart contract
-            /// storage.
-            /// </summary>
-            /// <param name="request">The request received from the client.</param>
-            /// <param name="context">The context of the server-side call handler being invoked.</param>
-            /// <returns>The response to send back to the client (wrapped by a task).</returns>
-            public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Container.GetExtendedACLResponse> GetExtendedACL(global::Neo.FileStorage.API.Container.GetExtendedACLRequest request, grpc::ServerCallContext context)
-            {
-                throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-            }
+      /// <summary>
+      /// Returns all owner's containers from 'Container` smart contract' storage.
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Container.ListResponse> List(global::Neo.FileStorage.API.Container.ListRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
 
-            /// <summary>
-            /// Announce container used space values for P2P synchronization.
-            /// </summary>
-            /// <param name="request">The request received from the client.</param>
-            /// <param name="context">The context of the server-side call handler being invoked.</param>
-            /// <returns>The response to send back to the client (wrapped by a task).</returns>
-            public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse> AnnounceUsedSpace(global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest request, grpc::ServerCallContext context)
-            {
-                throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-            }
+      /// <summary>
+      /// Invokes 'SetEACL' method of 'Container` smart contract and returns response
+      /// immediately. After one more block in sidechain, Extended ACL changes are
+      /// added into smart contract storage.
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Container.SetExtendedACLResponse> SetExtendedACL(global::Neo.FileStorage.API.Container.SetExtendedACLRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
 
-        }
+      /// <summary>
+      /// Returns Extended ACL table and signature from `Container` smart contract
+      /// storage.
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Container.GetExtendedACLResponse> GetExtendedACL(global::Neo.FileStorage.API.Container.GetExtendedACLRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
 
-        /// <summary>Client for ContainerService</summary>
-        public partial class ContainerServiceClient : grpc::ClientBase<ContainerServiceClient>
-        {
-            /// <summary>Creates a new client for ContainerService</summary>
-            /// <param name="channel">The channel to use to make remote calls.</param>
-            public ContainerServiceClient(grpc::ChannelBase channel) : base(channel)
-            {
-            }
-            /// <summary>Creates a new client for ContainerService that uses a custom <c>CallInvoker</c>.</summary>
-            /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
-            public ContainerServiceClient(grpc::CallInvoker callInvoker) : base(callInvoker)
-            {
-            }
-            /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
-            protected ContainerServiceClient() : base()
-            {
-            }
-            /// <summary>Protected constructor to allow creation of configured clients.</summary>
-            /// <param name="configuration">The client configuration.</param>
-            protected ContainerServiceClient(ClientBaseConfiguration configuration) : base(configuration)
-            {
-            }
-
-            /// <summary>
-            /// `Put` invokes `Container` smart contract's `Put` method and returns
-            /// response immediately. After a new block is issued in sidechain, request is
-            /// verified by Inner Ring nodes. After one more block in sidechain, container
-            /// is added into smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Container.PutResponse Put(global::Neo.FileStorage.API.Container.PutRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return Put(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// `Put` invokes `Container` smart contract's `Put` method and returns
-            /// response immediately. After a new block is issued in sidechain, request is
-            /// verified by Inner Ring nodes. After one more block in sidechain, container
-            /// is added into smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Container.PutResponse Put(global::Neo.FileStorage.API.Container.PutRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_Put, null, options, request);
-            }
-            /// <summary>
-            /// `Put` invokes `Container` smart contract's `Put` method and returns
-            /// response immediately. After a new block is issued in sidechain, request is
-            /// verified by Inner Ring nodes. After one more block in sidechain, container
-            /// is added into smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.PutResponse> PutAsync(global::Neo.FileStorage.API.Container.PutRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return PutAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// `Put` invokes `Container` smart contract's `Put` method and returns
-            /// response immediately. After a new block is issued in sidechain, request is
-            /// verified by Inner Ring nodes. After one more block in sidechain, container
-            /// is added into smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.PutResponse> PutAsync(global::Neo.FileStorage.API.Container.PutRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_Put, null, options, request);
-            }
-            /// <summary>
-            /// `Delete` invokes `Container` smart contract's `Delete` method and returns
-            /// response immediately. After a new block is issued in sidechain, request is
-            /// verified by Inner Ring nodes. After one more block in sidechain, container
-            /// is added into smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Container.DeleteResponse Delete(global::Neo.FileStorage.API.Container.DeleteRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return Delete(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// `Delete` invokes `Container` smart contract's `Delete` method and returns
-            /// response immediately. After a new block is issued in sidechain, request is
-            /// verified by Inner Ring nodes. After one more block in sidechain, container
-            /// is added into smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Container.DeleteResponse Delete(global::Neo.FileStorage.API.Container.DeleteRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_Delete, null, options, request);
-            }
-            /// <summary>
-            /// `Delete` invokes `Container` smart contract's `Delete` method and returns
-            /// response immediately. After a new block is issued in sidechain, request is
-            /// verified by Inner Ring nodes. After one more block in sidechain, container
-            /// is added into smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.DeleteResponse> DeleteAsync(global::Neo.FileStorage.API.Container.DeleteRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return DeleteAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// `Delete` invokes `Container` smart contract's `Delete` method and returns
-            /// response immediately. After a new block is issued in sidechain, request is
-            /// verified by Inner Ring nodes. After one more block in sidechain, container
-            /// is added into smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.DeleteResponse> DeleteAsync(global::Neo.FileStorage.API.Container.DeleteRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_Delete, null, options, request);
-            }
-            /// <summary>
-            /// Returns container structure from `Container` smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Container.GetResponse Get(global::Neo.FileStorage.API.Container.GetRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return Get(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// Returns container structure from `Container` smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Container.GetResponse Get(global::Neo.FileStorage.API.Container.GetRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_Get, null, options, request);
-            }
-            /// <summary>
-            /// Returns container structure from `Container` smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.GetResponse> GetAsync(global::Neo.FileStorage.API.Container.GetRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return GetAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// Returns container structure from `Container` smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.GetResponse> GetAsync(global::Neo.FileStorage.API.Container.GetRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_Get, null, options, request);
-            }
-            /// <summary>
-            /// Returns all owner's containers from 'Container` smart contract' storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Container.ListResponse List(global::Neo.FileStorage.API.Container.ListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return List(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// Returns all owner's containers from 'Container` smart contract' storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Container.ListResponse List(global::Neo.FileStorage.API.Container.ListRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_List, null, options, request);
-            }
-            /// <summary>
-            /// Returns all owner's containers from 'Container` smart contract' storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.ListResponse> ListAsync(global::Neo.FileStorage.API.Container.ListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return ListAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// Returns all owner's containers from 'Container` smart contract' storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.ListResponse> ListAsync(global::Neo.FileStorage.API.Container.ListRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_List, null, options, request);
-            }
-            /// <summary>
-            /// Invokes 'SetEACL' method of 'Container` smart contract and returns response
-            /// immediately. After one more block in sidechain, Extended ACL changes are
-            /// added into smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Container.SetExtendedACLResponse SetExtendedACL(global::Neo.FileStorage.API.Container.SetExtendedACLRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return SetExtendedACL(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// Invokes 'SetEACL' method of 'Container` smart contract and returns response
-            /// immediately. After one more block in sidechain, Extended ACL changes are
-            /// added into smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Container.SetExtendedACLResponse SetExtendedACL(global::Neo.FileStorage.API.Container.SetExtendedACLRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_SetExtendedACL, null, options, request);
-            }
-            /// <summary>
-            /// Invokes 'SetEACL' method of 'Container` smart contract and returns response
-            /// immediately. After one more block in sidechain, Extended ACL changes are
-            /// added into smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.SetExtendedACLResponse> SetExtendedACLAsync(global::Neo.FileStorage.API.Container.SetExtendedACLRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return SetExtendedACLAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// Invokes 'SetEACL' method of 'Container` smart contract and returns response
-            /// immediately. After one more block in sidechain, Extended ACL changes are
-            /// added into smart contract storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.SetExtendedACLResponse> SetExtendedACLAsync(global::Neo.FileStorage.API.Container.SetExtendedACLRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_SetExtendedACL, null, options, request);
-            }
-            /// <summary>
-            /// Returns Extended ACL table and signature from `Container` smart contract
-            /// storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Container.GetExtendedACLResponse GetExtendedACL(global::Neo.FileStorage.API.Container.GetExtendedACLRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return GetExtendedACL(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// Returns Extended ACL table and signature from `Container` smart contract
-            /// storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Container.GetExtendedACLResponse GetExtendedACL(global::Neo.FileStorage.API.Container.GetExtendedACLRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_GetExtendedACL, null, options, request);
-            }
-            /// <summary>
-            /// Returns Extended ACL table and signature from `Container` smart contract
-            /// storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.GetExtendedACLResponse> GetExtendedACLAsync(global::Neo.FileStorage.API.Container.GetExtendedACLRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return GetExtendedACLAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// Returns Extended ACL table and signature from `Container` smart contract
-            /// storage.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.GetExtendedACLResponse> GetExtendedACLAsync(global::Neo.FileStorage.API.Container.GetExtendedACLRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_GetExtendedACL, null, options, request);
-            }
-            /// <summary>
-            /// Announce container used space values for P2P synchronization.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse AnnounceUsedSpace(global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return AnnounceUsedSpace(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// Announce container used space values for P2P synchronization.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse AnnounceUsedSpace(global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_AnnounceUsedSpace, null, options, request);
-            }
-            /// <summary>
-            /// Announce container used space values for P2P synchronization.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse> AnnounceUsedSpaceAsync(global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return AnnounceUsedSpaceAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// Announce container used space values for P2P synchronization.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse> AnnounceUsedSpaceAsync(global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_AnnounceUsedSpace, null, options, request);
-            }
-            /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
-            protected override ContainerServiceClient NewInstance(ClientBaseConfiguration configuration)
-            {
-                return new ContainerServiceClient(configuration);
-            }
-        }
-
-        /// <summary>Creates service definition that can be registered with a server</summary>
-        /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
-        public static grpc::ServerServiceDefinition BindService(ContainerServiceBase serviceImpl)
-        {
-            return grpc::ServerServiceDefinition.CreateBuilder()
-                .AddMethod(__Method_Put, serviceImpl.Put)
-                .AddMethod(__Method_Delete, serviceImpl.Delete)
-                .AddMethod(__Method_Get, serviceImpl.Get)
-                .AddMethod(__Method_List, serviceImpl.List)
-                .AddMethod(__Method_SetExtendedACL, serviceImpl.SetExtendedACL)
-                .AddMethod(__Method_GetExtendedACL, serviceImpl.GetExtendedACL)
-                .AddMethod(__Method_AnnounceUsedSpace, serviceImpl.AnnounceUsedSpace).Build();
-        }
-
-        /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
-        /// Note: this method is part of an experimental API that can change or be removed without any prior notice.</summary>
-        /// <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
-        /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
-        public static void BindService(grpc::ServiceBinderBase serviceBinder, ContainerServiceBase serviceImpl)
-        {
-            serviceBinder.AddMethod(__Method_Put, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Container.PutRequest, global::Neo.FileStorage.API.Container.PutResponse>(serviceImpl.Put));
-            serviceBinder.AddMethod(__Method_Delete, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Container.DeleteRequest, global::Neo.FileStorage.API.Container.DeleteResponse>(serviceImpl.Delete));
-            serviceBinder.AddMethod(__Method_Get, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Container.GetRequest, global::Neo.FileStorage.API.Container.GetResponse>(serviceImpl.Get));
-            serviceBinder.AddMethod(__Method_List, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Container.ListRequest, global::Neo.FileStorage.API.Container.ListResponse>(serviceImpl.List));
-            serviceBinder.AddMethod(__Method_SetExtendedACL, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Container.SetExtendedACLRequest, global::Neo.FileStorage.API.Container.SetExtendedACLResponse>(serviceImpl.SetExtendedACL));
-            serviceBinder.AddMethod(__Method_GetExtendedACL, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Container.GetExtendedACLRequest, global::Neo.FileStorage.API.Container.GetExtendedACLResponse>(serviceImpl.GetExtendedACL));
-            serviceBinder.AddMethod(__Method_AnnounceUsedSpace, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest, global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse>(serviceImpl.AnnounceUsedSpace));
-        }
+      /// <summary>
+      /// Announce container used space values for P2P synchronization.
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse> AnnounceUsedSpace(global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
 
     }
+
+    /// <summary>Client for ContainerService</summary>
+    public partial class ContainerServiceClient : grpc::ClientBase<ContainerServiceClient>
+    {
+      /// <summary>Creates a new client for ContainerService</summary>
+      /// <param name="channel">The channel to use to make remote calls.</param>
+      public ContainerServiceClient(grpc::ChannelBase channel) : base(channel)
+      {
+      }
+      /// <summary>Creates a new client for ContainerService that uses a custom <c>CallInvoker</c>.</summary>
+      /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
+      public ContainerServiceClient(grpc::CallInvoker callInvoker) : base(callInvoker)
+      {
+      }
+      /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
+      protected ContainerServiceClient() : base()
+      {
+      }
+      /// <summary>Protected constructor to allow creation of configured clients.</summary>
+      /// <param name="configuration">The client configuration.</param>
+      protected ContainerServiceClient(ClientBaseConfiguration configuration) : base(configuration)
+      {
+      }
+
+      /// <summary>
+      /// `Put` invokes `Container` smart contract's `Put` method and returns
+      /// response immediately. After a new block is issued in sidechain, request is
+      /// verified by Inner Ring nodes. After one more block in sidechain, container
+      /// is added into smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Container.PutResponse Put(global::Neo.FileStorage.API.Container.PutRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return Put(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// `Put` invokes `Container` smart contract's `Put` method and returns
+      /// response immediately. After a new block is issued in sidechain, request is
+      /// verified by Inner Ring nodes. After one more block in sidechain, container
+      /// is added into smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Container.PutResponse Put(global::Neo.FileStorage.API.Container.PutRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_Put, null, options, request);
+      }
+      /// <summary>
+      /// `Put` invokes `Container` smart contract's `Put` method and returns
+      /// response immediately. After a new block is issued in sidechain, request is
+      /// verified by Inner Ring nodes. After one more block in sidechain, container
+      /// is added into smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.PutResponse> PutAsync(global::Neo.FileStorage.API.Container.PutRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return PutAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// `Put` invokes `Container` smart contract's `Put` method and returns
+      /// response immediately. After a new block is issued in sidechain, request is
+      /// verified by Inner Ring nodes. After one more block in sidechain, container
+      /// is added into smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.PutResponse> PutAsync(global::Neo.FileStorage.API.Container.PutRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_Put, null, options, request);
+      }
+      /// <summary>
+      /// `Delete` invokes `Container` smart contract's `Delete` method and returns
+      /// response immediately. After a new block is issued in sidechain, request is
+      /// verified by Inner Ring nodes. After one more block in sidechain, container
+      /// is added into smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Container.DeleteResponse Delete(global::Neo.FileStorage.API.Container.DeleteRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return Delete(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// `Delete` invokes `Container` smart contract's `Delete` method and returns
+      /// response immediately. After a new block is issued in sidechain, request is
+      /// verified by Inner Ring nodes. After one more block in sidechain, container
+      /// is added into smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Container.DeleteResponse Delete(global::Neo.FileStorage.API.Container.DeleteRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_Delete, null, options, request);
+      }
+      /// <summary>
+      /// `Delete` invokes `Container` smart contract's `Delete` method and returns
+      /// response immediately. After a new block is issued in sidechain, request is
+      /// verified by Inner Ring nodes. After one more block in sidechain, container
+      /// is added into smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.DeleteResponse> DeleteAsync(global::Neo.FileStorage.API.Container.DeleteRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return DeleteAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// `Delete` invokes `Container` smart contract's `Delete` method and returns
+      /// response immediately. After a new block is issued in sidechain, request is
+      /// verified by Inner Ring nodes. After one more block in sidechain, container
+      /// is added into smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.DeleteResponse> DeleteAsync(global::Neo.FileStorage.API.Container.DeleteRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_Delete, null, options, request);
+      }
+      /// <summary>
+      /// Returns container structure from `Container` smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Container.GetResponse Get(global::Neo.FileStorage.API.Container.GetRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return Get(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Returns container structure from `Container` smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Container.GetResponse Get(global::Neo.FileStorage.API.Container.GetRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_Get, null, options, request);
+      }
+      /// <summary>
+      /// Returns container structure from `Container` smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.GetResponse> GetAsync(global::Neo.FileStorage.API.Container.GetRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Returns container structure from `Container` smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.GetResponse> GetAsync(global::Neo.FileStorage.API.Container.GetRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_Get, null, options, request);
+      }
+      /// <summary>
+      /// Returns all owner's containers from 'Container` smart contract' storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Container.ListResponse List(global::Neo.FileStorage.API.Container.ListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return List(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Returns all owner's containers from 'Container` smart contract' storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Container.ListResponse List(global::Neo.FileStorage.API.Container.ListRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_List, null, options, request);
+      }
+      /// <summary>
+      /// Returns all owner's containers from 'Container` smart contract' storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.ListResponse> ListAsync(global::Neo.FileStorage.API.Container.ListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ListAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Returns all owner's containers from 'Container` smart contract' storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.ListResponse> ListAsync(global::Neo.FileStorage.API.Container.ListRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_List, null, options, request);
+      }
+      /// <summary>
+      /// Invokes 'SetEACL' method of 'Container` smart contract and returns response
+      /// immediately. After one more block in sidechain, Extended ACL changes are
+      /// added into smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Container.SetExtendedACLResponse SetExtendedACL(global::Neo.FileStorage.API.Container.SetExtendedACLRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return SetExtendedACL(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Invokes 'SetEACL' method of 'Container` smart contract and returns response
+      /// immediately. After one more block in sidechain, Extended ACL changes are
+      /// added into smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Container.SetExtendedACLResponse SetExtendedACL(global::Neo.FileStorage.API.Container.SetExtendedACLRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_SetExtendedACL, null, options, request);
+      }
+      /// <summary>
+      /// Invokes 'SetEACL' method of 'Container` smart contract and returns response
+      /// immediately. After one more block in sidechain, Extended ACL changes are
+      /// added into smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.SetExtendedACLResponse> SetExtendedACLAsync(global::Neo.FileStorage.API.Container.SetExtendedACLRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return SetExtendedACLAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Invokes 'SetEACL' method of 'Container` smart contract and returns response
+      /// immediately. After one more block in sidechain, Extended ACL changes are
+      /// added into smart contract storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.SetExtendedACLResponse> SetExtendedACLAsync(global::Neo.FileStorage.API.Container.SetExtendedACLRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_SetExtendedACL, null, options, request);
+      }
+      /// <summary>
+      /// Returns Extended ACL table and signature from `Container` smart contract
+      /// storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Container.GetExtendedACLResponse GetExtendedACL(global::Neo.FileStorage.API.Container.GetExtendedACLRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetExtendedACL(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Returns Extended ACL table and signature from `Container` smart contract
+      /// storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Container.GetExtendedACLResponse GetExtendedACL(global::Neo.FileStorage.API.Container.GetExtendedACLRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetExtendedACL, null, options, request);
+      }
+      /// <summary>
+      /// Returns Extended ACL table and signature from `Container` smart contract
+      /// storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.GetExtendedACLResponse> GetExtendedACLAsync(global::Neo.FileStorage.API.Container.GetExtendedACLRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetExtendedACLAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Returns Extended ACL table and signature from `Container` smart contract
+      /// storage.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.GetExtendedACLResponse> GetExtendedACLAsync(global::Neo.FileStorage.API.Container.GetExtendedACLRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetExtendedACL, null, options, request);
+      }
+      /// <summary>
+      /// Announce container used space values for P2P synchronization.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse AnnounceUsedSpace(global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return AnnounceUsedSpace(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Announce container used space values for P2P synchronization.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse AnnounceUsedSpace(global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_AnnounceUsedSpace, null, options, request);
+      }
+      /// <summary>
+      /// Announce container used space values for P2P synchronization.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse> AnnounceUsedSpaceAsync(global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return AnnounceUsedSpaceAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Announce container used space values for P2P synchronization.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse> AnnounceUsedSpaceAsync(global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_AnnounceUsedSpace, null, options, request);
+      }
+      /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
+      protected override ContainerServiceClient NewInstance(ClientBaseConfiguration configuration)
+      {
+        return new ContainerServiceClient(configuration);
+      }
+    }
+
+    /// <summary>Creates service definition that can be registered with a server</summary>
+    /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+    public static grpc::ServerServiceDefinition BindService(ContainerServiceBase serviceImpl)
+    {
+      return grpc::ServerServiceDefinition.CreateBuilder()
+          .AddMethod(__Method_Put, serviceImpl.Put)
+          .AddMethod(__Method_Delete, serviceImpl.Delete)
+          .AddMethod(__Method_Get, serviceImpl.Get)
+          .AddMethod(__Method_List, serviceImpl.List)
+          .AddMethod(__Method_SetExtendedACL, serviceImpl.SetExtendedACL)
+          .AddMethod(__Method_GetExtendedACL, serviceImpl.GetExtendedACL)
+          .AddMethod(__Method_AnnounceUsedSpace, serviceImpl.AnnounceUsedSpace).Build();
+    }
+
+    /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
+    /// Note: this method is part of an experimental API that can change or be removed without any prior notice.</summary>
+    /// <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
+    /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+    public static void BindService(grpc::ServiceBinderBase serviceBinder, ContainerServiceBase serviceImpl)
+    {
+      serviceBinder.AddMethod(__Method_Put, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Container.PutRequest, global::Neo.FileStorage.API.Container.PutResponse>(serviceImpl.Put));
+      serviceBinder.AddMethod(__Method_Delete, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Container.DeleteRequest, global::Neo.FileStorage.API.Container.DeleteResponse>(serviceImpl.Delete));
+      serviceBinder.AddMethod(__Method_Get, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Container.GetRequest, global::Neo.FileStorage.API.Container.GetResponse>(serviceImpl.Get));
+      serviceBinder.AddMethod(__Method_List, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Container.ListRequest, global::Neo.FileStorage.API.Container.ListResponse>(serviceImpl.List));
+      serviceBinder.AddMethod(__Method_SetExtendedACL, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Container.SetExtendedACLRequest, global::Neo.FileStorage.API.Container.SetExtendedACLResponse>(serviceImpl.SetExtendedACL));
+      serviceBinder.AddMethod(__Method_GetExtendedACL, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Container.GetExtendedACLRequest, global::Neo.FileStorage.API.Container.GetExtendedACLResponse>(serviceImpl.GetExtendedACL));
+      serviceBinder.AddMethod(__Method_AnnounceUsedSpace, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest, global::Neo.FileStorage.API.Container.AnnounceUsedSpaceResponse>(serviceImpl.AnnounceUsedSpace));
+    }
+
+  }
 }
 #endregion

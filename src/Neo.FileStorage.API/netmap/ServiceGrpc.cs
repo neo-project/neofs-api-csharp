@@ -7,162 +7,191 @@
 
 using grpc = global::Grpc.Core;
 
-namespace Neo.FileStorage.API.Netmap
-{
-    /// <summary>
-    /// `NetmapService` provides methods to work with `Network Map` and information
-    /// required to build it. The resulting `Network Map` is stored in sidechain
-    /// `Netmap` smart contract, while related information can be obtained from other
-    /// NeoFS nodes.
-    /// </summary>
-    public static partial class NetmapService
+namespace Neo.FileStorage.API.Netmap {
+  /// <summary>
+  /// `NetmapService` provides methods to work with `Network Map` and information
+  /// required to build it. The resulting `Network Map` is stored in sidechain
+  /// `Netmap` smart contract, while related information can be obtained from other
+  /// NeoFS nodes.
+  /// </summary>
+  public static partial class NetmapService
+  {
+    static readonly string __ServiceName = "neo.fs.v2.netmap.NetmapService";
+
+    static void __Helper_SerializeMessage(global::Google.Protobuf.IMessage message, grpc::SerializationContext context)
     {
-        static readonly string __ServiceName = "neo.fs.v2.netmap.NetmapService";
+      #if !GRPC_DISABLE_PROTOBUF_BUFFER_SERIALIZATION
+      if (message is global::Google.Protobuf.IBufferMessage)
+      {
+        context.SetPayloadLength(message.CalculateSize());
+        global::Google.Protobuf.MessageExtensions.WriteTo(message, context.GetBufferWriter());
+        context.Complete();
+        return;
+      }
+      #endif
+      context.Complete(global::Google.Protobuf.MessageExtensions.ToByteArray(message));
+    }
 
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest> __Marshaller_neo_fs_v2_netmap_LocalNodeInfoRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest.Parser.ParseFrom);
-        static readonly grpc::Marshaller<global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse> __Marshaller_neo_fs_v2_netmap_LocalNodeInfoResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse.Parser.ParseFrom);
+    static class __Helper_MessageCache<T>
+    {
+      public static readonly bool IsBufferMessage = global::System.Reflection.IntrospectionExtensions.GetTypeInfo(typeof(global::Google.Protobuf.IBufferMessage)).IsAssignableFrom(typeof(T));
+    }
 
-        static readonly grpc::Method<global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest, global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse> __Method_LocalNodeInfo = new grpc::Method<global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest, global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse>(
-            grpc::MethodType.Unary,
-            __ServiceName,
-            "LocalNodeInfo",
-            __Marshaller_neo_fs_v2_netmap_LocalNodeInfoRequest,
-            __Marshaller_neo_fs_v2_netmap_LocalNodeInfoResponse);
+    static T __Helper_DeserializeMessage<T>(grpc::DeserializationContext context, global::Google.Protobuf.MessageParser<T> parser) where T : global::Google.Protobuf.IMessage<T>
+    {
+      #if !GRPC_DISABLE_PROTOBUF_BUFFER_SERIALIZATION
+      if (__Helper_MessageCache<T>.IsBufferMessage)
+      {
+        return parser.ParseFrom(context.PayloadAsReadOnlySequence());
+      }
+      #endif
+      return parser.ParseFrom(context.PayloadAsNewBuffer());
+    }
 
-        /// <summary>Service descriptor</summary>
-        public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
-        {
-            get { return global::Neo.FileStorage.API.Netmap.ServiceReflection.Descriptor.Services[0]; }
-        }
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest> __Marshaller_neo_fs_v2_netmap_LocalNodeInfoRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse> __Marshaller_neo_fs_v2_netmap_LocalNodeInfoResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse.Parser));
 
-        /// <summary>Base class for server-side implementations of NetmapService</summary>
-        [grpc::BindServiceMethod(typeof(NetmapService), "BindService")]
-        public abstract partial class NetmapServiceBase
-        {
-            /// <summary>
-            /// Get NodeInfo structure from the particular node directly. Node information
-            /// can be taken from `Netmap` smart contract, but in some cases the one may
-            /// want to get recent information directly, or to talk to the node not yet
-            /// present in `Network Map` to find out what API version can be used for
-            /// further communication. Can also be used to check if node is up and running.
-            /// </summary>
-            /// <param name="request">The request received from the client.</param>
-            /// <param name="context">The context of the server-side call handler being invoked.</param>
-            /// <returns>The response to send back to the client (wrapped by a task).</returns>
-            public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse> LocalNodeInfo(global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest request, grpc::ServerCallContext context)
-            {
-                throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
-            }
+    static readonly grpc::Method<global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest, global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse> __Method_LocalNodeInfo = new grpc::Method<global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest, global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "LocalNodeInfo",
+        __Marshaller_neo_fs_v2_netmap_LocalNodeInfoRequest,
+        __Marshaller_neo_fs_v2_netmap_LocalNodeInfoResponse);
 
-        }
+    /// <summary>Service descriptor</summary>
+    public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
+    {
+      get { return global::Neo.FileStorage.API.Netmap.ServiceReflection.Descriptor.Services[0]; }
+    }
 
-        /// <summary>Client for NetmapService</summary>
-        public partial class NetmapServiceClient : grpc::ClientBase<NetmapServiceClient>
-        {
-            /// <summary>Creates a new client for NetmapService</summary>
-            /// <param name="channel">The channel to use to make remote calls.</param>
-            public NetmapServiceClient(grpc::ChannelBase channel) : base(channel)
-            {
-            }
-            /// <summary>Creates a new client for NetmapService that uses a custom <c>CallInvoker</c>.</summary>
-            /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
-            public NetmapServiceClient(grpc::CallInvoker callInvoker) : base(callInvoker)
-            {
-            }
-            /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
-            protected NetmapServiceClient() : base()
-            {
-            }
-            /// <summary>Protected constructor to allow creation of configured clients.</summary>
-            /// <param name="configuration">The client configuration.</param>
-            protected NetmapServiceClient(ClientBaseConfiguration configuration) : base(configuration)
-            {
-            }
-
-            /// <summary>
-            /// Get NodeInfo structure from the particular node directly. Node information
-            /// can be taken from `Netmap` smart contract, but in some cases the one may
-            /// want to get recent information directly, or to talk to the node not yet
-            /// present in `Network Map` to find out what API version can be used for
-            /// further communication. Can also be used to check if node is up and running.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse LocalNodeInfo(global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return LocalNodeInfo(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// Get NodeInfo structure from the particular node directly. Node information
-            /// can be taken from `Netmap` smart contract, but in some cases the one may
-            /// want to get recent information directly, or to talk to the node not yet
-            /// present in `Network Map` to find out what API version can be used for
-            /// further communication. Can also be used to check if node is up and running.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The response received from the server.</returns>
-            public virtual global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse LocalNodeInfo(global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.BlockingUnaryCall(__Method_LocalNodeInfo, null, options, request);
-            }
-            /// <summary>
-            /// Get NodeInfo structure from the particular node directly. Node information
-            /// can be taken from `Netmap` smart contract, but in some cases the one may
-            /// want to get recent information directly, or to talk to the node not yet
-            /// present in `Network Map` to find out what API version can be used for
-            /// further communication. Can also be used to check if node is up and running.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-            /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-            /// <param name="cancellationToken">An optional token for canceling the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse> LocalNodeInfoAsync(global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
-            {
-                return LocalNodeInfoAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
-            }
-            /// <summary>
-            /// Get NodeInfo structure from the particular node directly. Node information
-            /// can be taken from `Netmap` smart contract, but in some cases the one may
-            /// want to get recent information directly, or to talk to the node not yet
-            /// present in `Network Map` to find out what API version can be used for
-            /// further communication. Can also be used to check if node is up and running.
-            /// </summary>
-            /// <param name="request">The request to send to the server.</param>
-            /// <param name="options">The options for the call.</param>
-            /// <returns>The call object.</returns>
-            public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse> LocalNodeInfoAsync(global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest request, grpc::CallOptions options)
-            {
-                return CallInvoker.AsyncUnaryCall(__Method_LocalNodeInfo, null, options, request);
-            }
-            /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
-            protected override NetmapServiceClient NewInstance(ClientBaseConfiguration configuration)
-            {
-                return new NetmapServiceClient(configuration);
-            }
-        }
-
-        /// <summary>Creates service definition that can be registered with a server</summary>
-        /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
-        public static grpc::ServerServiceDefinition BindService(NetmapServiceBase serviceImpl)
-        {
-            return grpc::ServerServiceDefinition.CreateBuilder()
-                .AddMethod(__Method_LocalNodeInfo, serviceImpl.LocalNodeInfo).Build();
-        }
-
-        /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
-        /// Note: this method is part of an experimental API that can change or be removed without any prior notice.</summary>
-        /// <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
-        /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
-        public static void BindService(grpc::ServiceBinderBase serviceBinder, NetmapServiceBase serviceImpl)
-        {
-            serviceBinder.AddMethod(__Method_LocalNodeInfo, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest, global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse>(serviceImpl.LocalNodeInfo));
-        }
+    /// <summary>Base class for server-side implementations of NetmapService</summary>
+    [grpc::BindServiceMethod(typeof(NetmapService), "BindService")]
+    public abstract partial class NetmapServiceBase
+    {
+      /// <summary>
+      /// Get NodeInfo structure from the particular node directly. Node information
+      /// can be taken from `Netmap` smart contract, but in some cases the one may
+      /// want to get recent information directly, or to talk to the node not yet
+      /// present in `Network Map` to find out what API version can be used for
+      /// further communication. Can also be used to check if node is up and running.
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse> LocalNodeInfo(global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
 
     }
+
+    /// <summary>Client for NetmapService</summary>
+    public partial class NetmapServiceClient : grpc::ClientBase<NetmapServiceClient>
+    {
+      /// <summary>Creates a new client for NetmapService</summary>
+      /// <param name="channel">The channel to use to make remote calls.</param>
+      public NetmapServiceClient(grpc::ChannelBase channel) : base(channel)
+      {
+      }
+      /// <summary>Creates a new client for NetmapService that uses a custom <c>CallInvoker</c>.</summary>
+      /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
+      public NetmapServiceClient(grpc::CallInvoker callInvoker) : base(callInvoker)
+      {
+      }
+      /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
+      protected NetmapServiceClient() : base()
+      {
+      }
+      /// <summary>Protected constructor to allow creation of configured clients.</summary>
+      /// <param name="configuration">The client configuration.</param>
+      protected NetmapServiceClient(ClientBaseConfiguration configuration) : base(configuration)
+      {
+      }
+
+      /// <summary>
+      /// Get NodeInfo structure from the particular node directly. Node information
+      /// can be taken from `Netmap` smart contract, but in some cases the one may
+      /// want to get recent information directly, or to talk to the node not yet
+      /// present in `Network Map` to find out what API version can be used for
+      /// further communication. Can also be used to check if node is up and running.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse LocalNodeInfo(global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return LocalNodeInfo(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Get NodeInfo structure from the particular node directly. Node information
+      /// can be taken from `Netmap` smart contract, but in some cases the one may
+      /// want to get recent information directly, or to talk to the node not yet
+      /// present in `Network Map` to find out what API version can be used for
+      /// further communication. Can also be used to check if node is up and running.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse LocalNodeInfo(global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_LocalNodeInfo, null, options, request);
+      }
+      /// <summary>
+      /// Get NodeInfo structure from the particular node directly. Node information
+      /// can be taken from `Netmap` smart contract, but in some cases the one may
+      /// want to get recent information directly, or to talk to the node not yet
+      /// present in `Network Map` to find out what API version can be used for
+      /// further communication. Can also be used to check if node is up and running.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse> LocalNodeInfoAsync(global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return LocalNodeInfoAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Get NodeInfo structure from the particular node directly. Node information
+      /// can be taken from `Netmap` smart contract, but in some cases the one may
+      /// want to get recent information directly, or to talk to the node not yet
+      /// present in `Network Map` to find out what API version can be used for
+      /// further communication. Can also be used to check if node is up and running.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse> LocalNodeInfoAsync(global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_LocalNodeInfo, null, options, request);
+      }
+      /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
+      protected override NetmapServiceClient NewInstance(ClientBaseConfiguration configuration)
+      {
+        return new NetmapServiceClient(configuration);
+      }
+    }
+
+    /// <summary>Creates service definition that can be registered with a server</summary>
+    /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+    public static grpc::ServerServiceDefinition BindService(NetmapServiceBase serviceImpl)
+    {
+      return grpc::ServerServiceDefinition.CreateBuilder()
+          .AddMethod(__Method_LocalNodeInfo, serviceImpl.LocalNodeInfo).Build();
+    }
+
+    /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
+    /// Note: this method is part of an experimental API that can change or be removed without any prior notice.</summary>
+    /// <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
+    /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+    public static void BindService(grpc::ServiceBinderBase serviceBinder, NetmapServiceBase serviceImpl)
+    {
+      serviceBinder.AddMethod(__Method_LocalNodeInfo, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest, global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse>(serviceImpl.LocalNodeInfo));
+    }
+
+  }
 }
 #endregion
