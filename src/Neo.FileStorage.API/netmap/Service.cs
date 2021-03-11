@@ -38,16 +38,31 @@ namespace Neo.FileStorage.API.Netmap {
             "ZnMudjIuc2Vzc2lvbi5SZXNwb25zZVZlcmlmaWNhdGlvbkhlYWRlchpfCgRC",
             "b2R5EigKB3ZlcnNpb24YASABKAsyFy5uZW8uZnMudjIucmVmcy5WZXJzaW9u",
             "Ei0KCW5vZGVfaW5mbxgCIAEoCzIaLm5lby5mcy52Mi5uZXRtYXAuTm9kZUlu",
-            "Zm8ycQoNTmV0bWFwU2VydmljZRJgCg1Mb2NhbE5vZGVJbmZvEiYubmVvLmZz",
-            "LnYyLm5ldG1hcC5Mb2NhbE5vZGVJbmZvUmVxdWVzdBonLm5lby5mcy52Mi5u",
-            "ZXRtYXAuTG9jYWxOb2RlSW5mb1Jlc3BvbnNlQk9aN2dpdGh1Yi5jb20vbnNw",
-            "Y2MtZGV2L25lb2ZzLWFwaS1nby92Mi9uZXRtYXAvZ3JwYztuZXRtYXCqAhNO",
-            "ZW9GUy5BUEkudjIuTmV0bWFwYgZwcm90bzM="));
+            "Zm8i1QEKEk5ldHdvcmtJbmZvUmVxdWVzdBI3CgRib2R5GAEgASgLMikubmVv",
+            "LmZzLnYyLm5ldG1hcC5OZXR3b3JrSW5mb1JlcXVlc3QuQm9keRI5CgttZXRh",
+            "X2hlYWRlchgCIAEoCzIkLm5lby5mcy52Mi5zZXNzaW9uLlJlcXVlc3RNZXRh",
+            "SGVhZGVyEkMKDXZlcmlmeV9oZWFkZXIYAyABKAsyLC5uZW8uZnMudjIuc2Vz",
+            "c2lvbi5SZXF1ZXN0VmVyaWZpY2F0aW9uSGVhZGVyGgYKBEJvZHkijgIKE05l",
+            "dHdvcmtJbmZvUmVzcG9uc2USOAoEYm9keRgBIAEoCzIqLm5lby5mcy52Mi5u",
+            "ZXRtYXAuTmV0d29ya0luZm9SZXNwb25zZS5Cb2R5EjoKC21ldGFfaGVhZGVy",
+            "GAIgASgLMiUubmVvLmZzLnYyLnNlc3Npb24uUmVzcG9uc2VNZXRhSGVhZGVy",
+            "EkQKDXZlcmlmeV9oZWFkZXIYAyABKAsyLS5uZW8uZnMudjIuc2Vzc2lvbi5S",
+            "ZXNwb25zZVZlcmlmaWNhdGlvbkhlYWRlcho7CgRCb2R5EjMKDG5ldHdvcmtf",
+            "aW5mbxgBIAEoCzIdLm5lby5mcy52Mi5uZXRtYXAuTmV0d29ya0luZm8yzQEK",
+            "DU5ldG1hcFNlcnZpY2USYAoNTG9jYWxOb2RlSW5mbxImLm5lby5mcy52Mi5u",
+            "ZXRtYXAuTG9jYWxOb2RlSW5mb1JlcXVlc3QaJy5uZW8uZnMudjIubmV0bWFw",
+            "LkxvY2FsTm9kZUluZm9SZXNwb25zZRJaCgtOZXR3b3JrSW5mbxIkLm5lby5m",
+            "cy52Mi5uZXRtYXAuTmV0d29ya0luZm9SZXF1ZXN0GiUubmVvLmZzLnYyLm5l",
+            "dG1hcC5OZXR3b3JrSW5mb1Jlc3BvbnNlQk9aN2dpdGh1Yi5jb20vbnNwY2Mt",
+            "ZGV2L25lb2ZzLWFwaS1nby92Mi9uZXRtYXAvZ3JwYztuZXRtYXCqAhNOZW9G",
+            "Uy5BUEkudjIuTmV0bWFwYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Neo.FileStorage.API.Netmap.TypesReflection.Descriptor, global::Neo.FileStorage.API.Refs.TypesReflection.Descriptor, global::Neo.FileStorage.API.Session.TypesReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest), global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest.Types.Body), global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest.Types.Body.Parser, null, null, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse), global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse.Types.Body), global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse.Types.Body.Parser, new[]{ "Version", "NodeInfo" }, null, null, null, null)})
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse), global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse.Types.Body), global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse.Types.Body.Parser, new[]{ "Version", "NodeInfo" }, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.NetworkInfoRequest), global::Neo.FileStorage.API.Netmap.NetworkInfoRequest.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.NetworkInfoRequest.Types.Body), global::Neo.FileStorage.API.Netmap.NetworkInfoRequest.Types.Body.Parser, null, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.NetworkInfoResponse), global::Neo.FileStorage.API.Netmap.NetworkInfoResponse.Parser, new[]{ "Body", "MetaHeader", "VerifyHeader" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.NetworkInfoResponse.Types.Body), global::Neo.FileStorage.API.Netmap.NetworkInfoResponse.Types.Body.Parser, new[]{ "NetworkInfo" }, null, null, null, null)})
           }));
     }
     #endregion
@@ -916,6 +931,839 @@ namespace Neo.FileStorage.API.Netmap {
                   NodeInfo = new global::Neo.FileStorage.API.Netmap.NodeInfo();
                 }
                 input.ReadMessage(NodeInfo);
+                break;
+              }
+            }
+          }
+        }
+        #endif
+
+      }
+
+    }
+    #endregion
+
+  }
+
+  /// <summary>
+  /// Get NetworkInfo structure with the network view from particular node.
+  /// </summary>
+  public sealed partial class NetworkInfoRequest : pb::IMessage<NetworkInfoRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<NetworkInfoRequest> _parser = new pb::MessageParser<NetworkInfoRequest>(() => new NetworkInfoRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<NetworkInfoRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Neo.FileStorage.API.Netmap.ServiceReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NetworkInfoRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NetworkInfoRequest(NetworkInfoRequest other) : this() {
+      body_ = other.body_ != null ? other.body_.Clone() : null;
+      metaHeader_ = other.metaHeader_ != null ? other.metaHeader_.Clone() : null;
+      verifyHeader_ = other.verifyHeader_ != null ? other.verifyHeader_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NetworkInfoRequest Clone() {
+      return new NetworkInfoRequest(this);
+    }
+
+    /// <summary>Field number for the "body" field.</summary>
+    public const int BodyFieldNumber = 1;
+    private global::Neo.FileStorage.API.Netmap.NetworkInfoRequest.Types.Body body_;
+    /// <summary>
+    /// Body of the NetworkInfo request message
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Neo.FileStorage.API.Netmap.NetworkInfoRequest.Types.Body Body {
+      get { return body_; }
+      set {
+        body_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "meta_header" field.</summary>
+    public const int MetaHeaderFieldNumber = 2;
+    private global::Neo.FileStorage.API.Session.RequestMetaHeader metaHeader_;
+    /// <summary>
+    /// Carries request meta information. Header data is used only to regulate
+    /// message transport and does not affect request execution.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Neo.FileStorage.API.Session.RequestMetaHeader MetaHeader {
+      get { return metaHeader_; }
+      set {
+        metaHeader_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "verify_header" field.</summary>
+    public const int VerifyHeaderFieldNumber = 3;
+    private global::Neo.FileStorage.API.Session.RequestVerificationHeader verifyHeader_;
+    /// <summary>
+    /// Carries request verification information. This header is used to
+    /// authenticate the nodes of the message route and check the correctness of
+    /// transmission.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Neo.FileStorage.API.Session.RequestVerificationHeader VerifyHeader {
+      get { return verifyHeader_; }
+      set {
+        verifyHeader_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as NetworkInfoRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(NetworkInfoRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Body, other.Body)) return false;
+      if (!object.Equals(MetaHeader, other.MetaHeader)) return false;
+      if (!object.Equals(VerifyHeader, other.VerifyHeader)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (body_ != null) hash ^= Body.GetHashCode();
+      if (metaHeader_ != null) hash ^= MetaHeader.GetHashCode();
+      if (verifyHeader_ != null) hash ^= VerifyHeader.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (body_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Body);
+      }
+      if (metaHeader_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(MetaHeader);
+      }
+      if (verifyHeader_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(VerifyHeader);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (body_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Body);
+      }
+      if (metaHeader_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MetaHeader);
+      }
+      if (verifyHeader_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(VerifyHeader);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(NetworkInfoRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.body_ != null) {
+        if (body_ == null) {
+          Body = new global::Neo.FileStorage.API.Netmap.NetworkInfoRequest.Types.Body();
+        }
+        Body.MergeFrom(other.Body);
+      }
+      if (other.metaHeader_ != null) {
+        if (metaHeader_ == null) {
+          MetaHeader = new global::Neo.FileStorage.API.Session.RequestMetaHeader();
+        }
+        MetaHeader.MergeFrom(other.MetaHeader);
+      }
+      if (other.verifyHeader_ != null) {
+        if (verifyHeader_ == null) {
+          VerifyHeader = new global::Neo.FileStorage.API.Session.RequestVerificationHeader();
+        }
+        VerifyHeader.MergeFrom(other.VerifyHeader);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (body_ == null) {
+              Body = new global::Neo.FileStorage.API.Netmap.NetworkInfoRequest.Types.Body();
+            }
+            input.ReadMessage(Body);
+            break;
+          }
+          case 18: {
+            if (metaHeader_ == null) {
+              MetaHeader = new global::Neo.FileStorage.API.Session.RequestMetaHeader();
+            }
+            input.ReadMessage(MetaHeader);
+            break;
+          }
+          case 26: {
+            if (verifyHeader_ == null) {
+              VerifyHeader = new global::Neo.FileStorage.API.Session.RequestVerificationHeader();
+            }
+            input.ReadMessage(VerifyHeader);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (body_ == null) {
+              Body = new global::Neo.FileStorage.API.Netmap.NetworkInfoRequest.Types.Body();
+            }
+            input.ReadMessage(Body);
+            break;
+          }
+          case 18: {
+            if (metaHeader_ == null) {
+              MetaHeader = new global::Neo.FileStorage.API.Session.RequestMetaHeader();
+            }
+            input.ReadMessage(MetaHeader);
+            break;
+          }
+          case 26: {
+            if (verifyHeader_ == null) {
+              VerifyHeader = new global::Neo.FileStorage.API.Session.RequestVerificationHeader();
+            }
+            input.ReadMessage(VerifyHeader);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+    #region Nested types
+    /// <summary>Container for nested types declared in the NetworkInfoRequest message type.</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static partial class Types {
+      /// <summary>
+      /// NetworkInfo request body is empty.
+      /// </summary>
+      public sealed partial class Body : pb::IMessage<Body>
+      #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+          , pb::IBufferMessage
+      #endif
+      {
+        private static readonly pb::MessageParser<Body> _parser = new pb::MessageParser<Body>(() => new Body());
+        private pb::UnknownFieldSet _unknownFields;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<Body> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor {
+          get { return global::Neo.FileStorage.API.Netmap.NetworkInfoRequest.Descriptor.NestedTypes[0]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor {
+          get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public Body() {
+          OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public Body(Body other) : this() {
+          _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public Body Clone() {
+          return new Body(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other) {
+          return Equals(other as Body);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(Body other) {
+          if (ReferenceEquals(other, null)) {
+            return false;
+          }
+          if (ReferenceEquals(other, this)) {
+            return true;
+          }
+          return Equals(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode() {
+          int hash = 1;
+          if (_unknownFields != null) {
+            hash ^= _unknownFields.GetHashCode();
+          }
+          return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString() {
+          return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output) {
+          if (_unknownFields != null) {
+            _unknownFields.WriteTo(output);
+          }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize() {
+          int size = 0;
+          if (_unknownFields != null) {
+            size += _unknownFields.CalculateSize();
+          }
+          return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(Body other) {
+          if (other == null) {
+            return;
+          }
+          _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input) {
+        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+          input.ReadRawMessage(this);
+        #else
+          uint tag;
+          while ((tag = input.ReadTag()) != 0) {
+            switch(tag) {
+              default:
+                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+                break;
+            }
+          }
+        #endif
+        }
+
+        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+          uint tag;
+          while ((tag = input.ReadTag()) != 0) {
+            switch(tag) {
+              default:
+                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+                break;
+            }
+          }
+        }
+        #endif
+
+      }
+
+    }
+    #endregion
+
+  }
+
+  /// <summary>
+  /// Response with NetworkInfo structure including current epoch and
+  /// sidechain magic number.
+  /// </summary>
+  public sealed partial class NetworkInfoResponse : pb::IMessage<NetworkInfoResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<NetworkInfoResponse> _parser = new pb::MessageParser<NetworkInfoResponse>(() => new NetworkInfoResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<NetworkInfoResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Neo.FileStorage.API.Netmap.ServiceReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NetworkInfoResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NetworkInfoResponse(NetworkInfoResponse other) : this() {
+      body_ = other.body_ != null ? other.body_.Clone() : null;
+      metaHeader_ = other.metaHeader_ != null ? other.metaHeader_.Clone() : null;
+      verifyHeader_ = other.verifyHeader_ != null ? other.verifyHeader_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NetworkInfoResponse Clone() {
+      return new NetworkInfoResponse(this);
+    }
+
+    /// <summary>Field number for the "body" field.</summary>
+    public const int BodyFieldNumber = 1;
+    private global::Neo.FileStorage.API.Netmap.NetworkInfoResponse.Types.Body body_;
+    /// <summary>
+    /// Body of the NetworkInfo response message.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Neo.FileStorage.API.Netmap.NetworkInfoResponse.Types.Body Body {
+      get { return body_; }
+      set {
+        body_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "meta_header" field.</summary>
+    public const int MetaHeaderFieldNumber = 2;
+    private global::Neo.FileStorage.API.Session.ResponseMetaHeader metaHeader_;
+    /// <summary>
+    /// Carries response meta information. Header data is used only to regulate
+    /// message transport and does not affect response execution.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Neo.FileStorage.API.Session.ResponseMetaHeader MetaHeader {
+      get { return metaHeader_; }
+      set {
+        metaHeader_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "verify_header" field.</summary>
+    public const int VerifyHeaderFieldNumber = 3;
+    private global::Neo.FileStorage.API.Session.ResponseVerificationHeader verifyHeader_;
+    /// <summary>
+    /// Carries response verification information. This header is used to
+    /// authenticate the nodes of the message route and check the correctness of
+    /// transmission.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Neo.FileStorage.API.Session.ResponseVerificationHeader VerifyHeader {
+      get { return verifyHeader_; }
+      set {
+        verifyHeader_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as NetworkInfoResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(NetworkInfoResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Body, other.Body)) return false;
+      if (!object.Equals(MetaHeader, other.MetaHeader)) return false;
+      if (!object.Equals(VerifyHeader, other.VerifyHeader)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (body_ != null) hash ^= Body.GetHashCode();
+      if (metaHeader_ != null) hash ^= MetaHeader.GetHashCode();
+      if (verifyHeader_ != null) hash ^= VerifyHeader.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (body_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Body);
+      }
+      if (metaHeader_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(MetaHeader);
+      }
+      if (verifyHeader_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(VerifyHeader);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (body_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Body);
+      }
+      if (metaHeader_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MetaHeader);
+      }
+      if (verifyHeader_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(VerifyHeader);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(NetworkInfoResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.body_ != null) {
+        if (body_ == null) {
+          Body = new global::Neo.FileStorage.API.Netmap.NetworkInfoResponse.Types.Body();
+        }
+        Body.MergeFrom(other.Body);
+      }
+      if (other.metaHeader_ != null) {
+        if (metaHeader_ == null) {
+          MetaHeader = new global::Neo.FileStorage.API.Session.ResponseMetaHeader();
+        }
+        MetaHeader.MergeFrom(other.MetaHeader);
+      }
+      if (other.verifyHeader_ != null) {
+        if (verifyHeader_ == null) {
+          VerifyHeader = new global::Neo.FileStorage.API.Session.ResponseVerificationHeader();
+        }
+        VerifyHeader.MergeFrom(other.VerifyHeader);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (body_ == null) {
+              Body = new global::Neo.FileStorage.API.Netmap.NetworkInfoResponse.Types.Body();
+            }
+            input.ReadMessage(Body);
+            break;
+          }
+          case 18: {
+            if (metaHeader_ == null) {
+              MetaHeader = new global::Neo.FileStorage.API.Session.ResponseMetaHeader();
+            }
+            input.ReadMessage(MetaHeader);
+            break;
+          }
+          case 26: {
+            if (verifyHeader_ == null) {
+              VerifyHeader = new global::Neo.FileStorage.API.Session.ResponseVerificationHeader();
+            }
+            input.ReadMessage(VerifyHeader);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (body_ == null) {
+              Body = new global::Neo.FileStorage.API.Netmap.NetworkInfoResponse.Types.Body();
+            }
+            input.ReadMessage(Body);
+            break;
+          }
+          case 18: {
+            if (metaHeader_ == null) {
+              MetaHeader = new global::Neo.FileStorage.API.Session.ResponseMetaHeader();
+            }
+            input.ReadMessage(MetaHeader);
+            break;
+          }
+          case 26: {
+            if (verifyHeader_ == null) {
+              VerifyHeader = new global::Neo.FileStorage.API.Session.ResponseVerificationHeader();
+            }
+            input.ReadMessage(VerifyHeader);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+    #region Nested types
+    /// <summary>Container for nested types declared in the NetworkInfoResponse message type.</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static partial class Types {
+      /// <summary>
+      /// Information about the network.
+      /// </summary>
+      public sealed partial class Body : pb::IMessage<Body>
+      #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+          , pb::IBufferMessage
+      #endif
+      {
+        private static readonly pb::MessageParser<Body> _parser = new pb::MessageParser<Body>(() => new Body());
+        private pb::UnknownFieldSet _unknownFields;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<Body> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor {
+          get { return global::Neo.FileStorage.API.Netmap.NetworkInfoResponse.Descriptor.NestedTypes[0]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor {
+          get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public Body() {
+          OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public Body(Body other) : this() {
+          networkInfo_ = other.networkInfo_ != null ? other.networkInfo_.Clone() : null;
+          _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public Body Clone() {
+          return new Body(this);
+        }
+
+        /// <summary>Field number for the "network_info" field.</summary>
+        public const int NetworkInfoFieldNumber = 1;
+        private global::Neo.FileStorage.API.Netmap.NetworkInfo networkInfo_;
+        /// <summary>
+        /// NetworkInfo structure with recent information.
+        /// </summary>
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public global::Neo.FileStorage.API.Netmap.NetworkInfo NetworkInfo {
+          get { return networkInfo_; }
+          set {
+            networkInfo_ = value;
+          }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other) {
+          return Equals(other as Body);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(Body other) {
+          if (ReferenceEquals(other, null)) {
+            return false;
+          }
+          if (ReferenceEquals(other, this)) {
+            return true;
+          }
+          if (!object.Equals(NetworkInfo, other.NetworkInfo)) return false;
+          return Equals(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode() {
+          int hash = 1;
+          if (networkInfo_ != null) hash ^= NetworkInfo.GetHashCode();
+          if (_unknownFields != null) {
+            hash ^= _unknownFields.GetHashCode();
+          }
+          return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString() {
+          return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output) {
+          if (networkInfo_ != null) {
+            output.WriteRawTag(10);
+            output.WriteMessage(NetworkInfo);
+          }
+          if (_unknownFields != null) {
+            _unknownFields.WriteTo(output);
+          }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize() {
+          int size = 0;
+          if (networkInfo_ != null) {
+            size += 1 + pb::CodedOutputStream.ComputeMessageSize(NetworkInfo);
+          }
+          if (_unknownFields != null) {
+            size += _unknownFields.CalculateSize();
+          }
+          return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(Body other) {
+          if (other == null) {
+            return;
+          }
+          if (other.networkInfo_ != null) {
+            if (networkInfo_ == null) {
+              NetworkInfo = new global::Neo.FileStorage.API.Netmap.NetworkInfo();
+            }
+            NetworkInfo.MergeFrom(other.NetworkInfo);
+          }
+          _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input) {
+        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+          input.ReadRawMessage(this);
+        #else
+          uint tag;
+          while ((tag = input.ReadTag()) != 0) {
+            switch(tag) {
+              default:
+                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+                break;
+              case 10: {
+                if (networkInfo_ == null) {
+                  NetworkInfo = new global::Neo.FileStorage.API.Netmap.NetworkInfo();
+                }
+                input.ReadMessage(NetworkInfo);
+                break;
+              }
+            }
+          }
+        #endif
+        }
+
+        #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+          uint tag;
+          while ((tag = input.ReadTag()) != 0) {
+            switch(tag) {
+              default:
+                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+                break;
+              case 10: {
+                if (networkInfo_ == null) {
+                  NetworkInfo = new global::Neo.FileStorage.API.Netmap.NetworkInfo();
+                }
+                input.ReadMessage(NetworkInfo);
                 break;
               }
             }

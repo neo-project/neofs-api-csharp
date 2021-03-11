@@ -50,6 +50,8 @@ namespace Neo.FileStorage.API.Netmap {
 
     static readonly grpc::Marshaller<global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest> __Marshaller_neo_fs_v2_netmap_LocalNodeInfoRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest.Parser));
     static readonly grpc::Marshaller<global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse> __Marshaller_neo_fs_v2_netmap_LocalNodeInfoResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Netmap.NetworkInfoRequest> __Marshaller_neo_fs_v2_netmap_NetworkInfoRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Netmap.NetworkInfoRequest.Parser));
+    static readonly grpc::Marshaller<global::Neo.FileStorage.API.Netmap.NetworkInfoResponse> __Marshaller_neo_fs_v2_netmap_NetworkInfoResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Neo.FileStorage.API.Netmap.NetworkInfoResponse.Parser));
 
     static readonly grpc::Method<global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest, global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse> __Method_LocalNodeInfo = new grpc::Method<global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest, global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse>(
         grpc::MethodType.Unary,
@@ -57,6 +59,13 @@ namespace Neo.FileStorage.API.Netmap {
         "LocalNodeInfo",
         __Marshaller_neo_fs_v2_netmap_LocalNodeInfoRequest,
         __Marshaller_neo_fs_v2_netmap_LocalNodeInfoResponse);
+
+    static readonly grpc::Method<global::Neo.FileStorage.API.Netmap.NetworkInfoRequest, global::Neo.FileStorage.API.Netmap.NetworkInfoResponse> __Method_NetworkInfo = new grpc::Method<global::Neo.FileStorage.API.Netmap.NetworkInfoRequest, global::Neo.FileStorage.API.Netmap.NetworkInfoResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "NetworkInfo",
+        __Marshaller_neo_fs_v2_netmap_NetworkInfoRequest,
+        __Marshaller_neo_fs_v2_netmap_NetworkInfoResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -79,6 +88,17 @@ namespace Neo.FileStorage.API.Netmap {
       /// <param name="context">The context of the server-side call handler being invoked.</param>
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse> LocalNodeInfo(global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      /// Read recent information about the NeoFS network.
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      public virtual global::System.Threading.Tasks.Task<global::Neo.FileStorage.API.Netmap.NetworkInfoResponse> NetworkInfo(global::Neo.FileStorage.API.Netmap.NetworkInfoRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -168,6 +188,50 @@ namespace Neo.FileStorage.API.Netmap {
       {
         return CallInvoker.AsyncUnaryCall(__Method_LocalNodeInfo, null, options, request);
       }
+      /// <summary>
+      /// Read recent information about the NeoFS network.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Netmap.NetworkInfoResponse NetworkInfo(global::Neo.FileStorage.API.Netmap.NetworkInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return NetworkInfo(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Read recent information about the NeoFS network.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The response received from the server.</returns>
+      public virtual global::Neo.FileStorage.API.Netmap.NetworkInfoResponse NetworkInfo(global::Neo.FileStorage.API.Netmap.NetworkInfoRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_NetworkInfo, null, options, request);
+      }
+      /// <summary>
+      /// Read recent information about the NeoFS network.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
+      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
+      /// <param name="cancellationToken">An optional token for canceling the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Netmap.NetworkInfoResponse> NetworkInfoAsync(global::Neo.FileStorage.API.Netmap.NetworkInfoRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return NetworkInfoAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      /// <summary>
+      /// Read recent information about the NeoFS network.
+      /// </summary>
+      /// <param name="request">The request to send to the server.</param>
+      /// <param name="options">The options for the call.</param>
+      /// <returns>The call object.</returns>
+      public virtual grpc::AsyncUnaryCall<global::Neo.FileStorage.API.Netmap.NetworkInfoResponse> NetworkInfoAsync(global::Neo.FileStorage.API.Netmap.NetworkInfoRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_NetworkInfo, null, options, request);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override NetmapServiceClient NewInstance(ClientBaseConfiguration configuration)
       {
@@ -180,7 +244,8 @@ namespace Neo.FileStorage.API.Netmap {
     public static grpc::ServerServiceDefinition BindService(NetmapServiceBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_LocalNodeInfo, serviceImpl.LocalNodeInfo).Build();
+          .AddMethod(__Method_LocalNodeInfo, serviceImpl.LocalNodeInfo)
+          .AddMethod(__Method_NetworkInfo, serviceImpl.NetworkInfo).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -190,6 +255,7 @@ namespace Neo.FileStorage.API.Netmap {
     public static void BindService(grpc::ServiceBinderBase serviceBinder, NetmapServiceBase serviceImpl)
     {
       serviceBinder.AddMethod(__Method_LocalNodeInfo, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Netmap.LocalNodeInfoRequest, global::Neo.FileStorage.API.Netmap.LocalNodeInfoResponse>(serviceImpl.LocalNodeInfo));
+      serviceBinder.AddMethod(__Method_NetworkInfo, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Neo.FileStorage.API.Netmap.NetworkInfoRequest, global::Neo.FileStorage.API.Netmap.NetworkInfoResponse>(serviceImpl.NetworkInfo));
     }
 
   }

@@ -90,7 +90,9 @@ namespace Neo.FileStorage.API.Tombstone {
     private ulong expirationEpoch_;
     /// <summary>
     /// Last NeoFS epoch number of the tombstone lifetime. It's set by tombstone
-    /// creator depending on current NeoFS network settings.
+    /// creator depending on current NeoFS network settings. Tombstone object
+    /// must have the same expiration epoch value in `__NEOFS__EXPIRATION_EPOCH`
+    /// attribute. Otherwise tombstone will be rejected by storage node.
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public ulong ExpirationEpoch {

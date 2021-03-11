@@ -46,12 +46,14 @@ namespace Neo.FileStorage.API.Netmap {
             "ZVIFc3RhdGUaTQoJQXR0cmlidXRlEhAKA2tleRgBIAEoCVIDa2V5EhQKBXZh",
             "bHVlGAIgASgJUgV2YWx1ZRIYCgdwYXJlbnRzGAMgAygJUgdwYXJlbnRzIjEK",
             "BVN0YXRlEg8KC1VOU1BFQ0lGSUVEEAASCgoGT05MSU5FEAESCwoHT0ZGTElO",
-            "RRACKmcKCU9wZXJhdGlvbhIZChVPUEVSQVRJT05fVU5TUEVDSUZJRUQQABIG",
-            "CgJFURABEgYKAk5FEAISBgoCR1QQAxIGCgJHRRAEEgYKAkxUEAUSBgoCTEUQ",
-            "BhIGCgJPUhAHEgcKA0FORBAIKjgKBkNsYXVzZRIWChJDTEFVU0VfVU5TUEVD",
-            "SUZJRUQQABIICgRTQU1FEAESDAoIRElTVElOQ1QQAkJPWjdnaXRodWIuY29t",
-            "L25zcGNjLWRldi9uZW9mcy1hcGktZ28vdjIvbmV0bWFwL2dycGM7bmV0bWFw",
-            "qgITTmVvRlMuQVBJLnYyLk5ldG1hcGIGcHJvdG8z"));
+            "RRACIlUKC05ldHdvcmtJbmZvEiMKDWN1cnJlbnRfZXBvY2gYASABKARSDGN1",
+            "cnJlbnRFcG9jaBIhCgxtYWdpY19udW1iZXIYAiABKARSC21hZ2ljTnVtYmVy",
+            "KmcKCU9wZXJhdGlvbhIZChVPUEVSQVRJT05fVU5TUEVDSUZJRUQQABIGCgJF",
+            "URABEgYKAk5FEAISBgoCR1QQAxIGCgJHRRAEEgYKAkxUEAUSBgoCTEUQBhIG",
+            "CgJPUhAHEgcKA0FORBAIKjgKBkNsYXVzZRIWChJDTEFVU0VfVU5TUEVDSUZJ",
+            "RUQQABIICgRTQU1FEAESDAoIRElTVElOQ1QQAkJPWjdnaXRodWIuY29tL25z",
+            "cGNjLWRldi9uZW9mcy1hcGktZ28vdjIvbmV0bWFwL2dycGM7bmV0bWFwqgIT",
+            "TmVvRlMuQVBJLnYyLk5ldG1hcGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Neo.FileStorage.API.Netmap.Operation), typeof(global::Neo.FileStorage.API.Netmap.Clause), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -59,7 +61,8 @@ namespace Neo.FileStorage.API.Netmap {
             new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.Selector), global::Neo.FileStorage.API.Netmap.Selector.Parser, new[]{ "Name", "Count", "Clause", "Attribute", "Filter" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.Replica), global::Neo.FileStorage.API.Netmap.Replica.Parser, new[]{ "Count", "Selector" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.PlacementPolicy), global::Neo.FileStorage.API.Netmap.PlacementPolicy.Parser, new[]{ "Replicas", "ContainerBackupFactor", "Selectors", "Filters" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.NodeInfo), global::Neo.FileStorage.API.Netmap.NodeInfo.Parser, new[]{ "PublicKey", "Address", "Attributes", "State" }, null, new[]{ typeof(global::Neo.FileStorage.API.Netmap.NodeInfo.Types.State) }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.NodeInfo.Types.Attribute), global::Neo.FileStorage.API.Netmap.NodeInfo.Types.Attribute.Parser, new[]{ "Key", "Value", "Parents" }, null, null, null, null)})
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.NodeInfo), global::Neo.FileStorage.API.Netmap.NodeInfo.Parser, new[]{ "PublicKey", "Address", "Attributes", "State" }, null, new[]{ typeof(global::Neo.FileStorage.API.Netmap.NodeInfo.Types.State) }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.NodeInfo.Types.Attribute), global::Neo.FileStorage.API.Netmap.NodeInfo.Types.Attribute.Parser, new[]{ "Key", "Value", "Parents" }, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Neo.FileStorage.API.Netmap.NetworkInfo), global::Neo.FileStorage.API.Netmap.NetworkInfo.Parser, new[]{ "CurrentEpoch", "MagicNumber" }, null, null, null, null)
           }));
     }
     #endregion
@@ -1736,6 +1739,202 @@ namespace Neo.FileStorage.API.Netmap {
 
     }
     #endregion
+
+  }
+
+  /// <summary>
+  /// Information about NeoFS network
+  /// </summary>
+  public sealed partial class NetworkInfo : pb::IMessage<NetworkInfo>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<NetworkInfo> _parser = new pb::MessageParser<NetworkInfo>(() => new NetworkInfo());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<NetworkInfo> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Neo.FileStorage.API.Netmap.TypesReflection.Descriptor.MessageTypes[5]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NetworkInfo() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NetworkInfo(NetworkInfo other) : this() {
+      currentEpoch_ = other.currentEpoch_;
+      magicNumber_ = other.magicNumber_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NetworkInfo Clone() {
+      return new NetworkInfo(this);
+    }
+
+    /// <summary>Field number for the "current_epoch" field.</summary>
+    public const int CurrentEpochFieldNumber = 1;
+    private ulong currentEpoch_;
+    /// <summary>
+    /// Number of the current epoch in the NeoFS network.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ulong CurrentEpoch {
+      get { return currentEpoch_; }
+      set {
+        currentEpoch_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "magic_number" field.</summary>
+    public const int MagicNumberFieldNumber = 2;
+    private ulong magicNumber_;
+    /// <summary>
+    /// Magic number of the sidechain of the NeoFS network.
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ulong MagicNumber {
+      get { return magicNumber_; }
+      set {
+        magicNumber_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as NetworkInfo);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(NetworkInfo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (CurrentEpoch != other.CurrentEpoch) return false;
+      if (MagicNumber != other.MagicNumber) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (CurrentEpoch != 0UL) hash ^= CurrentEpoch.GetHashCode();
+      if (MagicNumber != 0UL) hash ^= MagicNumber.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (CurrentEpoch != 0UL) {
+        output.WriteRawTag(8);
+        output.WriteUInt64(CurrentEpoch);
+      }
+      if (MagicNumber != 0UL) {
+        output.WriteRawTag(16);
+        output.WriteUInt64(MagicNumber);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (CurrentEpoch != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(CurrentEpoch);
+      }
+      if (MagicNumber != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(MagicNumber);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(NetworkInfo other) {
+      if (other == null) {
+        return;
+      }
+      if (other.CurrentEpoch != 0UL) {
+        CurrentEpoch = other.CurrentEpoch;
+      }
+      if (other.MagicNumber != 0UL) {
+        MagicNumber = other.MagicNumber;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            CurrentEpoch = input.ReadUInt64();
+            break;
+          }
+          case 16: {
+            MagicNumber = input.ReadUInt64();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            CurrentEpoch = input.ReadUInt64();
+            break;
+          }
+          case 16: {
+            MagicNumber = input.ReadUInt64();
+            break;
+          }
+        }
+      }
+    }
+    #endif
 
   }
 
