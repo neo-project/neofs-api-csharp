@@ -39,5 +39,21 @@ namespace Neo.FileStorage.API.Client
                 throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");
             return resp.MetaHeader.Epoch;
         }
+
+        public async Task<NetworkInfo> NetworkInfo(CancellationToken context, CallOptions options = null)
+        {
+            var netmap_client = new NetmapService.NetmapServiceClient(channel);
+            var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            var req = new NetworkInfoRequest
+            {
+                Body = new NetworkInfoRequest.Types.Body { }
+            };
+            req.MetaHeader = opts.GetRequestMetaHeader();
+            key.SignRequest(req);
+            var resp = await netmap_client.NetworkInfoAsync(req, cancellationToken: context);
+            if (!resp.VerifyResponse())
+                throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");
+            return resp.Body.NetworkInfo;
+        }
     }
 }
