@@ -1,4 +1,6 @@
 
+using Neo.IO.Json;
+
 namespace Neo.FileStorage.API.Refs
 {
     public partial class Version
@@ -20,6 +22,14 @@ namespace Neo.FileStorage.API.Refs
             if (ver.Major == SDKMajor && ver.Minor == SDKMinor)
                 return true;
             return false;
+        }
+
+        public JObject ToJson()
+        {
+            var json = new JObject();
+            json["major"] = Major;
+            json["minor"] = Minor;
+            return json;
         }
     }
 }

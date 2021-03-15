@@ -1,4 +1,5 @@
 using Google.Protobuf;
+using Neo.IO.Json;
 using Neo.FileStorage.API.Refs;
 using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Session;
@@ -117,6 +118,16 @@ namespace Neo.FileStorage.API.Object
             var obj = Parser.ParseFrom(this.ToByteArray());
             obj.payload_ = ByteString.Empty;
             return obj;
+        }
+
+        public JObject ToJson()
+        {
+            var json = new JObject();
+            json["objectid"] = ObjectId?.ToJson();
+            json["signature"] = Signature?.ToJson();
+            json["header"] = Header?.ToJson();
+            json["payload"] = Payload?.ToBase64();
+            return json;
         }
     }
 }

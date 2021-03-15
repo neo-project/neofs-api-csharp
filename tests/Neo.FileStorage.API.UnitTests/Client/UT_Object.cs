@@ -50,14 +50,15 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         {
             var host = "localhost:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
-            var cid = ContainerID.FromBase58String("RuzuV3RDstuVtWoDzsTsuNFiakaaGGN24EbNSUFGaiQ");
-            var oid = ObjectID.FromBase58String("6VLqsZAvYTRzt8yY4NvGweWfGmqBiAfQwd6novRNFYiG");
+            var cid = ContainerID.FromBase58String("G21LEPXRVRc6S4yrzBN94jzNE5MCXGczEgNZks4brTLb");
+            var oid = ObjectID.FromBase58String("BcpvJEFXUdyNQHzs1EuotuTsnSdC2NMwzpbWEFyh78hr");
             var address = new Address(cid, oid);
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
             var o = client.GetObject(source.Token, new GetObjectParams { Address = address }, new CallOptions { Ttl = 2 }).Result;
             Assert.AreEqual(oid, o.ObjectId);
+            Console.WriteLine(o.ToJson().ToString());
         }
 
         [TestMethod]
