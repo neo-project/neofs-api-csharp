@@ -1,5 +1,6 @@
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neo.Cryptography;
 using Neo.FileStorage.API.Client;
 using Neo.FileStorage.API.Client.ObjectParams;
 using Neo.FileStorage.API.Cryptography;

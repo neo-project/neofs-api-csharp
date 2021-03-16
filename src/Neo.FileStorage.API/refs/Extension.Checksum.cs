@@ -1,8 +1,8 @@
 using Google.Protobuf;
-using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Cryptography.Tz;
 using Neo.IO.Json;
 using System;
+using static Neo.FileStorage.API.Cryptography.Helper;
 
 namespace Neo.FileStorage.API.Refs
 {
@@ -10,7 +10,7 @@ namespace Neo.FileStorage.API.Refs
     {
         public Checksum(byte[] hash)
         {
-            if (hash.Length == Crypto.Sha256HashLength)
+            if (hash.Length == Sha256HashLength)
             {
                 type_ = ChecksumType.Sha256;
                 sum_ = ByteString.CopyFrom(hash);
@@ -37,8 +37,7 @@ namespace Neo.FileStorage.API.Refs
                     }
                 case ChecksumType.Tz:
                     {
-                        //TODO
-                        throw new NotImplementedException();
+                        return sum_ == data.TzHash();
                     }
                 default:
                     throw new InvalidOperationException(nameof(Verify) + " unsupported checksum type " + type_);
@@ -55,7 +54,7 @@ namespace Neo.FileStorage.API.Refs
             sum_ = ByteString.CopyFrom(str.HexToBytes());
             switch (sum_.Length)
             {
-                case Crypto.Sha256HashLength:
+                case Sha256HashLength:
                     type_ = ChecksumType.Sha256;
                     break;
                 case TzHash.TzHashLength:

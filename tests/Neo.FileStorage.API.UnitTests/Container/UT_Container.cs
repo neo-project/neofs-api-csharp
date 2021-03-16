@@ -1,10 +1,7 @@
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Cryptography;
-using Neo.FileStorage.API.Container;
 using Neo.FileStorage.API.Netmap;
-using Neo.FileStorage.API.Refs;
-using System;
 
 namespace Neo.FileStorage.API.UnitTests.TestContainer
 {

@@ -1,5 +1,5 @@
 using Google.Protobuf;
-using Neo.FileStorage.API.Cryptography;
+using Neo.Cryptography;
 using Neo.IO.Json;
 
 namespace Neo.FileStorage.API.Refs

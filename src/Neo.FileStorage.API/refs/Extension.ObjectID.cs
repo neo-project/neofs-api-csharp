@@ -1,15 +1,15 @@
 using Google.Protobuf;
-using Neo.FileStorage.API.Cryptography;
+using Neo.Cryptography;
 using Neo.IO.Json;
+using static Neo.FileStorage.API.Cryptography.Helper;
 
 namespace Neo.FileStorage.API.Refs
 {
     public partial class ObjectID
     {
-        //Hash256 to ObjectID
         public static ObjectID FromSha256Bytes(byte[] hash)
         {
-            if (hash.Length != Crypto.Sha256HashLength) throw new System.InvalidOperationException("ObjectID must be a hash256");
+            if (hash.Length != Sha256HashLength) throw new System.InvalidOperationException("ObjectID must be a hash256");
             return new ObjectID
             {
                 Value = ByteString.CopyFrom(hash)

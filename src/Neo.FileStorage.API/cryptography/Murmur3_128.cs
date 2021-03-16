@@ -1,6 +1,5 @@
 using System;
 using System.Buffers.Binary;
-using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
 namespace Neo.FileStorage.API.Cryptography
@@ -96,8 +95,8 @@ namespace Neo.FileStorage.API.Cryptography
             h2 ^= (ulong)length;
             h1 += h2;
             h2 += h1;
-            h1 = fimix64(h1);
-            h2 = fimix64(h2);
+            h1 = Fimix64(h1);
+            h2 = Fimix64(h2);
             h1 += h2;
             h2 += h1;
             return BitConverter.GetBytes(h1);
@@ -110,7 +109,7 @@ namespace Neo.FileStorage.API.Cryptography
             h2 = seed;
         }
 
-        private ulong fimix64(ulong k)
+        private ulong Fimix64(ulong k)
         {
             k ^= k >> 33;
             k *= 0xff51afd7ed558ccd;

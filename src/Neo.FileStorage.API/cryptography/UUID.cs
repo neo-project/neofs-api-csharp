@@ -1,6 +1,6 @@
-﻿using System;
-using Google.Protobuf;
-using static Neo.FileStorage.API.Cryptography.Helper;
+﻿using Google.Protobuf;
+using Neo.Cryptography;
+using System;
 
 namespace Neo.FileStorage.API.Cryptography
 {

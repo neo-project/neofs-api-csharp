@@ -1,45 +1,75 @@
-using System;
-using System.Globalization;
-using System.Runtime.CompilerServices;
-using System.Text;
+using Google.Protobuf;
+using Neo.FileStorage.API.Refs;
+using Neo.Cryptography;
+using System.Buffers.Binary;
+using Neo.FileStorage.API.Cryptography.Tz;
 
 namespace Neo.FileStorage.API.Cryptography
 {
     public static class Helper
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] Concat(params byte[][] buffers)
+        public const int Sha256HashLength = 32;
+
+        public static ByteString Sha256(this IMessage data)
         {
-            int length = 0;
-            for (int i = 0; i < buffers.Length; i++)
-                length += buffers[i].Length;
-            byte[] dst = new byte[length];
-            int p = 0;
-            foreach (byte[] src in buffers)
-            {
-                Buffer.BlockCopy(src, 0, dst, p, src.Length);
-                p += src.Length;
-            }
-            return dst;
+            return ByteString.CopyFrom(data.ToByteArray().Sha256());
         }
 
-        public static byte[] HexToBytes(this string value)
+        public static ByteString Sha256(this ByteString data)
         {
-            if (value == null || value.Length == 0)
-                return Array.Empty<byte>();
-            if (value.Length % 2 == 1)
-                throw new FormatException();
-            byte[] result = new byte[value.Length / 2];
-            for (int i = 0; i < result.Length; i++)
-                result[i] = byte.Parse(value.Substring(i * 2, 2), NumberStyles.AllowHexSpecifier);
-            return result;
+            return ByteString.CopyFrom(data.ToByteArray().Sha256());
         }
-        public static string ToHexString(this byte[] value)
+
+        public static Checksum Sha256Checksum(this IMessage data)
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (byte b in value)
-                sb.AppendFormat("{0:x2}", b);
-            return sb.ToString();
+            return new Checksum
+            {
+                Type = ChecksumType.Sha256,
+                Sum = data.Sha256()
+            };
+        }
+
+        public static Checksum Sha256Checksum(this ByteString data)
+        {
+            return new Checksum
+            {
+                Type = ChecksumType.Sha256,
+                Sum = data.Sha256()
+            };
+        }
+
+        public static ByteString TzHash(this IMessage data)
+        {
+            return ByteString.CopyFrom(new TzHash().ComputeHash(data.ToByteArray()));
+        }
+
+        public static ByteString TzHash(this ByteString data)
+        {
+            return ByteString.CopyFrom(new TzHash().ComputeHash(data.ToByteArray()));
+        }
+
+        public static Checksum TzChecksum(this IMessage data)
+        {
+            return new Checksum
+            {
+                Type = ChecksumType.Sha256,
+                Sum = data.TzHash()
+            };
+        }
+
+        public static Checksum TzChecksum(this ByteString data)
+        {
+            return new Checksum
+            {
+                Type = ChecksumType.Sha256,
+                Sum = data.TzHash()
+            };
+        }
+
+        public static ulong Murmur64(this byte[] value, uint seed)
+        {
+            using Murmur3_128 murmur = new Murmur3_128(seed);
+            return BinaryPrimitives.ReadUInt64LittleEndian(murmur.ComputeHash(value));
         }
     }
 }

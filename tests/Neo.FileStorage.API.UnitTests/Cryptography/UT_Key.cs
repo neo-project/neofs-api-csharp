@@ -1,9 +1,6 @@
-using System;
-using System.Linq;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Cryptography;
-using static Neo.FileStorage.API.Cryptography.Helper;
 using static Neo.FileStorage.API.Cryptography.KeyExtension;
 
 namespace Neo.FileStorage.API.UnitTests.TestCryptography
@@ -15,9 +12,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography
         public void TestCreateSignatureRedeemScript()
         {
             var public_key = "0203592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c1".HexToBytes();
-            Assert.AreEqual("0c210203592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c141747476aa", public_key.CreateSignatureRedeemScript().ToHexString());
-            Assert.AreEqual("967a501264e563ac81a6f7afbdb14949efb39a85", public_key.CreateSignatureRedeemScript().Sha256().RIPEMD160().ToHexString());
-            Assert.AreEqual("NZdd4yJPMjjMTXT8eimx55it16wzWiji5C", public_key.CreateSignatureRedeemScript().Sha256().RIPEMD160().ToAddress(NeoAddressVersion));
+            Assert.AreEqual("NZdd4yJPMjjMTXT8eimx55it16wzWiji5C", public_key.PublicKeyToAddress());
         }
 
         [TestMethod]
