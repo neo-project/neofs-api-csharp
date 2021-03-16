@@ -1,7 +1,10 @@
 using Google.Protobuf;
+using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Refs;
 using Neo.FileStorage.API.Cryptography;
+using Neo.IO.Json;
 using System;
+using System.Linq;
 
 namespace Neo.FileStorage.API.Container
 {
@@ -50,7 +53,27 @@ namespace Neo.FileStorage.API.Container
 
                 // SysAttributeSubnet is a string ID of container's storage subnet.
                 public const string SysAttributeSubnet = SysAttributePrefix + "SUBNET";
+
+                public JObject ToJson()
+                {
+                    var json = new JObject();
+                    json["key"] = Key;
+                    json["value"] = Value;
+                    return json;
+                }
             }
+        }
+
+        public JObject ToJson()
+        {
+            var json = new JObject();
+            json["version"] = Version?.ToJson();
+            json["ownerid"] = OwnerId?.ToJson();
+            json["nonce"] = Nonce.ToBase64();
+            json["basicacl"] = ((BasicAcl)BasicAcl).ToString();
+            json["attributes"] = new JArray(Attributes.Select(p => p.ToJson()));
+            json["placementpolicy"] = PlacementPolicy?.ToJson();
+            return json;
         }
     }
 }

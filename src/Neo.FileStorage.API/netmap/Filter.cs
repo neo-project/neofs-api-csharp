@@ -1,5 +1,8 @@
 
 
+using System.Linq;
+using Neo.IO.Json;
+
 namespace Neo.FileStorage.API.Netmap
 {
     public partial class Filter
@@ -11,6 +14,17 @@ namespace Neo.FileStorage.API.Netmap
             value_ = value;
             op_ = op;
             if (sub_filters != null) filters_.AddRange(sub_filters);
+        }
+
+        public JObject ToJson()
+        {
+            var json = new JObject();
+            json["name"] = Name;
+            json["key"] = Key;
+            json["op"] = Op.ToString();
+            json["value"] = Value;
+            json["filters"] = new JArray(Filters.Select(p => p.ToJson()));
+            return json;
         }
     }
 }
