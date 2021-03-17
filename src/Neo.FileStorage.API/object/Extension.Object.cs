@@ -13,21 +13,21 @@ namespace Neo.FileStorage.API.Object
     {
         public const int ChunkSize = 3 * (1 << 20);
 
-        public Version Version => Header.Version;
-        public ulong PayloadSize => Header.PayloadLength;
-        public ContainerID ContainerId => Header.ContainerId;
-        public OwnerID OwnerId => Header.OwnerId;
-        public ulong CreationEpoch => Header.CreationEpoch;
-        public Checksum PayloadChecksum => Header.PayloadHash;
-        public Checksum PayloadHomomorphicHash => Header.HomomorphicHash;
-        public List<Header.Types.Attribute> Attributes => Header.Attributes.ToList();
-        public ObjectID PreviousId => Header.Split.Previous;
-        public List<ObjectID> Children => Header.Split.Children.ToList();
-        public SplitID SplitId => new SplitID(Header.Split.SplitId);
-        public ObjectID ParentId => Header.Split.Parent;
-        public SessionToken SessionToken => Header.SessionToken;
+        public Version Version => Header?.Version;
+        public ulong PayloadSize => Header?.PayloadLength ?? 0;
+        public ContainerID ContainerId => Header?.ContainerId;
+        public OwnerID OwnerId => Header?.OwnerId;
+        public ulong CreationEpoch => Header?.CreationEpoch ?? 0;
+        public Checksum PayloadChecksum => Header?.PayloadHash;
+        public Checksum PayloadHomomorphicHash => Header?.HomomorphicHash;
+        public List<Header.Types.Attribute> Attributes => Header?.Attributes.ToList();
+        public ObjectID PreviousId => Header?.Split?.Previous;
+        public List<ObjectID> Children => Header?.Split?.Children?.ToList();
+        public SplitID SplitId => Header?.Split?.SplitId is null ? null : new SplitID(Header.Split.SplitId);
+        public ObjectID ParentId => Header?.Split?.Parent;
+        public SessionToken SessionToken => Header?.SessionToken;
         public ObjectType ObjectType => Header.ObjectType;
-        public bool HasParent => Header.Split != null;
+        public bool HasParent => Header?.Split != null;
         public Address Address => new Address(ContainerId, ObjectId);
 
         public Object Parent
