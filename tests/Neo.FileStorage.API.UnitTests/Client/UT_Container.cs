@@ -36,7 +36,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             source.CancelAfter(TimeSpan.FromMinutes(1));
             var cid = client.PutContainer(source.Token, container).Result;
             Console.WriteLine(cid.ToBase58String());
-            Assert.AreEqual(container.CalCulateAndGetID, cid);
+            Assert.AreEqual(container.CalCulateAndGetId, cid);
         }
 
         [TestMethod]
@@ -49,7 +49,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var container = client.GetContainer(source.Token, cid).Result;
-            Assert.AreEqual(cid, container.CalCulateAndGetID);
+            Assert.AreEqual(cid, container.CalCulateAndGetId);
         }
 
         [TestMethod]
