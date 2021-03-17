@@ -15,19 +15,20 @@ namespace Neo.FileStorage.API.Object
 
         public Version Version => Header.Version;
         public ulong PayloadSize => Header.PayloadLength;
-        public ContainerID ContainerID => Header.ContainerId;
-        public OwnerID OwnerID => Header.OwnerId;
+        public ContainerID ContainerId => Header.ContainerId;
+        public OwnerID OwnerId => Header.OwnerId;
         public ulong CreationEpoch => Header.CreationEpoch;
         public Checksum PayloadChecksum => Header.PayloadHash;
         public Checksum PayloadHomomorphicHash => Header.HomomorphicHash;
         public List<Header.Types.Attribute> Attributes => Header.Attributes.ToList();
-        public ObjectID PreviousID => Header.Split.Previous;
+        public ObjectID PreviousId => Header.Split.Previous;
         public List<ObjectID> Children => Header.Split.Children.ToList();
-        public SplitID SplitID => new SplitID(Header.Split.SplitId);
-        public ObjectID ParentID => Header.Split.Parent;
+        public SplitID SplitId => new SplitID(Header.Split.SplitId);
+        public ObjectID ParentId => Header.Split.Parent;
         public SessionToken SessionToken => Header.SessionToken;
         public ObjectType ObjectType => Header.ObjectType;
         public bool HasParent => Header.Split != null;
+        public Address Address => new Address(ContainerId, ObjectId);
 
         public Object Parent
         {

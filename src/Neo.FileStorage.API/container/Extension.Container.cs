@@ -19,7 +19,7 @@ namespace Neo.FileStorage.API.Container
         public const string AttributeTimestamp = "Timestamp";
 
         private ContainerID _id;
-        public ContainerID CalCulateAndGetID
+        public ContainerID CalCulateAndGetId
         {
             get
             {
