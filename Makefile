@@ -56,6 +56,7 @@ deps:
 		mkdir -p src/Neo.FileStorage.API/$$(basename $$f); \
 		cp $$f/*.proto src/Neo.FileStorage.API/$$(basename $$f)/; \
 	done
+	@find src/Neo.FileStorage.API -name "*.proto" | xargs grep -rl "NeoFS.API.v2" | xargs sed -i "" "s/NeoFS.API.v2/Neo.FileStorage.API/g"
 
 	@printf "${B}${G}⇒ Cleanup ${R}\n"
 	@rm -rf vendor/proto
@@ -73,23 +74,4 @@ docgen: deps
 			--proto_path=src/Neo.FileStorage.API:vendor:/usr/local/include \
 			--doc_out=docs/ $${f}/*.proto; \
 	done
-
-# Regenerate proto files:
-protoc: deps
-	@printf "${B}${G}⇒ Cleanup old files ${R}\n"
-	@find src/Neo.FileStorage.API -depth -type d -empty -delete
-	@find src/Neo.FileStorage.API -type f -name '*.pb.cs' -exec rm {} \;
-	@find src/Neo.FileStorage.API -type f -name '*Grpc.cs' -exec rm {} \;
-	@printf "${B}${G}⇒ Protoc generate ${R}\n"
-	@for f in `find src/Neo.FileStorage.API -type f -name '*.proto'`; do \
- 		printf "${B}${G}⇒ Processing $$f ${R}\n"; \
- 		protoc \
-			--plugin=protoc-gen-grpc=$(PROTO_TOOLS_BIN)/grpc_csharp_plugin \
-			--csharp_out=$$(dirname $$f) \
-			--csharp_opt=file_extension=.cs \
-			--grpc_out=$$(dirname $$f) \
-			--proto_path=src/Neo.FileStorage.API:vendor:/usr/local/include \
-			$$f; \
- 	done
-	@find src/Neo.FileStorage.API -name "*.cs" | xargs grep -rl "NeoFS.API.v2" | xargs sed -i "" "s/NeoFS.API.v2/Neo.FileStorage.API/g"
 	

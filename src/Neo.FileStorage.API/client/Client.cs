@@ -1,4 +1,5 @@
 using Grpc.Core;
+using Grpc.Net.Client;
 using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Refs;
 using Neo.FileStorage.API.Session;
@@ -7,24 +8,25 @@ using System.Security.Cryptography;
 
 namespace Neo.FileStorage.API.Client
 {
-    public partial class Client
+    public partial class Client : IDisposable
     {
         public const int DefaultConnectTimeoutMilliSeconds = 120000;
         const uint SearchObjectVersion = 1;
         private readonly ECDsa key;
-        private readonly Channel channel;
+        private readonly GrpcChannel channel;
         private SessionToken session;
         private BearerToken bearer;
 
-        public Client(ECDsa key, string host, int milliSecondTimeout = DefaultConnectTimeoutMilliSeconds)
+        public Client(ECDsa key, string host)
         {
-            channel = new Channel(host, ChannelCredentials.Insecure, new ChannelOption[] { new ChannelOption("grpc.server_handshake_timeout_ms", milliSecondTimeout) });
+            channel = GrpcChannel.ForAddress(host, new GrpcChannelOptions { Credentials = ChannelCredentials.Insecure });
             this.key = key;
         }
 
-        public void Close()
+        public void Dispose()
         {
             channel.ShutdownAsync().Wait();
+            channel.Dispose();
         }
 
         public CallOptions DefaultCallOptions

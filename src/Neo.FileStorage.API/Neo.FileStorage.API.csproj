@@ -21,10 +21,33 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.15.3" />
-    <PackageReference Include="Grpc.Core" Version="2.36.0" />
-    <PackageReference Include="BouncyCastle.NetCore" Version="1.8.8" />
+    <Protobuf Include="accounting\service.proto" GrpcServices="Both" Link="accounting\service.proto" />
+    <Protobuf Include="accounting\types.proto" GrpcServices="None" Link="accounting\types.proto" />
+    <Protobuf Include="acl\types.proto" GrpcServices="None" Link="acl\types.proto" />
+    <Protobuf Include="audit\types.proto" GrpcServices="None" Link="audit\types.proto" />
+    <Protobuf Include="container\service.proto" GrpcServices="Both" Link="container\service.proto" />
+    <Protobuf Include="container\types.proto" GrpcServices="None" Link="container\types.proto" />
+    <Protobuf Include="netmap\service.proto" GrpcServices="Both" Link="netmap\service.proto" />
+    <Protobuf Include="netmap\types.proto" GrpcServices="None" Link="netmap\types.proto" />
+    <Protobuf Include="object\service.proto" GrpcServices="Both" Link="object\service.proto" />
+    <Protobuf Include="object\types.proto" GrpcServices="None" Link="object\types.proto" />
+    <Protobuf Include="refs\types.proto" GrpcServices="None" Link="refs\types.proto" />
+    <Protobuf Include="session\service.proto" GrpcServices="Both" Link="session\service.proto" />
+    <Protobuf Include="session\types.proto" GrpcServices="None" Link="session\types.proto" />
+    <Protobuf Include="storagegroup\types.proto" GrpcServices="None" Link="storagegroup\types.proto" />
+    <Protobuf Include="tombstone\types.proto" GrpcServices="None" Link="tombstone\types.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.15.6" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.36.0" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.36.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.36.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Neo" Version="3.0.0-CI01239" />
+    <PackageReference Include="BouncyCastle.NetCore" Version="1.8.8" />
   </ItemGroup>
 
 </Project>
