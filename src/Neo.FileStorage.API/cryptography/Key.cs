@@ -68,10 +68,20 @@ namespace Neo.FileStorage.API.Cryptography
             };
         }
 
+        public static string PublicKeyToAddress(this ByteString public_key)
+        {
+            return public_key.ToByteArray().PublicKeyToAddress();
+        }
+
         public static string PublicKeyToAddress(this byte[] public_key)
         {
             var point = Neo.Cryptography.ECC.ECPoint.DecodePoint(public_key, Neo.Cryptography.ECC.ECCurve.Secp256r1);
             return Contract.CreateSignatureRedeemScript(point).ToScriptHash().ToAddress(NeoAddressVersion);
+        }
+
+        public static OwnerID PublicKeyToOwnerID(this ByteString public_key)
+        {
+            return public_key.ToByteArray().PublicKeyToOwnerID();
         }
 
         public static OwnerID PublicKeyToOwnerID(this byte[] public_key)
@@ -128,6 +138,11 @@ namespace Neo.FileStorage.API.Cryptography
         {
             var private_key = GetPrivateKeyFromWIF(wif);
             return LoadPrivateKey(private_key);
+        }
+
+        public static ECDsa LoadPublicKey(this ByteString public_key)
+        {
+            return public_key.ToByteArray().LoadPublicKey();
         }
 
         public static ECDsa LoadPublicKey(this byte[] public_key)
