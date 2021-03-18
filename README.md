@@ -13,8 +13,8 @@
 # DotNet Restore 
 $ dotnet restore
 
-# Regenerate proto files
-$ make docgen protoc
+# Regenerate doc files
+$ make docgen
 ```
 
 ## License
