@@ -37,11 +37,11 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
+            var session = client.CreateSession(ulong.MaxValue, context: source1.Token).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.PutObject(source2.Token, new PutObjectParams { Object = obj }, new CallOptions { Ttl = 2, Session = session }).Result;
+            var o = client.PutObject(new PutObjectParams { Object = obj }, new CallOptions { Ttl = 2, Session = session }, source2.Token).Result;
             Console.WriteLine(o.ToBase58String());
             Assert.AreNotEqual("", o.ToBase58String());
         }
@@ -57,7 +57,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObject(source.Token, new GetObjectParams { Address = address }, new CallOptions { Ttl = 2 }).Result;
+            var o = client.GetObject(new GetObjectParams { Address = address }, new CallOptions { Ttl = 2 }, source.Token).Result;
             Assert.AreEqual(oid, o.ObjectId);
             Console.WriteLine(o.ToJson().ToString());
         }
@@ -73,7 +73,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObject(source.Token, new GetObjectParams { Address = address }).Result;
+            var o = client.GetObject(new GetObjectParams { Address = address }, context: source.Token).Result;
             Assert.AreEqual(oid, o.ObjectId);
         }
 
@@ -88,11 +88,11 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(source1.Token, ulong.MaxValue).Result;
+            var session = client.CreateSession(ulong.MaxValue, context: source1.Token).Result;
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.DeleteObject(source2.Token, new DeleteObjectParams { Address = address }, new CallOptions { Ttl = 2, Session = session });
+            var o = client.DeleteObject(new DeleteObjectParams { Address = address }, new CallOptions { Ttl = 2, Session = session }, source2.Token);
             Assert.AreEqual(address, o);
         }
 
@@ -107,7 +107,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectHeader(source.Token, new ObjectHeaderParams { Address = address, Short = false }, new CallOptions { Ttl = 2 }).Result;
+            var o = client.GetObjectHeader(new ObjectHeaderParams { Address = address, Short = false }, new CallOptions { Ttl = 2 }, source.Token).Result;
             Assert.AreEqual(oid, o.ObjectId);
         }
 
@@ -122,7 +122,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectPayloadRangeData(source.Token, new RangeDataParams { Address = address, Range = new Object.Range { Offset = 0, Length = 3 } }, new CallOptions { Ttl = 2 }).Result;
+            var o = client.GetObjectPayloadRangeData(new RangeDataParams { Address = address, Range = new Object.Range { Offset = 0, Length = 3 } }, new CallOptions { Ttl = 2 }, source.Token).Result;
             Assert.AreEqual("hel", Encoding.ASCII.GetString(o));
         }
 
@@ -137,7 +137,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectPayloadRangeHash(source.Token, new RangeChecksumParams { Address = address, Ranges = new List<Object.Range> { new Object.Range { Offset = 0, Length = 3 } }, Salt = new byte[] { 0x00 }, Type = ChecksumType.Sha256 }, new CallOptions { Ttl = 2 }).Result;
+            var o = client.GetObjectPayloadRangeHash(new RangeChecksumParams { Address = address, Ranges = new List<Object.Range> { new Object.Range { Offset = 0, Length = 3 } }, Salt = new byte[] { 0x00 }, Type = ChecksumType.Sha256 }, new CallOptions { Ttl = 2 }, source.Token).Result;
             Assert.AreEqual(1, o.Count);
             Assert.AreEqual(Encoding.ASCII.GetBytes("hello")[..3].Sha256().ToHexString(), o[0].ToHexString());
         }
@@ -151,7 +151,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.SearchObject(source.Token, new SearchObjectParams { ContainerID = cid, Filters = new SearchFilters() }, new CallOptions { Ttl = 2 }).Result;
+            var o = client.SearchObject(new SearchObjectParams { ContainerID = cid, Filters = new SearchFilters() }, new CallOptions { Ttl = 2 }, source.Token).Result;
             Console.WriteLine(o.Count);
             Assert.IsTrue(o.Select(p => p.ToBase58String()).ToList().Contains("vWt34r4ddnq61jcPec4rVaXHg7Y7GiEYFmcTB2Qwhtx"));
         }
@@ -160,7 +160,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         public void TestClient()
         {
             var key = "7310c4da083264666cc3567d5cb4a5b060ca34fb68959de58bd04959f3cbc6b2".HexToBytes().LoadPrivateKey();
-            var client = new Client.Client(key, "127.0.0.1:8080");
+            _ = new Client.Client(key, "127.0.0.1:8080");
         }
     }
 }

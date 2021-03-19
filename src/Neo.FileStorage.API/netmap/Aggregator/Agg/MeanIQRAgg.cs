@@ -5,7 +5,7 @@ namespace Neo.FileStorage.API.Netmap.Aggregator
 {
     public class MeanIQRAgg : IAggregator
     {
-        private double k;
+        private readonly double k;
         private double[] arr = Array.Empty<double>();
 
         public MeanIQRAgg(double k)
@@ -28,7 +28,7 @@ namespace Neo.FileStorage.API.Netmap.Aggregator
             double min, max;
             if (arr.Length < 4)
             {
-                max = arr[arr.Length - 1];
+                max = arr[^1];
                 min = arr[0];
             }
             else

@@ -4,7 +4,7 @@ namespace Neo.FileStorage.API.Netmap.Normalize
 {
     public class ConstNorm : INormalizer
     {
-        private double value;
+        private readonly double value;
 
         public ConstNorm(double value)
         {

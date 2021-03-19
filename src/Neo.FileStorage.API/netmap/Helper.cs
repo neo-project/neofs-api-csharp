@@ -32,9 +32,9 @@ namespace Neo.FileStorage.API.Netmap
         {
             var acc = x ^ y;
             acc ^= acc >> 33;
-            acc = acc * 0xff51afd7ed558ccd;
+            acc *= 0xff51afd7ed558ccd;
             acc ^= acc >> 33;
-            acc = acc * 0xc4ceb9fe1a85ec53;
+            acc *= 0xc4ceb9fe1a85ec53;
             acc ^= acc >> 33;
             return acc;
         }

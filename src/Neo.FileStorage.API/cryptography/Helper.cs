@@ -68,7 +68,7 @@ namespace Neo.FileStorage.API.Cryptography
 
         public static ulong Murmur64(this byte[] value, uint seed)
         {
-            using Murmur3_128 murmur = new Murmur3_128(seed);
+            using Murmur3_128 murmur = new(seed);
             return BinaryPrimitives.ReadUInt64LittleEndian(murmur.ComputeHash(value));
         }
     }

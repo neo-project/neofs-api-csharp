@@ -22,7 +22,7 @@ namespace Neo.FileStorage.API.Netmap
         public ulong Price;
         public int Index;
         public NodeInfo Info;
-        public Dictionary<string, string> Attributes = new Dictionary<string, string>();
+        public Dictionary<string, string> Attributes = new();
         public double Weight;
         public ulong Distance;
 
@@ -43,6 +43,18 @@ namespace Neo.FileStorage.API.Netmap
                     Price = ulong.Parse(attr.Value);
                 Attributes.Add(attr.Key, attr.Value);
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is null || !(obj is Node))
+                return false;
+            return Equals((Node)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         public bool Equals(Node n)

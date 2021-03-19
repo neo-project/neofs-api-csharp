@@ -28,7 +28,7 @@ namespace Neo.FileStorage.API.Object
         public SessionToken SessionToken => Header?.SessionToken;
         public ObjectType ObjectType => Header.ObjectType;
         public bool HasParent => Header?.Split != null;
-        public Address Address => new Address(ContainerId, ObjectId);
+        public Address Address => new(ContainerId, ObjectId);
 
         public Object Parent
         {
@@ -40,7 +40,7 @@ namespace Neo.FileStorage.API.Object
                 var parentHeader = splitHeader.ParentHeader;
                 if (parentSig is null || parentHeader is null)
                     return null;
-                Object obj = new Object
+                Object obj = new()
                 {
                     Header = parentHeader,
                     Signature = parentSig,

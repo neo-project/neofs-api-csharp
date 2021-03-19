@@ -11,9 +11,9 @@ using UsedSpaceAnnouncement = Neo.FileStorage.API.Container.AnnounceUsedSpaceReq
 
 namespace Neo.FileStorage.API.Client
 {
-    public partial class Client
+    public sealed partial class Client
     {
-        public async Task<Container.Container> GetContainer(CancellationToken context, ContainerID cid, CallOptions options = null)
+        public async Task<Container.Container> GetContainer(ContainerID cid, CallOptions options = null, CancellationToken context = default)
         {
             if (cid is null) throw new ArgumentNullException(nameof(cid));
             var container_client = new ContainerService.ContainerServiceClient(channel);
@@ -34,7 +34,7 @@ namespace Neo.FileStorage.API.Client
             return resp.Body.Container;
         }
 
-        public async Task<ContainerID> PutContainer(CancellationToken context, Container.Container container, CallOptions options = null)
+        public async Task<ContainerID> PutContainer(Container.Container container, CallOptions options = null, CancellationToken context = default)
         {
             if (container is null) throw new ArgumentNullException(nameof(container));
             var container_client = new ContainerService.ContainerServiceClient(channel);
@@ -58,7 +58,7 @@ namespace Neo.FileStorage.API.Client
             return resp.Body.ContainerId;
         }
 
-        public async Task DeleteContainer(CancellationToken context, ContainerID cid, CallOptions options = null)
+        public async Task DeleteContainer(ContainerID cid, CallOptions options = null, CancellationToken context = default)
         {
             if (cid is null) throw new ArgumentNullException(nameof(cid));
             var container_client = new ContainerService.ContainerServiceClient(channel);
@@ -78,7 +78,7 @@ namespace Neo.FileStorage.API.Client
                 throw new InvalidOperationException("invalid container put response");
         }
 
-        public async Task<List<ContainerID>> ListContainers(CancellationToken context, OwnerID owner, CallOptions options = null)
+        public async Task<List<ContainerID>> ListContainers(OwnerID owner, CallOptions options = null, CancellationToken context = default)
         {
             if (owner is null) throw new ArgumentNullException(nameof(owner));
             var container_client = new ContainerService.ContainerServiceClient(channel);
@@ -102,10 +102,10 @@ namespace Neo.FileStorage.API.Client
         public async Task<List<ContainerID>> ListSelfContainers(CancellationToken context, CallOptions options = null)
         {
             var w = key.ToOwnerID();
-            return await ListContainers(context, w, options);
+            return await ListContainers(w, options, context);
         }
 
-        public async Task<EAclWithSignature> GetEAclWithSignature(CancellationToken context, ContainerID cid, CallOptions options = null)
+        public async Task<EAclWithSignature> GetEAclWithSignature(ContainerID cid, CallOptions options = null, CancellationToken context = default)
         {
             if (cid is null) throw new ArgumentNullException(nameof(cid));
             var container_client = new ContainerService.ContainerServiceClient(channel);
@@ -132,16 +132,16 @@ namespace Neo.FileStorage.API.Client
             };
         }
 
-        public async Task<EACLTable> GetEACL(CancellationToken context, ContainerID cid, CallOptions options = null)
+        public async Task<EACLTable> GetEACL(ContainerID cid, CallOptions options = null, CancellationToken context = default)
         {
             if (cid is null) throw new ArgumentNullException(nameof(cid));
-            var eacl_with_sig = await GetEAclWithSignature(context, cid, options);
+            var eacl_with_sig = await GetEAclWithSignature(cid, options, context);
             if (!eacl_with_sig.Signature.VerifyRFC6979(eacl_with_sig.Table))
                 throw new InvalidOperationException("invalid eacl signature");
             return eacl_with_sig.Table;
         }
 
-        public async Task SetEACL(CancellationToken context, EACLTable eacl, CallOptions options = null)
+        public async Task SetEACL(EACLTable eacl, CallOptions options = null, CancellationToken context = default)
         {
             if (eacl is null) throw new ArgumentNullException(nameof(eacl));
             var container_client = new ContainerService.ContainerServiceClient(channel);
@@ -163,7 +163,7 @@ namespace Neo.FileStorage.API.Client
                 throw new InvalidOperationException("invalid container put response");
         }
 
-        public async Task AnnounceContainerUsedSpace(CancellationToken context, List<UsedSpaceAnnouncement> announcements, CallOptions options = null)
+        public async Task AnnounceContainerUsedSpace(List<UsedSpaceAnnouncement> announcements, CallOptions options = null, CancellationToken context = default)
         {
             if (announcements is null) throw new ArgumentNullException(nameof(announcements));
             var container_client = new ContainerService.ContainerServiceClient(channel);

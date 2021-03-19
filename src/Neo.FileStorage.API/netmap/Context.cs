@@ -9,22 +9,22 @@ namespace Neo.FileStorage.API.Netmap
     {
         public const uint DefaultCBF = 3;
         public NetMap Map;
-        public Dictionary<string, Filter> Filters = new Dictionary<string, Filter>();
-        public Dictionary<string, Selector> Selectors = new Dictionary<string, Selector>();
-        public Dictionary<string, List<List<Node>>> Selections = new Dictionary<string, List<List<Node>>>();
-        public Dictionary<Filter, UInt64> NumCache = new Dictionary<Filter, ulong>();
+        public Dictionary<string, Filter> Filters = new();
+        public Dictionary<string, Selector> Selectors = new();
+        public Dictionary<string, List<List<Node>>> Selections = new();
+        public Dictionary<Filter, UInt64> NumCache = new();
         private byte[] pivot;
         private ulong pivotHash;
         private Func<IAggregator> newAggregator;
         private Func<Node, double> weightFunc;
-        public uint cbf { get; private set; }
+        public uint Cbf { get; private set; }
 
         public Context(NetMap map)
         {
             Map = map;
             newAggregator = () => new MeanIQRAgg(0);
             weightFunc = map.Nodes.GenarateWeightFunc();
-            cbf = DefaultCBF;
+            Cbf = DefaultCBF;
         }
 
         public void SetPivot(byte[] pivot)
@@ -47,9 +47,9 @@ namespace Neo.FileStorage.API.Netmap
         public void SetCBF(uint cbf)
         {
             if (cbf == 0)
-                this.cbf = DefaultCBF;
+                this.Cbf = DefaultCBF;
             else
-                this.cbf = cbf;
+                this.Cbf = cbf;
         }
     }
 }

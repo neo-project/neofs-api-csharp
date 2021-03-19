@@ -8,11 +8,11 @@ namespace Neo.FileStorage.API.Cryptography.Tz
         // 2x2 matrix
         private readonly GF127[][] data;
 
-        public static readonly SL2 ID = new SL2(new GF127(1, 0), new GF127(0, 0),
+        public static readonly SL2 ID = new(new GF127(1, 0), new GF127(0, 0),
                                                 new GF127(0, 0), new GF127(1, 0));
-        public static readonly SL2 A = new SL2(new GF127(2, 0), new GF127(1, 0),
+        public static readonly SL2 A = new(new GF127(2, 0), new GF127(1, 0),
                                                 new GF127(1, 0), new GF127(0, 0));
-        public static readonly SL2 B = new SL2(new GF127(2, 0), new GF127(3, 0),
+        public static readonly SL2 B = new(new GF127(2, 0), new GF127(3, 0),
                                                 new GF127(1, 0), new GF127(1, 0));
 
         // Indexer
@@ -25,7 +25,7 @@ namespace Neo.FileStorage.API.Cryptography.Tz
         public SL2(GF127[][] value)
         {
             if (value is null || value.Length != 2 || !value.All(p => p.Length == 2))
-                throw new ArgumentException();
+                throw new ArgumentException(nameof(value) + $" invalid {nameof(GF127)} matrics");
             data = value;
         }
 
@@ -44,9 +44,9 @@ namespace Neo.FileStorage.API.Cryptography.Tz
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
-            if (!(obj is SL2 b))
-                return false;
-            return Equals(b);
+            if (obj is SL2 b)
+                return Equals(b);
+            return false;
         }
 
         public override int GetHashCode()
@@ -95,7 +95,7 @@ namespace Neo.FileStorage.API.Cryptography.Tz
 
             t[6] = (a[0][1] + a[1][1]) * (b[1][0] + b[1][1]); // t[6] == (a12 + a22) * (b21 + b22)
 
-            SL2 r = new SL2();
+            SL2 r = new();
             r[0][1] = t[2] + t[4]; // r12 == a11*b12 + a11*b22 + a11*b22 + a12*b22 == a11*b12 + a12*b22
             r[1][0] = t[1] + t[3]; // r21 == a21*b11 + a22*b11 + a22*b21 + a22*b11 == a21*b11 + a22*b21
             // r11 == (a11*b11 + a22*b11` + a11*b22` + a22*b22`) + (a22*b21` + a22*b11`) + (a11*b22` + a12*b22`) + (a12*b21 + a22*b21` + a12*b22` + a22*b22`)
@@ -115,7 +115,7 @@ namespace Neo.FileStorage.API.Cryptography.Tz
             t[0] = a[0][0] * a[1][1] + a[0][1] * a[1][0]; // 
             t[1] = GF127.Inv(t[0]);
 
-            SL2 r = new SL2();
+            SL2 r = new();
             r[1][1] = t[1] * a[0][0];
             r[0][1] = t[1] * a[0][1];
             r[1][0] = t[1] * a[1][0];
@@ -153,7 +153,7 @@ namespace Neo.FileStorage.API.Cryptography.Tz
         public SL2 FromByteArray(byte[] data)
         {
             if (data.Length != 64)
-                throw new ArgumentException();
+                throw new ArgumentException(nameof(SL2) + $" invalid data, exect={64}, ecatual={data.Length}");
             this[0][0] = new GF127().FromByteArray(data[0..16]);
             this[0][1] = new GF127().FromByteArray(data[16..32]);
             this[1][0] = new GF127().FromByteArray(data[32..48]);

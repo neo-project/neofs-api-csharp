@@ -21,8 +21,7 @@ namespace Neo.FileStorage.API.Object
 
         public static SplitID FromBytes(byte[] bytes)
         {
-            var sid = new SplitID();
-            sid.guid = new Guid(bytes);
+            SplitID sid = new(bytes);
             return sid;
         }
 

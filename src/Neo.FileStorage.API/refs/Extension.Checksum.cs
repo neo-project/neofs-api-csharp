@@ -52,17 +52,12 @@ namespace Neo.FileStorage.API.Refs
         public void Parse(string str)
         {
             sum_ = ByteString.CopyFrom(str.HexToBytes());
-            switch (sum_.Length)
+            type_ = sum_.Length switch
             {
-                case Sha256HashLength:
-                    type_ = ChecksumType.Sha256;
-                    break;
-                case TzHash.TzHashLength:
-                    type_ = ChecksumType.Tz;
-                    break;
-                default:
-                    throw new FormatException($"unsupported checksum length {sum_.Length}");
-            }
+                Sha256HashLength => ChecksumType.Sha256,
+                TzHash.TzHashLength => ChecksumType.Tz,
+                _ => throw new FormatException($"unsupported checksum length {sum_.Length}"),
+            };
         }
 
         public JObject ToJson()

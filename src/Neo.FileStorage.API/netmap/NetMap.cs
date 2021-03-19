@@ -7,7 +7,7 @@ namespace Neo.FileStorage.API.Netmap
 {
     public class NetMap
     {
-        public List<Node> Nodes = new List<Node>();
+        public List<Node> Nodes = new();
 
         public NetMap(Node[] ns)
         {
@@ -50,7 +50,7 @@ namespace Neo.FileStorage.API.Netmap
             foreach (var replica in policy.Replicas)
             {
                 if (replica is null)
-                    throw new ArgumentNullException(nameof(GetContainerNodes) + " missing Replicas");
+                    throw new ArgumentException(nameof(GetContainerNodes) + " missing Replicas");
                 var r = new List<Node>();
                 if (replica.Selector == "")
                 {

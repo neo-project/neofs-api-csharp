@@ -11,9 +11,9 @@ namespace Neo.FileStorage.API.Netmap
             foreach (var selector in policy.Selectors)
             {
                 if (selector is null)
-                    throw new ArgumentNullException(nameof(ProcessSelectors));
+                    throw new ArgumentException(nameof(ProcessSelectors) + " null selector in policy");
                 if (selector.Filter != MainFilterName && !Filters.ContainsKey(selector.Filter))
-                    throw new ArgumentNullException(nameof(ProcessSelectors) + " filter not found");
+                    throw new ArgumentException(nameof(ProcessSelectors) + " filter not found");
                 Selectors[selector.Name] = selector;
                 var results = GetSelection(policy, selector);
                 Selections[selector.Name] = results;
@@ -34,7 +34,7 @@ namespace Neo.FileStorage.API.Netmap
                 else
                     buckets.Sort((b1, b2) => b1.Item1.CompareTo(b2.Item1));
             }
-            var max_nodes_in_bucket = nodes_in_bucket * (int)cbf;
+            var max_nodes_in_bucket = nodes_in_bucket * (int)Cbf;
             var nodes = new List<List<Node>>();
             var fallback = new List<List<Node>>();
             foreach (var (_, ns) in buckets)

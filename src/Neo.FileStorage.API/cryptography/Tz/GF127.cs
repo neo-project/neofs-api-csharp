@@ -9,9 +9,9 @@ namespace Neo.FileStorage.API.Cryptography.Tz
         public const int ByteSize = 16;
         public const ulong MaxUlong = ulong.MaxValue;
         public const ulong MSB64 = (ulong)1 << 63; // 2^63
-        public static readonly GF127 Zero = new GF127(0, 0);
-        public static readonly GF127 One = new GF127(1, 0);
-        public static readonly GF127 X127X631 = new GF127(MSB64 + 1, MSB64); // x^127+x^63+1
+        public static readonly GF127 Zero = new(0, 0);
+        public static readonly GF127 One = new(1, 0);
+        public static readonly GF127 X127X631 = new(MSB64 + 1, MSB64); // x^127+x^63+1
 
         private readonly ulong[] _data;
 
@@ -24,7 +24,7 @@ namespace Neo.FileStorage.API.Cryptography.Tz
         public GF127(ulong[] value)
         {
             if (value is null || value.Length != 2)
-                throw new ArgumentException();
+                throw new ArgumentException(nameof(value) + "is invalid");
             _data = value;
         }
 
@@ -44,9 +44,9 @@ namespace Neo.FileStorage.API.Cryptography.Tz
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
-            if (!(obj is GF127 b))
-                return false;
-            return Equals(b);
+            if (obj is GF127 b)
+                return Equals(b);
+            return false;
         }
 
         public override int GetHashCode()
@@ -95,7 +95,7 @@ namespace Neo.FileStorage.API.Cryptography.Tz
         // Multiply
         public static GF127 operator *(GF127 a, GF127 b) // 2^63 * 2,  10
         {
-            GF127 r = new GF127();
+            GF127 r = new();
             GF127 c = a;
 
             if (b[1] == 0)
@@ -132,8 +132,8 @@ namespace Neo.FileStorage.API.Cryptography.Tz
         {
             GF127 v = X127X631,
                 u = a,
-                c = new GF127(1, 0),
-                d = new GF127(0, 0),
+                c = new(1, 0),
+                d = new(0, 0),
                 t,
                 x;
 
@@ -167,7 +167,7 @@ namespace Neo.FileStorage.API.Cryptography.Tz
         // Mul10 returns a*x
         public static GF127 Mul10(GF127 a)
         {
-            GF127 b = new GF127();
+            GF127 b = new();
             var c = (a[0] & MSB64) >> 63;
             b[0] = a[0] << 1;
             b[1] = (a[1] << 1) ^ c;
@@ -182,7 +182,7 @@ namespace Neo.FileStorage.API.Cryptography.Tz
         // Mul11 returns a*(x+1)
         public static GF127 Mul11(GF127 a)
         {
-            GF127 b = new GF127();
+            GF127 b = new();
             var c = (a[0] & MSB64) >> 63;
             b[0] = a[0] ^ (a[0] << 1);
             b[1] = a[1] ^ (a[1] << 1) ^ c;
@@ -206,7 +206,7 @@ namespace Neo.FileStorage.API.Cryptography.Tz
         public GF127 FromByteArray(byte[] data)
         {
             if (data.Length != ByteSize)
-                throw new ArgumentException();
+                throw new ArgumentException(nameof(data) + $" wrong data lenght, {nameof(GF127)} expect={ByteSize}, actual={data.Length}");
             var t0 = new byte[8];
             var t1 = new byte[8];
             Array.Copy(data, 0, t1, 0, 8);
@@ -219,7 +219,7 @@ namespace Neo.FileStorage.API.Cryptography.Tz
             _data[0] = BitConverter.ToUInt64(t0);
             _data[1] = BitConverter.ToUInt64(t1);
             if ((_data[1] & MSB64) != 0)
-                throw new ArgumentException();
+                throw new ArgumentException(nameof(data) + " invalid data");
             return this;
         }
 

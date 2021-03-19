@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 
 namespace Neo.FileStorage.API.Client
 {
-    public partial class Client : IDisposable
+    public sealed partial class Client : IDisposable
     {
         public const int DefaultConnectTimeoutMilliSeconds = 120000;
         const uint SearchObjectVersion = 1;

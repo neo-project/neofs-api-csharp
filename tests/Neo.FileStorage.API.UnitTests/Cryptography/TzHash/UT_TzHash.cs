@@ -13,7 +13,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography.Tz
         private readonly Tuple<byte[], string>[] HashTestCases = new[]
         {
             new Tuple<byte[], string>(
-                new byte[]{},
+                Array.Empty<byte>(),
                 "00000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001"
                 ),
             new Tuple<byte[], string>(
@@ -63,7 +63,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography.Tz
         {
             foreach (var item in HashTestCases)
             {
-                TzHash tz = new TzHash();
+                TzHash tz = new();
                 var hash = tz.ComputeHash(item.Item1);
                 Assert.AreEqual(item.Item2, hash.ToHexString());
             }
@@ -76,7 +76,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography.Tz
             var b = new byte[64];
             rng.GetBytes(b);
 
-            TzHash tz = new TzHash();
+            TzHash tz = new();
             var h = tz.ComputeHash(b);
             var s = h.ToHexString();
             tz.Reset();
@@ -135,7 +135,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography.Tz
             var b = new byte[1000];
             rng.GetBytes(b);
 
-            TzHash tz = new TzHash();
+            TzHash tz = new();
             var h = tz.ComputeHash(b);
             var s = h.ToHexString();
 
@@ -153,7 +153,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography.Tz
             var b = new byte[10000000];
             rng.GetBytes(b);
 
-            TzHash tz = new TzHash();
+            TzHash tz = new();
             var h = tz.ComputeHash(b);
             var s = h.ToHexString();
         }
@@ -165,7 +165,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography.Tz
             var b = new byte[100000];
             rng.GetBytes(b);
 
-            TzHash tz = new TzHash();
+            TzHash tz = new();
             tz.HashDataParallel(b);
             var h2 = tz.Hash;
             var s2 = h2.ToHexString();

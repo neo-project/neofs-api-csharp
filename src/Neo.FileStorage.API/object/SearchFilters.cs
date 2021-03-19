@@ -7,7 +7,7 @@ namespace Neo.FileStorage.API.Object
 {
     public class SearchFilters
     {
-        private readonly List<Filter> filters = new List<Filter>();
+        private readonly List<Filter> filters = new();
 
         public Filter[] Filters => filters.ToArray();
 

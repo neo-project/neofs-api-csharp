@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neo.FileStorage.API.Client
 {
-    public partial class Client
+    public sealed partial class Client
     {
         public async Task<Accounting.Decimal> GetBalance(OwnerID owner, CallOptions options = null)
         {

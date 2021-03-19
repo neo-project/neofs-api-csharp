@@ -4,7 +4,7 @@ namespace Neo.FileStorage.API.Netmap.Normalize
 {
     public class MaxNorm : INormalizer
     {
-        private double max;
+        private readonly double max;
 
         public MaxNorm(double max)
         {

@@ -34,7 +34,7 @@ namespace Neo.FileStorage.API.Cryptography
 
         private static byte[] GetPrivateKeyFromWIF(string wif)
         {
-            if (wif == null) throw new ArgumentNullException();
+            if (wif == null) throw new ArgumentNullException(nameof(wif));
             byte[] data = wif.Base58CheckDecode();
             if (data.Length != 34 || data[0] != 0x80 || data[33] != 0x01)
                 throw new FormatException();

@@ -13,7 +13,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
         {
             var ns1 = new List<Node> { Helper.GenerateTestNode(0, ("Raing", "1")) };
             var ns2 = new List<Node> { Helper.GenerateTestNode(0, ("Raing", "2")) };
-            var list = new List<List<Node>>();
+            List<List<Node>> list = new();
             list.Add(ns1);
             list.Add(ns2);
             Assert.AreEqual(2, list.Flatten().Count);

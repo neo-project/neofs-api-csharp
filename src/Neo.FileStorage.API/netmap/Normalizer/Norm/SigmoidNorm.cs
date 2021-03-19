@@ -4,7 +4,7 @@ namespace Neo.FileStorage.API.Netmap.Normalize
 {
     public class SigmoidNorm : INormalizer
     {
-        private double scale;
+        private readonly double scale;
 
         public SigmoidNorm(double scale)
         {

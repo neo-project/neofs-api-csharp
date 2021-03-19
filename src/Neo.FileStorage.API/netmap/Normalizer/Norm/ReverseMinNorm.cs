@@ -4,7 +4,7 @@ namespace Neo.FileStorage.API.Netmap.Normalize
 {
     public class ReverseMinNorm : INormalizer
     {
-        private double min;
+        private readonly double min;
 
         public ReverseMinNorm(double min)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Neo.FileStorage.API.Client
 {
-    public partial class Client
+    public sealed partial class Client
     {
         public void AttachSessionToken(SessionToken token)
         {
@@ -19,7 +19,7 @@ namespace Neo.FileStorage.API.Client
             bearer = token;
         }
 
-        public async Task<SessionToken> CreateSession(CancellationToken context, ulong expiration, CallOptions option = null)
+        public async Task<SessionToken> CreateSession(ulong expiration, CallOptions option = null, CancellationToken context = default)
         {
             var session_client = new SessionService.SessionServiceClient(channel);
             var req = new CreateRequest

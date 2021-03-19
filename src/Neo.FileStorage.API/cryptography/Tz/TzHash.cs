@@ -48,7 +48,7 @@ namespace Neo.FileStorage.API.Cryptography.Tz
         [SecurityCritical]
         protected override void HashCore(byte[] array, int ibStart, int cbSize)
         {
-            _ = _HashData(array[ibStart..(ibStart + cbSize)]);
+            _ = HashData(array[ibStart..(ibStart + cbSize)]);
         }
 
         [SecurityCritical]
@@ -58,7 +58,7 @@ namespace Neo.FileStorage.API.Cryptography.Tz
         }
 
         [SecurityCritical]
-        private int _HashData(byte[] data)
+        private int HashData(byte[] data)
         {
             var n = data.Length;
             for (int i = 0; i < n; i++)
