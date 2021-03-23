@@ -39,8 +39,14 @@ namespace Neo.FileStorage.API.Client
                     Ttl = 2,
                     Session = session,
                     Bearer = bearer,
+                    Key = key,
                 };
             }
+        }
+
+        private void CheckOptions(CallOptions options)
+        {
+            if (options.Key is null) throw new InvalidOperationException("missing sign key");
         }
     }
 }

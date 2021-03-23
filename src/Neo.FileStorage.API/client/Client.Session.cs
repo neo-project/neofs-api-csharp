@@ -19,19 +19,21 @@ namespace Neo.FileStorage.API.Client
             bearer = token;
         }
 
-        public async Task<SessionToken> CreateSession(ulong expiration, CallOptions option = null, CancellationToken context = default)
+        public async Task<SessionToken> CreateSession(ulong expiration, CallOptions options = null, CancellationToken context = default)
         {
             var session_client = new SessionService.SessionServiceClient(channel);
+            var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             var req = new CreateRequest
             {
                 Body = new CreateRequest.Types.Body
                 {
-                    OwnerId = key.ToOwnerID(),
+                    OwnerId = opts.Key.ToOwnerID(),
                     Expiration = expiration,
                 }
             };
-            req.MetaHeader = option?.GetRequestMetaHeader() ?? RequestMetaHeader.Default;
-            key.SignRequest(req);
+            req.MetaHeader = opts?.GetRequestMetaHeader() ?? RequestMetaHeader.Default;
+            opts.Key.SignRequest(req);
 
             var resp = await session_client.CreateAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -42,7 +44,7 @@ namespace Neo.FileStorage.API.Client
                 {
                     Id = resp.Body.Id,
                     SessionKey = resp.Body.SessionKey,
-                    OwnerId = key.ToOwnerID(),
+                    OwnerId = opts.Key.ToOwnerID(),
                 }
             };
         }

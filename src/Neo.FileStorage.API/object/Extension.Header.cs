@@ -45,6 +45,10 @@ namespace Neo.FileStorage.API.Object
                 // user-defined local time of object creation in Unix Timestamp format.
                 public const string AttributeTimestamp = "Timestamp";
 
+                // AttributeTimestamp is an attribute key that is commonly used to denote
+                // MIME Content Type of object's payload.
+                public const string AttributeContentType = "Content-Type";
+
                 public JObject ToJson()
                 {
                     var json = new JObject();

@@ -18,6 +18,7 @@ namespace Neo.FileStorage.API.Client
             if (cid is null) throw new ArgumentNullException(nameof(cid));
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             var req = new GetRequest
             {
                 Body = new GetRequest.Types.Body
@@ -26,7 +27,7 @@ namespace Neo.FileStorage.API.Client
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
 
             var resp = await container_client.GetAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -39,19 +40,19 @@ namespace Neo.FileStorage.API.Client
             if (container is null) throw new ArgumentNullException(nameof(container));
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
-
+            CheckOptions(opts);
             container.Version = Refs.Version.SDKVersion();
-            if (container.OwnerId is null) container.OwnerId = key.ToOwnerID();
+            if (container.OwnerId is null) container.OwnerId = opts.Key.ToOwnerID();
             var req = new PutRequest
             {
                 Body = new PutRequest.Types.Body
                 {
                     Container = container,
-                    Signature = key.SignRFC6979(container),
+                    Signature = opts.Key.SignRFC6979(container),
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
             var resp = await container_client.PutAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container put response");
@@ -63,26 +64,28 @@ namespace Neo.FileStorage.API.Client
             if (cid is null) throw new ArgumentNullException(nameof(cid));
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             var body = new DeleteRequest.Types.Body
             {
                 ContainerId = cid,
             };
             var req = new DeleteRequest();
-            body.Signature = key.SignRFC6979(body);
+            body.Signature = opts.Key.SignRFC6979(body);
             req.Body = body;
             req.MetaHeader = opts.GetRequestMetaHeader();
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
 
             var resp = await container_client.DeleteAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container put response");
         }
 
-        public async Task<List<ContainerID>> ListContainers(OwnerID owner, CallOptions options = null, CancellationToken context = default)
+        public async Task<List<ContainerID>> ListContainers(OwnerID owner = null, CallOptions options = null, CancellationToken context = default)
         {
-            if (owner is null) throw new ArgumentNullException(nameof(owner));
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
+            if (owner is null) opts.Key.ToOwnerID();
             var req = new ListRequest
             {
                 Body = new ListRequest.Types.Body
@@ -91,7 +94,7 @@ namespace Neo.FileStorage.API.Client
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
 
             var resp = await container_client.ListAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -99,17 +102,12 @@ namespace Neo.FileStorage.API.Client
             return resp.Body.ContainerIds.ToList();
         }
 
-        public async Task<List<ContainerID>> ListSelfContainers(CancellationToken context, CallOptions options = null)
-        {
-            var w = key.ToOwnerID();
-            return await ListContainers(w, options, context);
-        }
-
         public async Task<EAclWithSignature> GetEAclWithSignature(ContainerID cid, CallOptions options = null, CancellationToken context = default)
         {
             if (cid is null) throw new ArgumentNullException(nameof(cid));
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             var req = new GetExtendedACLRequest
             {
                 Body = new GetExtendedACLRequest.Types.Body
@@ -118,7 +116,7 @@ namespace Neo.FileStorage.API.Client
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
 
             var resp = await container_client.GetExtendedACLAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -146,17 +144,18 @@ namespace Neo.FileStorage.API.Client
             if (eacl is null) throw new ArgumentNullException(nameof(eacl));
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             eacl.Version = Refs.Version.SDKVersion();
             var req = new SetExtendedACLRequest
             {
                 Body = new SetExtendedACLRequest.Types.Body
                 {
                     Eacl = eacl,
-                    Signature = key.SignRFC6979(eacl),
+                    Signature = opts.Key.SignRFC6979(eacl),
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
 
             var resp = await container_client.SetExtendedACLAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -168,6 +167,7 @@ namespace Neo.FileStorage.API.Client
             if (announcements is null) throw new ArgumentNullException(nameof(announcements));
             var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             var body = new AnnounceUsedSpaceRequest.Types.Body();
             body.Announcements.AddRange(announcements);
             var req = new AnnounceUsedSpaceRequest
@@ -175,7 +175,7 @@ namespace Neo.FileStorage.API.Client
                 Body = body,
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
 
             var resp = await container_client.AnnounceUsedSpaceAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())

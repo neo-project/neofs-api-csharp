@@ -22,6 +22,7 @@ namespace Neo.FileStorage.API.Client
             var object_address = param.Address;
             if (object_address is null) throw new ArgumentException(nameof(GetObjectParams) + " missing address");
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             var req = new GetRequest
             {
                 Body = new GetRequest.Types.Body
@@ -33,7 +34,7 @@ namespace Neo.FileStorage.API.Client
             var meta = opts.GetRequestMetaHeader();
             AttachObjectSessionToken(opts, meta, object_address, ObjectSessionContext.Types.Verb.Get);
             req.MetaHeader = meta;
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
 
             using var call = object_client.Get(req, cancellationToken: context);
             var obj = new Object.Object();
@@ -87,6 +88,7 @@ namespace Neo.FileStorage.API.Client
             if (obj.Payload is null || obj.Payload.Length == 0) throw new ArgumentException($"No Payload in {nameof(PutObjectParams)}");
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             var req = new PutRequest();
             var body = new PutRequest.Types.Body();
             req.Body = body;
@@ -106,7 +108,7 @@ namespace Neo.FileStorage.API.Client
                 Header = obj.Header,
             };
             req.Body.Init = init;
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
 
             using var call = object_client.Put(cancellationToken: context);
             await call.RequestStream.WriteAsync(req);
@@ -122,7 +124,7 @@ namespace Neo.FileStorage.API.Client
                 };
                 req.Body = chunk_body;
                 req.VerifyHeader = null;
-                key.SignRequest(req);
+                opts.Key.SignRequest(req);
                 await call.RequestStream.WriteAsync(req);
                 offset = end;
             }
@@ -139,6 +141,7 @@ namespace Neo.FileStorage.API.Client
             if (object_address is null) throw new ArgumentException($"No Address in {nameof(DeleteObjectParams)}");
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             var req = new DeleteRequest
             {
                 Body = new DeleteRequest.Types.Body
@@ -149,7 +152,7 @@ namespace Neo.FileStorage.API.Client
             var meta = opts.GetRequestMetaHeader();
             AttachObjectSessionToken(opts, meta, object_address, ObjectSessionContext.Types.Verb.Delete);
             req.MetaHeader = meta;
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
 
             var resp = await object_client.DeleteAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -163,6 +166,7 @@ namespace Neo.FileStorage.API.Client
             if (object_address is null) throw new ArgumentException($"No Address in {nameof(ObjectHeaderParams)}");
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             var minimal = param.Short;
             var req = new HeadRequest
             {
@@ -176,7 +180,7 @@ namespace Neo.FileStorage.API.Client
             var meta = opts.GetRequestMetaHeader();
             AttachObjectSessionToken(opts, meta, object_address, ObjectSessionContext.Types.Verb.Head);
             req.MetaHeader = meta;
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
 
             var resp = await object_client.HeadAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -238,6 +242,7 @@ namespace Neo.FileStorage.API.Client
             if (range is null) throw new ArgumentException($"No Range in {nameof(RangeDataParams)}");
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             var req = new GetRangeRequest
             {
                 Body = new GetRangeRequest.Types.Body
@@ -249,7 +254,7 @@ namespace Neo.FileStorage.API.Client
             };
             var meta = opts.GetRequestMetaHeader();
             AttachObjectSessionToken(opts, meta, object_address, ObjectSessionContext.Types.Verb.Range);
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
 
             var stream = object_client.GetRange(req, cancellationToken: context).ResponseStream;
             var payload = new byte[range.Length];
@@ -272,6 +277,7 @@ namespace Neo.FileStorage.API.Client
             if (object_address is null) throw new ArgumentException($"No Address in {nameof(RangeChecksumParams)}");
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             var req = new GetRangeHashRequest
             {
                 Body = new GetRangeHashRequest.Types.Body
@@ -285,7 +291,7 @@ namespace Neo.FileStorage.API.Client
             var meta = opts.GetRequestMetaHeader();
             AttachObjectSessionToken(opts, meta, object_address, ObjectSessionContext.Types.Verb.Rangehash);
             req.MetaHeader = meta;
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
 
             var resp = await object_client.GetRangeHashAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -298,6 +304,7 @@ namespace Neo.FileStorage.API.Client
             if (param.ContainerID is null) throw new ArgumentException($"No ContainerID in {nameof(SearchObjectParams)}");
             var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             var req = new SearchRequest
             {
                 Body = new SearchRequest.Types.Body
@@ -310,7 +317,7 @@ namespace Neo.FileStorage.API.Client
             var meta = opts.GetRequestMetaHeader();
             AttachObjectSessionToken(opts, meta, new Address { ContainerId = param.ContainerID }, ObjectSessionContext.Types.Verb.Search);
             req.MetaHeader = meta;
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
 
             var stream = object_client.Search(req, cancellationToken: context).ResponseStream;
             var result = new List<ObjectID>();
@@ -354,7 +361,7 @@ namespace Neo.FileStorage.API.Client
 
             token.Body.Object = ctx;
             token.Body.Lifetime = lt;
-            token.Signature = key.SignMessagePart(token.Body);
+            token.Signature = options.Key.SignMessagePart(token.Body);
 
             meta.SessionToken = token;
         }

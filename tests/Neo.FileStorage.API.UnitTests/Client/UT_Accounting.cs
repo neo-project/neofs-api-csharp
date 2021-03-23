@@ -1,6 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Cryptography;
-using System;
 
 namespace Neo.FileStorage.API.UnitTests.FSClient
 {
@@ -13,7 +12,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var host = "localhost:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(key, host);
-            var balance = client.GetSelfBalance().Result;
+            var balance = client.GetBalance().Result;
             Assert.AreEqual(0, balance.Value);
         }
     }

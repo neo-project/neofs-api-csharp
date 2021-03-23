@@ -1,6 +1,7 @@
 using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Session;
 using Neo.FileStorage.API.Refs;
+using System.Security.Cryptography;
 
 namespace Neo.FileStorage.API.Client
 {
@@ -12,6 +13,7 @@ namespace Neo.FileStorage.API.Client
         public XHeader[] XHeaders;
         public SessionToken Session;
         public BearerToken Bearer;
+        public ECDsa Key;
 
         public RequestMetaHeader GetRequestMetaHeader()
         {
@@ -21,21 +23,23 @@ namespace Neo.FileStorage.API.Client
                 Ttl = Ttl,
                 Epoch = Epoch,
             };
-            if (XHeaders != null) meta.XHeaders.AddRange(XHeaders);
-            if (Session != null) meta.SessionToken = Session;
-            if (Bearer != null) meta.BearerToken = Bearer;
+            if (XHeaders is not null) meta.XHeaders.AddRange(XHeaders);
+            if (Session is not null) meta.SessionToken = Session;
+            if (Bearer is not null) meta.BearerToken = Bearer;
             return meta;
         }
 
         public CallOptions ApplyCustomOptions(CallOptions custom)
         {
             if (custom is null) return this;
-            if (custom.Version != null) Version = custom.Version;
+            if (custom.Version is not null) Version = custom.Version;
+            if (custom is not null) Key = custom.Key;
             Ttl = custom.Ttl;
             Epoch = custom.Epoch;
-            if (custom.XHeaders != null) XHeaders = custom.XHeaders;
-            if (custom.Session != null) Session = custom.Session;
-            if (custom.Bearer != null) Bearer = custom.Bearer;
+            if (custom.XHeaders is not null) XHeaders = custom.XHeaders;
+            if (custom.Session is not null) Session = custom.Session;
+            if (custom.Bearer is not null) Bearer = custom.Bearer;
+            if (custom.Key is not null) Key = custom.Key;
             return this;
         }
     }

@@ -12,12 +12,13 @@ namespace Neo.FileStorage.API.Client
         {
             var netmap_client = new NetmapService.NetmapServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             var req = new LocalNodeInfoRequest
             {
                 Body = new LocalNodeInfoRequest.Types.Body { }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
             var resp = await netmap_client.LocalNodeInfoAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");
@@ -28,12 +29,13 @@ namespace Neo.FileStorage.API.Client
         {
             var netmap_client = new NetmapService.NetmapServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             var req = new LocalNodeInfoRequest
             {
                 Body = new LocalNodeInfoRequest.Types.Body { }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
             var resp = await netmap_client.LocalNodeInfoAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");
@@ -44,12 +46,13 @@ namespace Neo.FileStorage.API.Client
         {
             var netmap_client = new NetmapService.NetmapServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
             var req = new NetworkInfoRequest
             {
                 Body = new NetworkInfoRequest.Types.Body { }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            key.SignRequest(req);
+            opts.Key.SignRequest(req);
             var resp = await netmap_client.NetworkInfoAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");

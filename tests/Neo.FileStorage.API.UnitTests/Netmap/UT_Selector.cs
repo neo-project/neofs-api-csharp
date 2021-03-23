@@ -269,7 +269,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
                 var sel = c.Selectors[s.Name];
                 var bc = sel.GetBucketCount();
                 var nib = sel.GetNodesInBucket();
-                nib *= (int)c.cbf;
+                nib *= (int)c.Cbf;
                 Assert.AreEqual(bc, ns.Count);
                 foreach (var res in ns)
                 {
