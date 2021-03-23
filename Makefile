@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-PROTO_VERSION=v2.4.0
+PROTO_VERSION=v2.5.0
 PROTO_URL=https://github.com/nspcc-dev/neofs-api/archive/$(PROTO_VERSION).tar.gz
 
 GOGO_VERSION=v1.3.1
@@ -56,7 +56,6 @@ deps:
 		mkdir -p src/Neo.FileStorage.API/$$(basename $$f); \
 		cp $$f/*.proto src/Neo.FileStorage.API/$$(basename $$f)/; \
 	done
-	@find src/Neo.FileStorage.API -name "*.proto" | xargs grep -rl "NeoFS.API.v2" | xargs sed -i "" "s/NeoFS.API.v2/Neo.FileStorage.API/g"
 
 	@printf "${B}${G}⇒ Cleanup ${R}\n"
 	@rm -rf vendor/proto
