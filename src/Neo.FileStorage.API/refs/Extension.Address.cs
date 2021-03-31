@@ -19,7 +19,7 @@ namespace Neo.FileStorage.API.Refs
         public static Address ParseString(string address)
         {
             var parts = address.Split('/');
-            if (parts.Length != 2) throw new ArgumentException(nameof(ParseString) + " invalid address string");
+            if (parts.Length != 2) throw new FormatException(nameof(ParseString) + " invalid address string");
             var cid = ContainerID.FromBase58String(parts[0]);
             var oid = ObjectID.FromBase58String(parts[1]);
             return new Address

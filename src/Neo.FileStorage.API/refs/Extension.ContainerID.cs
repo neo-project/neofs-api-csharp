@@ -9,7 +9,7 @@ namespace Neo.FileStorage.API.Refs
     {
         public static ContainerID FromSha256Bytes(byte[] hash)
         {
-            if (hash.Length != Sha256HashLength) throw new System.InvalidOperationException("ContainerID must be a hash256");
+            if (hash.Length != Sha256HashLength) throw new System.FormatException("ContainerID must be a hash256");
             return new ContainerID
             {
                 Value = ByteString.CopyFrom(hash)

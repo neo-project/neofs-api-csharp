@@ -10,7 +10,7 @@ namespace Neo.FileStorage.API.Refs
 
         public static OwnerID Frombytes(byte[] bytes)
         {
-            if (bytes.Length != ValueSize) throw new System.InvalidOperationException("OwnerID must be a hash256");
+            if (bytes.Length != ValueSize) throw new System.FormatException("OwnerID must be a hash256");
             return new OwnerID
             {
                 Value = ByteString.CopyFrom(bytes)
