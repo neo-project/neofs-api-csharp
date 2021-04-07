@@ -42,10 +42,10 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestGetContainer()
         {
-            var host = "localhost:8080";
+            var host = "http://st2.storage.fs.neo.org:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(key, host);
-            var cid = ContainerID.FromBase58String("8F2ZAdt6XDkBXwFcV3rQAMu42cr2zsxWy6WLmTjiErew");
+            var cid = ContainerID.FromBase58String("6pJtLUnGqDxE2EitZYLsDzsfTDVegD6BrRUn8QAFZWyt");
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var container = client.GetContainer(cid, context: source.Token).Result;
