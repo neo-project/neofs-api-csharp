@@ -33,7 +33,6 @@ namespace Neo.FileStorage.API.Client
         {
             if (custom is null) return this;
             if (custom.Version is not null) Version = custom.Version;
-            if (custom is not null) Key = custom.Key;
             Ttl = custom.Ttl;
             Epoch = custom.Epoch;
             if (custom.XHeaders is not null) XHeaders = custom.XHeaders;

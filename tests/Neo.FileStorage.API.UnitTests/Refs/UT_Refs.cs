@@ -37,5 +37,12 @@ namespace Neo.FileStorage.API.UnitTests.TestRefs
             };
             Console.WriteLine(version.ToByteArray().ToHexString());
         }
+
+        [TestMethod]
+        public void TestContainerID()
+        {
+            var cid = ContainerID.FromBase58String("5Cyxb3wrHDw5pqY63hb5otCSsJ24ZfYmsA8NAjtho2gr");
+            var oid = ObjectID.FromBase58String("5Cyxb3wrHDw5pqY63hb5otCSsJ24ZfYmsA8NAjtho2gr");
+        }
     }
 }

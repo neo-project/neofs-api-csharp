@@ -30,10 +30,12 @@ namespace Neo.FileStorage.API.Object
         public bool HasParent => Header?.Split != null;
         public Address Address => new(ContainerId, ObjectId);
 
+        private Object parent = null;
         public Object Parent
         {
             get
             {
+                if (parent is not null) return parent;
                 var splitHeader = Header?.Split;
                 if (splitHeader is null) return null;
                 var parentSig = splitHeader.ParentSignature;
@@ -45,7 +47,7 @@ namespace Neo.FileStorage.API.Object
                     Header = parentHeader,
                     Signature = parentSig,
                 };
-                return obj;
+                return parent = obj;
             }
         }
 
