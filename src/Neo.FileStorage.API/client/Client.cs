@@ -17,6 +17,11 @@ namespace Neo.FileStorage.API.Client
         private SessionToken session;
         private BearerToken bearer;
 
+        /// <summary>
+        /// Construct neofs client.
+        /// </summary>
+        /// <param name="key">ECDsa key to sign the request.</param>
+        /// <param name="host">The url of neofs node, like: http://st2.storage.fs.neo.org:8080.</param>
         public Client(ECDsa key, string host)
         {
             channel = GrpcChannel.ForAddress(host, new GrpcChannelOptions { Credentials = ChannelCredentials.Insecure });
