@@ -62,7 +62,7 @@ namespace Neo.FileStorage.API.Netmap
             return 1;
         }
 
-        public static List<Node> NodesFromInfo(List<NodeInfo> nis)
+        public static List<Node> InfoToNodes(this List<NodeInfo> nis)
         {
             return nis.Select((p, i) => new Node(i, p)).ToList();
         }
