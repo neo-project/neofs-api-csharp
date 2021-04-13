@@ -7,12 +7,12 @@ namespace Neo.FileStorage.API.Netmap
 {
     public class NetMap
     {
-        public List<Node> Nodes = new();
+        public List<Node> Nodes;
 
-        public NetMap(Node[] ns)
+        public NetMap(List<Node> ns)
         {
             if (ns is null) return;
-            Nodes.AddRange(ns);
+            Nodes = ns;
         }
 
         public List<List<Node>> GetPlacementVectors(List<List<Node>> ns, byte[] pivot)
