@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentAssertions;
@@ -23,7 +24,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
         public void TestUnspecifiedClause()
         {
             var p = new PlacementPolicy(1, new Replica[] { new Replica(1, "X") }, new Selector[] { new Selector("X", "", Clause.Distinct, 4, "*") }, null);
-            var nodes = new Node[]
+            var nodes = new List<Node>
             {
                 Helper.GenerateTestNode(0, ("ID", "1"), ("Country", "RU"), ("City", "St.Petersburg"), ("SSD", "0")),
                 Helper.GenerateTestNode(1, ("ID", "2"), ("Country", "RU"), ("City", "St.Petersburg"), ("SSD", "1")),
@@ -38,7 +39,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
         [TestMethod]
         public void TestPlacementPolicyMinimal()
         {
-            var nodes = new Node[] {
+            var nodes = new List<Node> {
                 Helper.GenerateTestNode(0, ("City", "Saint-Petersburg")),
                 Helper.GenerateTestNode(1, ("City", "Moscow")),
                 Helper.GenerateTestNode(2, ("City", "Berlin")),
@@ -52,7 +53,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
                 {
                     var v = nm.GetContainerNodes(p, null);
                     var count = (int)(rep * Context.DefaultCBF);
-                    if (nodes.Length < count) count = nodes.Length;
+                    if (nodes.Count < count) count = nodes.Count;
                     Assert.AreEqual(count, v.Flatten().Count);
                 }
                 catch (Exception e)
@@ -88,7 +89,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
                     new Filter("LOC_MSK", "City", "Moscow", Operation.Eq),
                 }
             );
-            var nodes = new Node[] {
+            var nodes = new List<Node> {
                 Helper.GenerateTestNode(0, ("City", "Saint-Petersburg")),
                 Helper.GenerateTestNode(1, ("City", "Moscow")),
                 Helper.GenerateTestNode(2, ("City", "Berlin")),
@@ -116,7 +117,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
                 },
                 null
             );
-            var nodes = new Node[] {
+            var nodes = new List<Node> {
                 Helper.GenerateTestNode(0, ("Location", "Europe"), ("Country", "RU"), ("City", "St.Petersburg")),
                 Helper.GenerateTestNode(1, ("Location", "Europe"), ("Country", "RU"), ("City", "Moscow")),
                 Helper.GenerateTestNode(2, ("Location", "Europe"), ("Country", "DE"), ("City", "Berlin")),
@@ -140,7 +141,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
                 },
                 null
             );
-            var nodes = new Node[] {
+            var nodes = new List<Node> {
                 Helper.GenerateTestNode(0, ("ID", "1"), ("Country", "DE")),
                 Helper.GenerateTestNode(1, ("ID", "2"), ("Country", "DE")),
                 Helper.GenerateTestNode(2, ("ID", "3"), ("Country", "DE")),
@@ -165,7 +166,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
                     new Filter("LOC_EU", "Location", "Europe", Operation.Eq),
                 }
             );
-            var nodes = new Node[] {
+            var nodes = new List<Node> {
                 Helper.GenerateTestNode(0, ("Location", "Europe"), ("Country", "Russia"), ("City", "Moscow")),
                 Helper.GenerateTestNode(1, ("Location", "Europe"), ("Country", "Russia"), ("City", "Saint-Petersburg")),
                 Helper.GenerateTestNode(2, ("Location", "Europe"), ("Country", "Sweden"), ("City", "Stockholm")),
@@ -197,7 +198,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
                         new Filter("", "Continent", "NA", Operation.Eq),
                         new Filter("", "Continent", "SA", Operation.Eq)),
                 });
-            var nodes = new Node[] {
+            var nodes = new List<Node> {
                 Helper.GenerateTestNode(0, ("ID", "1"), ("Country", "RU"), ("City", "St.Petersburg"), ("SSD", "0")),
                 Helper.GenerateTestNode(1, ("ID", "2"), ("Country", "RU"), ("City", "St.Petersburg"), ("SSD", "1")),
                 Helper.GenerateTestNode(2, ("ID", "3"), ("Country", "RU"), ("City", "Moscow"), ("SSD", "1")),
@@ -245,7 +246,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
                     new Filter("Good", "Rating", "4", Operation.Ge),
                 }
             );
-            var nodes = new Node[]{
+            var nodes = new List<Node>{
                 Helper.GenerateTestNode(0, ("Country", "Russia"), ("Rating", "1"), ("City", "SPB")),
                 Helper.GenerateTestNode(1, ("Country", "Germany"), ("Rating", "5"), ("City", "Berlin")),
                 Helper.GenerateTestNode(2, ("Country", "Russia"), ("Rating", "6"), ("City", "Moscow")),
@@ -289,7 +290,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
                 },
                 null
             );
-            var nodes = new Node[]{
+            var nodes = new List<Node>{
                 Helper.GenerateTestNode(0,("Country", "Germany"), (Node.AttributePrice, "2"), (Node.AttributeCapacity, "10000")),
                 Helper.GenerateTestNode(1,("Country", "Germany"), (Node.AttributePrice, "4"), (Node.AttributeCapacity, "1")),
                 Helper.GenerateTestNode(2,("Country", "France"), (Node.AttributePrice, "3"), (Node.AttributeCapacity, "10")),
@@ -349,7 +350,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
                     E = typeof(InvalidOperationException),
                 }
             };
-            var nodes = new Node[]
+            var nodes = new List<Node>
             {
                 Helper.GenerateTestNode(0, ("Country", "Russia")),
                 Helper.GenerateTestNode(0, ("Country", "Germany")),

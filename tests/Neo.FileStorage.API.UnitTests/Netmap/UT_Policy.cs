@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Netmap;
 
@@ -21,7 +22,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             var p3 = new PlacementPolicy(3, new Replica[] { new Replica(2, "X") }, new Selector[] { new Selector("X", "", Clause.Distinct, 2, "*") }, null);
             var p4 = new PlacementPolicy(3, new Replica[] { new Replica(2, "X") }, new Selector[] { new Selector("X", "Attr", Clause.Same, 2, "*") }, null);
 
-            var nm = new NetMap(nodes);
+            var nm = new NetMap(nodes.ToList());
             var v1 = nm.GetContainerNodes(p1, null);
             Assert.AreEqual(4, v1.Flatten().Count);
             var v2 = nm.GetContainerNodes(p2, null);

@@ -8,7 +8,7 @@ namespace Neo.FileStorage.API.Session
         ResponseMetaHeader MetaHeader { get; set; }
     }
 
-    public interface IResponse : IResponseMeta
+    public interface IResponse : IResponseMeta, IMessage
     {
         ResponseVerificationHeader VerifyHeader { get; set; }
         IMessage GetBody();

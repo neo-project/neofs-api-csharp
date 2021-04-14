@@ -8,7 +8,7 @@ namespace Neo.FileStorage.API.Session
         RequestMetaHeader MetaHeader { get; set; }
     }
 
-    public interface IRequest : IRequestMeta
+    public interface IRequest : IRequestMeta, IMessage
     {
         RequestVerificationHeader VerifyHeader { get; set; }
         IMessage GetBody();
