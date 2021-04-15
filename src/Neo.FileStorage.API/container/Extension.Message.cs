@@ -3,6 +3,22 @@ using Neo.FileStorage.API.Session;
 
 namespace Neo.FileStorage.API.Container
 {
+    public partial class AnnounceUsedSpaceRequest : IRequest
+    {
+        public IMessage GetBody()
+        {
+            return Body;
+        }
+    }
+
+    public partial class AnnounceUsedSpaceResponse : IResponse
+    {
+        public IMessage GetBody()
+        {
+            return Body;
+        }
+    }
+
     public partial class GetRequest : IRequest
     {
         public IMessage GetBody()
