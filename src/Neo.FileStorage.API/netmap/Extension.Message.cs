@@ -18,4 +18,20 @@ namespace Neo.FileStorage.API.Netmap
             return Body;
         }
     }
+
+    public partial class NetworkInfoRequest : IRequest
+    {
+        public IMessage GetBody()
+        {
+            return Body;
+        }
+    }
+
+    public partial class NetworkInfoResponse : IResponse
+    {
+        public IMessage GetBody()
+        {
+            return Body;
+        }
+    }
 }
