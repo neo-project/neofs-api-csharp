@@ -8,7 +8,7 @@ namespace Neo.FileStorage.API.Client
 {
     public sealed partial class Client
     {
-        public async Task<NodeInfo> LocalNodeInfo(CancellationToken context, CallOptions options = null)
+        public async Task<NodeInfo> LocalNodeInfo(CallOptions options = null, CancellationToken context = default)
         {
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
@@ -24,7 +24,7 @@ namespace Neo.FileStorage.API.Client
             return resp.Body.NodeInfo;
         }
 
-        public async Task<ulong> Epoch(CancellationToken context, CallOptions options = null)
+        public async Task<ulong> Epoch(CallOptions options = null, CancellationToken context = default)
         {
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
@@ -40,7 +40,7 @@ namespace Neo.FileStorage.API.Client
             return resp.MetaHeader.Epoch;
         }
 
-        public async Task<NetworkInfo> NetworkInfo(CancellationToken context, CallOptions options = null)
+        public async Task<NetworkInfo> NetworkInfo(CallOptions options = null, CancellationToken context = default)
         {
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
