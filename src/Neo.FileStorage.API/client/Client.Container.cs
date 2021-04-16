@@ -16,7 +16,6 @@ namespace Neo.FileStorage.API.Client
         public async Task<Container.Container> GetContainer(ContainerID cid, CallOptions options = null, CancellationToken context = default)
         {
             if (cid is null) throw new ArgumentNullException(nameof(cid));
-            var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new GetRequest
@@ -29,7 +28,7 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
 
-            var resp = await container_client.GetAsync(req, cancellationToken: context);
+            var resp = await ContainerClient.GetAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container get response");
             return resp.Body.Container;
@@ -38,7 +37,6 @@ namespace Neo.FileStorage.API.Client
         public async Task<ContainerID> PutContainer(Container.Container container, CallOptions options = null, CancellationToken context = default)
         {
             if (container is null) throw new ArgumentNullException(nameof(container));
-            var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             container.Version = Refs.Version.SDKVersion();
@@ -53,7 +51,7 @@ namespace Neo.FileStorage.API.Client
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
-            var resp = await container_client.PutAsync(req, cancellationToken: context);
+            var resp = await ContainerClient.PutAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container put response");
             return resp.Body.ContainerId;
@@ -62,7 +60,6 @@ namespace Neo.FileStorage.API.Client
         public async Task DeleteContainer(ContainerID cid, CallOptions options = null, CancellationToken context = default)
         {
             if (cid is null) throw new ArgumentNullException(nameof(cid));
-            var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var body = new DeleteRequest.Types.Body
@@ -75,14 +72,13 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
 
-            var resp = await container_client.DeleteAsync(req, cancellationToken: context);
+            var resp = await ContainerClient.DeleteAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container put response");
         }
 
         public async Task<List<ContainerID>> ListContainers(OwnerID owner = null, CallOptions options = null, CancellationToken context = default)
         {
-            var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             if (owner is null) opts.Key.ToOwnerID();
@@ -96,7 +92,7 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
 
-            var resp = await container_client.ListAsync(req, cancellationToken: context);
+            var resp = await ContainerClient.ListAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container put response");
             return resp.Body.ContainerIds.ToList();
@@ -105,7 +101,6 @@ namespace Neo.FileStorage.API.Client
         public async Task<EAclWithSignature> GetEAclWithSignature(ContainerID cid, CallOptions options = null, CancellationToken context = default)
         {
             if (cid is null) throw new ArgumentNullException(nameof(cid));
-            var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new GetExtendedACLRequest
@@ -118,7 +113,7 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
 
-            var resp = await container_client.GetExtendedACLAsync(req, cancellationToken: context);
+            var resp = await ContainerClient.GetExtendedACLAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container put response");
             var eacl = resp.Body.Eacl;
@@ -142,7 +137,6 @@ namespace Neo.FileStorage.API.Client
         public async Task SetEACL(EACLTable eacl, CallOptions options = null, CancellationToken context = default)
         {
             if (eacl is null) throw new ArgumentNullException(nameof(eacl));
-            var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             eacl.Version = Refs.Version.SDKVersion();
@@ -157,7 +151,7 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
 
-            var resp = await container_client.SetExtendedACLAsync(req, cancellationToken: context);
+            var resp = await ContainerClient.SetExtendedACLAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container put response");
         }
@@ -165,7 +159,6 @@ namespace Neo.FileStorage.API.Client
         public async Task AnnounceContainerUsedSpace(List<UsedSpaceAnnouncement> announcements, CallOptions options = null, CancellationToken context = default)
         {
             if (announcements is null) throw new ArgumentNullException(nameof(announcements));
-            var container_client = new ContainerService.ContainerServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var body = new AnnounceUsedSpaceRequest.Types.Body();
@@ -177,7 +170,7 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
 
-            var resp = await container_client.AnnounceUsedSpaceAsync(req, cancellationToken: context);
+            var resp = await ContainerClient.AnnounceUsedSpaceAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid announce used space response");
         }

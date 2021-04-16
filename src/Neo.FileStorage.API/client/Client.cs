@@ -1,7 +1,10 @@
 using Grpc.Core;
 using Grpc.Net.Client;
+using Neo.FileStorage.API.Accounting;
 using Neo.FileStorage.API.Acl;
-using Neo.FileStorage.API.Refs;
+using Neo.FileStorage.API.Container;
+using Neo.FileStorage.API.Netmap;
+using Neo.FileStorage.API.Object;
 using Neo.FileStorage.API.Session;
 using System;
 using System.Security.Cryptography;
@@ -11,11 +14,68 @@ namespace Neo.FileStorage.API.Client
     public sealed partial class Client : IDisposable
     {
         public const int DefaultConnectTimeoutMilliSeconds = 120000;
-        const uint SearchObjectVersion = 1;
+        public const uint SearchObjectVersion = 1;
+
         private readonly ECDsa key;
         private readonly GrpcChannel channel;
         private SessionToken session;
         private BearerToken bearer;
+
+        private AccountingService.AccountingServiceClient accountingClient = null;
+        private ContainerService.ContainerServiceClient containerClient = null;
+        private NetmapService.NetmapServiceClient netmapClient = null;
+        private ObjectService.ObjectServiceClient objectClient = null;
+        private SessionService.SessionServiceClient sessionClient = null;
+
+        private AccountingService.AccountingServiceClient AccountingClient
+        {
+            get
+            {
+                if (accountingClient is null)
+                    accountingClient = new AccountingService.AccountingServiceClient(channel);
+                return accountingClient;
+            }
+        }
+
+        private ContainerService.ContainerServiceClient ContainerClient
+        {
+            get
+            {
+                if (containerClient is null)
+                    containerClient = new ContainerService.ContainerServiceClient(channel);
+                return containerClient;
+            }
+        }
+
+        private NetmapService.NetmapServiceClient NetmapClient
+        {
+            get
+            {
+                if (netmapClient is null)
+                    netmapClient = new NetmapService.NetmapServiceClient(channel);
+                return netmapClient;
+            }
+        }
+
+        private ObjectService.ObjectServiceClient ObjectClient
+        {
+            get
+            {
+                if (objectClient is null)
+                    objectClient = new ObjectService.ObjectServiceClient(channel);
+                return objectClient;
+            }
+        }
+
+        private SessionService.SessionServiceClient SessionClient
+        {
+            get
+            {
+                if (sessionClient is null)
+                    sessionClient = new SessionService.SessionServiceClient(channel);
+                return sessionClient;
+            }
+        }
 
         /// <summary>
         /// Construct neofs client.

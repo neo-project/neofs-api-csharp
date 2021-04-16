@@ -18,7 +18,6 @@ namespace Neo.FileStorage.API.Client
     {
         public async Task<Object.Object> GetObject(GetObjectParams param, CallOptions options = null, CancellationToken context = default)
         {
-            var object_client = new ObjectService.ObjectServiceClient(channel);
             var object_address = param.Address;
             if (object_address is null) throw new ArgumentException(nameof(GetObjectParams) + " missing address");
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -36,7 +35,7 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = meta;
             opts.Key.SignRequest(req);
 
-            using var call = object_client.Get(req, cancellationToken: context);
+            using var call = ObjectClient.Get(req, cancellationToken: context);
             var obj = new Object.Object();
             var payload = Array.Empty<byte>();
             int offset = 0;
@@ -86,7 +85,6 @@ namespace Neo.FileStorage.API.Client
             if (obj.Header is null) throw new ArgumentException($"No Header in {nameof(PutObjectParams)}");
             if (obj.ObjectId is null) throw new ArgumentException($"No ObjectID in {nameof(PutObjectParams)}");
             if (obj.Payload is null || obj.Payload.Length == 0) throw new ArgumentException($"No Payload in {nameof(PutObjectParams)}");
-            var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new PutRequest();
@@ -110,7 +108,7 @@ namespace Neo.FileStorage.API.Client
             req.Body.Init = init;
             opts.Key.SignRequest(req);
 
-            using var call = object_client.Put(cancellationToken: context);
+            using var call = ObjectClient.Put(cancellationToken: context);
             await call.RequestStream.WriteAsync(req);
 
             int offset = 0;
@@ -139,7 +137,6 @@ namespace Neo.FileStorage.API.Client
         {
             var object_address = param.Address;
             if (object_address is null) throw new ArgumentException($"No Address in {nameof(DeleteObjectParams)}");
-            var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new DeleteRequest
@@ -154,7 +151,7 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = meta;
             opts.Key.SignRequest(req);
 
-            var resp = await object_client.DeleteAsync(req, cancellationToken: context);
+            var resp = await ObjectClient.DeleteAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid object delete response");
             return resp.Body.Tombstone;
@@ -164,7 +161,6 @@ namespace Neo.FileStorage.API.Client
         {
             var object_address = param.Address;
             if (object_address is null) throw new ArgumentException($"No Address in {nameof(ObjectHeaderParams)}");
-            var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var minimal = param.Short;
@@ -182,7 +178,7 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = meta;
             opts.Key.SignRequest(req);
 
-            var resp = await object_client.HeadAsync(req, cancellationToken: context);
+            var resp = await ObjectClient.HeadAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid object get header response");
             var header = new Header();
@@ -240,7 +236,6 @@ namespace Neo.FileStorage.API.Client
             if (object_address is null) throw new ArgumentException($"No Address in {nameof(RangeDataParams)}");
             var range = param.Range;
             if (range is null) throw new ArgumentException($"No Range in {nameof(RangeDataParams)}");
-            var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new GetRangeRequest
@@ -256,7 +251,7 @@ namespace Neo.FileStorage.API.Client
             AttachObjectSessionToken(opts, meta, object_address, ObjectSessionContext.Types.Verb.Range);
             opts.Key.SignRequest(req);
 
-            var stream = object_client.GetRange(req, cancellationToken: context).ResponseStream;
+            var stream = ObjectClient.GetRange(req, cancellationToken: context).ResponseStream;
             var payload = new byte[range.Length];
             var offset = 0;
             while (await stream.MoveNext())
@@ -275,7 +270,6 @@ namespace Neo.FileStorage.API.Client
         {
             var object_address = param.Address;
             if (object_address is null) throw new ArgumentException($"No Address in {nameof(RangeChecksumParams)}");
-            var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new GetRangeHashRequest
@@ -293,7 +287,7 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = meta;
             opts.Key.SignRequest(req);
 
-            var resp = await object_client.GetRangeHashAsync(req, cancellationToken: context);
+            var resp = await ObjectClient.GetRangeHashAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException("invalid object range hash response");
             return resp.Body.HashList.Select(p => p.ToByteArray()).ToList();
@@ -302,7 +296,6 @@ namespace Neo.FileStorage.API.Client
         public async Task<List<ObjectID>> SearchObject(SearchObjectParams param, CallOptions options = null, CancellationToken context = default)
         {
             if (param.ContainerID is null) throw new ArgumentException($"No ContainerID in {nameof(SearchObjectParams)}");
-            var object_client = new ObjectService.ObjectServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new SearchRequest
@@ -319,7 +312,7 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = meta;
             opts.Key.SignRequest(req);
 
-            var stream = object_client.Search(req, cancellationToken: context).ResponseStream;
+            var stream = ObjectClient.Search(req, cancellationToken: context).ResponseStream;
             var result = new List<ObjectID>();
             while (await stream.MoveNext())
             {

@@ -21,7 +21,6 @@ namespace Neo.FileStorage.API.Client
 
         public async Task<SessionToken> CreateSession(ulong expiration, CallOptions options = null, CancellationToken context = default)
         {
-            var session_client = new SessionService.SessionServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new CreateRequest
@@ -35,7 +34,7 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = opts?.GetRequestMetaHeader() ?? RequestMetaHeader.Default;
             opts.Key.SignRequest(req);
 
-            var resp = await session_client.CreateAsync(req, cancellationToken: context);
+            var resp = await SessionClient.CreateAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException("invalid balance response");
             return new SessionToken

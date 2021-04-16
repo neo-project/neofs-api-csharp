@@ -10,7 +10,6 @@ namespace Neo.FileStorage.API.Client
     {
         public async Task<NodeInfo> LocalNodeInfo(CancellationToken context, CallOptions options = null)
         {
-            var netmap_client = new NetmapService.NetmapServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new LocalNodeInfoRequest
@@ -19,7 +18,7 @@ namespace Neo.FileStorage.API.Client
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
-            var resp = await netmap_client.LocalNodeInfoAsync(req, cancellationToken: context);
+            var resp = await NetmapClient.LocalNodeInfoAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");
             return resp.Body.NodeInfo;
@@ -27,7 +26,6 @@ namespace Neo.FileStorage.API.Client
 
         public async Task<ulong> Epoch(CancellationToken context, CallOptions options = null)
         {
-            var netmap_client = new NetmapService.NetmapServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new LocalNodeInfoRequest
@@ -36,7 +34,7 @@ namespace Neo.FileStorage.API.Client
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
-            var resp = await netmap_client.LocalNodeInfoAsync(req, cancellationToken: context);
+            var resp = await NetmapClient.LocalNodeInfoAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");
             return resp.MetaHeader.Epoch;
@@ -44,7 +42,6 @@ namespace Neo.FileStorage.API.Client
 
         public async Task<NetworkInfo> NetworkInfo(CancellationToken context, CallOptions options = null)
         {
-            var netmap_client = new NetmapService.NetmapServiceClient(channel);
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new NetworkInfoRequest
@@ -53,7 +50,7 @@ namespace Neo.FileStorage.API.Client
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
-            var resp = await netmap_client.NetworkInfoAsync(req, cancellationToken: context);
+            var resp = await NetmapClient.NetworkInfoAsync(req, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");
             return resp.Body.NetworkInfo;
