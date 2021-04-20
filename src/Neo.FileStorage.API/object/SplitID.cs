@@ -7,7 +7,10 @@ namespace Neo.FileStorage.API.Object
     {
         private Guid guid;
 
-        public SplitID() { }
+        public SplitID()
+        {
+            guid = Guid.NewGuid();
+        }
 
         public SplitID(byte[] bytes)
         {

@@ -18,12 +18,56 @@ namespace Neo.FileStorage.API.Object
         public ContainerID ContainerId => Header?.ContainerId;
         public OwnerID OwnerId => Header?.OwnerId;
         public ulong CreationEpoch => Header?.CreationEpoch ?? 0;
-        public Checksum PayloadChecksum => Header?.PayloadHash;
-        public Checksum PayloadHomomorphicHash => Header?.HomomorphicHash;
+        public Checksum PayloadChecksum
+        {
+            get
+            {
+                return Header?.PayloadHash;
+            }
+            set
+            {
+                Header.PayloadHash = value;
+            }
+        }
+
+        public Checksum PayloadHomomorphicHash
+        {
+            get
+            {
+                return Header?.HomomorphicHash;
+            }
+            set
+            {
+                Header.HomomorphicHash = value;
+            }
+        }
+
         public List<Header.Types.Attribute> Attributes => Header?.Attributes.ToList();
         public ObjectID PreviousId => Header?.Split?.Previous;
-        public List<ObjectID> Children => Header?.Split?.Children?.ToList();
-        public SplitID SplitId => Header?.Split?.SplitId is null ? null : new SplitID(Header.Split.SplitId);
+        public IEnumerable<ObjectID> Children
+        {
+            get
+            {
+                return Header?.Split?.Children;
+            }
+            set
+            {
+                Header.Split.Children.Clear();
+                Header.Split.Children.AddRange(value);
+            }
+        }
+
+        public SplitID SplitId
+        {
+            get
+            {
+                return Header?.Split?.SplitId is null ? null : new SplitID(Header.Split.SplitId);
+            }
+            set
+            {
+                Header.Split.SplitId = value.ToByteString();
+            }
+        }
         public ObjectID ParentId => Header?.Split?.Parent;
         public SessionToken SessionToken => Header?.SessionToken;
         public ObjectType ObjectType => Header.ObjectType;
@@ -58,22 +102,7 @@ namespace Neo.FileStorage.API.Object
             }
         }
 
-        public ObjectID CalculateAndGetID
-        {
-            get
-            {
-                if (objectId_ is null)
-                {
-                    objectId_ = new ObjectID
-                    {
-                        Value = Header.Sha256()
-                    };
-                }
-                return objectId_;
-            }
-        }
-
-        private ObjectID CalculateID()
+        public ObjectID CalculateID()
         {
             return new ObjectID
             {
