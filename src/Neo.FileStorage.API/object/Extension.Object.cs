@@ -49,6 +49,13 @@ namespace Neo.FileStorage.API.Object
                 };
                 return parent = obj;
             }
+            set
+            {
+                parent = value;
+                Header.Split.Parent = parent.ObjectId;
+                Header.Split.ParentSignature = parent.Signature;
+                Header.Split.ParentHeader = parent.Header;
+            }
         }
 
         public ObjectID CalculateAndGetID

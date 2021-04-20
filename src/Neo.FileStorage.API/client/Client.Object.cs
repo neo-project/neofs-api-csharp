@@ -3,7 +3,6 @@ using Grpc.Core;
 using Neo.FileStorage.API.Client.ObjectParams;
 using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Object;
-using Neo.FileStorage.API.Object.Exceptions;
 using Neo.FileStorage.API.Refs;
 using Neo.FileStorage.API.Session;
 using System;
