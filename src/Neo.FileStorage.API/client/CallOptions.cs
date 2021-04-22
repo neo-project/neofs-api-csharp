@@ -2,6 +2,7 @@ using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Session;
 using Neo.FileStorage.API.Refs;
 using System.Security.Cryptography;
+using System.Collections.Generic;
 
 namespace Neo.FileStorage.API.Client
 {
@@ -10,7 +11,7 @@ namespace Neo.FileStorage.API.Client
         public Version Version;
         public uint Ttl;
         public ulong Epoch;
-        public XHeader[] XHeaders;
+        public IEnumerable<XHeader> XHeaders;
         public SessionToken Session;
         public BearerToken Bearer;
         public ECDsa Key;

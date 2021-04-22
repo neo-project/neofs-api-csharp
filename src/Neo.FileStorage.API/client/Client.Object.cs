@@ -1,6 +1,5 @@
 using Google.Protobuf;
 using Grpc.Core;
-using Neo.FileStorage.API.Client.ObjectParams;
 using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Object;
 using Neo.FileStorage.API.Refs;
@@ -15,22 +14,21 @@ namespace Neo.FileStorage.API.Client
 {
     public sealed partial class Client
     {
-        public async Task<Object.Object> GetObject(GetObjectParams param, CallOptions options = null, CancellationToken context = default)
+        public async Task<Object.Object> GetObject(Address address, bool raw = false, CallOptions options = null, CancellationToken context = default)
         {
-            var object_address = param.Address;
-            if (object_address is null) throw new ArgumentException(nameof(GetObjectParams) + " missing address");
+            if (address is null) throw new ArgumentNullException(nameof(address));
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new GetRequest
             {
                 Body = new GetRequest.Types.Body
                 {
-                    Raw = param.Raw,
-                    Address = object_address,
+                    Raw = raw,
+                    Address = address,
                 }
             };
             var meta = opts.GetRequestMetaHeader();
-            AttachObjectSessionToken(opts, meta, object_address, ObjectSessionContext.Types.Verb.Get);
+            AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Get);
             req.MetaHeader = meta;
             opts.Key.SignRequest(req);
 
@@ -77,13 +75,12 @@ namespace Neo.FileStorage.API.Client
             return obj;
         }
 
-        public async Task<ObjectID> PutObject(PutObjectParams param, CallOptions options = null, CancellationToken context = default)
+        public async Task<ObjectID> PutObject(Object.Object obj, CallOptions options = null, CancellationToken context = default)
         {
-            var obj = param.Object;
-            if (obj is null) throw new ArgumentException($"No Object in {nameof(PutObjectParams)}");
-            if (obj.Header is null) throw new ArgumentException($"No Header in {nameof(PutObjectParams)}");
-            if (obj.ObjectId is null) throw new ArgumentException($"No ObjectID in {nameof(PutObjectParams)}");
-            if (obj.Payload is null || obj.Payload.Length == 0) throw new ArgumentException($"No Payload in {nameof(PutObjectParams)}");
+            if (obj is null) throw new ArgumentNullException(nameof(obj));
+            if (obj.Header is null) throw new ArgumentException($"No Header in {nameof(obj)}");
+            if (obj.ObjectId is null) throw new ArgumentException($"No ObjectID in {nameof(obj)}");
+            if (obj.Payload is null || obj.Payload.Length == 0) throw new ArgumentException($"No Payload in {nameof(obj)}");
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new PutRequest();
@@ -132,21 +129,20 @@ namespace Neo.FileStorage.API.Client
             return resp.Body.ObjectId;
         }
 
-        public async Task<Address> DeleteObject(DeleteObjectParams param, CallOptions options = null, CancellationToken context = default)
+        public async Task<Address> DeleteObject(Address address, CallOptions options = null, CancellationToken context = default)
         {
-            var object_address = param.Address;
-            if (object_address is null) throw new ArgumentException($"No Address in {nameof(DeleteObjectParams)}");
+            if (address is null) throw new ArgumentNullException(nameof(address));
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new DeleteRequest
             {
                 Body = new DeleteRequest.Types.Body
                 {
-                    Address = object_address,
+                    Address = address,
                 }
             };
             var meta = opts.GetRequestMetaHeader();
-            AttachObjectSessionToken(opts, meta, object_address, ObjectSessionContext.Types.Verb.Delete);
+            AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Delete);
             req.MetaHeader = meta;
             opts.Key.SignRequest(req);
 
@@ -156,24 +152,22 @@ namespace Neo.FileStorage.API.Client
             return resp.Body.Tombstone;
         }
 
-        public async Task<Object.Object> GetObjectHeader(ObjectHeaderParams param, CallOptions options = null, CancellationToken context = default)
+        public async Task<Object.Object> GetObjectHeader(Address address, bool minimal = false, bool raw = false, CallOptions options = null, CancellationToken context = default)
         {
-            var object_address = param.Address;
-            if (object_address is null) throw new ArgumentException($"No Address in {nameof(ObjectHeaderParams)}");
+            if (address is null) throw new ArgumentNullException(nameof(address));
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
-            var minimal = param.Short;
             var req = new HeadRequest
             {
                 Body = new HeadRequest.Types.Body
                 {
-                    Address = object_address,
+                    Address = address,
                     MainOnly = minimal,
-                    Raw = param.Raw,
+                    Raw = raw,
                 }
             };
             var meta = opts.GetRequestMetaHeader();
-            AttachObjectSessionToken(opts, meta, object_address, ObjectSessionContext.Types.Verb.Head);
+            AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Head);
             req.MetaHeader = meta;
             opts.Key.SignRequest(req);
 
@@ -207,7 +201,7 @@ namespace Neo.FileStorage.API.Client
                             throw new FormatException("malformed object header");
                         header = full_header.Header;
                         sig = full_header.Signature;
-                        if (!sig.VerifyMessagePart(object_address.ObjectId))
+                        if (!sig.VerifyMessagePart(address.ObjectId))
                         {
                             throw new InvalidOperationException(nameof(GetObjectHeader) + " invalid signature");
                         }
@@ -222,32 +216,30 @@ namespace Neo.FileStorage.API.Client
             }
             var obj = new Object.Object
             {
-                ObjectId = object_address.ObjectId,
+                ObjectId = address.ObjectId,
                 Header = header,
                 Signature = sig,
             };
             return obj;
         }
 
-        public async Task<byte[]> GetObjectPayloadRangeData(RangeDataParams param, CallOptions options = null, CancellationToken context = default)
+        public async Task<byte[]> GetObjectPayloadRangeData(Address address, Object.Range range, bool raw = false, CallOptions options = null, CancellationToken context = default)
         {
-            var object_address = param.Address;
-            if (object_address is null) throw new ArgumentException($"No Address in {nameof(RangeDataParams)}");
-            var range = param.Range;
-            if (range is null) throw new ArgumentException($"No Range in {nameof(RangeDataParams)}");
+            if (address is null) throw new ArgumentException($"No Address in {nameof(address)}");
+            if (range is null) throw new ArgumentException($"No Range in {nameof(range)}");
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new GetRangeRequest
             {
                 Body = new GetRangeRequest.Types.Body
                 {
-                    Address = object_address,
+                    Address = address,
                     Range = range,
-                    Raw = param.Raw,
+                    Raw = raw,
                 }
             };
             var meta = opts.GetRequestMetaHeader();
-            AttachObjectSessionToken(opts, meta, object_address, ObjectSessionContext.Types.Verb.Range);
+            AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Range);
             opts.Key.SignRequest(req);
 
             var stream = ObjectClient.GetRange(req, cancellationToken: context).ResponseStream;
@@ -265,24 +257,23 @@ namespace Neo.FileStorage.API.Client
             return payload;
         }
 
-        public async Task<List<byte[]>> GetObjectPayloadRangeHash(RangeChecksumParams param, CallOptions options = null, CancellationToken context = default)
+        public async Task<List<byte[]>> GetObjectPayloadRangeHash(Address address, IEnumerable<Object.Range> ranges, ChecksumType type, byte[] salt, CallOptions options = null, CancellationToken context = default)
         {
-            var object_address = param.Address;
-            if (object_address is null) throw new ArgumentException($"No Address in {nameof(RangeChecksumParams)}");
+            if (address is null) throw new ArgumentNullException(nameof(address));
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new GetRangeHashRequest
             {
                 Body = new GetRangeHashRequest.Types.Body
                 {
-                    Address = object_address,
-                    Salt = param.Salt is null ? ByteString.Empty : ByteString.CopyFrom(param.Salt),
-                    Type = param.Type,
+                    Address = address,
+                    Salt = salt is null ? ByteString.Empty : ByteString.CopyFrom(salt),
+                    Type = type,
                 }
             };
-            req.Body.Ranges.AddRange(param.Ranges);
+            req.Body.Ranges.AddRange(ranges);
             var meta = opts.GetRequestMetaHeader();
-            AttachObjectSessionToken(opts, meta, object_address, ObjectSessionContext.Types.Verb.Rangehash);
+            AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Rangehash);
             req.MetaHeader = meta;
             opts.Key.SignRequest(req);
 
@@ -292,22 +283,23 @@ namespace Neo.FileStorage.API.Client
             return resp.Body.HashList.Select(p => p.ToByteArray()).ToList();
         }
 
-        public async Task<List<ObjectID>> SearchObject(SearchObjectParams param, CallOptions options = null, CancellationToken context = default)
+        public async Task<List<ObjectID>> SearchObject(ContainerID cid, SearchFilters filters, CallOptions options = null, CancellationToken context = default)
         {
-            if (param.ContainerID is null) throw new ArgumentException($"No ContainerID in {nameof(SearchObjectParams)}");
+            if (cid is null) throw new ArgumentNullException(nameof(cid));
+            if (filters is null) throw new ArgumentNullException(nameof(filters));
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new SearchRequest
             {
                 Body = new SearchRequest.Types.Body
                 {
-                    ContainerId = param.ContainerID,
+                    ContainerId = cid,
                     Version = SearchObjectVersion,
                 }
             };
-            req.Body.Filters.AddRange(param.Filters.Filters);
+            req.Body.Filters.AddRange(filters.Filters);
             var meta = opts.GetRequestMetaHeader();
-            AttachObjectSessionToken(opts, meta, new Address { ContainerId = param.ContainerID }, ObjectSessionContext.Types.Verb.Search);
+            AttachObjectSessionToken(opts, meta, new Address { ContainerId = cid }, ObjectSessionContext.Types.Verb.Search);
             req.MetaHeader = meta;
             opts.Key.SignRequest(req);
 
