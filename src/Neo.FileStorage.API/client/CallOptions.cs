@@ -3,15 +3,16 @@ using Neo.FileStorage.API.Session;
 using Neo.FileStorage.API.Refs;
 using System.Security.Cryptography;
 using System.Collections.Generic;
+using System;
 
 namespace Neo.FileStorage.API.Client
 {
     public class CallOptions
     {
-        public Version Version;
+        public Refs.Version Version;
         public uint Ttl;
         public ulong Epoch;
-        public IEnumerable<XHeader> XHeaders;
+        public List<XHeader> XHeaders;
         public SessionToken Session;
         public BearerToken Bearer;
         public ECDsa Key;
@@ -40,6 +41,60 @@ namespace Neo.FileStorage.API.Client
             if (custom.Session is not null) Session = custom.Session;
             if (custom.Bearer is not null) Bearer = custom.Bearer;
             if (custom.Key is not null) Key = custom.Key;
+            return this;
+        }
+
+        public CallOptions WithVersion(Refs.Version v)
+        {
+            Version = v;
+            return this;
+        }
+
+        public CallOptions WithTTL(uint ttl)
+        {
+            Ttl = ttl;
+            return this;
+        }
+
+        public CallOptions WithEpoch(ulong epoch)
+        {
+            Epoch = epoch;
+            return this;
+        }
+
+        public CallOptions WithXHeaders(IEnumerable<XHeader> xheaders)
+        {
+            if (XHeaders is null)
+                XHeaders = new();
+            else
+                XHeaders.Clear();
+            XHeaders.AddRange(xheaders);
+            return this;
+        }
+
+        public CallOptions WithExtraXHeaders(IEnumerable<XHeader> xheaders)
+        {
+            if (XHeaders is null)
+                XHeaders = new();
+            XHeaders.AddRange(xheaders);
+            return this;
+        }
+
+        public CallOptions WithSessionToken(SessionToken session)
+        {
+            Session = session;
+            return this;
+        }
+
+        public CallOptions WithBearerToken(BearerToken bearer)
+        {
+            Bearer = bearer;
+            return this;
+        }
+
+        public CallOptions WithKey(ECDsa key)
+        {
+            Key = key;
             return this;
         }
     }
