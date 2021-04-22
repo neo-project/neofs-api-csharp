@@ -8,8 +8,8 @@ using Neo.FileStorage.API.Object;
 using V2Object = Neo.FileStorage.API.Object.Object;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
+using System.Text;
 using System.Threading;
 
 namespace Neo.FileStorage.API.UnitTests.FSClient
