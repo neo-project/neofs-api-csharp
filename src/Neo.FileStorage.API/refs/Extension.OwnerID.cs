@@ -8,9 +8,9 @@ namespace Neo.FileStorage.API.Refs
     {
         public const int ValueSize = 25;
 
-        public static OwnerID Frombytes(byte[] bytes)
+        public static OwnerID FromByteArray(byte[] bytes)
         {
-            if (bytes.Length != ValueSize) throw new System.FormatException("OwnerID must be a hash256");
+            if (bytes.Length != ValueSize) throw new System.FormatException("invalid owner bytes");
             return new OwnerID
             {
                 Value = ByteString.CopyFrom(bytes)
@@ -19,7 +19,7 @@ namespace Neo.FileStorage.API.Refs
 
         public static OwnerID FromBase58String(string id)
         {
-            return Frombytes(Base58.Decode(id));
+            return FromByteArray(Base58.Decode(id));
         }
 
         public string ToBase58String()

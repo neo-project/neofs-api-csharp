@@ -31,5 +31,10 @@ namespace Neo.FileStorage.API.Refs
             json["minor"] = Minor;
             return json;
         }
+
+        public string String()
+        {
+            return $"v{Major}.{Minor}";
+        }
     }
 }

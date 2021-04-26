@@ -7,6 +7,8 @@ namespace Neo.FileStorage.API.Refs
 {
     public partial class ContainerID
     {
+        public const int ValueSize = Sha256HashLength;
+
         public static ContainerID FromSha256Bytes(byte[] hash)
         {
             if (hash.Length != Sha256HashLength) throw new System.FormatException("ContainerID must be a hash256");

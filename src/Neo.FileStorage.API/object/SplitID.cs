@@ -5,6 +5,8 @@ namespace Neo.FileStorage.API.Object
 {
     public class SplitID : IComparable<SplitID>, IEquatable<SplitID>
     {
+        public const int Size = 16;
+
         private Guid guid;
 
         public SplitID()
@@ -22,7 +24,7 @@ namespace Neo.FileStorage.API.Object
             guid = new Guid(bs.ToByteArray());
         }
 
-        public static SplitID FromBytes(byte[] bytes)
+        public static SplitID FromByteArray(byte[] bytes)
         {
             SplitID sid = new(bytes);
             return sid;
@@ -31,7 +33,7 @@ namespace Neo.FileStorage.API.Object
         public static SplitID FromByteString(ByteString bstr)
         {
             if (bstr != null)
-                return FromBytes(bstr.ToByteArray());
+                return FromByteArray(bstr.ToByteArray());
             return null;
         }
 
@@ -51,14 +53,14 @@ namespace Neo.FileStorage.API.Object
                 guid = g;
         }
 
-        public byte[] ToBytes()
+        public byte[] ToByteArray()
         {
             return guid == Guid.Empty ? Array.Empty<byte>() : guid.ToByteArray();
         }
 
         public ByteString ToByteString()
         {
-            return ByteString.CopyFrom(ToBytes());
+            return ByteString.CopyFrom(ToByteArray());
         }
 
         public bool Equals(SplitID other)

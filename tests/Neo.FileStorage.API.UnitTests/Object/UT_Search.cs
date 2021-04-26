@@ -85,5 +85,15 @@ namespace Neo.FileStorage.API.UnitTests.TestObject
             Assert.AreEqual(Filter.FilterHeaderSplitID, f.Key);
             Assert.AreEqual("5dee2659-583f-492f-9ae1-2f5766ccab5c", f.Value);
         }
+
+        [TestMethod]
+        public void TestObjectTypes()
+        {
+            foreach (var ot in Enum.GetValues(typeof(ObjectType)))
+            {
+                Console.WriteLine(ot);
+                Console.WriteLine(Enum.GetName(typeof(ObjectType), ot));
+            }
+        }
     }
 }
