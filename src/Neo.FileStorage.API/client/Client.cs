@@ -5,6 +5,7 @@ using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Container;
 using Neo.FileStorage.API.Netmap;
 using Neo.FileStorage.API.Object;
+using Neo.FileStorage.API.Reputation;
 using Neo.FileStorage.API.Session;
 using System;
 using System.Security.Cryptography;
@@ -26,6 +27,7 @@ namespace Neo.FileStorage.API.Client
         private NetmapService.NetmapServiceClient netmapClient = null;
         private ObjectService.ObjectServiceClient objectClient = null;
         private SessionService.SessionServiceClient sessionClient = null;
+        private ReputationService.ReputationServiceClient reputationClient = null;
 
         private AccountingService.AccountingServiceClient AccountingClient
         {
@@ -74,6 +76,16 @@ namespace Neo.FileStorage.API.Client
                 if (sessionClient is null)
                     sessionClient = new SessionService.SessionServiceClient(channel);
                 return sessionClient;
+            }
+        }
+
+        private ReputationService.ReputationServiceClient ReputationClient
+        {
+            get
+            {
+                if (reputationClient is null)
+                    reputationClient = new ReputationService.ReputationServiceClient(channel);
+                return reputationClient;
             }
         }
 

@@ -32,6 +32,8 @@
     <Protobuf Include="object\service.proto" GrpcServices="Both" Link="object\service.proto" />
     <Protobuf Include="object\types.proto" GrpcServices="None" Link="object\types.proto" />
     <Protobuf Include="refs\types.proto" GrpcServices="None" Link="refs\types.proto" />
+    <Protobuf Include="reputation\service.proto" GrpcServices="Both" Link="reputation\service.proto" />
+    <Protobuf Include="reputation\types.proto" GrpcServices="None" Link="reputation\types.proto" />
     <Protobuf Include="session\service.proto" GrpcServices="Both" Link="session\service.proto" />
     <Protobuf Include="session\types.proto" GrpcServices="None" Link="session\types.proto" />
     <Protobuf Include="storagegroup\types.proto" GrpcServices="None" Link="storagegroup\types.proto" />

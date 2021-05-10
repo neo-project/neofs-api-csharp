@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-PROTO_VERSION=v2.5.0
+PROTO_VERSION=v2.6.0
 PROTO_URL=https://github.com/nspcc-dev/neofs-api/archive/$(PROTO_VERSION).tar.gz
 
 GOGO_VERSION=v1.3.1
