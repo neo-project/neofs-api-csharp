@@ -35,7 +35,7 @@ namespace Neo.FileStorage.API.Client
         {
             if (custom is null) return this;
             if (custom.Version is not null) Version = custom.Version;
-            Ttl = custom.Ttl;
+            if (custom.Ttl != 0) Ttl = custom.Ttl;
             Epoch = custom.Epoch;
             if (custom.XHeaders is not null) XHeaders = custom.XHeaders;
             if (custom.Session is not null) Session = custom.Session;
