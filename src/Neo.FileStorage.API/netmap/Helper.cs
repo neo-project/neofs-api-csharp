@@ -1,8 +1,8 @@
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using Neo.FileStorage.API.Netmap.Normalize;
 using Neo.FileStorage.API.Netmap.Aggregator;
+using Neo.FileStorage.API.Netmap.Normalize;
 
 namespace Neo.FileStorage.API.Netmap
 {
@@ -41,7 +41,11 @@ namespace Neo.FileStorage.API.Netmap
 
         public static List<Node> Flatten(this List<List<Node>> ns)
         {
-            return ns.Aggregate((ns1, ns2) => ns1.Concat(ns2).ToList());
+            List<Node> nodes = new();
+            foreach (var list in ns)
+                foreach (var n in list)
+                    nodes.Add(n);
+            return nodes;
         }
 
         public static int GetBucketCount(this Selector selector)
