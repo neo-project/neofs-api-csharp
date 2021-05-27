@@ -1,11 +1,11 @@
-using Google.Protobuf;
-using Neo.IO.Json;
-using Neo.FileStorage.API.Refs;
-using Neo.FileStorage.API.Cryptography;
-using Neo.FileStorage.API.Session;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using System.Linq;
+using System.Security.Cryptography;
+using Google.Protobuf;
+using Neo.FileStorage.API.Cryptography;
+using Neo.FileStorage.API.Refs;
+using Neo.FileStorage.API.Session;
+using Neo.IO.Json;
 
 namespace Neo.FileStorage.API.Object
 {
@@ -52,6 +52,8 @@ namespace Neo.FileStorage.API.Object
             }
             set
             {
+                if (Header is null) Header = new();
+                if (Header.Split is null) Header.Split = new();
                 Header.Split.Children.Clear();
                 Header.Split.Children.AddRange(value);
             }
@@ -65,6 +67,8 @@ namespace Neo.FileStorage.API.Object
             }
             set
             {
+                if (Header is null) Header = new();
+                if (Header.Split is null) Header.Split = new();
                 Header.Split.SplitId = value.ToByteString();
             }
         }
@@ -96,6 +100,8 @@ namespace Neo.FileStorage.API.Object
             set
             {
                 parent = value;
+                if (Header is null) Header = new();
+                if (Header.Split is null) Header.Split = new();
                 Header.Split.Parent = parent.ObjectId;
                 Header.Split.ParentSignature = parent.Signature;
                 Header.Split.ParentHeader = parent.Header;
