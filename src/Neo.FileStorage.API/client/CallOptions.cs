@@ -1,9 +1,9 @@
-using Neo.FileStorage.API.Acl;
-using Neo.FileStorage.API.Session;
-using Neo.FileStorage.API.Refs;
-using System.Security.Cryptography;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using System.Security.Cryptography;
+using Neo.FileStorage.API.Acl;
+using Neo.FileStorage.API.Refs;
+using Neo.FileStorage.API.Session;
 
 namespace Neo.FileStorage.API.Client
 {
@@ -16,6 +16,7 @@ namespace Neo.FileStorage.API.Client
         public SessionToken Session;
         public BearerToken Bearer;
         public ECDsa Key;
+        public DateTime? Deadline;
 
         public RequestMetaHeader GetRequestMetaHeader()
         {
@@ -41,6 +42,7 @@ namespace Neo.FileStorage.API.Client
             if (custom.Session is not null) Session = custom.Session;
             if (custom.Bearer is not null) Bearer = custom.Bearer;
             if (custom.Key is not null) Key = custom.Key;
+            if (custom.Deadline is not null) Deadline = custom.Deadline;
             return this;
         }
 
@@ -95,6 +97,12 @@ namespace Neo.FileStorage.API.Client
         public CallOptions WithKey(ECDsa key)
         {
             Key = key;
+            return this;
+        }
+
+        public CallOptions WithDeadline(DateTime? deadline)
+        {
+            Deadline = deadline;
             return this;
         }
     }

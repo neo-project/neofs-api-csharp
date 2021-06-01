@@ -1,9 +1,9 @@
-using Neo.FileStorage.API.Acl;
-using Neo.FileStorage.API.Cryptography;
-using Neo.FileStorage.API.Session;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Neo.FileStorage.API.Acl;
+using Neo.FileStorage.API.Cryptography;
+using Neo.FileStorage.API.Session;
 
 namespace Neo.FileStorage.API.Client
 {
@@ -34,16 +34,21 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = opts?.GetRequestMetaHeader() ?? RequestMetaHeader.Default;
             opts.Key.SignRequest(req);
 
-            var resp = await SessionClient.CreateAsync(req, cancellationToken: context);
+            return await CreateSession(req, opts.Deadline, context);
+        }
+
+        public async Task<SessionToken> CreateSession(CreateRequest request, DateTime? deadline = null, CancellationToken context = default)
+        {
+            var resp = await SessionClient.CreateAsync(request, deadline: deadline, cancellationToken: context);
             if (!resp.VerifyResponse())
-                throw new FormatException("invalid balance response");
+                throw new FormatException("invalid session response");
             return new SessionToken
             {
                 Body = new SessionToken.Types.Body
                 {
                     Id = resp.Body.Id,
                     SessionKey = resp.Body.SessionKey,
-                    OwnerId = opts.Key.ToOwnerID(),
+                    OwnerId = request.Body.OwnerId
                 }
             };
         }

@@ -1,9 +1,9 @@
-using Neo.FileStorage.API.Accounting;
-using Neo.FileStorage.API.Cryptography;
-using Neo.FileStorage.API.Refs;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Neo.FileStorage.API.Accounting;
+using Neo.FileStorage.API.Cryptography;
+using Neo.FileStorage.API.Refs;
 
 namespace Neo.FileStorage.API.Client
 {
@@ -23,7 +23,12 @@ namespace Neo.FileStorage.API.Client
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
-            var resp = await AccountingClient.BalanceAsync(req, cancellationToken: context);
+            return await GetBalance(req, opts.Deadline, context);
+        }
+
+        public async Task<Accounting.Decimal> GetBalance(BalanceRequest request, DateTime? deadline = null, CancellationToken context = default)
+        {
+            var resp = await AccountingClient.BalanceAsync(request, deadline: deadline, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new FormatException("invalid balance response");
             return resp.Body.Balance;
