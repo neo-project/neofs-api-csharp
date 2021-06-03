@@ -84,16 +84,13 @@ namespace Neo.FileStorage.API.Object
             get
             {
                 if (parent is not null) return parent;
-                var splitHeader = Header?.Split;
-                if (splitHeader is null) return null;
-                var parentSig = splitHeader.ParentSignature;
-                var parentHeader = splitHeader.ParentHeader;
-                if (parentSig is null || parentHeader is null)
-                    return null;
+                var split = Header?.Split;
+                if (split is null) return null;
                 Object obj = new()
                 {
-                    Header = parentHeader,
-                    Signature = parentSig,
+                    Header = split.ParentHeader,
+                    Signature = split.ParentSignature,
+                    ObjectId = split.Parent,
                 };
                 return parent = obj;
             }
