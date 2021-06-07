@@ -1,10 +1,10 @@
+using System;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Netmap;
 using Neo.FileStorage.API.Refs;
-using System;
-using System.Threading;
 
 namespace Neo.FileStorage.API.UnitTests.FSClient
 {
@@ -49,7 +49,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var container = client.GetContainer(cid, context: source.Token).Result;
-            Assert.AreEqual(cid, container.CalCulateAndGetId);
+            Assert.AreEqual(cid, container.Container.CalCulateAndGetId);
         }
 
         [TestMethod]
@@ -86,8 +86,8 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
-            var eacl = client.GetEACL(cid, context: source.Token);
-            Console.WriteLine(eacl);
+            var eacl = client.GetEAcl(cid, context: source.Token).Result;
+            Console.WriteLine(eacl.Table);
         }
 
         [TestMethod]
@@ -115,8 +115,8 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             };
             var record = new EACLRecord
             {
-                Operation = Acl.Operation.Get,
-                Action = Acl.Action.Deny,
+                Operation = API.Acl.Operation.Get,
+                Action = API.Acl.Action.Allow,
             };
             record.Filters.Add(filter);
             record.Targets.Add(target);

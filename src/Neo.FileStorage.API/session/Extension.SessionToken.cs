@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using Neo.FileStorage.API.Cryptography;
 using Neo.IO.Json;
 
 namespace Neo.FileStorage.API.Session
@@ -34,6 +36,16 @@ namespace Neo.FileStorage.API.Session
                     return json;
                 }
             }
+        }
+
+        public void Sign(ECDsa key)
+        {
+            Signature = key.SignMessagePart(Body);
+        }
+
+        public bool VerifySignature()
+        {
+            return Signature.VerifyMessagePart(Body);
         }
 
         public JObject ToJson()

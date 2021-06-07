@@ -13,7 +13,7 @@ namespace Neo.FileStorage.API.Client
 {
     public sealed partial class Client
     {
-        public async Task<Container.Container> GetContainer(ContainerID cid, CallOptions options = null, CancellationToken context = default)
+        public async Task<ContainerWithSignature> GetContainer(ContainerID cid, CallOptions options = null, CancellationToken context = default)
         {
             if (cid is null) throw new ArgumentNullException(nameof(cid));
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -31,12 +31,19 @@ namespace Neo.FileStorage.API.Client
             return await GetContainer(req, opts.Deadline, context);
         }
 
-        public async Task<Container.Container> GetContainer(GetRequest request, DateTime? deadline, CancellationToken context = default)
+        public async Task<ContainerWithSignature> GetContainer(GetRequest request, DateTime? deadline, CancellationToken context = default)
         {
             var resp = await ContainerClient.GetAsync(request, deadline: deadline, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container get response");
-            return resp.Body.Container;
+            if (resp.Body.Signature.VerifyRFC6979(resp.Body.Container))
+                throw new InvalidOperationException("Invalid container signature");
+            return new()
+            {
+                Container = resp.Body.Container,
+                Signature = resp.Body.Signature,
+                SessionToken = resp.Body.SessionToken
+            };
         }
 
         public async Task<ContainerID> PutContainer(Container.Container container, CallOptions options = null, CancellationToken context = default)
@@ -119,7 +126,7 @@ namespace Neo.FileStorage.API.Client
             return resp.Body.ContainerIds.ToList();
         }
 
-        public async Task<EAclWithSignature> GetEAclWithSignature(ContainerID cid, CallOptions options = null, CancellationToken context = default)
+        public async Task<EAclWithSignature> GetEAcl(ContainerID cid, CallOptions options = null, CancellationToken context = default)
         {
             if (cid is null) throw new ArgumentNullException(nameof(cid));
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -134,38 +141,22 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
 
-            return await GetEAclWithSignature(req, opts.Deadline, context);
+            return await GetEAcl(req, opts.Deadline, context);
         }
 
-        public async Task<EAclWithSignature> GetEAclWithSignature(GetExtendedACLRequest request, DateTime? deadline, CancellationToken context = default)
+        public async Task<EAclWithSignature> GetEAcl(GetExtendedACLRequest request, DateTime? deadline, CancellationToken context = default)
         {
             var resp = await ContainerClient.GetExtendedACLAsync(request, deadline: deadline, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid get eacl response");
-            var eacl = resp.Body.Eacl;
-            var sig = resp.Body.Signature;
+            if (!resp.Body.Signature.VerifyRFC6979(resp.Body.Eacl))
+                throw new InvalidOperationException("invalid eacl signature");
             return new EAclWithSignature
             {
-                Table = eacl,
-                Signature = sig,
+                Table = resp.Body.Eacl,
+                Signature = resp.Body.Signature,
+                SessionToken = resp.Body.SessionToken
             };
-        }
-
-        public async Task<EACLTable> GetEACL(ContainerID cid, CallOptions options = null, CancellationToken context = default)
-        {
-            if (cid is null) throw new ArgumentNullException(nameof(cid));
-            var eacl_with_sig = await GetEAclWithSignature(cid, options, context);
-            if (!eacl_with_sig.Signature.VerifyRFC6979(eacl_with_sig.Table))
-                throw new InvalidOperationException("invalid eacl signature");
-            return eacl_with_sig.Table;
-        }
-
-        public async Task<EACLTable> GetEACL(GetExtendedACLRequest request, DateTime? deadline, CancellationToken context = default)
-        {
-            var eacl_with_sig = await GetEAclWithSignature(request, deadline, context);
-            if (!eacl_with_sig.Signature.VerifyRFC6979(eacl_with_sig.Table))
-                throw new InvalidOperationException("invalid eacl signature");
-            return eacl_with_sig.Table;
         }
 
         public async Task SetEACL(EACLTable eacl, CallOptions options = null, CancellationToken context = default)

@@ -1,12 +1,11 @@
-using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Refs;
 using Neo.FileStorage.API.Session;
 
 namespace Neo.FileStorage.API.Client
 {
-    public class EAclWithSignature
+    public class ContainerWithSignature
     {
-        public EACLTable Table;
+        public Container.Container Container;
         public Signature Signature;
         public SessionToken SessionToken;
     }
