@@ -1,9 +1,9 @@
 
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Neo.FileStorage.API.Refs;
-using Neo.FileStorage.API.Object;
 using System;
+using Google.Protobuf;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neo.FileStorage.API.Object;
 
 namespace Neo.FileStorage.API.UnitTests.TestObject
 {
@@ -32,9 +32,10 @@ namespace Neo.FileStorage.API.UnitTests.TestObject
         [TestMethod]
         public void TestNull()
         {
-            var sid = new SplitID();
-            Assert.AreEqual("", sid.ToString());
-            Assert.AreEqual(0, sid.ToByteString().Length);
+            SplitID sid1 = null;
+            ByteString bs = null;
+            SplitID sid2 = bs;
+            sid2 = sid1;
         }
     }
 }

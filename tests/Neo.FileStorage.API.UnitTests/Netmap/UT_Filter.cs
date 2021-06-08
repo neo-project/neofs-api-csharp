@@ -1,7 +1,7 @@
+using System;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Netmap;
-using System;
 
 namespace Neo.FileStorage.API.UnitTests.TestNetmap
 {
@@ -64,7 +64,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
                     Op = 0
                 }
             });
-            var nm = new NetMap(null);
+            var nm = new NetMap(new());
             var context = new Context(nm);
             var policy = new PlacementPolicy
             {
@@ -143,7 +143,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             });
             for (int i = 0; i < fs.Length; i++)
             {
-                var c = new Context(new NetMap(null));
+                var c = new Context(new NetMap(new()));
                 var p = new PlacementPolicy
                 {
                     ContainerBackupFactor = 1,
@@ -334,7 +334,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             };
             foreach (var t in test_cases)
             {
-                var c = new Context(new NetMap(null));
+                var c = new Context(new NetMap(new()));
                 var p = new PlacementPolicy() { ContainerBackupFactor = 1 };
                 p.Filters.Add(t.F);
                 c.ProcessFilters(p);
@@ -371,7 +371,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
                     )
                 )
             };
-            var c = new Context(new NetMap(null));
+            var c = new Context(new NetMap(new()));
             var p = new PlacementPolicy(1, null, null, filters);
             c.ProcessFilters(p);
 

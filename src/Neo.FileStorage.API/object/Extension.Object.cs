@@ -63,7 +63,7 @@ namespace Neo.FileStorage.API.Object
         {
             get
             {
-                return Header?.Split?.SplitId is null ? null : new SplitID(Header.Split.SplitId);
+                return Header?.Split?.SplitId is null ? null : Header.Split.SplitId;
             }
             set
             {
@@ -74,7 +74,17 @@ namespace Neo.FileStorage.API.Object
         }
         public ObjectID ParentId => Header?.Split?.Parent;
         public SessionToken SessionToken => Header?.SessionToken;
-        public ObjectType ObjectType => Header.ObjectType;
+        public ObjectType ObjectType
+        {
+            get
+            {
+                return Header.ObjectType;
+            }
+            set
+            {
+                Header.ObjectType = value;
+            }
+        }
         public bool HasParent => Header?.Split != null;
         public Address Address => new(ContainerId, ObjectId);
 
@@ -86,6 +96,8 @@ namespace Neo.FileStorage.API.Object
                 if (parent is not null) return parent;
                 var split = Header?.Split;
                 if (split is null) return null;
+                if (split.ParentSignature is null && split.ParentHeader is null)
+                    return null;
                 Object obj = new()
                 {
                     Header = split.ParentHeader,

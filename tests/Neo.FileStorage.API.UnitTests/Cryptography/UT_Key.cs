@@ -9,13 +9,6 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography
     public class UT_Key
     {
         [TestMethod]
-        public void TestCreateSignatureRedeemScript()
-        {
-            var public_key = "0203592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c1".HexToBytes();
-            Assert.AreEqual("NZdd4yJPMjjMTXT8eimx55it16wzWiji5C", public_key.PublicKeyToAddress());
-        }
-
-        [TestMethod]
         public void TestPublicKeyDecompress()
         {
             var public_key = "0203592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c1".HexToBytes();
@@ -46,7 +39,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography
         {
             var key = "0203592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c1".HexToBytes().LoadPublicKey();
             Assert.AreEqual("0203592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c1", key.PublicKey().ToHexString());
-            Assert.AreEqual("NZdd4yJPMjjMTXT8eimx55it16wzWiji5C", key.ToAddress());
+            Assert.AreEqual("Nedo3Wtrx8fDjtYosjt7ZERHyR2EsgPtxK", key.ToAddress());
         }
 
         [TestMethod]
@@ -54,9 +47,9 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography
         {
             var key = "L4kWTNckyaWn2QdUrACCJR1qJNgFFGhTCy63ERk7ZK3NvBoXap6t".LoadWif();
             var address = key.ToAddress();
-            Assert.AreEqual("NNpKztcTN2XVve1mQVtF3ckWKKjEUcoPSs", address);
+            Assert.AreEqual("Nivku7mFnqdzVftRnUYHo5hD1oJT71yeZp", address);
             key = "L1pBKpw4tR6CogySzye3GUcVPz5pAeemXbyupoWUEVrtfstBfDiN".LoadWif();
-            Assert.AreEqual("NQ8qB87zoN1P4qG74V9fkN9Zp7twis3g2r", key.ToAddress());
+            Assert.AreEqual("NgYMvdwCWMypHLqoZ6uqYutbeAAAgbSFcD", key.ToAddress());
         }
 
         [TestMethod]

@@ -1,7 +1,7 @@
-using Neo.FileStorage.API.Refs;
-using static Neo.FileStorage.API.Object.SearchRequest.Types.Body.Types;
 using System.Collections.Generic;
 using System.Linq;
+using Neo.FileStorage.API.Refs;
+using static Neo.FileStorage.API.Object.SearchRequest.Types.Body.Types;
 
 namespace Neo.FileStorage.API.Object
 {
@@ -30,7 +30,7 @@ namespace Neo.FileStorage.API.Object
 
         public void AddObjectVersionFilter(MatchType op, Version v)
         {
-            AddFilter(Filter.FilterHeaderVersion, v.Major + "." + v.Minor, op);
+            AddFilter(Filter.FilterHeaderVersion, v.String(), op);
         }
 
         public void AddObjectContainerIDFilter(MatchType op, ContainerID cid)

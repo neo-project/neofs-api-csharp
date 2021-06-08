@@ -329,7 +329,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
                         new Selector[]{ new Selector("MyStore", "Country", Clause.Distinct, 1, "FromNL") },
                         new Filter[]{ new Filter("FromRU", "Country", "Russia", Operation.Eq) }
                     ),
-                    E = typeof(ArgumentNullException),
+                    E = typeof(ArgumentException),
                 },
                 new SelectorTestCase
                 {

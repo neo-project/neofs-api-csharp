@@ -6,7 +6,7 @@ namespace Neo.FileStorage.API.Refs
     public partial class Version
     {
         public const uint SDKMajor = 2;
-        public const uint SDKMinor = 6;
+        public const uint SDKMinor = 7;
 
         public static Version SDKVersion()
         {

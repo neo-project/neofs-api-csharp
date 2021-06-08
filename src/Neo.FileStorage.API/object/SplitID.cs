@@ -1,5 +1,5 @@
-using Google.Protobuf;
 using System;
+using Google.Protobuf;
 
 namespace Neo.FileStorage.API.Object
 {
@@ -12,29 +12,6 @@ namespace Neo.FileStorage.API.Object
         public SplitID()
         {
             guid = Guid.NewGuid();
-        }
-
-        public SplitID(byte[] bytes)
-        {
-            guid = new Guid(bytes);
-        }
-
-        public SplitID(ByteString bs)
-        {
-            guid = new Guid(bs.ToByteArray());
-        }
-
-        public static SplitID FromByteArray(byte[] bytes)
-        {
-            SplitID sid = new(bytes);
-            return sid;
-        }
-
-        public static SplitID FromByteString(ByteString bstr)
-        {
-            if (bstr != null)
-                return FromByteArray(bstr.ToByteArray());
-            return null;
         }
 
         public bool Parse(string str)
@@ -55,7 +32,7 @@ namespace Neo.FileStorage.API.Object
 
         public byte[] ToByteArray()
         {
-            return guid == Guid.Empty ? Array.Empty<byte>() : guid.ToByteArray();
+            return guid.ToByteArray();
         }
 
         public ByteString ToByteString()
@@ -73,6 +50,34 @@ namespace Neo.FileStorage.API.Object
         public int CompareTo(SplitID other)
         {
             return ToString().CompareTo(other.ToString());
+        }
+
+        public static implicit operator SplitID(byte[] bytes)
+        {
+            if (bytes is null) return null;
+            return new()
+            {
+                guid = new(bytes)
+            };
+        }
+
+        public static implicit operator SplitID(ByteString bytes)
+        {
+            if (bytes is null) return null;
+            return new()
+            {
+                guid = new(bytes.ToByteArray())
+            };
+        }
+
+        public static implicit operator byte[](SplitID s)
+        {
+            return s?.ToByteArray();
+        }
+
+        public static implicit operator ByteString(SplitID s)
+        {
+            return s?.ToByteString();
         }
     }
 }
