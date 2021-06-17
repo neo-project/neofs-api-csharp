@@ -109,8 +109,7 @@ namespace Neo.FileStorage.API.Client
             req.Body.Init = init;
             opts.Key.SignRequest(req);
 
-            using var call = ObjectClient.Put(cancellationToken: context);
-            await call.RequestStream.WriteAsync(req);
+            using var stream = await PutObject(req, context: context);
 
             int offset = 0;
             while (offset < obj.Payload.Length)
@@ -124,14 +123,20 @@ namespace Neo.FileStorage.API.Client
                 req.Body = chunk_body;
                 req.VerifyHeader = null;
                 opts.Key.SignRequest(req);
-                await call.RequestStream.WriteAsync(req);
+                stream.Write(req);
                 offset = end;
             }
-            await call.RequestStream.CompleteAsync();
-            var resp = await call.ResponseAsync;
-            if (!resp.VerifyResponse())
-                throw new InvalidOperationException("invalid object put response");
+            var resp = await stream.Close();
             return resp.Body.ObjectId;
+        }
+
+        public async Task<PutStream> PutObject(PutRequest init, DateTime? deadline = null, CancellationToken context = default)
+        {
+            if (init is null) throw new ArgumentNullException(nameof(init));
+            if (init.Body?.ObjectPartCase != PutRequest.Types.Body.ObjectPartOneofCase.Init) throw new ArgumentException("invalid request type, expect init");
+            var call = ObjectClient.Put(deadline: deadline, cancellationToken: context);
+            await call.RequestStream.WriteAsync(init);
+            return new PutStream { Call = call };
         }
 
         public async Task<Address> DeleteObject(Address address, CallOptions options = null, CancellationToken context = default)

@@ -1,3 +1,4 @@
+using System;
 using Google.Protobuf;
 using Neo.Cryptography;
 using Neo.IO.Json;
