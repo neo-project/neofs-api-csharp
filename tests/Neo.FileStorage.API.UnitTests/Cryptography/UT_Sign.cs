@@ -1,6 +1,8 @@
+using System.Security.Cryptography;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Neo.FileStorage.API.Cryptography;
+using Neo.Cryptography;
 using Neo.FileStorage.API.Accounting;
+using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Session;
 
 namespace Neo.FileStorage.API.UnitTests.TestCryptography
@@ -89,6 +91,16 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography
                 var sig = key.SignRFC6979(body);
                 Assert.AreEqual(expect_sigs[i], sig.ToHexString());
             }
+        }
+
+        [TestMethod]
+        public void TestSignRFC6979AndVerify()
+        {
+            var wif = "L3o221BojgcCPYgdbXsm6jn7ayTZ72xwREvBHXKknR8VJ3G4WmjB";
+            var key = wif.LoadWif();
+            var data = "1f2155c0e513a7dab93d8b468809cd30a03c62326ec051deed031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a0000000053724e000000000000001e61".HexToBytes();
+            var sig = key.SignRFC6979(data);
+            Assert.IsTrue(key.VerifyData(data, sig, HashAlgorithmName.SHA256));
         }
     }
 }
