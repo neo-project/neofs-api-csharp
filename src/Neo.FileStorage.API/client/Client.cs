@@ -1,3 +1,5 @@
+using System;
+using System.Security.Cryptography;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Neo.FileStorage.API.Accounting;
@@ -7,12 +9,10 @@ using Neo.FileStorage.API.Netmap;
 using Neo.FileStorage.API.Object;
 using Neo.FileStorage.API.Reputation;
 using Neo.FileStorage.API.Session;
-using System;
-using System.Security.Cryptography;
 
 namespace Neo.FileStorage.API.Client
 {
-    public sealed partial class Client : IDisposable
+    public sealed partial class Client : IFSClient
     {
         public const int DefaultConnectTimeoutMilliSeconds = 120000;
         public const uint SearchObjectVersion = 1;
