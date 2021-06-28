@@ -31,7 +31,7 @@ namespace Neo.FileStorage.API.Client
             return await GetContainer(req, opts.Deadline, context);
         }
 
-        public async Task<ContainerWithSignature> GetContainer(GetRequest request, DateTime? deadline, CancellationToken context = default)
+        public async Task<ContainerWithSignature> GetContainer(GetRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ContainerClient.GetAsync(request, deadline: deadline, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -67,7 +67,7 @@ namespace Neo.FileStorage.API.Client
             return await PutContainer(req, opts.Deadline, context);
         }
 
-        public async Task<ContainerID> PutContainer(PutRequest request, DateTime? deadline, CancellationToken context = default)
+        public async Task<ContainerID> PutContainer(PutRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ContainerClient.PutAsync(request, deadline: deadline, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -93,7 +93,7 @@ namespace Neo.FileStorage.API.Client
             await DeleteContainer(req, opts.Deadline, context);
         }
 
-        public async Task DeleteContainer(DeleteRequest request, DateTime? deadline, CancellationToken context = default)
+        public async Task DeleteContainer(DeleteRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ContainerClient.DeleteAsync(request, deadline: deadline, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -118,7 +118,7 @@ namespace Neo.FileStorage.API.Client
             return await ListContainers(req, opts.Deadline, context);
         }
 
-        public async Task<List<ContainerID>> ListContainers(ListRequest request, DateTime? deadline, CancellationToken context = default)
+        public async Task<List<ContainerID>> ListContainers(ListRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ContainerClient.ListAsync(request, deadline: deadline, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -144,7 +144,7 @@ namespace Neo.FileStorage.API.Client
             return await GetEAcl(req, opts.Deadline, context);
         }
 
-        public async Task<EAclWithSignature> GetEAcl(GetExtendedACLRequest request, DateTime? deadline, CancellationToken context = default)
+        public async Task<EAclWithSignature> GetEAcl(GetExtendedACLRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ContainerClient.GetExtendedACLAsync(request, deadline: deadline, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -179,7 +179,7 @@ namespace Neo.FileStorage.API.Client
             await SetEACL(req, opts.Deadline, context);
         }
 
-        public async Task SetEACL(SetExtendedACLRequest request, DateTime? deadline, CancellationToken context = default)
+        public async Task SetEACL(SetExtendedACLRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ContainerClient.SetExtendedACLAsync(request, deadline: deadline, cancellationToken: context);
             if (!resp.VerifyResponse())
@@ -203,7 +203,7 @@ namespace Neo.FileStorage.API.Client
             await AnnounceContainerUsedSpace(req, opts.Deadline, context);
         }
 
-        public async Task AnnounceContainerUsedSpace(AnnounceUsedSpaceRequest request, DateTime? deadline, CancellationToken context = default)
+        public async Task AnnounceContainerUsedSpace(AnnounceUsedSpaceRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ContainerClient.AnnounceUsedSpaceAsync(request, deadline: deadline, cancellationToken: context);
             if (!resp.VerifyResponse())

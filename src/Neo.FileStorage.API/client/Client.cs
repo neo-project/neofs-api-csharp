@@ -12,7 +12,7 @@ using Neo.FileStorage.API.Session;
 
 namespace Neo.FileStorage.API.Client
 {
-    public sealed partial class Client : IFSClient
+    public sealed partial class Client : IFSClient, IFSRawClient
     {
         public const int DefaultConnectTimeoutMilliSeconds = 120000;
         public const uint SearchObjectVersion = 1;
@@ -104,6 +104,11 @@ namespace Neo.FileStorage.API.Client
         {
             channel.ShutdownAsync().Wait();
             channel.Dispose();
+        }
+
+        public IFSRawClient Raw()
+        {
+            return this;
         }
 
         public CallOptions DefaultCallOptions
