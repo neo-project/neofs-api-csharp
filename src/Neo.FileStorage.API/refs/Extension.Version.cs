@@ -19,6 +19,7 @@ namespace Neo.FileStorage.API.Refs
 
         public static bool IsSupportedVersion(Version ver)
         {
+            if (ver is null) return false;
             if (ver.Major == SDKMajor && ver.Minor == SDKMinor)
                 return true;
             return false;
