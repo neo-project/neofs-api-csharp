@@ -84,7 +84,6 @@ namespace Neo.FileStorage.API.Client
         {
             if (obj is null) throw new ArgumentNullException(nameof(obj));
             if (obj.Header is null) throw new ArgumentException($"No Header in {nameof(obj)}");
-            if (obj.ObjectId is null) throw new ArgumentException($"No ObjectID in {nameof(obj)}");
             if (obj.Payload is null || obj.Payload.Length == 0) throw new ArgumentException($"No Payload in {nameof(obj)}");
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
@@ -95,7 +94,7 @@ namespace Neo.FileStorage.API.Client
             var address = new Address
             {
                 ContainerId = obj.Header.ContainerId,
-                ObjectId = obj.ObjectId,
+                ObjectId = obj.ObjectId ?? obj.CalculateID(),
             };
             var meta = opts.GetRequestMetaHeader();
             AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Put);
