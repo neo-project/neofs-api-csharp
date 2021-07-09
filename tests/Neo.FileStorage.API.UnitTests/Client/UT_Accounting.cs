@@ -9,7 +9,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestBalance()
         {
-            var host = "http://localhost:8080";
+            var host = "http://st1.storage.fs.neo.org:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(key, host);
             var balance = client.GetBalance().Result;

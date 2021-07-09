@@ -59,5 +59,12 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography
             var private_key = key.ExportParameters(true).D;
             Assert.AreEqual("e0b48fb95d04aa475a0da759218a85d9b03cf4e55b79458dcdf4d42a7fe29cd1", private_key.ToHexString());
         }
+
+        [TestMethod]
+        public void TestWif3()
+        {
+            var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
+            Assert.AreEqual("", key.ToAddress());
+        }
     }
 }
