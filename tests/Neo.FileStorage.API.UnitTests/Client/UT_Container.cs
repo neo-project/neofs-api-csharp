@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Cryptography;
@@ -93,33 +94,28 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestSetExtendedACL()
         {
-            var host = "localhost:8080";
+            var host = "http://st1.storage.fs.neo.org:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
+            //var key = "e0b48fb95d04aa475a0da759218a85d9b03cf4e55b79458dcdf4d42a7fe29cd1".LoadPrivateKey();
             var cid = ContainerID.FromBase58String("Bun3sfMBpnjKc3Tx7SdwrMxyNi8ha8JT3dhuFGvYBRTz");
             var client = new Client.Client(key, host);
-            var eacl = new EACLTable
-            {
-                Version = Refs.Version.SDKVersion(),
-                ContainerId = cid,
-            };
-            var filter = new EACLRecord.Types.Filter
-            {
-                HeaderType = HeaderType.HeaderUnspecified,
-                MatchType = MatchType.StringEqual,
-                Key = "test",
-                Value = "test"
-            };
             var target = new EACLRecord.Types.Target
             {
                 Role = Role.Others,
             };
+            target.Keys.Add(ByteString.CopyFrom(key.PublicKey()));//add whitelist
             var record = new EACLRecord
             {
                 Operation = API.Acl.Operation.Get,
                 Action = API.Acl.Action.Allow,
             };
-            record.Filters.Add(filter);
             record.Targets.Add(target);
+            var eacl = new EACLTable
+            {
+                Version = Refs.Version.SDKVersion(),
+                ContainerId = cid,
+            };
+            eacl.Records.Add(record);
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             client.SetEACL(eacl, context: source.Token).Wait();
