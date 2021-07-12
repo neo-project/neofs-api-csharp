@@ -26,7 +26,9 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var host = "http://st1.storage.fs.neo.org:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var cid = ContainerID.FromBase58String("ETptK9H8wd5i3zt3JQmuArupPAGbz24YnCWA9Cs91rs6");
-            var payload = Encoding.ASCII.GetBytes("hello");
+            var rand = new Random();
+            var payload = new byte[1024];
+            rand.NextBytes(payload);
             var obj = new V2Object
             {
                 Header = new Header
@@ -55,7 +57,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var cid = ContainerID.FromBase58String("ETptK9H8wd5i3zt3JQmuArupPAGbz24YnCWA9Cs91rs6");
 
-            List<ObjectID> oids = new() { ObjectID.FromBase58String("7A27ou91pzJinEbgC1XCA4Cao4ragF82weCT6jpC3dc2") };
+            List<ObjectID> oids = new() { ObjectID.FromBase58String("7A27ou91pzJinEbgC1XCA4Cao4ragF82weCT6jpC3dc2"), ObjectID.FromBase58String("9kkAQXcSqvjWo67GX4JdsmTFPKg8NVMuD1RhBs6bg6di") };
             var client = new Client.Client(key, host);
             byte[] tzh = null;
             ulong size = 0;
@@ -100,7 +102,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
             var o = client.PutObject(obj, new CallOptions { Ttl = 2, Session = session }, source2.Token).Result;
-            Console.WriteLine(o.ToString());
+            Console.WriteLine(o.ToBase58String());
             Assert.AreNotEqual("", o.ToBase58String());
         }
 
@@ -110,7 +112,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var host = "http://st2.storage.fs.neo.org:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var cid = ContainerID.FromBase58String("ETptK9H8wd5i3zt3JQmuArupPAGbz24YnCWA9Cs91rs6");
-            var oid = ObjectID.FromSha256Bytes("3302dcf8608124a8eb7fe8365690e816f09410f9f90b7905b06ae223a4573345".HexToBytes());
+            var oid = ObjectID.FromBase58String("8y6hSCSueoD5or9gdRygFnCPqkyJErNuA2NPPxqptGxb");
             var address = new Address(cid, oid);
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
@@ -138,10 +140,10 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestObjectDelete()
         {
-            var host = "localhost:8080";
+            var host = "http://st1.storage.fs.neo.org:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
-            var cid = ContainerID.FromBase58String("Bun3sfMBpnjKc3Tx7SdwrMxyNi8ha8JT3dhuFGvYBRTz");
-            var oid = ObjectID.FromBase58String("CnBNgUmXiA5KJeGvMDgUEGiKrbZctjwxT5v3sBYjnmf1");
+            var cid = ContainerID.FromBase58String("7tJhXBvoCGdPonLUL4FwK5RT1oVczQJsU21xjHqMY7ec");
+            var oid = ObjectID.FromBase58String("Y1VUWvCeW7HUecFNoeHR48Ev4NyU61uH1YRuDVTiK57");
             var address = new Address(cid, oid);
             var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
@@ -150,7 +152,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             source1.Cancel();
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.DeleteObject(address, new CallOptions { Ttl = 2, Session = session }, source2.Token);
+            var o = client.DeleteObject(address, new CallOptions { Ttl = 2, Session = session }, source2.Token).Result;
             Assert.AreEqual(address, o);
         }
 
@@ -187,7 +189,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestObjectGetRangeHash()
         {
-            var host = "localhost:8080";
+            var host = "http://st2.storage.fs.neo.org:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var cid = ContainerID.FromBase58String("Bun3sfMBpnjKc3Tx7SdwrMxyNi8ha8JT3dhuFGvYBRTz");
             var oid = ObjectID.FromBase58String("vWt34r4ddnq61jcPec4rVaXHg7Y7GiEYFmcTB2Qwhtx");
@@ -203,15 +205,17 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestObjectSearch()
         {
-            var host = "localhost:8080";
+            var host = "http://st2.storage.fs.neo.org:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
-            var cid = ContainerID.FromBase58String("Bun3sfMBpnjKc3Tx7SdwrMxyNi8ha8JT3dhuFGvYBRTz");
+            var cid = ContainerID.FromBase58String("ETptK9H8wd5i3zt3JQmuArupPAGbz24YnCWA9Cs91rs6");
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.SearchObject(cid, new SearchFilters(), new CallOptions { Ttl = 2 }, source.Token).Result;
-            Console.WriteLine(o.Count);
-            Assert.IsTrue(o.Select(p => p.ToBase58String()).ToList().Contains("vWt34r4ddnq61jcPec4rVaXHg7Y7GiEYFmcTB2Qwhtx"));
+            var filter = new SearchFilters();
+            filter.AddTypeFilter(MatchType.StringEqual, ObjectType.StorageGroup);
+            var o = client.SearchObject(cid, filter, new CallOptions { Ttl = 2 }, source.Token).Result;
+            o.ForEach(p => Console.WriteLine(p.ToBase58String()));
+            Assert.IsTrue(o.Select(p => p.ToBase58String()).ToList().Contains("8y6hSCSueoD5or9gdRygFnCPqkyJErNuA2NPPxqptGxb"));
         }
 
         [TestMethod]

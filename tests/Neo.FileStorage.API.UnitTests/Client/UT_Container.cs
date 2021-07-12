@@ -25,7 +25,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
                 Version = Refs.Version.SDKVersion(),
                 OwnerId = key.ToOwnerID(),
                 Nonce = Guid.NewGuid().ToByteString(),
-                BasicAcl = (uint)BasicAcl.PublicBasicRule,
+                BasicAcl = 536862719u,
                 PlacementPolicy = policy,
             };
             container.Attributes.Add(new Container.Container.Types.Attribute
@@ -81,14 +81,14 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestGetExtendedACL()
         {
-            var host = "localhost:8080";
+            var host = "http://st1.storage.fs.neo.org:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
-            var cid = ContainerID.FromBase58String("Bun3sfMBpnjKc3Tx7SdwrMxyNi8ha8JT3dhuFGvYBRTz");
+            var cid = ContainerID.FromBase58String("ETptK9H8wd5i3zt3JQmuArupPAGbz24YnCWA9Cs91rs6");
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var eacl = client.GetEAcl(cid, context: source.Token).Result;
-            Console.WriteLine(eacl.Table);
+            Console.WriteLine(eacl.Table.ToString());
         }
 
         [TestMethod]
@@ -96,18 +96,16 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         {
             var host = "http://st1.storage.fs.neo.org:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
-            //var key = "e0b48fb95d04aa475a0da759218a85d9b03cf4e55b79458dcdf4d42a7fe29cd1".LoadPrivateKey();
-            var cid = ContainerID.FromBase58String("Bun3sfMBpnjKc3Tx7SdwrMxyNi8ha8JT3dhuFGvYBRTz");
+            var cid = ContainerID.FromBase58String("ETptK9H8wd5i3zt3JQmuArupPAGbz24YnCWA9Cs91rs6");
             var client = new Client.Client(key, host);
             var target = new EACLRecord.Types.Target
             {
                 Role = Role.Others,
             };
-            target.Keys.Add(ByteString.CopyFrom(key.PublicKey()));//add whitelist
             var record = new EACLRecord
             {
-                Operation = API.Acl.Operation.Get,
-                Action = API.Acl.Action.Allow,
+                Operation = API.Acl.Operation.Delete,
+                Action = API.Acl.Action.Deny,
             };
             record.Targets.Add(target);
             var eacl = new EACLTable

@@ -64,7 +64,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography
         public void TestWif3()
         {
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
-            Assert.AreEqual("", key.ToAddress());
+            Assert.AreEqual("NbUgTSFvPmsRxmGeWpuuGeJUoRoi6PErcM", key.ToAddress());
         }
     }
 }
