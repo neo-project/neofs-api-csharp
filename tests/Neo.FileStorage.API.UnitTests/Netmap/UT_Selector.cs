@@ -315,6 +315,9 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             Assert.AreEqual(4, result[0][0].Index);
             Assert.AreEqual(0, result[1][0].Index);
             Assert.AreEqual(7, result[2][0].Index);
+
+            var resp = nm.GetPlacementVectors(result, Encoding.ASCII.GetBytes("objectID"));
+            Assert.AreEqual(result.Count, resp.Count);
         }
 
         [TestMethod]
