@@ -101,6 +101,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography
             var data = "1f2155c0e513a7dab93d8b468809cd30a03c62326ec051deed031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a0000000053724e000000000000001e61".HexToBytes();
             var sig = key.SignRFC6979(data);
             Assert.IsTrue(key.VerifyData(data, sig, HashAlgorithmName.SHA256));
+            Assert.IsTrue(key.PublicKey().VerifyRFC6979(data, sig));
         }
 
         [TestMethod]

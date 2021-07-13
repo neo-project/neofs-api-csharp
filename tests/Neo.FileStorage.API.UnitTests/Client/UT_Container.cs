@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography;
 using System.Threading;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,11 +13,13 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
     [TestClass]
     public class UT_Container
     {
+        private readonly string host = "http://localhost:8080";
+        private readonly ContainerID cid = ContainerID.FromBase58String("FeDH8Gnri5KJjkPSofjcMeX37KUScYaxAKFEzoNorsJG");
+        private readonly ECDsa key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
+
         [TestMethod]
         public void TestPutContainer()
         {
-            var host = "http://st1.storage.fs.neo.org:8080";
-            var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(key, host);
             var replica = new Replica(1, "");
             var policy = new PlacementPolicy(1, new Replica[] { replica }, null, null);
@@ -43,23 +46,18 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestGetContainer()
         {
-            var host = "http://st2.storage.fs.neo.org:8080";
-            var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(key, host);
-            var cid = ContainerID.FromBase58String("6pJtLUnGqDxE2EitZYLsDzsfTDVegD6BrRUn8QAFZWyt");
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var container = client.GetContainer(cid, context: source.Token).Result;
             Assert.AreEqual(cid, container.Container.CalCulateAndGetId);
+            Console.WriteLine(container.Container);
         }
 
         [TestMethod]
         public void TestDeleteContainer()
         {
-            var host = "localhost:8080";
-            var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(key, host);
-            var cid = ContainerID.FromBase58String("Bun3sfMBpnjKc3Tx7SdwrMxyNi8ha8JT3dhuFGvYBRTz");
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             client.DeleteContainer(cid, context: source.Token).Wait();
@@ -68,8 +66,6 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestListContainer()
         {
-            var host = "localhost:8080";
-            var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
@@ -81,9 +77,6 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestGetExtendedACL()
         {
-            var host = "http://st1.storage.fs.neo.org:8080";
-            var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
-            var cid = ContainerID.FromBase58String("ETptK9H8wd5i3zt3JQmuArupPAGbz24YnCWA9Cs91rs6");
             var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
@@ -94,9 +87,6 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestSetExtendedACL()
         {
-            var host = "http://st1.storage.fs.neo.org:8080";
-            var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
-            var cid = ContainerID.FromBase58String("ETptK9H8wd5i3zt3JQmuArupPAGbz24YnCWA9Cs91rs6");
             var client = new Client.Client(key, host);
             var target = new EACLRecord.Types.Target
             {

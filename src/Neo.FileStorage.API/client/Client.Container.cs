@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Google.Protobuf;
 using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Container;
 using Neo.FileStorage.API.Cryptography;
@@ -36,8 +37,8 @@ namespace Neo.FileStorage.API.Client
             var resp = await ContainerClient.GetAsync(request, deadline: deadline, cancellationToken: context);
             if (!resp.VerifyResponse())
                 throw new InvalidOperationException("invalid container get response");
-            if (resp.Body.Signature.VerifyRFC6979(resp.Body.Container))
-                throw new InvalidOperationException("Invalid container signature");
+            if (!resp.Body.Signature.VerifyRFC6979(resp.Body.Container))
+                throw new InvalidOperationException("invalid container signature");
             return new()
             {
                 Container = resp.Body.Container,
@@ -85,7 +86,11 @@ namespace Neo.FileStorage.API.Client
                 ContainerId = cid,
             };
             var req = new DeleteRequest();
-            body.Signature = opts.Key.SignRFC6979(body);
+            body.Signature = new()
+            {
+                Key = ByteString.CopyFrom(key.PublicKey()),
+                Sign = ByteString.CopyFrom(opts.Key.SignRFC6979(cid.Value.ToByteArray())),
+            };
             req.Body = body;
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
