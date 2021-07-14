@@ -1,7 +1,7 @@
-using Neo.FileStorage.API.Netmap.Aggregator;
-using Neo.FileStorage.API.Cryptography;
 using System;
 using System.Collections.Generic;
+using Neo.FileStorage.API.Cryptography;
+using Neo.FileStorage.API.Netmap.Aggregator;
 
 namespace Neo.FileStorage.API.Netmap
 {
@@ -12,7 +12,7 @@ namespace Neo.FileStorage.API.Netmap
         public Dictionary<string, Filter> Filters = new();
         public Dictionary<string, Selector> Selectors = new();
         public Dictionary<string, List<List<Node>>> Selections = new();
-        public Dictionary<Filter, UInt64> NumCache = new();
+        public Dictionary<Filter, ulong> NumCache = new();
         private byte[] pivot;
         private ulong pivotHash;
         private Func<IAggregator> newAggregator;

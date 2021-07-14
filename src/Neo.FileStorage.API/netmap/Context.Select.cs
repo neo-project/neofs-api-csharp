@@ -27,7 +27,7 @@ namespace Neo.FileStorage.API.Netmap
             var buckets = GetSelectionBase(sel).ToList();
             if (buckets.Count < bucket_count)
                 throw new InvalidOperationException(nameof(GetSelection) + " not enough nodes");
-            if (pivot is null || pivot.Length == 0)
+            if (pivot is null)
             {
                 if (sel.Attribute == "")
                     buckets.Sort((b1, b2) => b1.Item2[0].ID.CompareTo(b2.Item2[0].ID));
@@ -54,7 +54,7 @@ namespace Neo.FileStorage.API.Netmap
                 if (nodes.Count < bucket_count)
                     throw new InvalidOperationException(nameof(GetSelection) + " not enough nodes");
             }
-            if (pivot != null && 0 < pivot.Length)
+            if (pivot is not null)
             {
                 var list = nodes.Select((p, index) =>
                 {

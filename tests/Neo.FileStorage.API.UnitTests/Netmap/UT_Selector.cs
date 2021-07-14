@@ -21,6 +21,13 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
     public class UT_Selector
     {
         [TestMethod]
+        public void TestEmptySelector()
+        {
+            var s = new Selector();
+            Assert.AreEqual("", s.Attribute);
+        }
+        
+        [TestMethod]
         public void TestUnspecifiedClause()
         {
             var p = new PlacementPolicy(1, new Replica[] { new Replica(1, "X") }, new Selector[] { new Selector("X", "", Clause.Distinct, 4, "*") }, null);
