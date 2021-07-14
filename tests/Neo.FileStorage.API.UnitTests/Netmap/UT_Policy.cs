@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Netmap;
 
@@ -31,6 +32,39 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             Assert.AreEqual(4, v3.Flatten().Count);
             var v4 = nm.GetContainerNodes(p4, null);
             Assert.AreEqual(4, v4.Flatten().Count);
+
+            var pivot = "29ed239ce0247236bdf393ef9faa1676068ed1aec2e77adc37d9ac5519617b5e".HexToBytes();
+            v1 = nm.GetContainerNodes(p1, pivot);
+            var result = v1.Flatten();
+            Assert.AreEqual(4, result.Count);
+            Assert.AreEqual(0, result[0].Index);
+            Assert.AreEqual(2, result[1].Index);
+            Assert.AreEqual(3, result[2].Index);
+            Assert.AreEqual(1, result[3].Index);
+
+            v2 = nm.GetContainerNodes(p2, pivot);
+            result = v2.Flatten();
+            Assert.AreEqual(4, result.Count);
+            Assert.AreEqual(0, result[0].Index);
+            Assert.AreEqual(2, result[1].Index);
+            Assert.AreEqual(3, result[2].Index);
+            Assert.AreEqual(1, result[3].Index);
+
+            v3 = nm.GetContainerNodes(p3, pivot);
+            result = v3.Flatten();
+            Assert.AreEqual(4, result.Count);
+            Assert.AreEqual(0, result[0].Index);
+            Assert.AreEqual(2, result[1].Index);
+            Assert.AreEqual(3, result[2].Index);
+            Assert.AreEqual(1, result[3].Index);
+
+            v4 = nm.GetContainerNodes(p4, pivot);
+            result = v4.Flatten();
+            Assert.AreEqual(4, result.Count);
+            Assert.AreEqual(0, result[0].Index);
+            Assert.AreEqual(1, result[1].Index);
+            Assert.AreEqual(2, result[2].Index);
+            Assert.AreEqual(3, result[3].Index);
         }
     }
 }

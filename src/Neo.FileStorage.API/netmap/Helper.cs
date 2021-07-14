@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Neo.FileStorage.API.Netmap.Aggregator;
 using Neo.FileStorage.API.Netmap.Normalize;
+using Neo.IO.Json;
 
 namespace Neo.FileStorage.API.Netmap
 {
@@ -28,7 +29,7 @@ namespace Neo.FileStorage.API.Netmap
             return WeightFunc(new SigmoidNorm(mean.Compute()), new ReverseMinNorm(min.Compute()));
         }
 
-        public static ulong Distance(this UInt64 x, UInt64 y)
+        public static ulong Distance(this ulong x, ulong y)
         {
             var acc = x ^ y;
             acc ^= acc >> 33;
@@ -46,6 +47,11 @@ namespace Neo.FileStorage.API.Netmap
                 foreach (var n in list)
                     nodes.Add(n);
             return nodes;
+        }
+
+        public static JObject ToJson(this List<List<Node>> ns)
+        {
+            return ns.Select(i => new JArray(i.Select(j => j.ToJson()).ToArray())).ToArray();
         }
 
         public static int GetBucketCount(this Selector selector)

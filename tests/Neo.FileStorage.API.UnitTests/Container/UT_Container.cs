@@ -24,7 +24,7 @@ namespace Neo.FileStorage.API.UnitTests.TestContainer
                 BasicAcl = 0u,
                 PlacementPolicy = new PlacementPolicy(1, null, null, null),
             };
-            Assert.AreEqual("0a0408011002121b0a19351f694a2a49229f8e41d24542a0e6a7329b7ed065a113d0021a02123432021001", container.ToByteArray().ToHexString());
+            Assert.AreEqual("0a0408011002121b0a1935ce67af47d9157014c8db22dc18769be12b1b136a394ef1db1a02123432021001", container.ToByteArray().ToHexString());
         }
     }
 }

@@ -56,16 +56,33 @@ namespace Neo.FileStorage.API.Netmap
             }
             if (pivot != null && 0 < pivot.Length)
             {
-                var list = nodes.Select(p =>
+                var list = nodes.Select((p, index) =>
                 {
                     var agg = newAggregator();
                     foreach (var n in p)
                         agg.Add(weightFunc(n));
-                    return (agg.Compute(), p);
+                    var w = agg.Compute();
+                    var d = ((ulong)index).Distance(pivotHash);
+                    return (d, w, p);
                 }).ToList();
-                list.Sort((i1, i2) => i1.Item1.CompareTo(i2.Item1));
-                list.Reverse();
-                return list.Take(bucket_count).Select(p => p.p).ToList();
+                var uniform = !list.Skip(1).Any(p => p.w != list[0].w);
+                if (uniform)
+                {
+                    list.Sort((n1, n2) =>
+                    {
+                        return n1.d.CompareTo(n2.d);
+                    });
+                }
+                else
+                {
+                    list.Sort((n1, n2) =>
+                    {
+                        var w1 = (~0u - n1.d) * n1.w;
+                        var w2 = (~0u - n2.d) * n2.w;
+                        return w2.CompareTo(w1);
+                    });
+                }
+                nodes = list.Select(p => p.p).ToList();
             }
             if (sel.Attribute == "")
             {
@@ -81,40 +98,55 @@ namespace Neo.FileStorage.API.Netmap
             return nodes.GetRange(0, bucket_count);
         }
 
-        public IEnumerable<(string, List<Node>)> GetSelectionBase(Selector sel)
+        public List<(string, List<Node>)> GetSelectionBase(Selector sel)
         {
+            List<(string, List<Node>)> result = new();
             Filters.TryGetValue(sel.Filter, out Filter filter);
             if (sel.Attribute == "")
             {
                 foreach (var node in Map.Nodes.Where(p => sel.Filter == MainFilterName || Match(filter, p)))
-                    yield return ("", new List<Node> { node });
+                    result.Add(("", new List<Node> { node }));
             }
             else
             {
                 foreach (var group in Map.Nodes.Where(p => sel.Filter == MainFilterName || Match(filter, p)).GroupBy(p => p.Attributes[sel.Attribute]))
                 {
-                    if (pivot is null)
-                        yield return (group.Key, group.ToList());
+                    result.Add((group.Key, group.ToList()));
+                }
+            }
+            if (pivot is not null)
+            {
+                List<(string, List<Node>)> r = new();
+                foreach (var group in result)
+                {
+                    var list = group.Item2.Select(p =>
+                    {
+                        p.Weight = weightFunc(p);
+                        p.Distance = p.Hash.Distance(pivotHash);
+                        return p;
+                    }).ToList();
+                    var uniform = !list.Skip(1).Any(p => p.Weight != list[0].Weight);
+                    if (uniform)
+                    {
+                        list.Sort((n1, n2) =>
+                        {
+                            return n1.Distance.CompareTo(n2.Distance);
+                        });
+                    }
                     else
                     {
-                        var list = group.Select(p =>
-                        {
-                            p.Weight = weightFunc(p);
-                            p.Distance = p.Hash.Distance(pivotHash);
-                            return p;
-                        }).ToList();
                         list.Sort((n1, n2) =>
                         {
                             var w1 = (~0u - n1.Distance) * n1.Weight;
                             var w2 = (~0u - n2.Distance) * n2.Weight;
-                            return w1.CompareTo(w2);
+                            return w2.CompareTo(w1);
                         });
-                        list.Reverse();
-                        yield return (group.Key, list.ToList());
                     }
-
+                    r.Add((group.Item1, list));
                 }
+                result = r;
             }
+            return result;
         }
     }
 }

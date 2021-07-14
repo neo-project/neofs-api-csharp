@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Neo.FileStorage.API.Netmap.Aggregator
@@ -6,7 +7,7 @@ namespace Neo.FileStorage.API.Netmap.Aggregator
     public class MeanIQRAgg : IAggregator
     {
         private readonly double k;
-        private double[] arr = Array.Empty<double>();
+        private List<double> arr = new();
 
         public MeanIQRAgg(double k)
         {
@@ -15,26 +16,26 @@ namespace Neo.FileStorage.API.Netmap.Aggregator
 
         public void Add(double n)
         {
-            arr = arr.Append(n).ToArray();
+            arr.Add(n);
         }
 
         public double Compute()
         {
-            if (arr.Length == 0)
+            if (arr.Count == 0)
                 return 0;
 
-            Array.Sort(arr);
+            arr.Sort();
 
             double min, max;
-            if (arr.Length < 4)
+            if (arr.Count < 4)
             {
                 max = arr[^1];
                 min = arr[0];
             }
             else
             {
-                var start = arr.Length / 4;
-                var end = arr.Length * 3 / 4 - 1;
+                var start = arr.Count / 4;
+                var end = arr.Count * 3 / 4 - 1;
                 var iqr = k * (arr[start] - arr[end]);
                 max = arr[end] + iqr;
                 min = arr[start] - iqr;
@@ -57,7 +58,7 @@ namespace Neo.FileStorage.API.Netmap.Aggregator
 
         public void Clear()
         {
-            arr = Array.Empty<double>();
+            arr = new();
         }
     }
 }

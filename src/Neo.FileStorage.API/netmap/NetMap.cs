@@ -28,12 +28,23 @@ namespace Neo.FileStorage.API.Netmap
                     p.Distance = p.Hash.Distance(h);
                     return p;
                 }).ToList();
-                list.Sort((n1, n2) =>
+                var uniform = !list.Skip(1).Any(p => p.Weight != list[0].Weight);
+                if (uniform)
                 {
-                    var w1 = (double)(~((ulong)0) - n1.Distance) * n1.Weight;
-                    var w2 = (double)(~((ulong)0) - n2.Distance) * n2.Weight;
-                    return w1.CompareTo(w2);
-                });
+                    list.Sort((n1, n2) =>
+                    {
+                        return n1.Distance.CompareTo(n2.Distance);
+                    });
+                }
+                else
+                {
+                    list.Sort((n1, n2) =>
+                    {
+                        var w1 = (~0u - n1.Distance) * n1.Weight;
+                        var w2 = (~0u - n2.Distance) * n2.Weight;
+                        return w2.CompareTo(w1);
+                    });
+                }
                 results.Add(list);
             });
             return results;

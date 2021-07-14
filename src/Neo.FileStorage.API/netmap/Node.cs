@@ -1,6 +1,7 @@
-using Neo.FileStorage.API.Cryptography;
 using System;
 using System.Collections.Generic;
+using Neo.FileStorage.API.Cryptography;
+using Neo.IO.Json;
 
 namespace Neo.FileStorage.API.Netmap
 {
@@ -68,6 +69,17 @@ namespace Neo.FileStorage.API.Netmap
                 return 1;
             else
                 return ID.CompareTo(n.ID);
+        }
+
+        public JObject ToJson()
+        {
+            JObject json = new();
+            json["id"] = ID;
+            json["capacity"] = Capacity;
+            json["price"] = Price;
+            json["index"] = Index;
+            json["nodeinfo"] = Info.ToJson();
+            return json;
         }
     }
 }

@@ -34,6 +34,14 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             var nm = new NetMap(nodes);
             var result = nm.GetContainerNodes(p, null);
             Assert.AreEqual(4, result.Flatten().Count);
+
+            //with pivot
+            result = nm.GetContainerNodes(p, "bda4d48fe60f077d127bebccdc318901af555308bbf6826f725b7ef5400b5c2c".HexToBytes());
+            var r = result.Flatten();
+            Assert.AreEqual(3, r[0].Index);
+            Assert.AreEqual(0, r[1].Index);
+            Assert.AreEqual(1, r[2].Index);
+            Assert.AreEqual(2, r[3].Index);
         }
 
         [TestMethod]
@@ -102,6 +110,13 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             Assert.AreEqual("Saint-Petersburg", v[0][0].Attributes["City"]);
             Assert.AreEqual(1, v[1].Count);
             Assert.AreEqual("Moscow", v[1][0].Attributes["City"]);
+
+            //with pivot
+            v = nm.GetContainerNodes(p, "d611c46ef7b2adbcffb9959159d1b8657ddc34582c34a8204cc22fe9468fb663".HexToBytes());
+            var r = v.Flatten();
+            Assert.AreEqual(2, r.Count);
+            Assert.AreEqual(0, r[0].Index);
+            Assert.AreEqual(1, r[1].Index);
         }
 
         [TestMethod]
@@ -126,6 +141,14 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             var nm = new NetMap(nodes);
             var v = nm.GetContainerNodes(p, null);
             Assert.AreEqual((int)Context.DefaultCBF, v.Flatten().Count);
+
+            //with pivot
+            v = nm.GetContainerNodes(p, "59e01b6e64d586a02b8a3fea60749a89f6cef96d8a189bb492c719aa2957223f".HexToBytes());
+            var r = v.Flatten();
+            Assert.AreEqual((int)Context.DefaultCBF, r.Count);
+            Assert.AreEqual(0, r[0].Index);
+            Assert.AreEqual(1, r[1].Index);
+            Assert.AreEqual(2, r[2].Index);
         }
 
         [TestMethod]
@@ -175,6 +198,14 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             var nm = new NetMap(nodes);
             var v = nm.GetContainerNodes(p, null);
             Assert.AreEqual(4, v.Flatten().Count);
+
+            //with pivot
+            var r = nm.GetContainerNodes(p, "752cf3d93e6c6b87952d942012ece22e15ac821d0597dcdadd923e77a44de74a".HexToBytes()).Flatten();
+            Assert.AreEqual(4, r.Count);
+            Assert.AreEqual(2, r[0].Index);
+            Assert.AreEqual(1, r[1].Index);
+            Assert.AreEqual(0, r[2].Index);
+            Assert.AreEqual(3, r[3].Index);
         }
 
         [TestMethod]
@@ -229,6 +260,26 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             {
                 ni.Attributes["Continent"].Should().BeOneOf("NA", "SA");
             }
+
+            //with pivot
+            var pivot = "ec63f5b498cb62a9ba2f9c925317fc953e196d5d5cf33028557c8892ff5cbc2f".HexToBytes();
+            var v = nm.GetPlacementVectors(result, pivot);
+            var r = v.Flatten();
+            Assert.AreEqual(1, r[0].Index);
+            Assert.AreEqual(4, r[1].Index);
+            Assert.AreEqual(8, r[2].Index);
+            Assert.AreEqual(12, r[3].Index);
+            Assert.AreEqual(5, r[4].Index);
+            Assert.AreEqual(10, r[5].Index);
+            v = nm.GetContainerNodes(p, pivot);
+            r = v.Flatten();
+            Assert.AreEqual(6, r.Count);
+            Assert.AreEqual(1, r[0].Index);
+            Assert.AreEqual(4, r[1].Index);
+            Assert.AreEqual(8, r[2].Index);
+            Assert.AreEqual(12, r[3].Index);
+            Assert.AreEqual(5, r[4].Index);
+            Assert.AreEqual(10, r[5].Index);
         }
 
         [TestMethod]
@@ -311,10 +362,19 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             c.ProcessSelectors(p);
 
             var result = c.Selections["Main"];
-            Assert.AreEqual(3, result.Count);
-            Assert.AreEqual(4, result[0][0].Index);
-            Assert.AreEqual(0, result[1][0].Index);
-            Assert.AreEqual(7, result[2][0].Index);
+            var expected = new Dictionary<int, (int, ulong, ulong)>
+            {
+                {0, (4, 10000u, 1u)},
+                {1, (0, 10000u, 2u)},
+                {2, (7, 10000u, 7u)},
+            };
+            Assert.AreEqual(expected.Count, result.Count);
+            foreach (var (i, item) in expected)
+            {
+                Assert.AreEqual(item.Item1, result[i][0].Index);
+                Assert.AreEqual(item.Item2, result[i][0].Capacity);
+                Assert.AreEqual(item.Item3, result[i][0].Price);
+            }
 
             var resp = nm.GetPlacementVectors(result, Encoding.ASCII.GetBytes("objectID"));
             Assert.AreEqual(result.Count, resp.Count);
