@@ -15,7 +15,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestPutContainer()
         {
-            var client = new Client.Client(key, host);
+            using var client = new Client.Client(key, host);
             var replica = new Replica(1, "");
             var policy = new PlacementPolicy(1, new Replica[] { replica }, null, null);
             var container = new Container.Container
@@ -41,7 +41,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestGetContainer()
         {
-            var client = new Client.Client(key, host);
+            using var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var container = client.GetContainer(cid, context: source.Token).Result;
@@ -52,7 +52,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestDeleteContainer()
         {
-            var client = new Client.Client(key, host);
+            using var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             client.DeleteContainer(cid, context: source.Token).Wait();
@@ -61,7 +61,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestListContainer()
         {
-            var client = new Client.Client(key, host);
+            using var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var cids = client.ListContainers(OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()), context: source.Token).Result;
@@ -72,7 +72,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestGetExtendedACL()
         {
-            var client = new Client.Client(key, host);
+            using var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var eacl = client.GetEAcl(cid, context: source.Token).Result;
@@ -82,7 +82,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestSetExtendedACL()
         {
-            var client = new Client.Client(key, host);
+            using var client = new Client.Client(key, host);
             var target = new EACLRecord.Types.Target
             {
                 Role = Role.Others,

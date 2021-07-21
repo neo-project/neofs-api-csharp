@@ -13,7 +13,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         {
             var host = "localhost:8080";
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
-            var client = new Client.Client(key, host);
+            using var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var token = client.CreateSession(ulong.MaxValue, context: source.Token).Result;

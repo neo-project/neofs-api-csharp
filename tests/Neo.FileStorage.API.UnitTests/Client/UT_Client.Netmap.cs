@@ -11,7 +11,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestLocalNodeInfo()
         {
-            var client = new Client.Client(key, host);
+            using var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
             var ni = client.LocalNodeInfo(context: source.Token).Result;
@@ -21,7 +21,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestEpoch()
         {
-            var client = new Client.Client(key, host);
+            using var client = new Client.Client(key, host);
             var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
             var epoch = client.Epoch(context: source.Token).Result;

@@ -1,5 +1,5 @@
-using Google.Protobuf;
 using System;
+using Google.Protobuf;
 using Neo.Cryptography;
 
 namespace Neo.FileStorage.API.Reputation
