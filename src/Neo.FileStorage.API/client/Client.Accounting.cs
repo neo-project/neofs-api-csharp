@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Neo.FileStorage.API.Accounting;
 using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Refs;
+using Neo.SmartContract;
 
 namespace Neo.FileStorage.API.Client
 {
@@ -13,7 +14,7 @@ namespace Neo.FileStorage.API.Client
         {
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
-            if (owner is null) owner = opts.Key.ToOwnerID();
+            if (owner is null) owner = OwnerID.FromScriptHash(opts.Key.PublicKey().PublicKeyToScriptHash(), NeoAddressVersion);
             var req = new BalanceRequest
             {
                 Body = new BalanceRequest.Types.Body

@@ -3,8 +3,7 @@ using Neo.FileStorage.API.Cryptography;
 
 namespace Neo.FileStorage.API.UnitTests.FSClient
 {
-    [TestClass]
-    public class UT_Accounting
+    public partial class UT_Client
     {
         [TestMethod]
         public void TestBalance()

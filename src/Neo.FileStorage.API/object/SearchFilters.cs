@@ -40,7 +40,7 @@ namespace Neo.FileStorage.API.Object
 
         public void AddObjectOwnerIDFilter(MatchType op, OwnerID oid)
         {
-            AddFilter(Filter.FilterHeaderOwnerID, oid.ToBase58String(), op);
+            AddFilter(Filter.FilterHeaderOwnerID, oid.ToAddress(), op);
         }
 
         public void AddRootFilter()

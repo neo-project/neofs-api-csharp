@@ -1,30 +1,20 @@
-﻿using Google.Protobuf;
-using Neo.Cryptography;
-using Neo.FileStorage.API.Refs;
-using Neo.SmartContract;
-using Neo.Wallets;
-using System;
+﻿using System;
 using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
+using Google.Protobuf;
+using Neo.Cryptography;
+using Neo.SmartContract;
+using Neo.Wallets;
 
 namespace Neo.FileStorage.API.Cryptography
 {
     public static class KeyExtension
     {
-        public const byte NeoAddressVersion = 0x35;
         private const int CompressedPublicKeyLength = 33;
         private const int UncompressedPublicKeyLength = 65;
 
-        public static byte[] Compress(this byte[] public_key)
-        {
-            if (public_key.Length != UncompressedPublicKeyLength)
-                throw new FormatException($"{nameof(Compress)} argument isn't uncompressed public key. expected length={UncompressedPublicKeyLength}, actual={public_key.Length}");
-            var point = Neo.Cryptography.ECC.ECPoint.DecodePoint(public_key, Neo.Cryptography.ECC.ECCurve.Secp256r1);
-            return point.EncodePoint(true);
-        }
-
-        public static byte[] Decompress(this byte[] public_key)
+        private static byte[] Decompress(this byte[] public_key)
         {
             if (public_key.Length != CompressedPublicKeyLength)
                 throw new FormatException($"{nameof(Decompress)} argument isn't compressed public key. expected length={CompressedPublicKeyLength}, actual={public_key.Length}");
@@ -44,53 +34,10 @@ namespace Neo.FileStorage.API.Cryptography
             return privateKey;
         }
 
-        public static string ToAddress(this ECDsa key)
-        {
-            return key.PublicKey().PublicKeyToAddress();
-        }
-
-        public static OwnerID ToOwnerID(this ECDsa key)
-        {
-            return key.PublicKey().PublicKeyToOwnerID();
-        }
-
-        public static string OwnerIDToAddress(this OwnerID owner)
-        {
-            return Base58.Encode(owner.Value.ToByteArray());
-        }
-
-        public static OwnerID AddressToOwnerID(this string address)
-        {
-            var bytes = Base58.Decode(address);
-            return new OwnerID
-            {
-                Value = ByteString.CopyFrom(bytes),
-            };
-        }
-
-        public static string PublicKeyToAddress(this ByteString public_key)
-        {
-            return public_key.ToByteArray().PublicKeyToAddress();
-        }
-
-        public static string PublicKeyToAddress(this byte[] public_key)
+        public static UInt160 PublicKeyToScriptHash(this byte[] public_key)
         {
             var point = Neo.Cryptography.ECC.ECPoint.DecodePoint(public_key, Neo.Cryptography.ECC.ECCurve.Secp256r1);
-            return Contract.CreateSignatureRedeemScript(point).ToScriptHash().ToAddress(NeoAddressVersion);
-        }
-
-        public static OwnerID PublicKeyToOwnerID(this ByteString public_key)
-        {
-            return public_key.ToByteArray().PublicKeyToOwnerID();
-        }
-
-        public static OwnerID PublicKeyToOwnerID(this byte[] public_key)
-        {
-            var bytes = Base58.Decode(public_key.PublicKeyToAddress());
-            return new OwnerID
-            {
-                Value = ByteString.CopyFrom(bytes),
-            };
+            return Contract.CreateSignatureRedeemScript(point).ToScriptHash();
         }
 
         public static byte[] PublicKey(this ECDsa key)

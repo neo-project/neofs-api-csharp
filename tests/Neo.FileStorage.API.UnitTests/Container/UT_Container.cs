@@ -2,6 +2,7 @@ using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Netmap;
+using Neo.FileStorage.API.Refs;
 
 namespace Neo.FileStorage.API.UnitTests.TestContainer
 {
@@ -19,7 +20,7 @@ namespace Neo.FileStorage.API.UnitTests.TestContainer
                     Major = 1,
                     Minor = 2,
                 },
-                OwnerId = key.ToOwnerID(),
+                OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash(), 0x35),
                 Nonce = ByteString.CopyFrom("1234".HexToBytes()),
                 BasicAcl = 0u,
                 PlacementPolicy = new PlacementPolicy(1, null, null, null),

@@ -1,6 +1,7 @@
 using System;
 using Google.Protobuf;
 using Neo.Cryptography;
+using Neo.IO;
 using Neo.IO.Json;
 
 namespace Neo.FileStorage.API.Refs
@@ -18,12 +19,31 @@ namespace Neo.FileStorage.API.Refs
             };
         }
 
-        public static OwnerID FromBase58String(string id)
+        public static OwnerID FromScriptHash(UInt160 scriptHash, byte version)
         {
-            return FromByteArray(Base58.Decode(id));
+            Span<byte> data = stackalloc byte[21];
+            data[0] = version;
+            scriptHash.ToArray().CopyTo(data[1..]);
+            byte[] checksum = data.Sha256().Sha256();
+            Span<byte> value = stackalloc byte[data.Length + 4];
+            data.CopyTo(value);
+            checksum.AsSpan(..4).CopyTo(value[data.Length..]);
+            return new()
+            {
+                Value = ByteString.CopyFrom(value),
+            };
         }
 
-        public string ToBase58String()
+        public static OwnerID FromAddress(string address)
+        {
+            var bytes = Base58.Decode(address);
+            return new OwnerID
+            {
+                Value = ByteString.CopyFrom(bytes),
+            };
+        }
+
+        public string ToAddress()
         {
             return Base58.Encode(Value.ToByteArray());
         }
@@ -31,7 +51,7 @@ namespace Neo.FileStorage.API.Refs
         public JObject ToJson()
         {
             var json = new JObject();
-            json["value"] = ToBase58String();
+            json["value"] = ToAddress();
             return json;
         }
     }

@@ -16,14 +16,8 @@ using V2Object = Neo.FileStorage.API.Object.Object;
 
 namespace Neo.FileStorage.API.UnitTests.FSClient
 {
-    [TestClass]
-    public class UT_Object
+    public partial class UT_Client
     {
-        private readonly string host = "http://localhost:8080";
-        private readonly ContainerID cid = ContainerID.FromBase58String("FeDH8Gnri5KJjkPSofjcMeX37KUScYaxAKFEzoNorsJG");
-        private readonly ObjectID oid = ObjectID.FromBase58String("7Q7fPKESmRJ1VGHKcB2pB4JWVebsQzrJypwQiNLU1ekv");
-        private readonly ECDsa key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
-
         [TestMethod]
         public void TestObjectPut()
         {
@@ -34,7 +28,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             {
                 Header = new Header
                 {
-                    OwnerId = key.ToOwnerID(),
+                    OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash(), 0x35),
                     ContainerId = cid,
                 },
                 Payload = ByteString.CopyFrom(payload),
@@ -86,7 +80,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             {
                 Header = new Header
                 {
-                    OwnerId = key.ToOwnerID(),
+                    OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash(), 0x35),
                     ContainerId = cid,
                     ObjectType = ObjectType.StorageGroup,
                 },

@@ -1,12 +1,12 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Neo.FileStorage.API.Cryptography;
 using System;
 using System.Threading;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neo.FileStorage.API.Cryptography;
+using Neo.FileStorage.API.Refs;
 
 namespace Neo.FileStorage.API.UnitTests.FSClient
 {
-    [TestClass]
-    public class UT_Session
+    public partial class UT_Client
     {
         [TestMethod]
         public void TestSessionCreate()
@@ -17,7 +17,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var token = client.CreateSession(ulong.MaxValue, context: source.Token).Result;
-            Assert.AreEqual(key.ToOwnerID(), token.Body.OwnerId);
+            Assert.AreEqual(OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash(), 0x35), token.Body.OwnerId);
             Console.WriteLine($"id={token.Body.Id.ToUUID()}, key={token.Body.SessionKey.ToByteArray().ToHexString()}");
         }
     }

@@ -1,14 +1,17 @@
 using System;
+using System.Linq;
 using System.Security.Cryptography;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Neo.FileStorage.API.Accounting;
 using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Container;
+using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Netmap;
 using Neo.FileStorage.API.Object;
 using Neo.FileStorage.API.Reputation;
 using Neo.FileStorage.API.Session;
+using Neo.Wallets;
 
 namespace Neo.FileStorage.API.Client
 {
@@ -16,6 +19,7 @@ namespace Neo.FileStorage.API.Client
     {
         public const int DefaultConnectTimeoutMilliSeconds = 120000;
         public const uint SearchObjectVersion = 1;
+        public const byte NeoAddressVersion = 0x35;
 
         private readonly ECDsa key;
         private readonly GrpcChannel channel;

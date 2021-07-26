@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Cryptography;
+using Neo.FileStorage.API.Refs;
 using Neo.FileStorage.API.Session;
 
 namespace Neo.FileStorage.API.Client
@@ -27,7 +28,7 @@ namespace Neo.FileStorage.API.Client
             {
                 Body = new CreateRequest.Types.Body
                 {
-                    OwnerId = opts.Key.ToOwnerID(),
+                    OwnerId = OwnerID.FromScriptHash(opts.Key.PublicKey().PublicKeyToScriptHash(), NeoAddressVersion),
                     Expiration = expiration,
                 }
             };

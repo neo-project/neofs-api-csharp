@@ -6,12 +6,8 @@ using Neo.FileStorage.API.Cryptography;
 
 namespace Neo.FileStorage.API.UnitTests.FSClient
 {
-    [TestClass]
-    public class UT_Netmap
+    public partial class UT_Client
     {
-        private readonly string host = "http://localhost:8080";
-        private readonly ECDsa key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
-
         [TestMethod]
         public void TestLocalNodeInfo()
         {
