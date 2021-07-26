@@ -28,7 +28,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             {
                 Header = new Header
                 {
-                    OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash(), 0x35),
+                    OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
                     ContainerId = cid,
                 },
                 Payload = ByteString.CopyFrom(payload),
@@ -80,7 +80,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             {
                 Header = new Header
                 {
-                    OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash(), 0x35),
+                    OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
                     ContainerId = cid,
                     ObjectType = ObjectType.StorageGroup,
                 },

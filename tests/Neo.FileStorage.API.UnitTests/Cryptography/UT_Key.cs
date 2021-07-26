@@ -17,7 +17,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography
             var ownerId = OwnerID.FromAddress(address);
             Assert.AreEqual(25, ownerId.Value.Length);
             var key = "Kwk6k2eC3L3QuPvD8aiaNyoSXgQ2YL1bwS5CP1oKoA9waeAze97s".LoadWif();
-            ownerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash(), 0x35);
+            ownerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash());
             Assert.AreEqual(25, ownerId.Value.Length);
             Assert.AreEqual(27, ownerId.ToByteArray().Length);
         }
@@ -28,7 +28,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography
             var key = "0203592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c1".HexToBytes().LoadPublicKey();
             Assert.AreEqual("0203592a65bd5fb116a3381f1f29a125bac8658cd592d2a8dc9fed886c891f16c1", key.PublicKey().ToHexString());
             Assert.AreEqual("Nedo3Wtrx8fDjtYosjt7ZERHyR2EsgPtxK", key.PublicKey().PublicKeyToScriptHash().ToAddress(0x35));
-            Assert.AreEqual("Nedo3Wtrx8fDjtYosjt7ZERHyR2EsgPtxK", OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash(), 0x35).ToAddress());
+            Assert.AreEqual("Nedo3Wtrx8fDjtYosjt7ZERHyR2EsgPtxK", OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()).ToAddress());
         }
 
         [TestMethod]
@@ -39,7 +39,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography
             Assert.AreEqual("Nivku7mFnqdzVftRnUYHo5hD1oJT71yeZp", address);
             key = "L1pBKpw4tR6CogySzye3GUcVPz5pAeemXbyupoWUEVrtfstBfDiN".LoadWif();
             Assert.AreEqual("NgYMvdwCWMypHLqoZ6uqYutbeAAAgbSFcD", key.PublicKey().PublicKeyToScriptHash().ToAddress(0x35));
-            Assert.AreEqual("NgYMvdwCWMypHLqoZ6uqYutbeAAAgbSFcD", OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash(), 0x35).ToAddress());
+            Assert.AreEqual("NgYMvdwCWMypHLqoZ6uqYutbeAAAgbSFcD", OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()).ToAddress());
         }
 
         [TestMethod]
@@ -55,7 +55,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography
         {
             var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             Assert.AreEqual("NbUgTSFvPmsRxmGeWpuuGeJUoRoi6PErcM", key.PublicKey().PublicKeyToScriptHash().ToAddress(0x35));
-            Assert.AreEqual("NbUgTSFvPmsRxmGeWpuuGeJUoRoi6PErcM", OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash(), 0x35).ToAddress());
+            Assert.AreEqual("NbUgTSFvPmsRxmGeWpuuGeJUoRoi6PErcM", OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()).ToAddress());
         }
     }
 }

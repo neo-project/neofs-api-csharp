@@ -20,7 +20,7 @@ namespace Neo.FileStorage.API.UnitTests.TestContainer
                     Major = 1,
                     Minor = 2,
                 },
-                OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash(), 0x35),
+                OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
                 Nonce = ByteString.CopyFrom("1234".HexToBytes()),
                 BasicAcl = 0u,
                 PlacementPolicy = new PlacementPolicy(1, null, null, null),

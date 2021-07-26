@@ -14,7 +14,7 @@ namespace Neo.FileStorage.API.Client
         {
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
-            if (owner is null) owner = OwnerID.FromScriptHash(opts.Key.PublicKey().PublicKeyToScriptHash(), NeoAddressVersion);
+            if (owner is null) owner = OwnerID.FromScriptHash(opts.Key.PublicKey().PublicKeyToScriptHash());
             var req = new BalanceRequest
             {
                 Body = new BalanceRequest.Types.Body

@@ -19,10 +19,10 @@ namespace Neo.FileStorage.API.Refs
             };
         }
 
-        public static OwnerID FromScriptHash(UInt160 scriptHash, byte version)
+        public static OwnerID FromScriptHash(UInt160 scriptHash)
         {
             Span<byte> data = stackalloc byte[21];
-            data[0] = version;
+            data[0] = Neo.ProtocolSettings.Default.AddressVersion;
             scriptHash.ToArray().CopyTo(data[1..]);
             byte[] checksum = data.Sha256().Sha256();
             Span<byte> value = stackalloc byte[data.Length + 4];
