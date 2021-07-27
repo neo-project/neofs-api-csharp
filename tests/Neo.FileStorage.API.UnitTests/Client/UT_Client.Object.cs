@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using Google.Protobuf;
@@ -24,7 +23,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var rand = new Random();
             var payload = new byte[1024];
             rand.NextBytes(payload);
-            var obj = new V2Object
+            var obj1 = new V2Object
             {
                 Header = new Header
                 {
@@ -33,16 +32,41 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
                 },
                 Payload = ByteString.CopyFrom(payload),
             };
-            using var client = new Client.Client(key, host);
-            var source1 = new CancellationTokenSource();
-            source1.CancelAfter(TimeSpan.FromMinutes(1));
-            var session = client.CreateSession(ulong.MaxValue, context: source1.Token).Result;
-            source1.Cancel();
-            var source2 = new CancellationTokenSource();
-            source2.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.PutObject(obj, new CallOptions { Ttl = 2, Session = session }, source2.Token).Result;
-            Console.WriteLine(o.ToBase58String());
-            Assert.AreNotEqual("", o.ToBase58String());
+            var obj2 = new V2Object
+            {
+                Header = new Header
+                {
+                    OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
+                    ContainerId = cid,
+                },
+                Payload = ByteString.CopyFrom(payload),
+            };
+            using (var client1 = new Client.Client(key, host))
+            {
+                Session.SessionToken session;
+                var source1 = new CancellationTokenSource();
+                source1.CancelAfter(TimeSpan.FromMinutes(1));
+                session = client1.CreateSession(ulong.MaxValue, context: source1.Token).Result;
+                source1.Cancel();
+                var source2 = new CancellationTokenSource();
+                source2.CancelAfter(TimeSpan.FromMinutes(1));
+                var o = client1.PutObject(obj1, new CallOptions { Ttl = 2, Session = session }, source2.Token).Result;
+                Console.WriteLine(o.ToBase58String());
+                Assert.AreNotEqual("", o.ToBase58String());
+            }
+            using (var client2 = new Client.Client(key, host))
+            {
+                Session.SessionToken session;
+                var source1 = new CancellationTokenSource();
+                source1.CancelAfter(TimeSpan.FromMinutes(1));
+                session = client2.CreateSession(ulong.MaxValue, context: source1.Token).Result;
+                source1.Cancel();
+                var source2 = new CancellationTokenSource();
+                source2.CancelAfter(TimeSpan.FromMinutes(1));
+                var o = client2.PutObject(obj2, new CallOptions { Ttl = 2, Session = session }, source2.Token).Result;
+                Console.WriteLine(o.ToBase58String());
+                Assert.AreNotEqual("", o.ToBase58String());
+            }
         }
 
         [TestMethod]

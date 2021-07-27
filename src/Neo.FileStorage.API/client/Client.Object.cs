@@ -122,7 +122,7 @@ namespace Neo.FileStorage.API.Client
                 req.Body = chunk_body;
                 req.VerifyHeader = null;
                 opts.Key.SignRequest(req);
-                stream.Write(req);
+                await stream.Write(req);
                 offset = end;
             }
             var resp = await stream.Close();

@@ -15,7 +15,7 @@ namespace Neo.FileStorage.API.Client
             Call.Dispose();
         }
 
-        public async void Write(PutRequest request)
+        public async Task Write(PutRequest request)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
             if (request.Body?.ObjectPartCase != PutRequest.Types.Body.ObjectPartOneofCase.Chunk) throw new ArgumentException("invalid requst type, expect chunk");
