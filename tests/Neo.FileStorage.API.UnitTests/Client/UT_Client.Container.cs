@@ -31,7 +31,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
                 Key = "CreatedAt",
                 Value = DateTime.UtcNow.ToString(),
             });
-            var source = new CancellationTokenSource();
+            using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
             var cid = client.PutContainer(container, context: source.Token).Result;
             Console.WriteLine(cid.ToBase58String());
@@ -42,7 +42,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         public void TestGetContainer()
         {
             using var client = new Client.Client(key, host);
-            var source = new CancellationTokenSource();
+            using var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var container = client.GetContainer(cid, context: source.Token).Result;
             Assert.AreEqual(cid, container.Container.CalCulateAndGetId);
@@ -53,7 +53,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         public void TestDeleteContainer()
         {
             using var client = new Client.Client(key, host);
-            var source = new CancellationTokenSource();
+            using var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             client.DeleteContainer(cid, context: source.Token).Wait();
         }
@@ -62,7 +62,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         public void TestListContainer()
         {
             using var client = new Client.Client(key, host);
-            var source = new CancellationTokenSource();
+            using var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var cids = client.ListContainers(OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()), context: source.Token).Result;
             Assert.AreEqual(1, cids.Count);
@@ -73,7 +73,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         public void TestGetExtendedACL()
         {
             using var client = new Client.Client(key, host);
-            var source = new CancellationTokenSource();
+            using var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var eacl = client.GetEAcl(cid, context: source.Token).Result;
             Console.WriteLine(eacl.Table.ToString());
@@ -99,7 +99,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
                 ContainerId = cid,
             };
             eacl.Records.Add(record);
-            var source = new CancellationTokenSource();
+            using var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             client.SetEACL(eacl, context: source.Token).Wait();
         }
