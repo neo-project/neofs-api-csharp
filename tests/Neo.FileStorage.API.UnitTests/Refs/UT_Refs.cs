@@ -45,6 +45,15 @@ namespace Neo.FileStorage.API.UnitTests.TestRefs
         }
 
         [TestMethod]
+        public void TestOwnerIDToScriptHash()
+        {
+            var key = "L4kWTNckyaWn2QdUrACCJR1qJNgFFGhTCy63ERk7ZK3NvBoXap6t".LoadWif();
+            var scriptHash = key.PublicKey().PublicKeyToScriptHash();
+            var owner = OwnerID.FromScriptHash(scriptHash);
+            Assert.AreEqual(scriptHash, owner.ToScriptHash());
+        }
+
+        [TestMethod]
         public void TestContainerID()
         {
             var cid = ContainerID.FromBase58String("5Cyxb3wrHDw5pqY63hb5otCSsJ24ZfYmsA8NAjtho2gr");
