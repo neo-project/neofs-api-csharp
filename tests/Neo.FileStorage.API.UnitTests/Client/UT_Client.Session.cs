@@ -11,8 +11,6 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestSessionCreate()
         {
-            var host = "localhost:8080";
-            var key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(10000);

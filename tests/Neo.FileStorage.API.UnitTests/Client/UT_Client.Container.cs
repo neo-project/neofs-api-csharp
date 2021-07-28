@@ -1,5 +1,4 @@
 using System;
-using System.Security.Cryptography;
 using System.Threading;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
