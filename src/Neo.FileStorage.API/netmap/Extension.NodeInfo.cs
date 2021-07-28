@@ -10,7 +10,7 @@ namespace Neo.FileStorage.API.Netmap
         {
             JObject json = new();
             json["publickey"] = PublicKey.ToByteArray().ToHexString();
-            json["address"] = Address;
+            json["address"] = new JArray(Addresses.Select(p => (JObject)p));
             json["attributes"] = Attributes.Select(a =>
             {
                 JObject j = new();

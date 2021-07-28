@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Neo.FileStorage.API.Cryptography;
 using Neo.IO.Json;
 
@@ -28,7 +29,7 @@ namespace Neo.FileStorage.API.Netmap
         public ulong Distance;
 
         public ulong Hash => ID;
-        public string NetworkAddress => Info.Address;
+        public List<string> NetworkAddresses => Info.Addresses.ToList();
         public byte[] PublicKey => Info.PublicKey.ToByteArray();
 
         public Node(int index, NodeInfo ni)
