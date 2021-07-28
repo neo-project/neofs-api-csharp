@@ -18,7 +18,69 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
     public partial class UT_Client
     {
         [TestMethod]
+        public void TestObjectPutFull()
+        {
+            var rand = new Random();
+            var payload = new byte[1024];
+            rand.NextBytes(payload);
+            var obj = new V2Object
+            {
+                Header = new Header
+                {
+                    Version = Refs.Version.SDKVersion(),
+                    OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
+                    ContainerId = cid,
+                    ObjectType = ObjectType.Regular,
+                    PayloadHash = new Checksum
+                    {
+                        Type = ChecksumType.Sha256,
+                        Sum = ByteString.CopyFrom(payload.Sha256()),
+                    },
+                    HomomorphicHash = new Checksum
+                    {
+                        Type = ChecksumType.Tz,
+                        Sum = ByteString.CopyFrom(new TzHash().ComputeHash(payload)),
+                    },
+                    PayloadLength = (ulong)payload.Length,
+                },
+                Payload = ByteString.CopyFrom(payload),
+            };
+            obj.ObjectId = obj.CalculateID();
+            obj.Signature = obj.CalculateIDSignature(key);
+            using var client = new Client.Client(key, host);
+            using var source = new CancellationTokenSource();
+            source.CancelAfter(TimeSpan.FromMinutes(1));
+            var o = client.PutObject(obj, new CallOptions { Ttl = 2 }, source.Token).Result;
+            Console.WriteLine(o.ToBase58String());
+            Assert.AreNotEqual("", o.ToBase58String());
+        }
+
+        [TestMethod]
         public void TestObjectPut()
+        {
+            var rand = new Random();
+            var payload = new byte[1024];
+            rand.NextBytes(payload);
+            var obj = new V2Object
+            {
+                Header = new Header
+                {
+                    OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
+                    ContainerId = cid,
+                },
+                Payload = ByteString.CopyFrom(payload),
+            };
+            using var client = new Client.Client(key, host);
+            using var source = new CancellationTokenSource();
+            source.CancelAfter(TimeSpan.FromMinutes(1));
+            var session = client.CreateSession(10).Result;
+            var o = client.PutObject(obj, new CallOptions { Ttl = 2, Session = session }, source.Token).Result;
+            Console.WriteLine(o.ToBase58String());
+            Assert.AreNotEqual("", o.ToBase58String());
+        }
+
+        [TestMethod]
+        public void TestObjectPutTwice()
         {
             var rand = new Random();
             var payload = new byte[1024];
@@ -64,13 +126,13 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
                 using (var source1 = new CancellationTokenSource())
                 {
                     source1.CancelAfter(TimeSpan.FromMinutes(1));
-                    session = client1.CreateSession(ulong.MaxValue, context: source1.Token).Result;
+                    session = client2.CreateSession(ulong.MaxValue, context: source1.Token).Result;
                     source1.Cancel();
                 }
                 using (var source2 = new CancellationTokenSource())
                 {
                     source2.CancelAfter(TimeSpan.FromMinutes(1));
-                    var o = client1.PutObject(obj1, new CallOptions { Ttl = 2, Session = session }, source2.Token).Result;
+                    var o = client2.PutObject(obj1, new CallOptions { Ttl = 2, Session = session }, source2.Token).Result;
                     Console.WriteLine(o.ToBase58String());
                     Assert.AreNotEqual("", o.ToBase58String());
                 }
@@ -132,12 +194,13 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestObjectGet()
         {
-            var address = new Address(cid, oid);
+            ObjectID coid = ObjectID.FromBase58String("31ogvAsze3ypAM64EgMp1Ue2WPUCaYzCtxhZooBctWq1");
+            var address = new Address(cid, coid);
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
             var o = client.GetObject(address, false, new CallOptions { Ttl = 2 }, source.Token).Result;
-            Assert.AreEqual(oid, o.ObjectId);
+            Assert.AreEqual(coid, o.ObjectId);
             Console.WriteLine(o.ToJson().ToString());
         }
 
