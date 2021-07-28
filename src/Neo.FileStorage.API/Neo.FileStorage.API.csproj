@@ -50,6 +50,7 @@
     </PackageReference>
     <PackageReference Include="Neo" Version="3.0.0-rc4" />
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.8" />
+    <PackageReference Include="Sprache" Version="2.3.1" />
   </ItemGroup>
 
 </Project>
