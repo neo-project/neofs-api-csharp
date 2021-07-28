@@ -89,7 +89,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
                 var address = new Address(cid, oid);
                 using var source = new CancellationTokenSource();
                 source.CancelAfter(TimeSpan.FromMinutes(1));
-                var oo = client.GetObject(address, false, new CallOptions { Ttl = 2 }, source.Token).Result;
+                var oo = client.GetObjectHeader(address, false, false, new CallOptions { Ttl = 2 }, source.Token).Result;
                 if (tzh is null)
                     tzh = oo.PayloadHomomorphicHash.Sum.ToByteArray();
                 else
