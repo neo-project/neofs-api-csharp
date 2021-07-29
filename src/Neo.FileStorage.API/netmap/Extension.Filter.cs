@@ -1,5 +1,3 @@
-
-
 using System.Linq;
 using Neo.IO.Json;
 

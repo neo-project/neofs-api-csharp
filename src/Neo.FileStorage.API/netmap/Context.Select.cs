@@ -109,7 +109,7 @@ namespace Neo.FileStorage.API.Netmap
             }
             else
             {
-                foreach (var group in Map.Nodes.Where(p => sel.Filter == MainFilterName || Match(filter, p)).GroupBy(p => p.Attributes[sel.Attribute]))
+                foreach (var group in Map.Nodes.Where(p => sel.Filter == MainFilterName || Match(filter, p)).GroupBy(p => p.Attributes.TryGetValue(sel.Attribute, out string value) ? value : ""))
                 {
                     result.Add((group.Key, group.ToList()));
                 }
