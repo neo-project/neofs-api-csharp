@@ -9,7 +9,7 @@ namespace Neo.FileStorage.API.Refs
         {
             var json = new JObject();
             json["key"] = Key.ToBase64();
-            json["sign"] = Sign.ToBase64();
+            json["signature"] = Sign.ToBase64();
             return json;
         }
     }

@@ -29,10 +29,13 @@ namespace Neo.FileStorage.API.Session
                 {
                     var json = new JObject();
                     json["id"] = Id?.ToBase64();
-                    json["ownerid"] = OwnerId?.ToJson();
+                    json["ownerID"] = OwnerId?.ToJson();
                     json["lifetime"] = Lifetime?.ToJson();
-                    json["sessionkey"] = SessionKey.ToBase64();
-                    json["object"] = Object?.ToJson();
+                    json["sessionKey"] = SessionKey.ToBase64();
+                    if (ContextCase == ContextOneofCase.Object)
+                        json["object"] = Object.ToJson();
+                    else if (ContextCase == ContextOneofCase.Container)
+                        json["container"] = Container.ToJson();
                     return json;
                 }
             }
@@ -52,7 +55,7 @@ namespace Neo.FileStorage.API.Session
         {
             var json = new JObject();
             json["body"] = Body?.ToJson();
-            json["sinature"] = Signature?.ToJson();
+            json["signature"] = Signature?.ToJson();
             return json;
         }
     }

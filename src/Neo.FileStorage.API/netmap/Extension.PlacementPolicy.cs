@@ -17,7 +17,7 @@ namespace Neo.FileStorage.API.Netmap
         {
             var json = new JObject();
             json["replicas"] = new JArray(Replicas.Select(p => p.ToJson()));
-            json["containerbackupfactor"] = ContainerBackupFactor;
+            json["containerBackupFactor"] = ContainerBackupFactor;
             json["selectors"] = new JArray(Selectors.Select(p => p.ToJson()));
             json["filters"] = new JArray(Filters.Select(p => p.ToJson()));
             return json;

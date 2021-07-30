@@ -34,8 +34,8 @@ namespace Neo.FileStorage.API.Netmap
 
         public Node(int index, NodeInfo ni)
         {
-            ID = ni.PublicKey.ToByteArray().Murmur64(0);
             Index = index;
+            ID = ni.PublicKey.ToByteArray().Murmur64(0);
             Info = ni;
             foreach (var attr in ni.Attributes)
             {
@@ -72,13 +72,20 @@ namespace Neo.FileStorage.API.Netmap
                 return ID.CompareTo(n.ID);
         }
 
+        public static Node FromJson(JObject json)
+        {
+            int index = int.Parse(json["index"].AsString());
+            NodeInfo ni = NodeInfo.FromJson(json["nodeinfo"]);
+            return new(index, ni);
+        }
+
         public JObject ToJson()
         {
             JObject json = new();
             json["id"] = ID;
             json["capacity"] = Capacity;
-            json["price"] = Price;
             json["index"] = Index;
+            json["price"] = Price;
             json["nodeinfo"] = Info.ToJson();
             return json;
         }

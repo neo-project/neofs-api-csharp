@@ -1,5 +1,5 @@
-using Neo.IO.Json;
 using System.Linq;
+using Neo.IO.Json;
 
 namespace Neo.FileStorage.API.Object
 {
@@ -14,8 +14,8 @@ namespace Neo.FileStorage.API.Object
                     var json = new JObject();
                     json["parent"] = Parent?.ToJson();
                     json["previous"] = Previous?.ToJson();
-                    json["parentsignature"] = ParentSignature?.ToJson();
-                    json["header"] = ParentHeader?.ToJson();
+                    json["parentSignature"] = ParentSignature?.ToJson();
+                    json["parentHeader"] = ParentHeader?.ToJson();
                     json["children"] = new JArray(Children.Select(p => p.ToJson()));
                     json["splitid"] = SplitId.ToBase64();
                     return json;
@@ -63,14 +63,14 @@ namespace Neo.FileStorage.API.Object
         {
             var json = new JObject();
             json["version"] = Version?.ToJson();
-            json["containerid"] = ContainerId?.ToJson();
-            json["ownerid"] = OwnerId?.ToJson();
-            json["creationepoch"] = CreationEpoch;
-            json["payloadlength"] = PayloadLength;
-            json["payloadhash"] = PayloadHash?.ToJson();
-            json["objecttype"] = ObjectType.ToString();
-            json["homomorphichash"] = HomomorphicHash?.ToJson();
-            json["sessiontoken"] = SessionToken?.ToJson();
+            json["containerID"] = ContainerId?.ToJson();
+            json["ownerID"] = OwnerId?.ToJson();
+            json["creationEpoch"] = CreationEpoch;
+            json["payloadLength"] = PayloadLength;
+            json["payloadHash"] = PayloadHash?.ToJson();
+            json["objectType"] = ObjectType.ToString();
+            json["homomorphicHash"] = HomomorphicHash?.ToJson();
+            json["sessionToken"] = SessionToken?.ToJson();
             json["attributes"] = new JArray(Attributes.Select(p => p.ToJson()));
             json["split"] = Split?.ToJson();
             return json;

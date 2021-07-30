@@ -177,7 +177,7 @@ namespace Neo.FileStorage.API.Object
         public JObject ToJson()
         {
             var json = new JObject();
-            json["objectid"] = ObjectId?.ToJson();
+            json["objectID"] = ObjectId?.ToJson();
             json["signature"] = Signature?.ToJson();
             json["header"] = Header?.ToJson();
             json["payload"] = Payload?.ToBase64();

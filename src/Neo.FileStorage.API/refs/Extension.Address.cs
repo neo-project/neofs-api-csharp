@@ -32,8 +32,8 @@ namespace Neo.FileStorage.API.Refs
         public JObject ToJson()
         {
             var json = new JObject();
-            json["objectid"] = ObjectId?.ToJson();
-            json["containerid"] = ContainerId?.ToJson();
+            json["containerID"] = ContainerId?.ToJson();
+            json["objectID"] = ObjectId?.ToJson();
             return json;
         }
     }
