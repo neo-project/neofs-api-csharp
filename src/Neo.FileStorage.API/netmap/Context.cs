@@ -47,9 +47,9 @@ namespace Neo.FileStorage.API.Netmap
         public void SetCBF(uint cbf)
         {
             if (cbf == 0)
-                this.Cbf = DefaultCBF;
+                Cbf = DefaultCBF;
             else
-                this.Cbf = cbf;
+                Cbf = cbf;
         }
     }
 }

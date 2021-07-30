@@ -21,9 +21,9 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         public void TestObjectPutFull()
         {
             var obj = RandomFullObject();
+            Console.WriteLine(obj.ObjectId.String());
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
-            source.CancelAfter(TimeSpan.FromMinutes(1));
             var o = client.PutObject(obj, new CallOptions { Ttl = 2 }, source.Token).Result;
             Console.WriteLine(o.String());
             Assert.AreNotEqual("", o.String());
