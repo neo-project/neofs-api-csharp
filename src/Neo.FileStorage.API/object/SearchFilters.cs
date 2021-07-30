@@ -35,7 +35,7 @@ namespace Neo.FileStorage.API.Object
 
         public void AddObjectContainerIDFilter(MatchType op, ContainerID cid)
         {
-            AddFilter(Filter.FilterHeaderContainerID, cid.ToBase58String(), op);
+            AddFilter(Filter.FilterHeaderContainerID, cid.String(), op);
         }
 
         public void AddObjectOwnerIDFilter(MatchType op, OwnerID oid)
@@ -55,12 +55,12 @@ namespace Neo.FileStorage.API.Object
 
         public void AddParentIDFilter(MatchType op, ObjectID oid)
         {
-            AddFilter(Filter.FilterHeaderParent, oid.ToBase58String(), op);
+            AddFilter(Filter.FilterHeaderParent, oid.String(), op);
         }
 
         public void AddObjectIDFilter(MatchType op, ObjectID oid)
         {
-            AddFilter(Filter.FilterHeaderObjectID, oid.ToBase58String(), op);
+            AddFilter(Filter.FilterHeaderObjectID, oid.String(), op);
         }
 
         public void AddSplitIDFilter(MatchType op, SplitID sid)

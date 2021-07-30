@@ -1,8 +1,8 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Neo.FileStorage.API.Refs;
-using Neo.FileStorage.API.Object;
-using static Neo.FileStorage.API.Object.SearchRequest.Types.Body.Types;
 using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neo.FileStorage.API.Object;
+using Neo.FileStorage.API.Refs;
+using static Neo.FileStorage.API.Object.SearchRequest.Types.Body.Types;
 
 namespace Neo.FileStorage.API.UnitTests.TestObject
 {
@@ -45,7 +45,7 @@ namespace Neo.FileStorage.API.UnitTests.TestObject
         public void TestAddParentIDFilters()
         {
             var sf = new SearchFilters();
-            var oid = ObjectID.FromBase58String("vWt34r4ddnq61jcPec4rVaXHg7Y7GiEYFmcTB2Qwhtx");
+            var oid = ObjectID.FromString("vWt34r4ddnq61jcPec4rVaXHg7Y7GiEYFmcTB2Qwhtx");
             sf.AddParentIDFilter(MatchType.StringEqual, oid);
 
             Assert.AreEqual(1, sf.Filters.Length);
@@ -60,7 +60,7 @@ namespace Neo.FileStorage.API.UnitTests.TestObject
         public void TestAddObjectIDFilters()
         {
             var sf = new SearchFilters();
-            var oid = ObjectID.FromBase58String("vWt34r4ddnq61jcPec4rVaXHg7Y7GiEYFmcTB2Qwhtx");
+            var oid = ObjectID.FromString("vWt34r4ddnq61jcPec4rVaXHg7Y7GiEYFmcTB2Qwhtx");
             sf.AddObjectIDFilter(MatchType.StringEqual, oid);
 
             Assert.AreEqual(1, sf.Filters.Length);

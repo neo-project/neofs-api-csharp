@@ -9,7 +9,7 @@ namespace Neo.FileStorage.API.Refs
     {
         public const int ValueSize = Sha256HashLength;
 
-        public static ObjectID FromSha256Bytes(byte[] hash)
+        public static ObjectID FromValue(byte[] hash)
         {
             if (hash.Length != Sha256HashLength) throw new System.FormatException("ObjectID must be a hash256");
             return new ObjectID
@@ -18,12 +18,12 @@ namespace Neo.FileStorage.API.Refs
             };
         }
 
-        public static ObjectID FromBase58String(string id)
+        public static ObjectID FromString(string id)
         {
-            return FromSha256Bytes(Base58.Decode(id));
+            return FromValue(Base58.Decode(id));
         }
 
-        public string ToBase58String()
+        public string String()
         {
             return Base58.Encode(Value.ToByteArray());
         }
@@ -31,7 +31,7 @@ namespace Neo.FileStorage.API.Refs
         public JObject ToJson()
         {
             var json = new JObject();
-            json["value"] = ToBase58String();
+            json["value"] = Value.ToBase64();
             return json;
         }
     }

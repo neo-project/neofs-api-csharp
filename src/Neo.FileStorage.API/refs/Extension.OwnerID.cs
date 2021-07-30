@@ -57,7 +57,7 @@ namespace Neo.FileStorage.API.Refs
         public JObject ToJson()
         {
             var json = new JObject();
-            json["value"] = ToAddress();
+            json["value"] = Value.ToBase64();
             return json;
         }
     }

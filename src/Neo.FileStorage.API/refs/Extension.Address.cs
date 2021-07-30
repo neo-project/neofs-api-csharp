@@ -1,5 +1,5 @@
-using Neo.IO.Json;
 using System;
+using Neo.IO.Json;
 
 namespace Neo.FileStorage.API.Refs
 {
@@ -13,15 +13,15 @@ namespace Neo.FileStorage.API.Refs
 
         public string String()
         {
-            return ContainerId.ToBase58String() + "/" + ObjectId.ToBase58String();
+            return ContainerId.String() + "/" + ObjectId.String();
         }
 
         public static Address ParseString(string address)
         {
             var parts = address.Split('/');
             if (parts.Length != 2) throw new FormatException(nameof(ParseString) + " invalid address string");
-            var cid = ContainerID.FromBase58String(parts[0]);
-            var oid = ObjectID.FromBase58String(parts[1]);
+            var cid = ContainerID.FromString(parts[0]);
+            var oid = ObjectID.FromString(parts[1]);
             return new Address
             {
                 ContainerId = cid,

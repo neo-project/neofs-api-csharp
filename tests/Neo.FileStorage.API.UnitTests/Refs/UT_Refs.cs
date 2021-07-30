@@ -12,7 +12,7 @@ namespace Neo.FileStorage.API.UnitTests.TestRefs
         [TestMethod]
         public void TestObjectID()
         {
-            var id = ObjectID.FromSha256Bytes("a9aa4468861473c86e3d2db9d426e37e5858e015a678f7e6a94a12da3569c8b0".HexToBytes());
+            var id = ObjectID.FromValue("a9aa4468861473c86e3d2db9d426e37e5858e015a678f7e6a94a12da3569c8b0".HexToBytes());
             Console.WriteLine(id);
         }
 
@@ -56,8 +56,8 @@ namespace Neo.FileStorage.API.UnitTests.TestRefs
         [TestMethod]
         public void TestContainerID()
         {
-            var cid = ContainerID.FromBase58String("5Cyxb3wrHDw5pqY63hb5otCSsJ24ZfYmsA8NAjtho2gr");
-            var oid = ObjectID.FromBase58String("5Cyxb3wrHDw5pqY63hb5otCSsJ24ZfYmsA8NAjtho2gr");
+            var cid = ContainerID.FromString("5Cyxb3wrHDw5pqY63hb5otCSsJ24ZfYmsA8NAjtho2gr");
+            var oid = ObjectID.FromString("5Cyxb3wrHDw5pqY63hb5otCSsJ24ZfYmsA8NAjtho2gr");
         }
     }
 }
