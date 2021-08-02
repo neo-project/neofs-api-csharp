@@ -17,6 +17,7 @@ namespace Neo.FileStorage.API.Netmap
 
         public List<List<Node>> GetPlacementVectors(List<List<Node>> ns, byte[] pivot)
         {
+            if (pivot is null) return ns;
             var h = pivot.Murmur64(0);
             var weightFunc = Nodes.GenarateWeightFunc();
             var results = new List<List<Node>>();
@@ -52,6 +53,7 @@ namespace Neo.FileStorage.API.Netmap
 
         public List<List<Node>> GetContainerNodes(PlacementPolicy policy, byte[] pivot)
         {
+            if (policy is null) throw new ArgumentNullException(nameof(policy));
             var context = new Context(this);
             context.SetPivot(pivot);
             context.SetCBF(policy.ContainerBackupFactor);

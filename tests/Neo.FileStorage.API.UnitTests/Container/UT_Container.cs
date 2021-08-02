@@ -1,3 +1,4 @@
+using System;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Cryptography;
@@ -26,6 +27,14 @@ namespace Neo.FileStorage.API.UnitTests.TestContainer
                 PlacementPolicy = new PlacementPolicy(1, null, null, null),
             };
             Assert.AreEqual("0a0408011002121b0a1935ce67af47d9157014c8db22dc18769be12b1b136a394ef1db1a02123432021001", container.ToByteArray().ToHexString());
+        }
+
+        [TestMethod]
+        public void TestContainerDeserialize()
+        {
+            var data = Array.Empty<byte>();
+            var c = Container.Container.Parser.ParseFrom(data);
+            Assert.IsNotNull(c);
         }
     }
 }
