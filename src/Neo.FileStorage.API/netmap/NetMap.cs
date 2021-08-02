@@ -29,7 +29,6 @@ namespace Neo.FileStorage.API.Netmap
                     return p;
                 }).ToList();
                 var uniform = !list.Skip(1).Any(p => p.Weight != list[0].Weight);
-                Console.WriteLine($"uniform: {uniform}");
                 if (uniform)
                 {
                     list.Sort((n1, n2) =>

@@ -13,7 +13,7 @@ namespace Neo.FileStorage.API.Netmap
             NodeInfo ni = new();
             ni.PublicKey = ByteString.FromBase64(json["publicKey"].AsString());
             if (json["addresses"] is not null)
-                ni.Addresses.AddRange(((JArray)json["address"]).Select(p => p.AsString()));
+                ni.Addresses.AddRange(((JArray)json["addresses"]).Select(p => p.AsString()));
             if (json["attributes"] is not null)
                 ni.Attributes.AddRange(((JArray)json["attributes"]).Select(p => Attribute.FromJson(p)));
             ni.State = System.Enum.Parse<State>(json["state"].AsString());
