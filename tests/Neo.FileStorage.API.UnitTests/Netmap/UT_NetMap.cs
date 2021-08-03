@@ -39,9 +39,8 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
         public void TestSimulation()
         {
             var nodes_json_str = "[{\"id\":17245477228755262,\"capacity\":0,\"index\":0,\"price\":22,\"nodeinfo\":{\"publicKey\":\"Aiu0BBxQ1gf/hx3sfkzXd4OI4OpoSdhMy9mqjzLhaoEx\",\"addresses\":[\"/dns4/s01.neofs.devenv/tcp/8080\"],\"attributes\":[{\"key\":\"Capacity\",\"value\":\"0\"},{\"key\":\"Continent\",\"value\":\"Asia\"},{\"key\":\"Country\",\"value\":\"Russia\"},{\"key\":\"CountryCode\",\"value\":\"RU\"},{\"key\":\"Location\",\"value\":\"Mishkino\"},{\"key\":\"Price\",\"value\":\"22\"},{\"key\":\"UN-LOCODE\",\"value\":\"RU MSK\"}],\"state\":\"Online\"}},{\"id\":14040999376522263000,\"capacity\":0,\"index\":1,\"price\":44,\"nodeinfo\":{\"publicKey\":\"A4yGKVnla0PiD3kYfE/p4Lx8jGbBYD5s8Ox/h6trCNw1\",\"addresses\":[\"/dns4/s04.neofs.devenv/tcp/8080\"],\"attributes\":[{\"key\":\"Capacity\",\"value\":\"0\"},{\"key\":\"Continent\",\"value\":\"Europe\"},{\"key\":\"Country\",\"value\":\"Finland\"},{\"key\":\"CountryCode\",\"value\":\"FI\"},{\"key\":\"Location\",\"value\":\"Helsinki (Helsingfors)\"},{\"key\":\"Price\",\"value\":\"44\"},{\"key\":\"SubDiv\",\"value\":\"Uusimaa\"},{\"key\":\"SubDivCode\",\"value\":\"18\"},{\"key\":\"UN-LOCODE\",\"value\":\"FI HEL\"}],\"state\":\"Online\"}},{\"id\":1508609683428895200,\"capacity\":0,\"index\":2,\"price\":33,\"nodeinfo\":{\"publicKey\":\"A/9ltq55E0pNzp0NOdOFHpurTul6v4boHhxbvFDNKCau\",\"addresses\":[\"/dns4/s02.neofs.devenv/tcp/8080\"],\"attributes\":[{\"key\":\"Capacity\",\"value\":\"0\"},{\"key\":\"Continent\",\"value\":\"Europe\"},{\"key\":\"Country\",\"value\":\"Russia\"},{\"key\":\"CountryCode\",\"value\":\"RU\"},{\"key\":\"Location\",\"value\":\"Saint Petersburg (ex Leningrad)\"},{\"key\":\"Price\",\"value\":\"33\"},{\"key\":\"SubDiv\",\"value\":\"Sankt-Peterburg\"},{\"key\":\"SubDivCode\",\"value\":\"SPE\"},{\"key\":\"UN-LOCODE\",\"value\":\"RU LED\"}],\"state\":\"Online\"}},{\"id\":11537578107108880000,\"capacity\":0,\"index\":3,\"price\":11,\"nodeinfo\":{\"publicKey\":\"AqySDNffC2GyiQcua5RuLaThoxuascYhu0deMPpKsQLD\",\"addresses\":[\"/dns4/s03.neofs.devenv/tcp/8080\"],\"attributes\":[{\"key\":\"Capacity\",\"value\":\"0\"},{\"key\":\"Continent\",\"value\":\"Europe\"},{\"key\":\"Country\",\"value\":\"Sweden\"},{\"key\":\"CountryCode\",\"value\":\"SE\"},{\"key\":\"Location\",\"value\":\"Stockholm\"},{\"key\":\"Price\",\"value\":\"11\"},{\"key\":\"SubDiv\",\"value\":\"Stockholms l�n\"},{\"key\":\"SubDivCode\",\"value\":\"AB\"},{\"key\":\"UN-LOCODE\",\"value\":\"SE STO\"}],\"state\":\"Online\"}}]";
-            var cid = ContainerID.FromString("EG9aHdMgGyKpjerpoKWQsggTu5VYkeMY4C46UVBsniEn");
-            var oid1 = ObjectID.FromString("3tCBy81Ke4pNxC1ptMTUWU7V1aBr7zBsz4xkj6nTzNqJ");
-            var oid2 = ObjectID.FromString("DR6QEovugA1MGDk4pGz5BTMXhsq5q3Qeyy6aeCtA43sk");
+            var cid = ContainerID.FromString("AaCymCBPpMYeagJcBAxcMHKRZ9GEZYHDfLKsV1FwqAma");
+            var oid1 = ObjectID.FromString("GMBa69wUJEgfoHnu37MKwudeYsemxHD38ynNsyuAZv2M");
             PlacementPolicy policy = new(0, new Replica[] { new(2, "SPB") }, new Selector[] { new("SPB", "City", Clause.Unspecified, 1, "*") }, null);
             var json = JObject.Parse(nodes_json_str);
             var nodes = ((JArray)json).Select(p => Node.FromJson(p)).ToList();
@@ -53,22 +52,12 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             Assert.AreEqual(3, container_nodes.Flatten().Count);
             var indexes = Indexes(container_nodes.Flatten());
             Console.WriteLine(indexes);
-            Assert.AreEqual("{0, 1, 2}", indexes);
             var nodes1 = nm.GetPlacementVectors(container_nodes, oid1.Value.ToByteArray());
             Assert.AreEqual(1, nodes1.Count);
             var nodes1f = nodes1.Flatten();
             Assert.AreEqual(3, nodes1f.Count);
             indexes = Indexes(nodes1f);
             Console.WriteLine(indexes);
-            Assert.AreEqual("{0, 2, 1}", indexes);
-            Console.WriteLine($"{nodes1f[0].NetworkAddresses[0]}, {nodes1f[1].NetworkAddresses[0]}");
-            var nodes2 = nm.GetPlacementVectors(container_nodes, oid2.Value.ToByteArray());
-            var nodes2f = nodes2.Flatten();
-            Assert.AreEqual(3, nodes2f.Count);
-            indexes = Indexes(nodes2f);
-            Console.WriteLine(indexes);
-            Assert.AreEqual("{1, 0, 2}", indexes);
-            Console.WriteLine($"{nodes2f[0].NetworkAddresses[0]}, {nodes2f[1].NetworkAddresses[0]}");
         }
     }
 }
