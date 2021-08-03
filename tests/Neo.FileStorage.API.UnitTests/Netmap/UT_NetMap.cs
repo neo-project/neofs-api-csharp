@@ -35,6 +35,18 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             return str;
         }
 
+        private string Indexes(List<List<Node>> nodes)
+        {
+            string str = "{";
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                if (0 < i) str += ", ";
+                str += Indexes(nodes[i]);
+            }
+            str += "}";
+            return str;
+        }
+
         [TestMethod]
         public void TestSimulation()
         {
@@ -50,7 +62,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             var container_nodes = nm.GetContainerNodes(policy, cid.Value.ToByteArray());
             Assert.AreEqual(1, container_nodes.Count);
             Assert.AreEqual(3, container_nodes.Flatten().Count);
-            var indexes = Indexes(container_nodes.Flatten());
+            var indexes = Indexes(container_nodes);
             Console.WriteLine(indexes);
             var nodes1 = nm.GetPlacementVectors(container_nodes, oid1.Value.ToByteArray());
             Assert.AreEqual(1, nodes1.Count);
