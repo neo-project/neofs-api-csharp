@@ -1,24 +1,30 @@
 # Container Placement Policy
 
-# Format
-
 ## Replica
 
-`REP` *Count(number)* [`IN` *SelectorName(string)*]
+`REP` **Count**(*number*) [ `IN` **SelectorName**(*string*) ]
+
+> multiple
 
 ## ContainerBackupFactor
 
-`CBF` *Count(number)*
+`CBF` **Count**(*number*)
+
+> optional 
 
 ## Selector
 
-`SELECT` *Count(number)* `IN` [*Clause("SAME", "DISTINCT")*] *Attribute(string)* `FROM` *FilterName(string, "*")* [`AS` *SelectorName(string)*]
+`SELECT` **Count**(*number*) `IN` [ **Clause**("*SAME*", "*DISTINCT*") ]  **Attribute**(*string*) `FROM` **FilterName**(*string*, "\*") [ `AS` **SelectorName**(*string*) ]
+
+> multiple, optional 
 
 ## Filter
 
-`FILTER` *Condition(string)* [`AS` *FilterName(string)*]
+`FILTER` **Condition**(*string*) [ `AS` **FilterName**(*string*) ]
 
-### Filter Condition
+> multiple, optional
+
+#### Filter Condition
 
 
   * Compare Operation
@@ -31,15 +37,16 @@
 
   * Compare Statement
 
-    *Attribute(string)* `EQ`|`NE`|`GT`|`GE`|`TE`  *Value(string)*
+    **Attribute**(*string*) `EQ`|`NE`|`GT`|`GE`|`TE`  **Value**(*string*)
 
   * Logic Statement
 
-    *CompareStatement* `AND`|`OR` *CompareStatement*
+    **CompareStatement** `AND`|`OR` **CompareStatement**
     
 So condition statement is as follows:
 
- *CompareStatement* [`AND` *CompareStatement* ]... [`OR` *CompareStatement* [`AND` *CompareStatement* ]... ]...
+ **CompareStatement** [ `AND` **CompareStatement** ]... [ `OR` **CompareStatement** [ `AND` **CompareStatement** ]... ]...
+
 
 
 
