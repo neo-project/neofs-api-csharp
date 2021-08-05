@@ -4,27 +4,19 @@
 
 ## Replica
 
-```
-REP $Count(number) [in $SelectorName(string)]
-```
+`REP` *Count(number)* [`IN` *SelectorName(string)*]
 
 ## ContainerBackupFactor
 
-```
-CBF $Count(number)
-```
+`CBF` *Count(number)*
 
 ## Selector
 
-```
-SELECT $Count(number) IN [$Clause("SAME", "DISTINCT")] $Attribute(string) FROM $FilterName(string, "*") [AS $SelectorName(string)]
-```
+`SELECT` *Count(number)* `IN` [*Clause("SAME", "DISTINCT")*] *Attribute(string)* `FROM` *FilterName(string, "*")* [`AS` *SelectorName(string)*]
 
 ## Filter
 
-```
-FILTER $Condition(string) [AS $FilterName(string)]
-```
+`FILTER` *Condition(string)* [`AS` *FilterName(string)*]
 
 ### Filter Condition
 
@@ -39,21 +31,15 @@ FILTER $Condition(string) [AS $FilterName(string)]
 
   * Compare Statement
 
-    ```
-    $Attribute(string) EQ|NE|GT|GETE  $value(string)
-    ```
+    *Attribute(string)* `EQ`|`NE`|`GT`|`GE`|`TE`  *Value(string)*
 
   * Logic Statement
 
-    ```
-    $CompareStatement AND|OR $CompareStatement
-    ```
+    *CompareStatement* `AND`|`OR` *CompareStatement*
     
 So condition statement is as follows:
 
-```
- $CompareStatement [AND $CompareStatement ]... [OR $CompareStatement [AND $CompareStatement ]... ]...
-```
+ *CompareStatement* [`AND` *CompareStatement* ]... [`OR` *CompareStatement* [`AND` *CompareStatement* ]... ]...
 
 
 
