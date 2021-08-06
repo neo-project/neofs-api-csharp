@@ -68,11 +68,11 @@ namespace Neo.FileStorage.API.Container
         {
             var json = new JObject();
             json["version"] = Version?.ToJson();
-            json["ownerid"] = OwnerId?.ToJson();
+            json["ownerID"] = OwnerId?.ToJson();
             json["nonce"] = Nonce.ToBase64();
-            json["basicacl"] = ((BasicAcl)BasicAcl).ToString();
+            json["basicACL"] = BasicAcl;
             json["attributes"] = new JArray(Attributes.Select(p => p.ToJson()));
-            json["placementpolicy"] = PlacementPolicy?.ToJson();
+            json["placementPolicy"] = PlacementPolicy?.ToJson();
             return json;
         }
     }
