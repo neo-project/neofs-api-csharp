@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Copyright>2020-2021 The Neo Project</Copyright>
     <AssemblyTitle>Neo.FileStorage.API</AssemblyTitle>
-    <Version>0.0.67</Version>
+    <Version>0.0.68</Version>
     <Authors>The Neo Project</Authors>
     <TargetFramework>net5.0</TargetFramework>
     <PackageId>NeoFS.API</PackageId>
@@ -17,7 +17,7 @@
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <Company>The Neo Project</Company>
     <Description>NeoFS API for CSharp</Description>
-    <DefineConstants>$(DefineConstants);GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE</DefineConstants> 
+    <DefineConstants>$(DefineConstants);GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
