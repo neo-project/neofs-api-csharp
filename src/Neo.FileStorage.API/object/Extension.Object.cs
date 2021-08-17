@@ -127,7 +127,7 @@ namespace Neo.FileStorage.API.Object
 
         public bool VerifyID()
         {
-            return CalculateID() == ObjectId;
+            return CalculateID().Equals(ObjectId);
         }
 
         public Checksum CalculatePayloadChecksum()

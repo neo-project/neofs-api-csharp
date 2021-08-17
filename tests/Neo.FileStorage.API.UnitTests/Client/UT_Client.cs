@@ -13,9 +13,9 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
     [TestClass]
     public partial class UT_Client
     {
-        private readonly string host = "http://st1.storage.fs.neo.org:8080";
-        private readonly ContainerID cid = ContainerID.FromString("3NYxMpbnNoRYtrvP1Z9AbbSoS7gSAx2R7bcvDmZ7bz1r");
-        private readonly ObjectID oid = ObjectID.FromString("2FNDyiLSabWCmoyWRw1YgWB8NcJVf4UncQ3QrFKSBrYp");
+        private readonly string host = "http://st01.testnet.fs.neo.org:8080";
+        private readonly ContainerID cid = ContainerID.FromString("GTeBVc3boUBKa6g1r7tMGq5ZyuFXHF2xQuLZD9j39r7x");
+        private readonly ObjectID oid = ObjectID.FromString("8Bhi84qyNBHkCPdfRAuEkU9bmbZTZsQJbyJnpJQiPY45");
         private readonly ECDsa key = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr".LoadWif();
 
         public Object.Object RandomFullObject()
@@ -45,6 +45,11 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
                 },
                 Payload = ByteString.CopyFrom(payload),
             };
+            obj.Header.Attributes.Add(new Header.Types.Attribute
+            {
+                Key = "category",
+                Value = "test"
+            });
             obj.ObjectId = obj.CalculateID();
             obj.Signature = obj.CalculateIDSignature(key);
             return obj;
