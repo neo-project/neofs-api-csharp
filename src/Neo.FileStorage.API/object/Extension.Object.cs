@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -13,7 +14,7 @@ namespace Neo.FileStorage.API.Object
     {
         public const int ChunkSize = 3 * (1 << 20);
 
-        public Version Version => Header?.Version;
+        public Refs.Version Version => Header?.Version;
         public ulong PayloadSize => Header?.PayloadLength ?? 0;
         public ContainerID ContainerId => Header?.ContainerId;
         public OwnerID OwnerId => Header?.OwnerId;
@@ -130,16 +131,21 @@ namespace Neo.FileStorage.API.Object
             return CalculateID().Equals(ObjectId);
         }
 
-        public Checksum CalculatePayloadChecksum()
+        public Checksum CalculatePayloadChecksum(ChecksumType type)
         {
             if (Payload is null || Payload.Length == 0)
-                throw new System.InvalidOperationException("cant payload checksum: invalid payload");
-            return Payload.Sha256Checksum();
+                throw new System.InvalidOperationException("cant calculate payload checksum: invalid payload");
+            return type switch
+            {
+                ChecksumType.Sha256 => Payload.Sha256Checksum(),
+                ChecksumType.Tz => Payload.TzChecksum(),
+                _ => throw new InvalidOperationException("unsupport checksum type")
+            };
         }
 
         public bool VerifyPayloadChecksum()
         {
-            return CalculatePayloadChecksum().Equals(Header?.PayloadHash);
+            return CalculatePayloadChecksum(ChecksumType.Sha256).Equals(Header?.PayloadHash);
         }
 
         public Signature CalculateIDSignature(ECDsa key)
@@ -154,7 +160,8 @@ namespace Neo.FileStorage.API.Object
 
         public void SetVerificationFields(ECDsa key)
         {
-            Header.PayloadHash = CalculatePayloadChecksum();
+            Header.PayloadHash = CalculatePayloadChecksum(ChecksumType.Sha256);
+            Header.HomomorphicHash = CalculatePayloadChecksum(ChecksumType.Tz);
             ObjectId = CalculateID();
             Signature = CalculateIDSignature(key);
         }
@@ -163,7 +170,6 @@ namespace Neo.FileStorage.API.Object
         {
             if (!VerifyIDSignature()) return false;
             if (!VerifyID()) return false;
-            if (!VerifyPayloadChecksum()) return false;
             return true;
         }
 

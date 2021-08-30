@@ -173,7 +173,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestObjectGet()
         {
-            ObjectID coid = ObjectID.FromString("H6RXNGv1q1Xh4LDhKG3dByZv6izbYVeZ3p717sHoBcGX");
+            ObjectID coid = ObjectID.FromString("6hCiDq3HjWECYAgUcFJ2VtsWN2YrnomHXRAghRPhrkwZ");
             var address = new Address(cid, coid);
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
@@ -197,7 +197,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestObjectDelete()
         {
-            ObjectID coid = ObjectID.FromString("8Bhi84qyNBHkCPdfRAuEkU9bmbZTZsQJbyJnpJQiPY45");
+            ObjectID coid = ObjectID.FromString("8k7WGNFFjccbKQxxWFtRXhYqYQqzctKd8kyB4rKfrBza");
             var address = new Address(cid, coid);
             using var client = new Client.Client(key, host);
             var source1 = new CancellationTokenSource();
@@ -207,7 +207,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
             var o = client.DeleteObject(address, new CallOptions { Ttl = 2, Session = session }, source2.Token).Result;
-            Assert.AreEqual(address, o);
+            Assert.AreEqual(coid.String(), o.ObjectId.String());
         }
 
         [TestMethod]
