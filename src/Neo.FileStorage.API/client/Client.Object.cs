@@ -125,11 +125,11 @@ namespace Neo.FileStorage.API.Client
                 await stream.Write(req);
                 offset = end;
             }
-            var resp = await stream.Close();
+            var resp = (PutResponse)await stream.Close();
             return resp.Body.ObjectId;
         }
 
-        public async Task<PutStream> PutObject(PutRequest init, DateTime? deadline = null, CancellationToken context = default)
+        public async Task<IClientStream> PutObject(PutRequest init, DateTime? deadline = null, CancellationToken context = default)
         {
             if (init is null) throw new ArgumentNullException(nameof(init));
             if (init.Body?.ObjectPartCase != PutRequest.Types.Body.ObjectPartOneofCase.Init) throw new ArgumentException("invalid request type, expect init");

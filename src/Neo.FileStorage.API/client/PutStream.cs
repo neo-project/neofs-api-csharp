@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Object;
+using Neo.FileStorage.API.Session;
 
 namespace Neo.FileStorage.API.Client
 {
-    public class PutStream : IDisposable
+    public class PutStream : IClientStream, IDisposable
     {
         public AsyncClientStreamingCall<PutRequest, PutResponse> Call { get; init; }
 
@@ -15,14 +16,19 @@ namespace Neo.FileStorage.API.Client
             Call.Dispose();
         }
 
-        public async Task Write(PutRequest request)
+        public async Task Write(IRequest request)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
-            if (request.Body?.ObjectPartCase != PutRequest.Types.Body.ObjectPartOneofCase.Chunk) throw new ArgumentException("invalid requst type, expect chunk");
-            await Call.RequestStream.WriteAsync(request);
+            if (request is PutRequest putRequest)
+            {
+                if (putRequest.Body?.ObjectPartCase != PutRequest.Types.Body.ObjectPartOneofCase.Chunk) throw new ArgumentException("invalid requst type, expect chunk");
+                await Call.RequestStream.WriteAsync(putRequest);
+            }
+            else
+                throw new InvalidOperationException("invalid request type");
         }
 
-        public async Task<PutResponse> Close()
+        public async Task<IResponse> Close()
         {
             await Call.RequestStream.CompleteAsync();
             var resp = await Call.ResponseAsync;

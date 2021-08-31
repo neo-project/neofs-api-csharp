@@ -3,7 +3,7 @@ using System;
 
 namespace Neo.FileStorage.API.Object
 {
-    public class ObjectExcpetion : Exception
+    public class ObjectException : Exception
     {
         public const string AlreadyRemovedError = "object already removed";
         public const string RangeOutOfBoundsError = "range out of bounds";
@@ -11,12 +11,12 @@ namespace Neo.FileStorage.API.Object
         public const string SizeExceedLimitError = "object size exceed limit";
         public const string UnknownTypeError = "unknown object type";
 
-        public ObjectExcpetion() : base() { }
+        public ObjectException() : base() { }
 
-        public ObjectExcpetion(string? message) : base(message) { }
+        public ObjectException(string? message) : base(message) { }
     }
 
-    public class SplitInfoException : ObjectExcpetion
+    public class SplitInfoException : ObjectException
     {
         public SplitInfo SplitInfo { get; private set; }
 
@@ -26,35 +26,35 @@ namespace Neo.FileStorage.API.Object
         }
     }
 
-    public class ObjectAlreadyRemovedException : ObjectExcpetion
+    public class ObjectAlreadyRemovedException : ObjectException
     {
         public override string Message => AlreadyRemovedError;
 
         public ObjectAlreadyRemovedException() : base() { }
     }
 
-    public class RangeOutOfBoundsException : ObjectExcpetion
+    public class RangeOutOfBoundsException : ObjectException
     {
         public override string Message => RangeOutOfBoundsError;
 
         public RangeOutOfBoundsException() : base() { }
     }
 
-    public class ObjectNotFoundException : ObjectExcpetion
+    public class ObjectNotFoundException : ObjectException
     {
         public override string Message => NotFoundError;
 
         public ObjectNotFoundException() : base() { }
     }
 
-    public class SizeExceedLimitException : ObjectExcpetion
+    public class SizeExceedLimitException : ObjectException
     {
         public override string Message => SizeExceedLimitError;
 
         public SizeExceedLimitException() : base() { }
     }
 
-    public class UnknownObjectTypeException : ObjectExcpetion
+    public class UnknownObjectTypeException : ObjectException
     {
         public override string Message => UnknownTypeError;
 

@@ -82,7 +82,7 @@ namespace Neo.FileStorage.API.Client
     public interface IRawObjectClient
     {
         Task<Object.Object> GetObject(Object.GetRequest request, DateTime? deadline = null, CancellationToken context = default);
-        Task<PutStream> PutObject(Object.PutRequest init, DateTime? deadline = null, CancellationToken context = default);
+        Task<IClientStream> PutObject(Object.PutRequest init, DateTime? deadline = null, CancellationToken context = default);
         Task<Address> DeleteObject(Object.DeleteRequest request, DateTime? deadline = null, CancellationToken context = default);
         Task<Object.Object> GetObjectHeader(HeadRequest request, DateTime? deadline = null, CancellationToken context = default);
         Task<byte[]> GetObjectPayloadRangeData(GetRangeRequest request, DateTime? deadline = null, CancellationToken context = default);
