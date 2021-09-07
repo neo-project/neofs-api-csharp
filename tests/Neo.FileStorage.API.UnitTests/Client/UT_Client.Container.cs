@@ -22,7 +22,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
                 Version = Refs.Version.SDKVersion(),
                 OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
                 Nonce = Guid.NewGuid().ToByteString(),
-                BasicAcl = 536862719u,
+                BasicAcl = 0x3FFFFFFFu,
                 PlacementPolicy = policy,
             };
             container.Attributes.Add(new Container.Container.Types.Attribute
