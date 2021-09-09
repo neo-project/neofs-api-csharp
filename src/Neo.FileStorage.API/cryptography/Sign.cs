@@ -208,7 +208,7 @@ namespace Neo.FileStorage.API.Cryptography
                     return false;
                 return true;
             }
-            if (verify_header.BodySignature is null) return false;
+            if (verify_header.BodySignature is not null) return false;
             return VerifyMatryoshkaLevel2(body, meta_header.Origin, origin);
         }
 
