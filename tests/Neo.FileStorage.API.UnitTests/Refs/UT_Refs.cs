@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Cryptography;
@@ -58,6 +60,23 @@ namespace Neo.FileStorage.API.UnitTests.TestRefs
         {
             var cid = ContainerID.FromString("5Cyxb3wrHDw5pqY63hb5otCSsJ24ZfYmsA8NAjtho2gr");
             var oid = ObjectID.FromString("5Cyxb3wrHDw5pqY63hb5otCSsJ24ZfYmsA8NAjtho2gr");
+        }
+
+        [TestMethod]
+        public void TestOwnerIDFromKey()
+        {
+            string pk = "A/9ltq55E0pNzp0NOdOFHpurTul6v4boHhxbvFDNKCau";
+            var address = OwnerID.FromScriptHash(Convert.FromBase64String(pk).PublicKeyToScriptHash()).ToAddress();
+            Console.WriteLine(address);
+        }
+
+        [TestMethod]
+        public void TestObjectIDDistinct()
+        {
+            var id1 = ObjectID.FromString("6hc8bGUWr22VKWsnzcEqzw6c5qhDh2cdbziASkrme7tu");
+            var id2 = ObjectID.FromString("6hc8bGUWr22VKWsnzcEqzw6c5qhDh2cdbziASkrme7tu");
+            var ids = new List<ObjectID>() { id1, id2 };
+            Assert.AreEqual(1, ids.Distinct().Count());
         }
     }
 }

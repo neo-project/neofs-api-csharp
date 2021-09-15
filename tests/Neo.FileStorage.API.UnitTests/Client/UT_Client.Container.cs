@@ -15,7 +15,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         public void TestPutContainer()
         {
             using var client = new Client.Client(key, host);
-            var replica = new Replica(1, "");
+            var replica = new Replica(2, "");
             var policy = new PlacementPolicy(1, new Replica[] { replica }, null, null);
             var container = new Container.Container
             {
@@ -40,11 +40,12 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestGetContainer()
         {
+            var ccid = ContainerID.FromString("EDo5rxwFLd9by4MNssUYVgKZ88EsyDDgo1tym3Dntqu8");
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(10000);
-            var container = client.GetContainer(cid, context: source.Token).Result;
-            Assert.AreEqual(cid, container.Container.CalCulateAndGetId);
+            var container = client.GetContainer(ccid, context: source.Token).Result;
+            Assert.AreEqual(ccid, container.Container.CalCulateAndGetId);
             Console.WriteLine(container.Container);
         }
 
@@ -65,7 +66,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             source.CancelAfter(10000);
             var cids = client.ListContainers(OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()), context: source.Token).Result;
             Assert.AreEqual(1, cids.Count);
-            Assert.AreEqual("Bun3sfMBpnjKc3Tx7SdwrMxyNi8ha8JT3dhuFGvYBRTz", cids[0].String());
+            Assert.AreEqual(cid.String(), cids[0].String());
         }
 
         [TestMethod]
@@ -89,7 +90,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var record = new EACLRecord
             {
                 Operation = API.Acl.Operation.Delete,
-                Action = API.Acl.Action.Deny,
+                Action = API.Acl.Action.Allow,
             };
             record.Targets.Add(target);
             var eacl = new EACLTable

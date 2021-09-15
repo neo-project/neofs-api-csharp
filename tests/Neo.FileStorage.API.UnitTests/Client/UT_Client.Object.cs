@@ -21,11 +21,11 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         public void TestObjectPutFull()
         {
             var obj = RandomFullObject();
-            Console.WriteLine(obj.ObjectId.String());
+            Console.WriteLine("created object, id=" + obj.ObjectId.String());
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             var o = client.PutObject(obj, new CallOptions { Ttl = 2 }, source.Token).Result;
-            Console.WriteLine(o.String());
+            Console.WriteLine("get object, id=" + o.String());
             Assert.AreNotEqual("", o.String());
         }
 
@@ -173,14 +173,13 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestObjectGet()
         {
-            ObjectID coid = ObjectID.FromString("6hCiDq3HjWECYAgUcFJ2VtsWN2YrnomHXRAghRPhrkwZ");
-            var address = new Address(cid, coid);
+            var address = new Address(cid, oid);
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObject(address, false, new CallOptions { Ttl = 2 }, source.Token).Result;
-            Assert.AreEqual(coid, o.ObjectId);
+            var o = client.GetObject(address, false, new CallOptions { Ttl = 1 }, source.Token).Result;
             Console.WriteLine(o.ToString());
+            Assert.AreEqual(oid, o.ObjectId);
         }
 
         [TestMethod]
@@ -218,6 +217,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
             var o = client.GetObjectHeader(address, false, false, new CallOptions { Ttl = 2 }, source.Token).Result;
+            Console.WriteLine(o);
             Assert.AreEqual(oid, o.ObjectId);
         }
 
@@ -228,7 +228,8 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectPayloadRangeData(address, new Object.Range { Offset = 0, Length = 3 }, false, new CallOptions { Ttl = 2 }, source.Token).Result;
+            var o = client.GetObjectPayloadRangeData(address, new Object.Range { Offset = 0, Length = 3 }, false, new CallOptions { Ttl = 1 }, source.Token).Result;
+            Console.WriteLine(o.ToHexString());
             Assert.AreEqual("hel", Encoding.ASCII.GetString(o));
         }
 
@@ -239,9 +240,9 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectPayloadRangeHash(address, new List<Object.Range> { new Object.Range { Offset = 0, Length = 3 } }, ChecksumType.Sha256, new byte[] { 0x00 }, new CallOptions { Ttl = 2 }, source.Token).Result;
+            var o = client.GetObjectPayloadRangeHash(address, new List<Object.Range> { new Object.Range { Offset = 0, Length = 3 }, new Object.Range { Offset = 1000, Length = 124 } }, ChecksumType.Tz, new byte[] { 0x00 }, new CallOptions { Ttl = 2 }, source.Token).Result;
+            Console.WriteLine($"{o.Count} {string.Join(", ", o.Select(p => p.ToHexString()))}");
             Assert.AreEqual(1, o.Count);
-            Assert.AreEqual(Encoding.ASCII.GetBytes("hello")[..3].Sha256().ToHexString(), o[0].ToHexString());
         }
 
         [TestMethod]
@@ -251,10 +252,10 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
             var filter = new SearchFilters();
-            filter.AddTypeFilter(MatchType.StringEqual, ObjectType.StorageGroup);
+            filter.AddTypeFilter(MatchType.StringEqual, ObjectType.Regular);
             var o = client.SearchObject(cid, filter, new CallOptions { Ttl = 2 }, source.Token).Result;
-            o.ForEach(p => Console.WriteLine(p.String()));
-            Assert.IsTrue(o.Select(p => p.String()).ToList().Contains("Cci6sUPwwPtx3LXyCRaYHroesedP98Vctu8d8T52vFKX"));
+            Console.WriteLine($"{o.Count} {string.Join(", ", o.Select(p => p.String()))}");
+            Assert.IsTrue(o.Contains(oid));
         }
 
         [TestMethod]

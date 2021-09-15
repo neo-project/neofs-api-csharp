@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Acl;
+using Neo.FileStorage.API.Object;
 
 namespace Neo.FileStorage.API.UnitTests.Acl
 {

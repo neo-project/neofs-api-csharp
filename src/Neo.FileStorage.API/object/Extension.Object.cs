@@ -175,7 +175,7 @@ namespace Neo.FileStorage.API.Object
 
         public Object CutPayload()
         {
-            var obj = Parser.ParseFrom(this.ToByteArray());
+            var obj = Clone();
             obj.payload_ = ByteString.Empty;
             return obj;
         }

@@ -63,7 +63,7 @@ namespace Neo.FileStorage.API.Acl
             value.ResetLeftBit(FinalBitPos);
         }
 
-        public static bool Sticky(this ref uint value)
+        public static bool Sticky(this uint value)
         {
             return value.IsLeftBitSet(StickyBitPos);
         }

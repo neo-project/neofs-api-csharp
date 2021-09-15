@@ -12,6 +12,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         {
             using var client = new Client.Client(key, host);
             var balance = client.GetBalance().Result;
+            Assert.AreEqual(12u, balance.Precision);
             Assert.AreEqual(0, balance.Value);
         }
 
