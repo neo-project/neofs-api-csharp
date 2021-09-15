@@ -14,17 +14,17 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
     public partial class UT_Client
     {
         // private readonly string host = "http://st01.testnet.fs.neo.org:8080";
-        // private readonly string host = "http://s01.neofs.devenv:8080";
-        private readonly string host = "http://localhost:8080";
+        private readonly string host = "http://s04.neofs.devenv:8080";
+        // private readonly string host = "http://localhost:8080";
 
         private readonly ContainerID cid = ContainerID.FromString("8W51pVDucr85AfK9pM3Bd6dykZBL8qE2Ur7VA1xkosqE");
-        private readonly ObjectID oid = ObjectID.FromString("6hc8bGUWr22VKWsnzcEqzw6c5qhDh2cdbziASkrme7tu");
+        private readonly ObjectID oid = ObjectID.FromString("4KhQUqQFzhaZZiEc4xjKdnNfThcvEjErrhsHctrrjwef");
         private readonly ECDsa key = "Kzj1LbTtmfbyJjn4cZhD6U4pdq74iHcmKmGRRBiLQoQzPBRWLEKz".LoadWif();
 
-        public Object.Object RandomFullObject()
+        public Object.Object RandomFullObject(int len = 1024)
         {
             var rand = new Random();
-            var payload = new byte[1024];
+            var payload = new byte[len];
             rand.NextBytes(payload);
             var obj = new Object.Object
             {

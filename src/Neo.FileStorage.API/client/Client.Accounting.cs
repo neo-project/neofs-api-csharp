@@ -30,6 +30,7 @@ namespace Neo.FileStorage.API.Client
         public async Task<Accounting.Decimal> GetBalance(BalanceRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await AccountingClient.BalanceAsync(request, deadline: deadline, cancellationToken: context);
+            Console.WriteLine(resp);
             if (!resp.VerifyResponse())
                 throw new FormatException("invalid balance response");
             return resp.Body.Balance;

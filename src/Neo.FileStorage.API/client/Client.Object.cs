@@ -126,6 +126,7 @@ namespace Neo.FileStorage.API.Client
                 offset = end;
             }
             var resp = (PutResponse)await stream.Close();
+            Console.WriteLine(resp);
             return resp.Body.ObjectId;
         }
 
