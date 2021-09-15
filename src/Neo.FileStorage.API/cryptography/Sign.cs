@@ -109,11 +109,8 @@ namespace Neo.FileStorage.API.Cryptography
                 {
                     verify_header.BodySignature = key.SignMessagePart(to_sign.GetBody());
                 }
-                else
-                {
-                    verify_header.OriginSignature = key.SignMessagePart(verify_origin);
-                }
                 verify_header.MetaSignature = key.SignMessagePart(meta_header);
+                verify_header.OriginSignature = key.SignMessagePart(verify_origin);
                 verify_header.Origin = verify_origin;
                 to_sign.VerifyHeader = verify_header;
             }
