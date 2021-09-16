@@ -6,9 +6,9 @@ namespace Neo.FileStorage.API.Object
     public class ObjectException : Exception
     {
         public const string AlreadyRemovedError = "object already removed";
-        public const string RangeOutOfBoundsError = "range out of bounds";
+        public const string RangeOutOfBoundsError = "payload range is out of bounds";
         public const string NotFoundError = "object not found";
-        public const string SizeExceedLimitError = "object size exceed limit";
+        public const string SizeExceedLimitError = "payload size is greater than the limit";
         public const string UnknownTypeError = "unknown object type";
 
         public ObjectException() : base() { }
