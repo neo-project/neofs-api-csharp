@@ -64,7 +64,7 @@ namespace Neo.FileStorage.API.Object
         {
             get
             {
-                return Header?.Split?.SplitId is null ? null : Header.Split.SplitId;
+                return Header?.Split?.SplitId;
             }
             set
             {
