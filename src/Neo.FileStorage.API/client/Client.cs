@@ -1,17 +1,15 @@
-using System;
-using System.Linq;
-using System.Security.Cryptography;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Neo.FileStorage.API.Accounting;
 using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Container;
-using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Netmap;
 using Neo.FileStorage.API.Object;
 using Neo.FileStorage.API.Reputation;
 using Neo.FileStorage.API.Session;
-using Neo.Wallets;
+using System;
+using System.Net.Http;
+using System.Security.Cryptography;
 
 namespace Neo.FileStorage.API.Client
 {
@@ -100,7 +98,10 @@ namespace Neo.FileStorage.API.Client
         /// <param name="host">The url of neofs node, like: http://st2.storage.fs.neo.org:8080.</param>
         public Client(ECDsa key, string host)
         {
-            channel = GrpcChannel.ForAddress(host, new GrpcChannelOptions { Credentials = ChannelCredentials.Insecure });
+            if (host.StartsWith("https"))
+                channel = GrpcChannel.ForAddress(host, new() { Credentials = new SslCredentials() });
+            else
+                channel = GrpcChannel.ForAddress(host, new() { Credentials = SslCredentials.Insecure });
             this.key = key;
         }
 
