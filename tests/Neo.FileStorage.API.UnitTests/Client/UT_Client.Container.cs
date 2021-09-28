@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,14 +16,16 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         public void TestPutContainer()
         {
             using var client = new Client.Client(key, host);
-            var replica = new Replica(2, "");
-            var policy = new PlacementPolicy(1, new Replica[] { replica }, null, null);
+            var replica = new Replica(1, "shanghai");
+            var selector = new Selector("shanghai", "Location", Clause.Same, 1, "shanghai");
+            var filter = new Filter("shanghai", "Location", "Shanghai", Netmap.Operation.Eq);
+            var policy = new PlacementPolicy(1, new Replica[] { replica }, new Selector[] { selector }, new Filter[] { filter });
             var container = new Container.Container
             {
                 Version = Refs.Version.SDKVersion(),
                 OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
                 Nonce = Guid.NewGuid().ToByteString(),
-                BasicAcl = 0x3FFFFFFFu,
+                BasicAcl = BasicAcl.PublicBasicRule,
                 PlacementPolicy = policy,
             };
             container.Attributes.Add(new Container.Container.Types.Attribute
@@ -40,12 +43,11 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestGetContainer()
         {
-            var ccid = ContainerID.FromString("EDo5rxwFLd9by4MNssUYVgKZ88EsyDDgo1tym3Dntqu8");
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(10000);
-            var container = client.GetContainer(ccid, context: source.Token).Result;
-            Assert.AreEqual(ccid, container.Container.CalCulateAndGetId);
+            var container = client.GetContainer(cid, context: source.Token).Result;
+            Assert.AreEqual(cid, container.Container.CalCulateAndGetId);
             Console.WriteLine(container.Container);
         }
 
@@ -65,6 +67,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             using var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var cids = client.ListContainers(OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()), context: source.Token).Result;
+            Console.WriteLine(string.Join(", ", cids.Select(p => p.String())));
             Assert.AreEqual(1, cids.Count);
             Assert.AreEqual(cid.String(), cids[0].String());
         }

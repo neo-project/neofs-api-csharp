@@ -8,7 +8,6 @@ using Neo.FileStorage.API.Object;
 using Neo.FileStorage.API.Reputation;
 using Neo.FileStorage.API.Session;
 using System;
-using System.Net.Http;
 using System.Security.Cryptography;
 
 namespace Neo.FileStorage.API.Client

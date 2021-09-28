@@ -1,9 +1,10 @@
-using System.Security.Cryptography;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.Cryptography;
 using Neo.FileStorage.API.Accounting;
 using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Session;
+using System;
+using System.Security.Cryptography;
 
 namespace Neo.FileStorage.API.UnitTests.TestCryptography
 {
@@ -30,7 +31,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography
             {
                 Body = new BalanceResponse.Types.Body
                 {
-                    Balance = new Decimal
+                    Balance = new Accounting.Decimal
                     {
                         Value = 100
                     },
@@ -41,7 +42,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography
                 Ttl = 1
             };
             key.SignResponse(req);
-
+            Console.WriteLine(req);
             Assert.IsTrue(req.VerifyResponse());
         }
 

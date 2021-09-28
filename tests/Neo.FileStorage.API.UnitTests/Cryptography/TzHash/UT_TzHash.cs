@@ -129,46 +129,40 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography.Tz
         }
 
         [TestMethod]
-        public void TestCorrectness()
-        {
-            using RandomNumberGenerator rng = RandomNumberGenerator.Create();
-            var b = new byte[1000];
-            rng.GetBytes(b);
-
-            TzHash tz = new();
-            var h = tz.ComputeHash(b);
-            var s = h.ToHexString();
-
-            tz.Reset();
-            tz.HashDataParallel(b);
-            var h2 = tz.Hash;
-            var s2 = h2.ToHexString();
-            Assert.AreEqual(s, s2);
-        }
-
-        [TestMethod]
         public void TestSpeed1()
         {
             using RandomNumberGenerator rng = RandomNumberGenerator.Create();
-            var b = new byte[10000000];
+            var b = new byte[3000000];
             rng.GetBytes(b);
-
+            var t1 = DateTime.UtcNow;
             TzHash tz = new();
-            var h = tz.ComputeHash(b);
-            var s = h.ToHexString();
+            tz.TransformBlock(b, 0, b.Length, null, 0);
+            var t2 = DateTime.UtcNow;
+            Console.WriteLine(t2 - t1);
+            Console.WriteLine(tz.Hash.ToHexString());
+            tz.TransformBlock(b, 0, b.Length, null, 0);
+            var t3 = DateTime.UtcNow;
+            Console.WriteLine(t3 - t2);
+            tz.TransformFinalBlock(Array.Empty<byte>(), 0, 0);
+            var t4 = DateTime.UtcNow;
+            Console.WriteLine(t4 - t3);
+            Console.WriteLine(tz.Hash.ToHexString());
         }
 
         [TestMethod]
-        public void TestSpeed2()
+        public void TestComputeBlock()
         {
-            using RandomNumberGenerator rng = RandomNumberGenerator.Create();
-            var b = new byte[100000];
-            rng.GetBytes(b);
-
-            TzHash tz = new();
-            tz.HashDataParallel(b);
-            var h2 = tz.Hash;
-            var s2 = h2.ToHexString();
+            using var tz = new TzHash();
+            var rand = new Random();
+            var data = new byte[1024];
+            rand.NextBytes(data);
+            var h = tz.ComputeHash(data);
+            using var tzh = new TzHash();
+            tzh.TransformBlock(data, 0, 512, null, 0);
+            tzh.TransformFinalBlock(data, 512, 512);
+            Assert.IsTrue(tzh.Hash.SequenceEqual(h));
+            tzh.TransformBlock(data, 0, 512, null, 0);
+            Assert.ThrowsException<CryptographicUnexpectedOperationException>(() => tzh.Hash);
         }
     }
 }

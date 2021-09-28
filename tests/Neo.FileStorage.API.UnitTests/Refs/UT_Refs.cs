@@ -16,6 +16,11 @@ namespace Neo.FileStorage.API.UnitTests.TestRefs
         {
             var id = ObjectID.FromValue("a9aa4468861473c86e3d2db9d426e37e5858e015a678f7e6a94a12da3569c8b0".HexToBytes());
             Console.WriteLine(id);
+            id = new()
+            {
+                Value = ByteString.CopyFrom(Convert.FromBase64String("9jpT9lKxXQi0IvCF//QK6V/V5/sbjdnr+lz7ROxlzoA="))
+            };
+            Console.WriteLine(id.String());
         }
 
         [TestMethod]

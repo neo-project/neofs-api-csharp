@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Google.Protobuf;
 using Grpc.Core;
 using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Object;
 using Neo.FileStorage.API.Refs;
 using Neo.FileStorage.API.Session;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Neo.FileStorage.API.Client
 {
@@ -84,7 +84,6 @@ namespace Neo.FileStorage.API.Client
         {
             if (obj is null) throw new ArgumentNullException(nameof(obj));
             if (obj.Header is null) throw new ArgumentException($"No Header in {nameof(obj)}");
-            if (obj.Payload is null || obj.Payload.Length == 0) throw new ArgumentException($"No Payload in {nameof(obj)}");
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             var req = new PutRequest();
@@ -259,6 +258,7 @@ namespace Neo.FileStorage.API.Client
             };
             var meta = opts.GetRequestMetaHeader();
             AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Range);
+            req.MetaHeader = meta;
             opts.Key.SignRequest(req);
 
             return await GetObjectPayloadRangeData(req, opts.Deadline, context);

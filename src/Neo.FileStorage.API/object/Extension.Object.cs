@@ -133,8 +133,8 @@ namespace Neo.FileStorage.API.Object
 
         public Checksum CalculatePayloadChecksum(ChecksumType type)
         {
-            if (Payload is null || Payload.Length == 0)
-                throw new System.InvalidOperationException("cant calculate payload checksum: invalid payload");
+            if (Payload is null)
+                throw new InvalidOperationException("cant calculate payload checksum: invalid payload");
             return type switch
             {
                 ChecksumType.Sha256 => Payload.Sha256Checksum(),
