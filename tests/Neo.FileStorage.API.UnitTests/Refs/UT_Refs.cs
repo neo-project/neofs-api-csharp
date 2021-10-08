@@ -63,8 +63,8 @@ namespace Neo.FileStorage.API.UnitTests.TestRefs
         [TestMethod]
         public void TestContainerID()
         {
-            var cid = ContainerID.FromString("5Cyxb3wrHDw5pqY63hb5otCSsJ24ZfYmsA8NAjtho2gr");
-            var oid = ObjectID.FromString("5Cyxb3wrHDw5pqY63hb5otCSsJ24ZfYmsA8NAjtho2gr");
+            var cid = ContainerID.FromString("4pQhKT9XN9Fj1WFoEPAWXenWopjAQLWLtsQNn5q2z56U");
+            Console.WriteLine(cid.Value.ToBase64());
         }
 
         [TestMethod]

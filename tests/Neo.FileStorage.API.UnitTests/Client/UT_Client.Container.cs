@@ -13,13 +13,41 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
     public partial class UT_Client
     {
         [TestMethod]
-        public void TestPutContainer()
+        public void TestPutContainerOnlyOne()
         {
             using var client = new Client.Client(key, host);
-            var replica = new Replica(1, "shanghai");
-            var selector = new Selector("shanghai", "Location", Clause.Same, 1, "shanghai");
-            var filter = new Filter("shanghai", "Location", "Shanghai", Netmap.Operation.Eq);
+            var replica = new Replica(1, "Shanghai");
+            var selector = new Selector("Shanghai", "Location", Clause.Same, 1, "Shanghai");
+            var filter = new Filter("Shanghai", "Location", "Shanghai", Netmap.Operation.Eq);
             var policy = new PlacementPolicy(1, new Replica[] { replica }, new Selector[] { selector }, new Filter[] { filter });
+            var container = new Container.Container
+            {
+                Version = Refs.Version.SDKVersion(),
+                OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
+                Nonce = Guid.NewGuid().ToByteString(),
+                BasicAcl = BasicAcl.PublicBasicRule,
+                PlacementPolicy = policy,
+            };
+            container.Attributes.Add(new Container.Container.Types.Attribute
+            {
+                Key = "CreatedAt",
+                Value = DateTime.UtcNow.ToString(),
+            });
+            using var source = new CancellationTokenSource();
+            source.CancelAfter(TimeSpan.FromMinutes(1));
+            var cid = client.PutContainer(container, context: source.Token).Result;
+            Console.WriteLine(cid.String());
+            Assert.AreEqual(container.CalCulateAndGetId, cid);
+        }
+
+        [TestMethod]
+        public void TestPutContainerSelect()
+        {
+            using var client = new Client.Client(key, host);
+            // var replica = new Replica(2, ""); //not in policy
+            // var replica = new Replica(3, ""); // in policy with others
+            var replica = new Replica(1, ""); // test only one node put container size
+            var policy = new PlacementPolicy(1, new Replica[] { replica }, null, null);
             var container = new Container.Container
             {
                 Version = Refs.Version.SDKVersion(),

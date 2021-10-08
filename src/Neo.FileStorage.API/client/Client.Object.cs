@@ -6,6 +6,8 @@ using Neo.FileStorage.API.Refs;
 using Neo.FileStorage.API.Session;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,6 +35,62 @@ namespace Neo.FileStorage.API.Client
             opts.Key.SignRequest(req);
 
             return await GetObject(req, opts.Deadline, context);
+        }
+
+        public async Task GetObject(Address address, Stream writer, bool raw = false, CallOptions options = null, CancellationToken context = default)
+        {
+            if (address is null) throw new ArgumentNullException(nameof(address));
+            var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
+            var req = new GetRequest
+            {
+                Body = new GetRequest.Types.Body
+                {
+                    Raw = raw,
+                    Address = address,
+                }
+            };
+            var meta = opts.GetRequestMetaHeader();
+            AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Get);
+            req.MetaHeader = meta;
+            opts.Key.SignRequest(req);
+            using var call = ObjectClient.Get(req, cancellationToken: context);
+            var obj = new Object.Object();
+            int offset = 0;
+            while (await call.ResponseStream.MoveNext())
+            {
+                var resp = call.ResponseStream.Current;
+                if (!resp.VerifyResponse())
+                    throw new InvalidOperationException("invalid object get response");
+                switch (resp.Body.ObjectPartCase)
+                {
+                    case GetResponse.Types.Body.ObjectPartOneofCase.Init:
+                        {
+                            obj.ObjectId = resp.Body.Init.ObjectId;
+                            obj.Signature = resp.Body.Init.Signature;
+                            obj.Header = resp.Body.Init.Header;
+                            break;
+                        }
+                    case GetResponse.Types.Body.ObjectPartOneofCase.Chunk:
+                        {
+                            if (obj.Header is null) throw new InvalidOperationException("missing init");
+                            var chunk = resp.Body.Chunk.ToByteArray();
+                            if (obj.PayloadSize < (ulong)(offset + chunk.Length))
+                                throw new InvalidOperationException("data exceeds PayloadSize");
+                            writer.Write(chunk, 0, chunk.Length);
+                            offset += chunk.Length;
+                            break;
+                        }
+                    case GetResponse.Types.Body.ObjectPartOneofCase.SplitInfo:
+                        {
+                            throw new SplitInfoException(resp.Body.SplitInfo);
+                        }
+                    default:
+                        throw new FormatException("malformed object get reponse");
+                }
+            }
+            if ((ulong)offset < obj.PayloadSize)
+                throw new InvalidOperationException("data is less than PayloadSize");
         }
 
         public async Task<Object.Object> GetObject(GetRequest request, DateTime? deadline = null, CancellationToken context = default)
@@ -78,6 +136,42 @@ namespace Neo.FileStorage.API.Client
                 throw new InvalidOperationException("data is less than PayloadSize");
             obj.Payload = ByteString.CopyFrom(payload);
             return obj;
+        }
+
+        public async Task<ObjectID> PutObject(Header header, Stream reader, CallOptions options = null, CancellationToken context = default)
+        {
+            if (header is null) throw new ArgumentNullException(nameof(header));
+            var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
+            var req = new PutRequest
+            {
+                Body = new()
+            };
+            var meta = opts.GetRequestMetaHeader();
+            req.MetaHeader = meta;
+            var init = new PutRequest.Types.Body.Types.Init
+            {
+                Header = header,
+            };
+            req.Body.Init = init;
+            opts.Key.SignRequest(req);
+
+            using var stream = await PutObject(req, context: context);
+            var block = new byte[Object.Object.ChunkSize];
+            while (!reader.CanRead)
+            {
+                var count = reader.Read(block, 0, Object.Object.ChunkSize);
+                var chunk_body = new PutRequest.Types.Body
+                {
+                    Chunk = ByteString.CopyFrom(block[..count]),
+                };
+                req.Body = chunk_body;
+                req.VerifyHeader = null;
+                opts.Key.SignRequest(req);
+                await stream.Write(req);
+            }
+            var resp = (PutResponse)await stream.Close();
+            return resp.Body.ObjectId;
         }
 
         public async Task<ObjectID> PutObject(Object.Object obj, CallOptions options = null, CancellationToken context = default)
