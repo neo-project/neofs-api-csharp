@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Copyright>2020-2021 The Neo Project</Copyright>
     <AssemblyTitle>Neo.FileStorage.API</AssemblyTitle>
-    <Version>0.0.79</Version>
+    <Version>3.0.3</Version>
     <Authors>The Neo Project</Authors>
     <TargetFramework>net5.0</TargetFramework>
     <PackageId>NeoFS.API</PackageId>
@@ -48,7 +48,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Neo" Version="3.0.1" />
+    <PackageReference Include="Neo" Version="3.0.3" />
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.8" />
     <PackageReference Include="Sprache" Version="2.3.1" />
   </ItemGroup>
