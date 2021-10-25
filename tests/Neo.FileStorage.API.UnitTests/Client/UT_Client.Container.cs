@@ -45,8 +45,8 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         {
             using var client = new Client.Client(key, host);
             // var replica = new Replica(2, ""); //not in policy
-            // var replica = new Replica(3, ""); // in policy with others
-            var replica = new Replica(1, ""); // test only one node put container size
+            var replica = new Replica(4, ""); // in policy with others
+            // var replica = new Replica(1, ""); // test only one node put container size
             var policy = new PlacementPolicy(1, new Replica[] { replica }, null, null);
             var container = new Container.Container
             {

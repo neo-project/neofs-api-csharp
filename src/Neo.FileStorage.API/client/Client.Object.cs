@@ -6,7 +6,6 @@ using Neo.FileStorage.API.Refs;
 using Neo.FileStorage.API.Session;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -37,7 +36,7 @@ namespace Neo.FileStorage.API.Client
             return await GetObject(req, opts.Deadline, context);
         }
 
-        public async Task GetObject(Address address, Stream writer, bool raw = false, CallOptions options = null, CancellationToken context = default)
+        public async Task<Object.Object> GetObject(Address address, Stream writer, bool raw = false, CallOptions options = null, CancellationToken context = default)
         {
             if (address is null) throw new ArgumentNullException(nameof(address));
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -91,6 +90,7 @@ namespace Neo.FileStorage.API.Client
             }
             if ((ulong)offset < obj.PayloadSize)
                 throw new InvalidOperationException("data is less than PayloadSize");
+            return obj;
         }
 
         public async Task<Object.Object> GetObject(GetRequest request, DateTime? deadline = null, CancellationToken context = default)
