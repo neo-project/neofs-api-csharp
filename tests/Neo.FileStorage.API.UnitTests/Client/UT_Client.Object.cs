@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using V2Object = Neo.FileStorage.API.Object.Object;
+using FSObject = Neo.FileStorage.API.Object.Object;
 
 namespace Neo.FileStorage.API.UnitTests.FSClient
 {
@@ -34,7 +34,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var rand = new Random();
             var payload = new byte[67118864];
             rand.NextBytes(payload);
-            var obj = new V2Object
+            var obj = new FSObject
             {
                 Header = new Header
                 {
@@ -55,6 +55,40 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var o = client.PutObject(obj, new CallOptions { Ttl = 1, Session = session }, source.Token).Result;
             Console.WriteLine(o.String());
             Assert.AreNotEqual("", o.String());
+        }
+
+        [TestMethod]
+        public void TestObjectPutStream()
+        {
+            string path = "objectputstream.data";
+            var rand = new Random();
+            var payload = new byte[1024];
+            rand.NextBytes(payload);
+            var file = File.Create(path);
+            file.Write(payload, 0, 1024);
+            file.Flush();
+            file.Seek(0, SeekOrigin.Begin);
+            var obj = new FSObject
+            {
+                Header = new Header
+                {
+                    OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
+                    ContainerId = cid,
+                },
+            };
+            obj.Attributes.Add(new Header.Types.Attribute
+            {
+                Key = "category",
+                Value = "test"
+            });
+            using var client = new Client.Client(key, host);
+            using var source = new CancellationTokenSource();
+            source.CancelAfter(TimeSpan.FromMinutes(10));
+            var session = client.CreateSession(20).Result;
+            var o = client.PutObject(obj.Header, file, new CallOptions { Ttl = 1, Session = session }, source.Token).Result;
+            Console.WriteLine(o.String());
+            Assert.AreNotEqual("", o.String());
+            File.Delete(path);
         }
 
         [TestMethod]
@@ -88,7 +122,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
                 ExpirationEpoch = epoch + 100,
             };
             sg.Members.AddRange(oids);
-            var obj = new V2Object
+            var obj = new FSObject
             {
                 Header = new Header
                 {
@@ -123,9 +157,10 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         }
 
         [TestMethod]
-        public void TestObjectGetWithStream()
+        public void TestObjectGetStream()
         {
-            var file = File.Create("objectgetstream.data");
+            string path = "objectgetstream.data";
+            var file = File.Create(path);
             var address = new Address(cid, oid);
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
@@ -133,6 +168,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             client.GetObject(address, file, false, new CallOptions { Ttl = 1 }, source.Token).Wait();
             file.Flush();
             Console.WriteLine(file.Length);
+            File.Delete(path);
         }
 
         [TestMethod]
@@ -144,6 +180,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             source.CancelAfter(TimeSpan.FromMinutes(1));
             var o = client.GetObject(address, context: source.Token).Result;
             Assert.AreEqual(oid, o.ObjectId);
+
         }
 
         [TestMethod]

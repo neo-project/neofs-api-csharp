@@ -158,9 +158,9 @@ namespace Neo.FileStorage.API.Client
 
             using var stream = await PutObject(req, context: context);
             var block = new byte[Object.Object.ChunkSize];
-            while (!reader.CanRead)
+            var count = reader.Read(block, 0, Object.Object.ChunkSize);
+            while (count > 0)
             {
-                var count = reader.Read(block, 0, Object.Object.ChunkSize);
                 var chunk_body = new PutRequest.Types.Body
                 {
                     Chunk = ByteString.CopyFrom(block[..count]),
@@ -169,6 +169,7 @@ namespace Neo.FileStorage.API.Client
                 req.VerifyHeader = null;
                 opts.Key.SignRequest(req);
                 await stream.Write(req);
+                count = reader.Read(block, 0, Object.Object.ChunkSize);
             }
             var resp = (PutResponse)await stream.Close();
             return resp.Body.ObjectId;
