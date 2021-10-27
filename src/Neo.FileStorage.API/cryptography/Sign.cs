@@ -131,6 +131,7 @@ namespace Neo.FileStorage.API.Cryptography
 
         public static bool VerifyRFC6979(this byte[] public_key, byte[] data, byte[] sig)
         {
+            if (public_key is null || data is null || sig is null) return false;
             var rs = DecodeSignature(sig);
             var digest = new Sha256Digest();
             var signer = new ECDsaSigner(new HMacDsaKCalculator(digest));
@@ -156,7 +157,7 @@ namespace Neo.FileStorage.API.Cryptography
 
         public static bool VerifyMessagePart(this Signature sig, IMessage data)
         {
-            if (sig is null) return false;
+            if (sig is null || sig.Key is null || sig.Sign is null || data is null) return false;
             using var key = sig.Key.ToByteArray().LoadPublicKey();
             var data2verify = data is null ? Array.Empty<byte>() : data.ToByteArray();
             return key.VerifyData(data2verify, sig.Sign.ToByteArray());
@@ -164,7 +165,7 @@ namespace Neo.FileStorage.API.Cryptography
 
         private static bool VerifyMatryoshkaLevel1(IMessage body, ResponseMetaHeader meta_header, ResponseVerificationHeader verify_header)
         {
-            if (verify_header is null) return false;
+            if (verify_header is null || meta_header is null || body is null) return false;
             if (!VerifyMessagePart(verify_header.MetaSignature, meta_header))
                 return false;
             var origin = verify_header.Origin;
@@ -194,6 +195,7 @@ namespace Neo.FileStorage.API.Cryptography
 
         private static bool VerifyMatryoshkaLevel2(IMessage body, RequestMetaHeader meta_header, RequestVerificationHeader verify_header)
         {
+            if (verify_header is null || meta_header is null || body is null) return false;
             if (!VerifyMessagePart(verify_header.MetaSignature, meta_header))
                 return false;
             if (!VerifyMessagePart(verify_header.OriginSignature, verify_header.Origin))
