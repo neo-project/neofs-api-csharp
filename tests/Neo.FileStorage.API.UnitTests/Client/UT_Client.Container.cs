@@ -16,9 +16,9 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         public void TestPutContainerOnlyOne()
         {
             using var client = new Client.Client(key, host);
-            var replica = new Replica(1, "Shanghai");
-            var selector = new Selector("Shanghai", "Location", Clause.Same, 1, "Shanghai");
-            var filter = new Filter("Shanghai", "Location", "Shanghai", Netmap.Operation.Eq);
+            var replica = new Replica(1, "loc");
+            var selector = new Selector("loc", "Location", Clause.Same, 1, "loc");
+            var filter = new Filter("loc", "Location", "Shanghai", Netmap.Operation.Eq);
             var policy = new PlacementPolicy(1, new Replica[] { replica }, new Selector[] { selector }, new Filter[] { filter });
             var container = new Container.Container
             {

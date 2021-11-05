@@ -1,8 +1,10 @@
+using Grpc.Core;
+using Grpc.Net.Client;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neo.FileStorage.API.Container;
+using Neo.FileStorage.API.Refs;
 using System;
 using System.Threading;
-using Grpc.Core;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Neo.FileStorage.API.Refs;
 
 namespace Neo.FileStorage.API.UnitTests.FSClient
 {
@@ -62,6 +64,14 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
                     }
                 }
             }
+        }
+
+        [TestMethod]
+        public void TestInvalidRequest()
+        {
+            var channel = GrpcChannel.ForAddress(host, new() { Credentials = SslCredentials.Insecure });
+            var containerClient = new ContainerService.ContainerServiceClient(channel);
+            var container = containerClient.Get(new GetRequest());
         }
     }
 }

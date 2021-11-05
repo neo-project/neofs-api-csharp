@@ -157,7 +157,7 @@ namespace Neo.FileStorage.API.Cryptography
 
         public static bool VerifyMessagePart(this Signature sig, IMessage data)
         {
-            if (sig is null || sig.Key is null || sig.Sign is null || data is null) return false;
+            if (sig is null || sig.Key is null || sig.Sign is null) return false;
             using var key = sig.Key.ToByteArray().LoadPublicKey();
             var data2verify = data is null ? Array.Empty<byte>() : data.ToByteArray();
             return key.VerifyData(data2verify, sig.Sign.ToByteArray());
