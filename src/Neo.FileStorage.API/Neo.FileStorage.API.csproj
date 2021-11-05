@@ -38,6 +38,8 @@
     <Protobuf Include="session\types.proto" GrpcServices="None" Link="session\types.proto" />
     <Protobuf Include="storagegroup\types.proto" GrpcServices="None" Link="storagegroup\types.proto" />
     <Protobuf Include="tombstone\types.proto" GrpcServices="None" Link="tombstone\types.proto" />
+    <Protobuf Include="control\service.proto" GrpcServices="Both" Link="control\service.proto" />
+    <Protobuf Include="control\types.proto" GrpcServices="None" Link="control\types.proto" />
   </ItemGroup>
 
   <ItemGroup>
