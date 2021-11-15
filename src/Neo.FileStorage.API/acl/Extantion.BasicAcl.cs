@@ -4,9 +4,25 @@ namespace Neo.FileStorage.API.Acl
 {
     public static class BasicAcl
     {
+        /// <summary>
+        /// PublicBasicRule is a basic ACL value for public-read-write container.
+        /// </summary>
         public const uint PublicBasicRule = 0x1FBFBFFF;
+
+        /// <summary>
+        /// PrivateBasicRule is a basic ACL value for private container.
+        /// </summary>
         public const uint PrivateBasicRule = 0x1C8C8CCC;
-        public const uint ReadOnlyBasicRule = 0x1FBFBFFF;
+
+        /// <summary>
+        /// ReadOnlyBasicRule is a basic ACL value for public-read container.
+        /// </summary>
+        public const uint ReadOnlyBasicRule = 0x1FBF8CFF;
+
+        /// <summary>
+        /// PublicAppendRule is a basic ACL value for public-append container.
+        /// </summary>
+        public const uint PublicAppendRule = 0x1FBF9FFF;
 
         private const int ReservedBitNumber = 2;
         private const int StickyBitPos = ReservedBitNumber;
