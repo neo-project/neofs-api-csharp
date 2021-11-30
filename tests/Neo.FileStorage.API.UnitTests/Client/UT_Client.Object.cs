@@ -145,7 +145,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromSeconds(10));
-            var o = client.GetObject(address, false, new CallOptions { Ttl = 1 }, source.Token).Result;
+            var o = client.GetObject(address, false, new CallOptions { Ttl = 2 }, source.Token).Result;
             Console.WriteLine(o.Header.ToString());
             Console.WriteLine(o.Payload.Length);
             Assert.AreEqual(oid, o.ObjectId);

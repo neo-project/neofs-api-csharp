@@ -129,7 +129,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography.Tz
         }
 
         [TestMethod]
-        public void TestSpeed1()
+        public void TestSpeed()
         {
             using RandomNumberGenerator rng = RandomNumberGenerator.Create();
             var b = new byte[3000000];
@@ -139,7 +139,6 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography.Tz
             tz.TransformBlock(b, 0, b.Length, null, 0);
             var t2 = DateTime.UtcNow;
             Console.WriteLine(t2 - t1);
-            Console.WriteLine(tz.Hash.ToHexString());
             tz.TransformBlock(b, 0, b.Length, null, 0);
             var t3 = DateTime.UtcNow;
             Console.WriteLine(t3 - t2);

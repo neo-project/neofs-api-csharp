@@ -21,11 +21,11 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         // private readonly ObjectID oid = ObjectID.FromString("CkQsya9r9cAgiHqk5GLXY34zdTWUKwQ7KmVSsMXfrKVe");//small
         // private readonly ObjectID oid = ObjectID.FromString("");//big
         // private readonly ObjectID oid = ObjectID.FromString("HVXgYePb1FKSidNWwdHD6tHNnFN6kfN2J6GUvc8Tg8ym");//split
-        private readonly ContainerID cid = ContainerID.FromString("MLFfaXvfRNdJuCBBym4aTWuUMpBVaoEsbupgeZxbLNF");//the only one in policy
-        private readonly ObjectID oid = ObjectID.FromString("C3dicb6rCdmsZF6remRptWhMgfymdCjF4XAvPFk8XoFA");//small
+        // private readonly ContainerID cid = ContainerID.FromString("B6wxSqWwdFgR2PE4FSjxCAKHKrKhFzVTjDB5y4SGVxEK");//the only one in policy
+        private readonly ObjectID oid = ObjectID.FromString("DmtroKca1gwD2jCEMyE2fDgPhh7uHwUsYaposdYWuN6t");//small
         // private readonly ObjectID oid = ObjectID.FromString("");//big
         // private readonly ObjectID oid = ObjectID.FromString("JDYccUD7eSk3MNhdGWRK3Hw3vgfSjnBj3KuvopE87m6P");//split
-        // private readonly ContainerID cid = ContainerID.FromString("EDZwHKPai5oCD4RoWCiQGyHPzAP7e8hrPm7ZZppoZ59w");//with others in policy
+        private readonly ContainerID cid = ContainerID.FromString("B6wxSqWwdFgR2PE4FSjxCAKHKrKhFzVTjDB5y4SGVxEK");//with others in policy
         // private readonly ObjectID oid = ObjectID.FromString("EBYdX5bZtGa1PxjwbWrR2pcsgubhn7h3NhWeP4YGWAL6");//small
         // private readonly ContainerID cid = ContainerID.FromString("9meDqcox8VAyC6qBomYAevA8rM79idsBxbYMcr5qJb4R");// only one go node
         // private readonly ObjectID oid = ObjectID.FromString("6GXG98kCZoZLmU3CBeYoNfZcQ4QQr25cLc3YzQKeZbD4"); //small
