@@ -793,6 +793,7 @@ Type of match expression
 | STRING_EQUAL | 1 | Full string match |
 | STRING_NOT_EQUAL | 2 | Full string mismatch |
 | NOT_PRESENT | 3 | Lack of key |
+| COMMON_PREFIX | 4 | String prefix match |
 
 
 
@@ -800,14 +801,13 @@ Type of match expression
 
 ### ObjectType
 Type of the object payload content. Only `REGULAR` type objects can be split,
-hence `TOMBSTONE` and `STORAGEGROUP` payload is limited by maximal object
+hence `TOMBSTONE` and `STORAGE_GROUP` payload is limited by maximal object
 size.
 
-String presentation of object type is PascalCased `ObjectType` enumeration
-item name:
-* Regular
-* Tombstone
-* StorageGroup
+String presentation of object type is the same as definition:
+* REGULAR
+* TOMBSTONE
+* STORAGE_GROUP
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |

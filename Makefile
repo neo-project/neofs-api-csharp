@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-PROTO_VERSION=v2.8.0
+PROTO_VERSION=v2.10.0
 PROTO_URL=https://github.com/nspcc-dev/neofs-api/archive/$(PROTO_VERSION).tar.gz
 CONTROL_SERVICE_PROTO_UTL=https://raw.githubusercontent.com/nspcc-dev/neofs-node/master/pkg/services/control
 

@@ -22,6 +22,8 @@
 
   - Messages
     - [Filter](#neo.fs.v2.netmap.Filter)
+    - [NetworkConfig](#neo.fs.v2.netmap.NetworkConfig)
+    - [NetworkConfig.Parameter](#neo.fs.v2.netmap.NetworkConfig.Parameter)
     - [NetworkInfo](#neo.fs.v2.netmap.NetworkInfo)
     - [NodeInfo](#neo.fs.v2.netmap.NodeInfo)
     - [NodeInfo.Attribute](#neo.fs.v2.netmap.NodeInfo.Attribute)
@@ -197,6 +199,29 @@ results, that will satisfy filter's conditions.
 | filters | [Filter](#neo.fs.v2.netmap.Filter) | repeated | List of inner filters. Top level operation will be applied to the whole list. |
 
 
+<a name="neo.fs.v2.netmap.NetworkConfig"></a>
+
+### Message NetworkConfig
+NeoFS network configuration
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| parameters | [NetworkConfig.Parameter](#neo.fs.v2.netmap.NetworkConfig.Parameter) | repeated | List of parameter values. |
+
+
+<a name="neo.fs.v2.netmap.NetworkConfig.Parameter"></a>
+
+### Message NetworkConfig.Parameter
+Single configuration parameter.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [bytes](#bytes) |  | Parameter key. UTF-8 encoded string. |
+| value | [bytes](#bytes) |  | Parameter value. |
+
+
 <a name="neo.fs.v2.netmap.NetworkInfo"></a>
 
 ### Message NetworkInfo
@@ -207,6 +232,8 @@ Information about NeoFS network
 | ----- | ---- | ----- | ----------- |
 | current_epoch | [uint64](#uint64) |  | Number of the current epoch in the NeoFS network. |
 | magic_number | [uint64](#uint64) |  | Magic number of the sidechain of the NeoFS network. |
+| ms_per_block | [int64](#int64) |  | MillisecondsPerBlock network parameter of the sidechain of the NeoFS network. |
+| network_config | [NetworkConfig](#neo.fs.v2.netmap.NetworkConfig) |  | NeoFS network configuration. |
 
 
 <a name="neo.fs.v2.netmap.NodeInfo"></a>
@@ -230,6 +257,17 @@ Administrator-defined Attributes of the NeoFS Storage Node.
 
 `Attribute` is a Key-Value metadata pair. Key name must be a valid UTF-8
 string. Value can't be empty.
+
+Attributes can be constructed into a chain of attributes: any attribute can
+have a parent attribute and a child attribute (except the first and the last
+one). A string representation of the chain of attributes in NeoFS Storage
+Node configuration uses ":" and "/" symbols, e.g.:
+
+       `NEOFS_NODE_ATTRIBUTE_1=key1:val1/key2:val2`
+
+Therefore the string attribute representation in the Node configuration must
+use "\:", "\/" and "\\" escaped symbols if any of them appears in an attribute's
+key or value.
 
 Node's attributes are mostly used during Storage Policy evaluation to
 calculate object's placement and find a set of nodes satisfying policy

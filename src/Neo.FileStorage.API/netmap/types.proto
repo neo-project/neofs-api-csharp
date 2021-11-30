@@ -134,6 +134,17 @@ message NodeInfo {
   // `Attribute` is a Key-Value metadata pair. Key name must be a valid UTF-8
   // string. Value can't be empty.
   //
+  // Attributes can be constructed into a chain of attributes: any attribute can
+  // have a parent attribute and a child attribute (except the first and the last
+  // one). A string representation of the chain of attributes in NeoFS Storage
+  // Node configuration uses ":" and "/" symbols, e.g.:
+  //
+  //        `NEOFS_NODE_ATTRIBUTE_1=key1:val1/key2:val2`
+  //
+  // Therefore the string attribute representation in the Node configuration must
+  // use "\:", "\/" and "\\" escaped symbols if any of them appears in an attribute's
+  // key or value.
+  //
   // Node's attributes are mostly used during Storage Policy evaluation to
   // calculate object's placement and find a set of nodes satisfying policy
   // requirements. There are some "well-known" node attributes common to all the
@@ -217,6 +228,20 @@ message NodeInfo {
   State state = 4 [json_name = "state"];
 }
 
+// NeoFS network configuration
+message NetworkConfig {
+  // Single configuration parameter.
+  message Parameter {
+    // Parameter key. UTF-8 encoded string.
+    bytes key = 1 [json_name = "key"];
+
+    // Parameter value.
+    bytes value = 2 [json_name = "value"];
+  }
+  // List of parameter values.
+  repeated Parameter parameters = 1 [json_name = "parameters"];
+}
+
 // Information about NeoFS network
 message NetworkInfo {
     // Number of the current epoch in the NeoFS network.
@@ -224,4 +249,10 @@ message NetworkInfo {
 
     // Magic number of the sidechain of the NeoFS network.
     uint64 magic_number = 2 [json_name = "magicNumber"];
+
+    // MillisecondsPerBlock network parameter of the sidechain of the NeoFS network.
+    int64 ms_per_block = 3 [json_name = "msPerBlock"];
+
+    // NeoFS network configuration.
+    NetworkConfig network_config = 4 [json_name = "networkConfig"];
 }
