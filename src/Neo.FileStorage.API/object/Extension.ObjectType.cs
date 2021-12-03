@@ -9,13 +9,13 @@ namespace Neo.FileStorage.API.Object
         {
             { ObjectType.Regular, "REGULAR" },
             { ObjectType.Tombstone, "TOMBSTONE" },
-            { ObjectType.StorageGroup, "STORAGEGROUP" }
+            { ObjectType.StorageGroup, "STORAGE_GROUP" }
         };
         private static readonly Dictionary<string, ObjectType> ObjectTypeValues = new()
         {
             { "REGULAR", ObjectType.Regular },
             { "TOMBSTONE", ObjectType.Tombstone },
-            { "STORAGEGROUP", ObjectType.StorageGroup }
+            { "STORAGE_GROUP", ObjectType.StorageGroup }
         };
 
         public static string String(this ObjectType t)

@@ -89,16 +89,6 @@ namespace Neo.FileStorage.API.UnitTests.TestObject
         }
 
         [TestMethod]
-        public void TestObjectTypes()
-        {
-            foreach (var ot in Enum.GetValues(typeof(ObjectType)))
-            {
-                Console.WriteLine(ot);
-                Console.WriteLine(Enum.GetName(typeof(ObjectType), ot));
-            }
-        }
-
-        [TestMethod]
         public void TestSearchRequestVerify()
         {
             var request = SearchRequest.Parser.ParseJson("{ \"body\": { \"containerId\": { \"value\": \"CQ+oCbU4N1ALayRO0r9zraZKVYI95mSgASONBzQVLgk=\" }, \"version\": 1, \"filters\": [ { \"matchType\": \"STRING_EQUAL\", \"key\": \"$Object:objectType\", \"value\": \"STORAGE_GROUP\" } ] }, \"metaHeader\": { \"ttl\": 1, \"origin\": { \"version\": { \"major\": 2, \"minor\": 9 }, \"ttl\": 2 } }, \"verifyHeader\": { \"metaSignature\": { \"key\": \"A/9ltq55E0pNzp0NOdOFHpurTul6v4boHhxbvFDNKCau\", \"signature\": \"BEm1TFZM1pPAFWjbOe+MFSB7NV/IzcIsuuac7XvnUYCDD4iyo/ehkwbBwA0Yxo0rZP4XQKPwmkg7vsrHyOU3ycc=\" }, \"originSignature\": { \"key\": \"A/9ltq55E0pNzp0NOdOFHpurTul6v4boHhxbvFDNKCau\", \"signature\": \"BAOV6M+ztiH6fkUhuu1xfU355ONJojUpMP0C0fv6Pd9GVAYsyHj6eG7qZ2uakHi9FPbwJgJ+jXn+oQgeyvAVeXc=\" }, \"origin\": { \"bodySignature\": { \"key\": \"ArNiK/QBe9/jF8WK7V9MdT8ga324lgRvp9d0u8S/f43C\", \"signature\": \"BPN/vPpiXeRtf1lhwdunK3f9MyzP6OYBqbGu0sRKEDTtG86tajYk9BBltbpMRBoyRvBiFdvAtASZygneu9LbY7E=\" }, \"metaSignature\": { \"key\": \"ArNiK/QBe9/jF8WK7V9MdT8ga324lgRvp9d0u8S/f43C\", \"signature\": \"BNzJEJr8iD7q+nfdMU4n8BUCQgZQuURryArXKHi5NKvoyryEOrZ7LjvkXCisk8/aWZhaDhLoDjW6GRB4PGNM+KM=\" }, \"originSignature\": { \"key\": \"ArNiK/QBe9/jF8WK7V9MdT8ga324lgRvp9d0u8S/f43C\", \"signature\": \"BEUV+T4/Xkc2WoBj1iGr9YQo5+n6oQQcMKTj1WhsEHdZ3Us6cRypDsESXhjCiD9JmoFc7Gvst+3eXXle0LKlTI8=\" } } } }");

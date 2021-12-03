@@ -58,7 +58,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             var nodes = ((JArray)json).Select(p => Node.FromJson(p)).ToList();
             NetMap nm = new(nodes);
             foreach (var n in nm.Nodes)
-                Console.WriteLine($"{n.Index}, {n.NetworkAddresses[0]}");
+                Console.WriteLine($"{n.Index}, {n.Addresses[0]}");
             var container_nodes = nm.GetContainerNodes(policy, cid.Value.ToByteArray());
             Assert.AreEqual(1, container_nodes.Count);
             Assert.AreEqual(3, container_nodes.Flatten().Count);

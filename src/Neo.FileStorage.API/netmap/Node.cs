@@ -29,7 +29,7 @@ namespace Neo.FileStorage.API.Netmap
         public ulong Distance;
 
         public ulong Hash => ID;
-        public List<string> NetworkAddresses => Info.Addresses.ToList();
+        public List<string> Addresses => Info.Addresses.ToList();
         public byte[] PublicKey => Info.PublicKey.ToByteArray();
 
         public Node(int index, NodeInfo ni)

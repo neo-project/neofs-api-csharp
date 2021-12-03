@@ -10,24 +10,17 @@ namespace Neo.FileStorage.API.UnitTests.TestObject
     [TestClass]
     public class UT_ObjectType
     {
-        enum TestType
-        {
-            ONE = 1,
-            TWO = 2
-        }
-
         [TestMethod]
         public void TestParse()
         {
-            var t = "Regular";
-            ObjectType type = Enum.Parse<ObjectType>(t);
-            Assert.AreEqual(ObjectType.Regular, type);
-
-            type = ObjectType.Regular;
-            Console.WriteLine(type);
-
-            var tt = TestType.ONE;
-            Console.WriteLine(tt);
+            Assert.AreEqual("REGULAR", ObjectType.Regular.String());
+            Assert.AreEqual("TOMBSTONE", ObjectType.Tombstone.String());
+            Assert.AreEqual("STORAGE_GROUP", ObjectType.StorageGroup.String());
+            Assert.ThrowsException<InvalidOperationException>(() => ((ObjectType)3).String());
+            Assert.AreEqual(ObjectType.Regular, "REGULAR".ToObjectType());
+            Assert.AreEqual(ObjectType.Tombstone, "TOMBSTONE".ToObjectType());
+            Assert.AreEqual(ObjectType.StorageGroup, "STORAGE_GROUP".ToObjectType());
+            Assert.ThrowsException<InvalidOperationException>(() => "Regular".ToObjectType());
         }
     }
 }

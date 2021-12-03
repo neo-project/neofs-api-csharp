@@ -68,7 +68,7 @@ namespace Neo.FileStorage.API.Object
             json["creationEpoch"] = CreationEpoch;
             json["payloadLength"] = PayloadLength;
             json["payloadHash"] = PayloadHash?.ToJson();
-            json["objectType"] = ObjectType.ToString();
+            json["objectType"] = ObjectType.String();
             json["homomorphicHash"] = HomomorphicHash?.ToJson();
             json["sessionToken"] = SessionToken?.ToJson();
             json["attributes"] = new JArray(Attributes.Select(p => p.ToJson()));

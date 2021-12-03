@@ -70,7 +70,7 @@ namespace Neo.FileStorage.API.Object
 
         public void AddTypeFilter(MatchType op, ObjectType typ)
         {
-            AddFilter(Filter.FilterHeaderObjectType, typ.ToString(), op);
+            AddFilter(Filter.FilterHeaderObjectType, typ.String(), op);
         }
     }
 }
