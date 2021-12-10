@@ -1,5 +1,4 @@
 using Google.Protobuf;
-using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Refs;
 using Neo.FileStorage.API.Cryptography;
 using Neo.IO.Json;
@@ -10,12 +9,7 @@ namespace Neo.FileStorage.API.Container
 {
     public partial class Container
     {
-        // AttributeName is an attribute key that is commonly used to denote
-        // human-friendly name.
         public const string AttributeName = "Name";
-
-        // AttributeTimestamp is an attribute key that is commonly used to denote
-        // user-defined local time of container creation in Unix Timestamp format.
         public const string AttributeTimestamp = "Timestamp";
 
         private ContainerID _id;
@@ -48,11 +42,11 @@ namespace Neo.FileStorage.API.Container
         {
             public sealed partial class Attribute
             {
-                // SysAttributePrefix is a prefix of key to system attribute.
                 public const string SysAttributePrefix = "__NEOFS__";
-
-                // SysAttributeSubnet is a string ID of container's storage subnet.
                 public const string SysAttributeSubnet = SysAttributePrefix + "SUBNET";
+                public const string SysAttributeName = SysAttributePrefix + "NAME";
+                public const string SysAttributeZone = SysAttributePrefix + "ZONE";
+                public const string SysAttributeZoneDefault = "container";
 
                 public JObject ToJson()
                 {
@@ -61,6 +55,58 @@ namespace Neo.FileStorage.API.Container
                     json["value"] = Value;
                     return json;
                 }
+            }
+        }
+
+        public string NativeName
+        {
+            get
+            {
+                foreach (var attr in Attributes)
+                    if (attr.Key == Types.Attribute.SysAttributeName)
+                        return attr.Value;
+                return "";
+            }
+
+            set
+            {
+                foreach (var attr in Attributes)
+                    if (attr.Key == Types.Attribute.SysAttributeName)
+                    {
+                        attr.Value = value;
+                        return;
+                    }
+                Attributes.Add(new Types.Attribute
+                {
+                    Key = Types.Attribute.SysAttributeName,
+                    Value = value,
+                });
+            }
+        }
+
+        public string NativeZone
+        {
+            get
+            {
+                foreach (var attr in Attributes)
+                    if (attr.Key == Types.Attribute.SysAttributeZone)
+                        return attr.Value;
+                return "";
+            }
+
+            set
+            {
+                foreach (var attr in Attributes)
+                    if (attr.Key == Types.Attribute.SysAttributeZone)
+                    {
+                        attr.Value = value;
+                        return;
+                    }
+                Attributes.Add(new Types.Attribute
+                {
+                    Key = Types.Attribute.SysAttributeZone,
+                    Value = value,
+                });
             }
         }
 

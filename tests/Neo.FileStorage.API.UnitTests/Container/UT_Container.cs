@@ -1,6 +1,7 @@
 using System;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neo.FileStorage.API.Container;
 using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Netmap;
 using Neo.FileStorage.API.Refs;
@@ -35,6 +36,18 @@ namespace Neo.FileStorage.API.UnitTests.TestContainer
             var data = Array.Empty<byte>();
             var c = Container.Container.Parser.ParseFrom(data);
             Assert.IsNotNull(c);
+        }
+
+        [TestMethod]
+        public void TestNativeNameZone()
+        {
+            Container.Container container = new();
+            Assert.AreEqual("", container.NativeName);
+            Assert.AreEqual("", container.NativeZone);
+            container.NativeName = "c1";
+            container.NativeZone = Container.Container.Types.Attribute.SysAttributeZoneDefault;
+            Assert.AreEqual("c1", container.NativeName);
+            Assert.AreEqual(Container.Container.Types.Attribute.SysAttributeZoneDefault, container.NativeZone);
         }
     }
 }
