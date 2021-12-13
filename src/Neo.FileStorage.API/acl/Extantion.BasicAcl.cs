@@ -89,6 +89,11 @@ namespace Neo.FileStorage.API.Acl
             value.SetLeftBit(StickyBitPos);
         }
 
+        public static void ResetSticky(this ref uint value)
+        {
+            value.ResetLeftBit(StickyBitPos);
+        }
+
         public static bool UserAllowed(this uint value, Operation op)
         {
             if (Order.TryGetValue(op, out byte n))
