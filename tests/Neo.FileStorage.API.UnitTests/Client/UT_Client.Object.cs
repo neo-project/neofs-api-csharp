@@ -145,7 +145,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromSeconds(10));
-            var o = client.GetObject(address, false, new CallOptions { Ttl = 2 }, source.Token).Result;
+            var o = client.GetObject(address, false, new CallOptions { Ttl = 1 }, source.Token).Result;
             Console.WriteLine(o.Header.ToString());
             Console.WriteLine(o.Payload.Length);
             Assert.AreEqual(oid, o.ObjectId);
@@ -183,11 +183,11 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         {
             var address = new Address(cid, oid);
             using var client = new Client.Client(key, host);
-            var source1 = new CancellationTokenSource();
+            using var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
             var session = client.CreateSession(ulong.MaxValue, context: source1.Token).Result;
             source1.Cancel();
-            var source2 = new CancellationTokenSource();
+            using var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
             var o = client.DeleteObject(address, new CallOptions { Ttl = 2, Session = session }, source2.Token).Result;
             Assert.IsNotNull(o);

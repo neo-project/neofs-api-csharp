@@ -9,6 +9,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
     {
         [TestMethod]
         public void TestBalance()
+        
         {
             using var client = new Client.Client(key, host);
             var balance = client.GetBalance().Result;

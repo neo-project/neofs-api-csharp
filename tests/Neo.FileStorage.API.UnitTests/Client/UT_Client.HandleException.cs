@@ -51,14 +51,13 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
                 if (e is AggregateException ae)
                 {
                     foreach (var ie in ae.InnerExceptions)
                     {
                         if (ie is RpcException re)
                         {
-                            Assert.AreEqual(StatusCode.Unknown, re.StatusCode);
+                            Assert.AreEqual(StatusCode.Internal, re.StatusCode);
                             Assert.AreEqual("object already removed", re.Status.Detail);
                         }
                     }

@@ -1,16 +1,8 @@
-using Neo.FileStorage.API.Session;
-using Google.Protobuf;
-
 namespace Neo.FileStorage.API.Session
 {
-    public interface IResponseMeta
+    public interface IResponse : IVerificableMessage
     {
         ResponseMetaHeader MetaHeader { get; set; }
-    }
-
-    public interface IResponse : IResponseMeta, IMessage
-    {
         ResponseVerificationHeader VerifyHeader { get; set; }
-        IMessage GetBody();
     }
 }

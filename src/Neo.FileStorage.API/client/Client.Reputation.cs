@@ -25,15 +25,17 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
             var resp = await ReputationClient.AnnounceLocalTrustAsync(req, cancellationToken: context);
-            if (!resp.VerifyResponse())
+            if (!resp.Verify())
                 throw new FormatException("invalid announce trust response");
+            CheckStatus(resp);
         }
 
         public async Task AnnounceTrust(AnnounceLocalTrustRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ReputationClient.AnnounceLocalTrustAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.VerifyResponse())
+            if (!resp.Verify())
                 throw new FormatException("invalid announce trust response");
+            CheckStatus(resp);
         }
 
         public async Task AnnounceIntermediateTrust(ulong epoch, uint iter, PeerToPeerTrust trust, CallOptions options = null, CancellationToken context = default)
@@ -53,15 +55,17 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
             var resp = await ReputationClient.AnnounceIntermediateResultAsync(req, cancellationToken: context);
-            if (!resp.VerifyResponse())
+            if (!resp.Verify())
                 throw new FormatException("invalid announce intermediate trust response");
+            CheckStatus(resp);
         }
 
         public async Task AnnounceIntermediateTrust(AnnounceIntermediateResultRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ReputationClient.AnnounceIntermediateResultAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.VerifyResponse())
+            if (!resp.Verify())
                 throw new FormatException("invalid announce intermediate trust response");
+            CheckStatus(resp);
         }
     }
 }

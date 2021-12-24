@@ -36,7 +36,9 @@
     <Protobuf Include="reputation\types.proto" GrpcServices="None" Link="reputation\types.proto" />
     <Protobuf Include="session\service.proto" GrpcServices="Both" Link="session\service.proto" />
     <Protobuf Include="session\types.proto" GrpcServices="None" Link="session\types.proto" />
+    <Protobuf Include="status\types.proto" GrpcServices="None" Link="status\types.proto" />
     <Protobuf Include="storagegroup\types.proto" GrpcServices="None" Link="storagegroup\types.proto" />
+    <Protobuf Include="subnet\types.proto" GrpcServices="None" Link="subnet\types.proto" />
     <Protobuf Include="tombstone\types.proto" GrpcServices="None" Link="tombstone\types.proto" />
     <Protobuf Include="control\service.proto" GrpcServices="Both" Link="control\service.proto" />
     <Protobuf Include="control\types.proto" GrpcServices="None" Link="control\types.proto" />

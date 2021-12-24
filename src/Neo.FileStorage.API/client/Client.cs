@@ -7,6 +7,7 @@ using Neo.FileStorage.API.Netmap;
 using Neo.FileStorage.API.Object;
 using Neo.FileStorage.API.Reputation;
 using Neo.FileStorage.API.Session;
+using Neo.FileStorage.API.Status;
 using System;
 using System.Security.Cryptography;
 
@@ -133,6 +134,15 @@ namespace Neo.FileStorage.API.Client
         private void CheckOptions(CallOptions options)
         {
             if (options.Key is null) throw new InvalidOperationException("missing sign key");
+        }
+
+        private void CheckStatus(IResponse resp)
+        {
+            var meta = resp.MetaHeader;
+            if (meta.Status is not null && !meta.Status.IsSuccess())
+            {
+                throw new RpcException(meta.Status.ToGrpcStatus());
+            }
         }
     }
 }

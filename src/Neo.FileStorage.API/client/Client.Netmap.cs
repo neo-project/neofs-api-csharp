@@ -25,8 +25,9 @@ namespace Neo.FileStorage.API.Client
         public async Task<NodeInfo> LocalNodeInfo(LocalNodeInfoRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await NetmapClient.LocalNodeInfoAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.VerifyResponse())
+            if (!resp.Verify())
                 throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");
+            CheckStatus(resp);
             return resp.Body.NodeInfo;
         }
 
@@ -47,7 +48,7 @@ namespace Neo.FileStorage.API.Client
         public async Task<ulong> Epoch(LocalNodeInfoRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await NetmapClient.LocalNodeInfoAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.VerifyResponse())
+            if (!resp.Verify())
                 throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");
             return resp.MetaHeader.Epoch;
         }
@@ -63,8 +64,9 @@ namespace Neo.FileStorage.API.Client
             req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.SignRequest(req);
             var resp = await NetmapClient.NetworkInfoAsync(req, cancellationToken: context);
-            if (!resp.VerifyResponse())
+            if (!resp.Verify())
                 throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");
+            CheckStatus(resp);
             return resp.Body.NetworkInfo;
         }
     }

@@ -28,12 +28,22 @@ namespace Neo.FileStorage.API.Client
                 throw new InvalidOperationException("invalid request type");
         }
 
+        private void CheckStatus(IResponse resp)
+        {
+            var meta = resp.MetaHeader;
+            if (meta.Status is not null && !meta.Status.IsSuccess())
+            {
+                throw new RpcException(meta.Status.ToGrpcStatus());
+            }
+        }
+
         public async Task<IResponse> Close()
         {
             await Call.RequestStream.CompleteAsync();
             var resp = await Call.ResponseAsync;
-            if (!resp.VerifyResponse())
+            if (!resp.Verify())
                 throw new InvalidOperationException("invalid object put response");
+            CheckStatus(resp);
             return resp;
         }
     }

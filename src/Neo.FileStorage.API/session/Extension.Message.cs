@@ -1,9 +1,8 @@
 ﻿using Google.Protobuf;
-using Neo.FileStorage.API.Session;
 
-namespace Neo.FileStorage.API.Accounting
+namespace Neo.FileStorage.API.Session
 {
-    public partial class BalanceRequest : IRequest
+    public partial class CreateResponse : IResponse
     {
         IMetaHeader IVerificableMessage.GetMetaHeader()
         {
@@ -21,7 +20,7 @@ namespace Neo.FileStorage.API.Accounting
         }
     }
 
-    public partial class BalanceResponse : IResponse
+    public partial class CreateRequest : IRequest
     {
         IMetaHeader IVerificableMessage.GetMetaHeader()
         {

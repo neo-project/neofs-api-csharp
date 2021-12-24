@@ -163,61 +163,20 @@ namespace Neo.FileStorage.API.Cryptography
             return key.VerifyData(data2verify, sig.Sign.ToByteArray());
         }
 
-        private static bool VerifyMatryoshkaLevel1(IMessage body, ResponseMetaHeader meta_header, ResponseVerificationHeader verify_header)
+        public static bool VerifyMatryoskaLevel(IMessage body, IMetaHeader meta, IVerificationHeader verification)
         {
-            if (verify_header is null || meta_header is null || body is null) return false;
-            if (!VerifyMessagePart(verify_header.MetaSignature, meta_header))
-                return false;
-            var origin = verify_header.Origin;
+            if (!verification.MetaSignature.VerifyMessagePart(meta)) return false;
+            var origin = verification.GetOrigin();
+            if (!verification.OriginSignature.VerifyMessagePart(origin)) return false;
             if (origin is null)
-            {
-                if (!VerifyMessagePart(verify_header.BodySignature, body))
-                    return false;
-                return true;
-            }
-            else
-            {
-                if (!VerifyMessagePart(verify_header.OriginSignature, verify_header.Origin))
-                    return false;
-            }
-            if (verify_header.BodySignature is null) return false;
-            return VerifyMatryoshkaLevel1(body, meta_header.Origin, origin);
+                return verification.BodySignature.VerifyMessagePart(body);
+            if (verification.BodySignature is not null) return false;
+            return VerifyMatryoskaLevel(body, meta.GetOrigin(), origin);
         }
 
-        public static bool VerifyResponse(this IMessage message)
+        public static bool Verify(this IVerificableMessage message)
         {
-            if (message is IResponse to_verify)
-            {
-                return VerifyMatryoshkaLevel1(to_verify.GetBody(), to_verify.MetaHeader, to_verify.VerifyHeader);
-            }
-            throw new InvalidOperationException("can't verify message");
-        }
-
-        private static bool VerifyMatryoshkaLevel2(IMessage body, RequestMetaHeader meta_header, RequestVerificationHeader verify_header)
-        {
-            if (verify_header is null || meta_header is null || body is null) return false;
-            if (!VerifyMessagePart(verify_header.MetaSignature, meta_header))
-                return false;
-            if (!VerifyMessagePart(verify_header.OriginSignature, verify_header.Origin))
-                return false;
-            var origin = verify_header.Origin;
-            if (origin is null)
-            {
-                if (!VerifyMessagePart(verify_header.BodySignature, body))
-                    return false;
-                return true;
-            }
-            if (verify_header.BodySignature is not null) return false;
-            return VerifyMatryoshkaLevel2(body, meta_header.Origin, origin);
-        }
-
-        public static bool VerifyRequest(this IMessage message)
-        {
-            if (message is IRequest to_sign)
-            {
-                return VerifyMatryoshkaLevel2(to_sign.GetBody(), to_sign.MetaHeader, to_sign.VerifyHeader);
-            }
-            throw new InvalidOperationException("can't verify message");
+            return VerifyMatryoskaLevel(message.GetBody(), message.GetMetaHeader(), message.GetVerificationHeader());
         }
     }
 }

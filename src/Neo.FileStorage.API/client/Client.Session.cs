@@ -41,8 +41,9 @@ namespace Neo.FileStorage.API.Client
         public async Task<SessionToken> CreateSession(CreateRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await SessionClient.CreateAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.VerifyResponse())
+            if (!resp.Verify())
                 throw new FormatException("invalid session response");
+            CheckStatus(resp);
             return new SessionToken
             {
                 Body = new SessionToken.Types.Body

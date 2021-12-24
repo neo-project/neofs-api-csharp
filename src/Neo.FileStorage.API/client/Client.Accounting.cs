@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Neo.FileStorage.API.Accounting;
 using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Refs;
-using Neo.SmartContract;
 
 namespace Neo.FileStorage.API.Client
 {
@@ -30,8 +29,9 @@ namespace Neo.FileStorage.API.Client
         public async Task<Accounting.Decimal> GetBalance(BalanceRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await AccountingClient.BalanceAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.VerifyResponse())
+            if (!resp.Verify())
                 throw new FormatException("invalid balance response");
+            CheckStatus(resp);
             return resp.Body.Balance;
         }
     }
