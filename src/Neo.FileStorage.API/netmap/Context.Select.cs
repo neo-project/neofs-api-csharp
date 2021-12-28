@@ -27,13 +27,10 @@ namespace Neo.FileStorage.API.Netmap
             var buckets = GetSelectionBase(sel).ToList();
             if (buckets.Count < bucket_count)
                 throw new InvalidOperationException(nameof(GetSelection) + " not enough nodes");
-            if (pivot is null)
-            {
-                if (sel.Attribute == "")
-                    buckets.Sort((b1, b2) => b1.Item2[0].ID.CompareTo(b2.Item2[0].ID));
-                else
-                    buckets.Sort((b1, b2) => b1.Item1.CompareTo(b2.Item1));
-            }
+            if (sel.Attribute == "")
+                buckets.Sort((b1, b2) => b1.Item2[0].ID.CompareTo(b2.Item2[0].ID));
+            else
+                buckets.Sort((b1, b2) => b1.Item1.CompareTo(b2.Item1));
             var max_nodes_in_bucket = nodes_in_bucket * (int)Cbf;
             var nodes = new List<List<Node>>();
             var fallback = new List<List<Node>>();
