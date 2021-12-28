@@ -27,7 +27,7 @@ namespace Neo.FileStorage.API.Client
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             return await GetContainer(req, opts.Deadline, context);
         }
@@ -64,7 +64,7 @@ namespace Neo.FileStorage.API.Client
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             return await PutContainer(req, opts.Deadline, context);
         }
@@ -95,7 +95,7 @@ namespace Neo.FileStorage.API.Client
             };
             req.Body = body;
             req.MetaHeader = opts.GetRequestMetaHeader();
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             await DeleteContainer(req, opts.Deadline, context);
         }
@@ -121,7 +121,7 @@ namespace Neo.FileStorage.API.Client
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             return await ListContainers(req, opts.Deadline, context);
         }
@@ -148,7 +148,7 @@ namespace Neo.FileStorage.API.Client
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             return await GetEAcl(req, opts.Deadline, context);
         }
@@ -184,7 +184,7 @@ namespace Neo.FileStorage.API.Client
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             await SetEACL(req, opts.Deadline, context);
         }
@@ -208,7 +208,7 @@ namespace Neo.FileStorage.API.Client
                 Body = body,
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             await AnnounceContainerUsedSpace(req, opts.Deadline, context);
         }

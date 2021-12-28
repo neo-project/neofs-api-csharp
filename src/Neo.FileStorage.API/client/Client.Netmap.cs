@@ -17,7 +17,7 @@ namespace Neo.FileStorage.API.Client
                 Body = new LocalNodeInfoRequest.Types.Body { }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             return await LocalNodeInfo(req, opts.Deadline, context);
         }
@@ -40,7 +40,7 @@ namespace Neo.FileStorage.API.Client
                 Body = new LocalNodeInfoRequest.Types.Body { }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             return await Epoch(req, opts.Deadline, context);
         }
@@ -62,7 +62,7 @@ namespace Neo.FileStorage.API.Client
                 Body = new NetworkInfoRequest.Types.Body { }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
             var resp = await NetmapClient.NetworkInfoAsync(req, cancellationToken: context);
             if (!resp.Verify())
                 throw new FormatException(nameof(LocalNodeInfo) + " invalid LocalNodeInfo response");

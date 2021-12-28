@@ -33,7 +33,7 @@ namespace Neo.FileStorage.API.Client
                 }
             };
             req.MetaHeader = opts?.GetRequestMetaHeader() ?? RequestMetaHeader.Default;
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             return await CreateSession(req, opts.Deadline, context);
         }

@@ -67,57 +67,19 @@ namespace Neo.FileStorage.API.Cryptography
             return sig;
         }
 
-        public static void SignRequest(this ECDsa key, IMessage message)
+        public static void Sign(this ECDsa key, IVerificableMessage message)
         {
-            if (message is IRequest to_sign)
-            {
-                if (to_sign.MetaHeader is null)
-                    to_sign.MetaHeader = RequestMetaHeader.Default;
-                var verify_origin = to_sign.VerifyHeader;
-                var meta_header = to_sign.MetaHeader;
-                var verify_header = new RequestVerificationHeader();
-
-                if (verify_origin is null)
-                {
-                    verify_header.BodySignature = key.SignMessagePart(to_sign.GetBody());
-                }
-                verify_header.MetaSignature = key.SignMessagePart(meta_header);
-                if (verify_origin is null)
-                    verify_header.OriginSignature = key.SignMessagePart(new RequestVerificationHeader());
-                else
-                    verify_header.OriginSignature = key.SignMessagePart(verify_origin);
-                verify_header.Origin = verify_origin;
-                to_sign.VerifyHeader = verify_header;
-            }
-            else
-            {
-                throw new InvalidOperationException("can't sign message");
-            }
-        }
-
-        public static void SignResponse(this ECDsa key, IMessage message)
-        {
-            if (message is IResponse to_sign)
-            {
-                if (to_sign.MetaHeader is null)
-                    to_sign.MetaHeader = new ResponseMetaHeader();
-                var verify_origin = to_sign.VerifyHeader;
-                var meta_header = to_sign.MetaHeader;
-                var verify_header = new ResponseVerificationHeader();
-
-                if (verify_origin is null)
-                {
-                    verify_header.BodySignature = key.SignMessagePart(to_sign.GetBody());
-                }
-                verify_header.MetaSignature = key.SignMessagePart(meta_header);
-                verify_header.OriginSignature = key.SignMessagePart(verify_origin);
-                verify_header.Origin = verify_origin;
-                to_sign.VerifyHeader = verify_header;
-            }
-            else
-            {
-                throw new InvalidOperationException("can't sign message");
-            }
+            var meta = message.GetMetaHeader();
+            IVerificationHeader verify = message is IRequest ?
+                new RequestVerificationHeader() : message is IResponse ?
+                    new ResponseVerificationHeader() : throw new InvalidOperationException("unsupport message type");
+            var verifyOrigin = message.GetVerificationHeader();
+            if (verifyOrigin is null)
+                verify.BodySignature = key.SignMessagePart(message.GetBody());
+            verify.MetaSignature = key.SignMessagePart(meta);
+            verify.OriginSignature = key.SignMessagePart(verifyOrigin);
+            verify.SetOrigin(verifyOrigin);
+            message.SetVerificationHeader(verify);
         }
 
         private static BigInteger[] DecodeSignature(byte[] sig)

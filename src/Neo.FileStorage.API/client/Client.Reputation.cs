@@ -23,7 +23,7 @@ namespace Neo.FileStorage.API.Client
             };
             req.Body.Trusts.AddRange(trusts);
             req.MetaHeader = opts.GetRequestMetaHeader();
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
             var resp = await ReputationClient.AnnounceLocalTrustAsync(req, cancellationToken: context);
             if (!resp.Verify())
                 throw new FormatException("invalid announce trust response");
@@ -53,7 +53,7 @@ namespace Neo.FileStorage.API.Client
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
             var resp = await ReputationClient.AnnounceIntermediateResultAsync(req, cancellationToken: context);
             if (!resp.Verify())
                 throw new FormatException("invalid announce intermediate trust response");

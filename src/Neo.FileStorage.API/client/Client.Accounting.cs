@@ -22,7 +22,7 @@ namespace Neo.FileStorage.API.Client
                 }
             };
             req.MetaHeader = opts.GetRequestMetaHeader();
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
             return await GetBalance(req, opts.Deadline, context);
         }
 

@@ -41,7 +41,7 @@ namespace Neo.FileStorage.API.UnitTests.TestCryptography
             {
                 Ttl = 1
             };
-            key.SignResponse(req);
+            key.Sign(req);
             Console.WriteLine(req);
             Assert.IsTrue(req.Verify());
         }

@@ -31,7 +31,7 @@ namespace Neo.FileStorage.API.Client
             var meta = opts.GetRequestMetaHeader();
             AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Get);
             req.MetaHeader = meta;
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             return await GetObject(req, opts.Deadline, context);
         }
@@ -52,7 +52,7 @@ namespace Neo.FileStorage.API.Client
             var meta = opts.GetRequestMetaHeader();
             AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Get);
             req.MetaHeader = meta;
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
             using var call = ObjectClient.Get(req, cancellationToken: context);
             var obj = new Object.Object();
             int offset = 0;
@@ -156,7 +156,7 @@ namespace Neo.FileStorage.API.Client
                 Header = header,
             };
             req.Body.Init = init;
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             using var stream = await PutObject(req, context: context);
             var block = new byte[Object.Object.ChunkSize];
@@ -169,7 +169,7 @@ namespace Neo.FileStorage.API.Client
                 };
                 req.Body = chunk_body;
                 req.VerifyHeader = null;
-                opts.Key.SignRequest(req);
+                opts.Key.Sign(req);
                 await stream.Write(req);
                 count = reader.Read(block, 0, Object.Object.ChunkSize);
             }
@@ -202,7 +202,7 @@ namespace Neo.FileStorage.API.Client
                 Header = obj.Header,
             };
             req.Body.Init = init;
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             using var stream = await PutObject(req, context: context);
 
@@ -217,7 +217,7 @@ namespace Neo.FileStorage.API.Client
                 };
                 req.Body = chunk_body;
                 req.VerifyHeader = null;
-                opts.Key.SignRequest(req);
+                opts.Key.Sign(req);
                 await stream.Write(req);
                 offset = end;
             }
@@ -249,7 +249,7 @@ namespace Neo.FileStorage.API.Client
             var meta = opts.GetRequestMetaHeader();
             AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Delete);
             req.MetaHeader = meta;
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             return await DeleteObject(req, opts.Deadline, context);
         }
@@ -280,7 +280,7 @@ namespace Neo.FileStorage.API.Client
             var meta = opts.GetRequestMetaHeader();
             AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Head);
             req.MetaHeader = meta;
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             return await GetObjectHeader(req, opts.Deadline, context);
         }
@@ -358,7 +358,7 @@ namespace Neo.FileStorage.API.Client
             var meta = opts.GetRequestMetaHeader();
             AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Range);
             req.MetaHeader = meta;
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             return await GetObjectPayloadRangeData(req, opts.Deadline, context);
         }
@@ -399,7 +399,7 @@ namespace Neo.FileStorage.API.Client
             var meta = opts.GetRequestMetaHeader();
             AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Rangehash);
             req.MetaHeader = meta;
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             return await GetObjectPayloadRangeHash(req, opts.Deadline, context);
         }
@@ -431,7 +431,7 @@ namespace Neo.FileStorage.API.Client
             var meta = opts.GetRequestMetaHeader();
             AttachObjectSessionToken(opts, meta, new Address { ContainerId = cid }, ObjectSessionContext.Types.Verb.Search);
             req.MetaHeader = meta;
-            opts.Key.SignRequest(req);
+            opts.Key.Sign(req);
 
             return await SearchObject(req, opts.Deadline, context);
         }

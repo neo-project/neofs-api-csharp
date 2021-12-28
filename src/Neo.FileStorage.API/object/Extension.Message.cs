@@ -15,6 +15,16 @@ namespace Neo.FileStorage.API.Object
             return VerifyHeader;
         }
 
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (RequestMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (RequestVerificationHeader)verificationHeader;
+        }
+
         public IMessage GetBody()
         {
             return Body;
@@ -31,6 +41,16 @@ namespace Neo.FileStorage.API.Object
         IVerificationHeader IVerificableMessage.GetVerificationHeader()
         {
             return VerifyHeader;
+        }
+
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (ResponseMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (ResponseVerificationHeader)verificationHeader;
         }
 
         public IMessage GetBody()
@@ -51,6 +71,16 @@ namespace Neo.FileStorage.API.Object
             return VerifyHeader;
         }
 
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (RequestMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (RequestVerificationHeader)verificationHeader;
+        }
+
         public IMessage GetBody()
         {
             return Body;
@@ -67,6 +97,16 @@ namespace Neo.FileStorage.API.Object
         IVerificationHeader IVerificableMessage.GetVerificationHeader()
         {
             return VerifyHeader;
+        }
+
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (ResponseMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (ResponseVerificationHeader)verificationHeader;
         }
 
         public IMessage GetBody()
@@ -87,6 +127,16 @@ namespace Neo.FileStorage.API.Object
             return VerifyHeader;
         }
 
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (RequestMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (RequestVerificationHeader)verificationHeader;
+        }
+
         public IMessage GetBody()
         {
             return Body;
@@ -103,6 +153,16 @@ namespace Neo.FileStorage.API.Object
         IVerificationHeader IVerificableMessage.GetVerificationHeader()
         {
             return VerifyHeader;
+        }
+
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (ResponseMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (ResponseVerificationHeader)verificationHeader;
         }
 
         public IMessage GetBody()
@@ -123,6 +183,16 @@ namespace Neo.FileStorage.API.Object
             return VerifyHeader;
         }
 
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (RequestMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (RequestVerificationHeader)verificationHeader;
+        }
+
         public IMessage GetBody()
         {
             return Body;
@@ -141,6 +211,16 @@ namespace Neo.FileStorage.API.Object
             return VerifyHeader;
         }
 
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (ResponseMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (ResponseVerificationHeader)verificationHeader;
+        }
+
         public IMessage GetBody()
         {
             return Body;
@@ -156,6 +236,16 @@ namespace Neo.FileStorage.API.Object
         IVerificationHeader IVerificableMessage.GetVerificationHeader()
         {
             return VerifyHeader;
+        }
+
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (RequestMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (RequestVerificationHeader)verificationHeader;
         }
 
         public IMessage GetBody()
@@ -176,6 +266,16 @@ namespace Neo.FileStorage.API.Object
             return VerifyHeader;
         }
 
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (ResponseMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (ResponseVerificationHeader)verificationHeader;
+        }
+
         public IMessage GetBody()
         {
             return Body;
@@ -192,6 +292,16 @@ namespace Neo.FileStorage.API.Object
         IVerificationHeader IVerificableMessage.GetVerificationHeader()
         {
             return VerifyHeader;
+        }
+
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (RequestMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (RequestVerificationHeader)verificationHeader;
         }
 
         public IMessage GetBody()
@@ -212,6 +322,16 @@ namespace Neo.FileStorage.API.Object
             return VerifyHeader;
         }
 
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (ResponseMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (ResponseVerificationHeader)verificationHeader;
+        }
+
         public IMessage GetBody()
         {
             return Body;
@@ -230,6 +350,16 @@ namespace Neo.FileStorage.API.Object
             return VerifyHeader;
         }
 
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (RequestMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (RequestVerificationHeader)verificationHeader;
+        }
+
         public IMessage GetBody()
         {
             return Body;
@@ -246,6 +376,16 @@ namespace Neo.FileStorage.API.Object
         IVerificationHeader IVerificableMessage.GetVerificationHeader()
         {
             return VerifyHeader;
+        }
+
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (ResponseMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (ResponseVerificationHeader)verificationHeader;
         }
 
         public IMessage GetBody()

@@ -283,10 +283,10 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             Assert.AreEqual(6, r.Count);
             Assert.AreEqual(1, r[0].Index);
             Assert.AreEqual(4, r[1].Index);
-            Assert.AreEqual(8, r[2].Index);
-            Assert.AreEqual(12, r[3].Index);
-            Assert.AreEqual(5, r[4].Index);
-            Assert.AreEqual(10, r[5].Index);
+            Assert.AreEqual(5, r[2].Index);
+            Assert.AreEqual(10, r[3].Index);
+            Assert.AreEqual(8, r[4].Index);
+            Assert.AreEqual(12, r[5].Index);
         }
 
         [TestMethod]

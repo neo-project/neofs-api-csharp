@@ -14,6 +14,16 @@ namespace Neo.FileStorage.API.Session
             return VerifyHeader;
         }
 
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (ResponseMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (ResponseVerificationHeader)verificationHeader;
+        }
+
         public IMessage GetBody()
         {
             return Body;
@@ -30,6 +40,16 @@ namespace Neo.FileStorage.API.Session
         IVerificationHeader IVerificableMessage.GetVerificationHeader()
         {
             return VerifyHeader;
+        }
+
+        void IVerificableMessage.SetMetaHeader(IMetaHeader metaHeader)
+        {
+            MetaHeader = (RequestMetaHeader)metaHeader;
+        }
+
+        void IVerificableMessage.SetVerificationHeader(IVerificationHeader verificationHeader)
+        {
+            VerifyHeader = (RequestVerificationHeader)verificationHeader;
         }
 
         public IMessage GetBody()
