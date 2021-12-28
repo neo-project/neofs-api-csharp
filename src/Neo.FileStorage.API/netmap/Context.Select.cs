@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Neo.FileStorage.API.Refs;
 
 namespace Neo.FileStorage.API.Netmap
 {
@@ -24,7 +25,7 @@ namespace Neo.FileStorage.API.Netmap
         {
             int bucket_count = sel.GetBucketCount();
             int nodes_in_bucket = sel.GetNodesInBucket();
-            var buckets = GetSelectionBase(sel).ToList();
+            var buckets = GetSelectionBase(policy.SubnetId, sel);
             if (buckets.Count < bucket_count)
                 throw new InvalidOperationException(nameof(GetSelection) + " not enough nodes");
             if (sel.Attribute == "")
@@ -95,18 +96,18 @@ namespace Neo.FileStorage.API.Netmap
             return nodes.GetRange(0, bucket_count);
         }
 
-        public List<(string, List<Node>)> GetSelectionBase(Selector sel)
+        public List<(string, List<Node>)> GetSelectionBase(SubnetID subnetId, Selector sel)
         {
             List<(string, List<Node>)> result = new();
             Filters.TryGetValue(sel.Filter, out Filter filter);
             if (sel.Attribute == "")
             {
-                foreach (var node in Map.Nodes.Where(p => sel.Filter == MainFilterName || Match(filter, p)))
+                foreach (var node in Map.Nodes.Where(n => subnetId is null || BelongToSubnet(n, subnetId)).Where(p => sel.Filter == MainFilterName || Match(filter, p)))
                     result.Add(("", new List<Node> { node }));
             }
             else
             {
-                foreach (var group in Map.Nodes.Where(p => sel.Filter == MainFilterName || Match(filter, p)).GroupBy(p => p.Attributes.TryGetValue(sel.Attribute, out string value) ? value : ""))
+                foreach (var group in Map.Nodes.Where(n => subnetId is null || BelongToSubnet(n, subnetId)).Where(p => sel.Filter == MainFilterName || Match(filter, p)).GroupBy(p => p.Attributes.TryGetValue(sel.Attribute, out string value) ? value : ""))
                 {
                     result.Add((group.Key, group.ToList()));
                 }
@@ -144,6 +145,15 @@ namespace Neo.FileStorage.API.Netmap
                 result = r;
             }
             return result;
+        }
+
+        private bool BelongToSubnet(Node node, SubnetID id)
+        {
+            foreach (var subnet in node.Info.Subnets)
+            {
+                if (subnet.Equals(id)) return true;
+            }
+            return false;
         }
     }
 }

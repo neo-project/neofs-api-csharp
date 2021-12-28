@@ -42,8 +42,7 @@ namespace Neo.FileStorage.API.Container
         {
             public sealed partial class Attribute
             {
-                public const string SysAttributePrefix = "__NEOFS__";
-                public const string SysAttributeSubnet = SysAttributePrefix + "SUBNET";
+                private const string SysAttributePrefix = "__NEOFS__";
                 public const string SysAttributeName = SysAttributePrefix + "NAME";
                 public const string SysAttributeZone = SysAttributePrefix + "ZONE";
                 public const string SysAttributeZoneDefault = "container";

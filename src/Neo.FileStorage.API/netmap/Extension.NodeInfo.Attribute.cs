@@ -1,7 +1,5 @@
-
-using System.Linq;
-using Google.Protobuf;
 using Neo.IO.Json;
+using System.Linq;
 
 namespace Neo.FileStorage.API.Netmap
 {
@@ -11,6 +9,12 @@ namespace Neo.FileStorage.API.Netmap
         {
             public sealed partial class Attribute
             {
+                private const string SysAttributePrefix = "__NEOFS__";
+                public const string SysAttributeSubnet = SysAttributePrefix + "SUBNET_";
+
+                public const string AttrSubnetValExit = "FALSE";
+                public const string AttrSubnetValEntry = "TRUE";
+
                 public static Attribute FromJson(JObject json)
                 {
                     Attribute attribute = new();
