@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentAssertions;
+using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Netmap;
 using Neo.FileStorage.API.Netmap.Aggregator;
@@ -26,7 +27,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             var s = new Selector();
             Assert.AreEqual("", s.Attribute);
         }
-        
+
         [TestMethod]
         public void TestUnspecifiedClause()
         {
@@ -45,10 +46,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             //with pivot
             result = nm.GetContainerNodes(p, "bda4d48fe60f077d127bebccdc318901af555308bbf6826f725b7ef5400b5c2c".HexToBytes());
             var r = result.Flatten();
-            Assert.AreEqual(3, r[0].Index);
-            Assert.AreEqual(0, r[1].Index);
-            Assert.AreEqual(1, r[2].Index);
-            Assert.AreEqual(2, r[3].Index);
+            Assert.AreEqual(4, r.Count);
         }
 
         [TestMethod]
@@ -209,10 +207,6 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             //with pivot
             var r = nm.GetContainerNodes(p, "752cf3d93e6c6b87952d942012ece22e15ac821d0597dcdadd923e77a44de74a".HexToBytes()).Flatten();
             Assert.AreEqual(4, r.Count);
-            Assert.AreEqual(2, r[0].Index);
-            Assert.AreEqual(1, r[1].Index);
-            Assert.AreEqual(0, r[2].Index);
-            Assert.AreEqual(3, r[3].Index);
         }
 
         [TestMethod]
@@ -440,6 +434,49 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
                 {
                     Assert.IsInstanceOfType(e, t.E);
                 }
+            }
+        }
+
+        [TestMethod]
+        public void TestDeterministicOrder()
+        {
+            const int netmapSize = 100;
+            var p = new PlacementPolicy(1,
+                new Replica[]{
+                    new Replica(1, "loc1"),
+                    new Replica(1, "loc2"),
+                },
+                new Selector[]{
+                    new Selector("loc1", "Location", Clause.Same, 1, "loc1"),
+                    new Selector("loc2", "Location", Clause.Same, 1, "loc2"),
+                },
+                new Filter[]{
+                    new Filter("loc1", "Location", "Shanghai", Operation.Eq),
+                    new Filter("loc2", "Location", "Shanghai", Operation.Ne)
+                });
+            List<Node> ns = new();
+            for (int i = 0; i < netmapSize; i++)
+            {
+                string loc = "Shanghai";
+                if (i % 20 != 0) loc = (i % 20).ToString();
+                var n = Helper.GenerateTestNode(i, ("Location", loc), (Node.AttributePrice, "1"), (Node.AttributeCapacity, "10"));
+                var pk = new byte[33];
+                pk[0] = (byte)i;
+                n.Info.PublicKey = ByteString.CopyFrom(pk);
+                ns.Add(n);
+            }
+            var nm = new NetMap(ns);
+            var nss = nm.GetContainerNodes(p, new byte[] { 1 });
+            ns = nss.Flatten();
+            Assert.AreEqual(2, ns.Count);
+            var i1 = ns[0].Index;
+            var i2 = ns[1].Index;
+            for (int i = 0; i < 10; i++)
+            {
+                nss = nm.GetContainerNodes(p, new byte[] { 1 });
+                ns = nss.Flatten();
+                Assert.AreEqual(i1, ns[0].Index);
+                Assert.AreEqual(i2, ns[1].Index);
             }
         }
     }

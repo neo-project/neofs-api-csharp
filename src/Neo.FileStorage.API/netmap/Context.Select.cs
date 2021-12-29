@@ -28,10 +28,13 @@ namespace Neo.FileStorage.API.Netmap
             var buckets = GetSelectionBase(policy.SubnetId, sel);
             if (buckets.Count < bucket_count)
                 throw new InvalidOperationException(nameof(GetSelection) + " not enough nodes");
-            if (sel.Attribute == "")
-                buckets.Sort((b1, b2) => b1.Item2[0].ID.CompareTo(b2.Item2[0].ID));
-            else
-                buckets.Sort((b1, b2) => b1.Item1.CompareTo(b2.Item1));
+            if (pivot is null)
+            {
+                if (sel.Attribute == "")
+                    buckets.Sort((b1, b2) => b1.Item2[0].ID.CompareTo(b2.Item2[0].ID));
+                else
+                    buckets.Sort((b1, b2) => b1.Item1.CompareTo(b2.Item1));
+            }
             var max_nodes_in_bucket = nodes_in_bucket * (int)Cbf;
             var nodes = new List<List<Node>>();
             var fallback = new List<List<Node>>();
@@ -60,7 +63,8 @@ namespace Neo.FileStorage.API.Netmap
                     foreach (var n in p)
                         agg.Add(weightFunc(n));
                     var w = agg.Compute();
-                    var d = ((ulong)index).Distance(pivotHash);
+                    var hash = p.Count > 0 ? p[0].Hash : 0;
+                    var d = hash.Distance(pivotHash);
                     return (d, w, p);
                 }).ToList();
                 var uniform = !list.Skip(1).Any(p => p.w != list[0].w);
