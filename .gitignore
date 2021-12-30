@@ -6,3 +6,5 @@ obj
 
 vendor/*
 !vendor/.gitkeep
+
+publish

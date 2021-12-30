@@ -1,8 +1,6 @@
 using System;
-using System.Security.Cryptography;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Neo.FileStorage.API.Cryptography;
 
 namespace Neo.FileStorage.API.UnitTests.FSClient
 {

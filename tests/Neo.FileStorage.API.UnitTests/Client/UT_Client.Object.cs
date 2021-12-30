@@ -23,7 +23,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             Console.WriteLine("created object, id=" + obj.ObjectId.String());
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
-            var o = client.PutObject(obj, new CallOptions { Ttl = 1 }, source.Token).Result;
+            var o = client.PutObject(obj, new CallOptions { Ttl = 2 }, source.Token).Result;
             Console.WriteLine("get object, id=" + o.String());
             Assert.AreNotEqual("", o.String());
         }
@@ -141,11 +141,10 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestObjectGet()
         {
-            var address = new Address(cid, oid);
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromSeconds(10));
-            var o = client.GetObject(address, false, new CallOptions { Ttl = 1 }, source.Token).Result;
+            var o = client.GetObject(Address, false, new CallOptions { Ttl = 1 }, source.Token).Result;
             Console.WriteLine(o.Header.ToString());
             Console.WriteLine(o.Payload.Length);
             Assert.AreEqual(oid, o.ObjectId);
@@ -156,11 +155,10 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         {
             string path = "objectgetstream.data";
             var file = File.Create(path);
-            var address = new Address(cid, oid);
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromSeconds(10));
-            client.GetObject(address, file, false, new CallOptions { Ttl = 1 }, source.Token).Wait();
+            client.GetObject(Address, file, false, new CallOptions { Ttl = 1 }, source.Token).Wait();
             file.Flush();
             Console.WriteLine(file.Length);
             File.Delete(path);
@@ -169,11 +167,10 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestObjectGetWithoutOptions()
         {
-            var address = new Address(cid, oid);
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObject(address, context: source.Token).Result;
+            var o = client.GetObject(Address, context: source.Token).Result;
             Assert.AreEqual(oid, o.ObjectId);
 
         }
@@ -181,7 +178,6 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestObjectDelete()
         {
-            var address = new Address(cid, oid);
             using var client = new Client.Client(key, host);
             using var source1 = new CancellationTokenSource();
             source1.CancelAfter(TimeSpan.FromMinutes(1));
@@ -189,7 +185,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             source1.Cancel();
             using var source2 = new CancellationTokenSource();
             source2.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.DeleteObject(address, new CallOptions { Ttl = 2, Session = session }, source2.Token).Result;
+            var o = client.DeleteObject(Address, new CallOptions { Ttl = 2, Session = session }, source2.Token).Result;
             Assert.IsNotNull(o);
             Console.WriteLine(o.ObjectId.String());
         }
@@ -209,11 +205,10 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestObjectGetRange()
         {
-            var address = new Address(cid, oid);
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectPayloadRangeData(address, new Object.Range { Offset = 0, Length = 100 }, false, new CallOptions { Ttl = 1 }, source.Token).Result;
+            var o = client.GetObjectPayloadRangeData(Address, new Object.Range { Offset = 0, Length = 100 }, false, new CallOptions { Ttl = 1 }, source.Token).Result;
             Console.WriteLine(o.Length);
             Console.WriteLine(o.ToHexString());
         }
@@ -221,11 +216,10 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         [TestMethod]
         public void TestObjectGetRangeHash()
         {
-            var address = new Address(cid, oid);
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectPayloadRangeHash(address, new List<Object.Range> { new Object.Range { Offset = 0, Length = 100 } }, ChecksumType.Sha256, new byte[] { }, new CallOptions { Ttl = 2 }, source.Token).Result;
+            var o = client.GetObjectPayloadRangeHash(Address, new List<Object.Range> { new Object.Range { Offset = 0, Length = 100 } }, ChecksumType.Sha256, new byte[] { }, new CallOptions { Ttl = 2 }, source.Token).Result;
             Console.WriteLine($"{o.Count} {string.Join(", ", o.Select(p => p.ToHexString()))}");
         }
 
@@ -237,7 +231,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             source.CancelAfter(TimeSpan.FromMinutes(1));
             var filter = new SearchFilters();
             filter.AddTypeFilter(Object.MatchType.StringEqual, ObjectType.Regular);
-            var o = client.SearchObject(cid, filter, new CallOptions { Ttl = 2 }, source.Token).Result;
+            var o = client.SearchObject(cid, filter, new CallOptions { Ttl = 1 }, source.Token).Result;
             Console.WriteLine($"{o.Count} {string.Join(", ", o.Select(p => p.String()))}");
             Assert.IsTrue(o.Contains(oid));
         }

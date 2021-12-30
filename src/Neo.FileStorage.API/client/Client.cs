@@ -7,7 +7,6 @@ using Neo.FileStorage.API.Netmap;
 using Neo.FileStorage.API.Object;
 using Neo.FileStorage.API.Reputation;
 using Neo.FileStorage.API.Session;
-using Neo.FileStorage.API.Status;
 using System;
 using System.Security.Cryptography;
 
@@ -139,7 +138,7 @@ namespace Neo.FileStorage.API.Client
         private void CheckStatus(IResponse resp)
         {
             var meta = resp.MetaHeader;
-            if (meta.Status is not null && !meta.Status.IsSuccess())
+            if (meta?.Status is not null && !meta.Status.IsSuccess())
             {
                 throw new RpcException(meta.Status.ToGrpcStatus());
             }

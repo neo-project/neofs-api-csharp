@@ -17,12 +17,12 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         {
             using var client = new Client.Client(key, host);
             var replica1 = new Replica(1, "loc1");
-            // var replica2 = new Replica(1, "loc2");
+            var replica2 = new Replica(1, "loc2");
             var selector1 = new Selector("loc1", "Location", Clause.Same, 1, "loc1");
-            // var selector2 = new Selector("loc2", "Location", Clause.Same, 1, "loc2");
+            var selector2 = new Selector("loc2", "Location", Clause.Same, 1, "loc2");
             var filter1 = new Filter("loc1", "Location", "Shanghai", Netmap.Operation.Eq);
-            // var filter2 = new Filter("loc2", "Location", "Shanghai", Netmap.Operation.Ne);
-            var policy = new PlacementPolicy(1, new Replica[] { replica1 }, new Selector[] { selector1 }, new Filter[] { filter1 });
+            var filter2 = new Filter("loc2", "Location", "Shanghai", Netmap.Operation.Ne);
+            var policy = new PlacementPolicy(1, new Replica[] { replica1, replica2 }, new Selector[] { selector1, selector2 }, new Filter[] { filter1, filter2 });
             var container = new Container.Container
             {
                 Version = Refs.Version.SDKVersion(),

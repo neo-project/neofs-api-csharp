@@ -446,7 +446,8 @@ namespace Neo.FileStorage.API.Client
                 if (!resp.Verify())
                     throw new FormatException("invalid object search response");
                 CheckStatus(resp);
-                result = result.Concat(resp.Body.IdList).ToList();
+                if (resp.Body?.IdList is not null)
+                    result = result.Concat(resp.Body.IdList).ToList();
             }
             return result;
         }

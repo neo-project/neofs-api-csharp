@@ -1,5 +1,3 @@
-using System;
-using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Refs;
 

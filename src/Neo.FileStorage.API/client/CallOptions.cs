@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Neo.FileStorage.API.Acl;
-using Neo.FileStorage.API.Refs;
 using Neo.FileStorage.API.Session;
 
 namespace Neo.FileStorage.API.Client
