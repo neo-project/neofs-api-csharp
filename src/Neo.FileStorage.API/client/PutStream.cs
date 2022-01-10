@@ -31,7 +31,7 @@ namespace Neo.FileStorage.API.Client
         private void CheckStatus(IResponse resp)
         {
             var meta = resp.MetaHeader;
-            if (meta.Status is not null && !meta.Status.IsSuccess())
+            if (meta?.Status is not null && !meta.Status.IsSuccess())
             {
                 throw new RpcException(meta.Status.ToGrpcStatus());
             }
