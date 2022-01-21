@@ -8,3 +8,4 @@ vendor/*
 !vendor/.gitkeep
 
 publish
+tests/Neo.FileStorage.API.UnitTests/Netmap/TestData/
