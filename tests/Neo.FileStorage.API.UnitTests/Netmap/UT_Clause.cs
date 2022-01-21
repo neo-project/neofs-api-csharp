@@ -1,7 +1,4 @@
-using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Neo.FileStorage.API.Netmap;
-using System;
 
 namespace Neo.FileStorage.API.UnitTests.TestNetmap
 {

@@ -12,9 +12,9 @@ namespace Neo.FileStorage.API.Netmap
             foreach (var selector in policy.Selectors)
             {
                 if (selector is null)
-                    throw new ArgumentException(nameof(ProcessSelectors) + " null selector in policy");
+                    throw new ArgumentException($"{ErrMissingField}: SELECT");
                 if (selector.Filter != MainFilterName && !Filters.ContainsKey(selector.Filter))
-                    throw new ArgumentException(nameof(ProcessSelectors) + " filter not found");
+                    throw new ArgumentException($"{ErrFilterNotFound}: SELECT FROM {selector.Filter}");
                 Selectors[selector.Name] = selector;
                 var results = GetSelection(policy, selector);
                 Selections[selector.Name] = results;
@@ -27,7 +27,7 @@ namespace Neo.FileStorage.API.Netmap
             int nodes_in_bucket = sel.GetNodesInBucket();
             var buckets = GetSelectionBase(policy.SubnetId, sel);
             if (buckets.Count < bucket_count)
-                throw new InvalidOperationException(nameof(GetSelection) + " not enough nodes");
+                throw new InvalidOperationException($"{ErrNotEnoughNodes}: {sel.Name}");
             if (pivot is null)
             {
                 if (sel.Attribute == "")
@@ -53,7 +53,7 @@ namespace Neo.FileStorage.API.Netmap
             {
                 nodes = nodes.Concat(fallback).ToList();
                 if (nodes.Count < bucket_count)
-                    throw new InvalidOperationException(nameof(GetSelection) + " not enough nodes");
+                    throw new InvalidOperationException($"{ErrNotEnoughNodes}: {sel.Name}");
             }
             if (pivot is not null)
             {

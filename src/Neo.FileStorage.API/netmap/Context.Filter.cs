@@ -22,10 +22,10 @@ namespace Neo.FileStorage.API.Netmap
         private void ProcessFilter(Filter filter, bool top)
         {
             if (filter is null) throw new ArgumentNullException(nameof(filter));
-            if (filter.Name == MainFilterName) throw new ArgumentException(nameof(ProcessFilter) + " '*' is reversed");
-            if (top && filter.Name == "") throw new ArgumentException(nameof(ProcessFilter) + " filters on top level must be named");
+            if (filter.Name == MainFilterName) throw new ArgumentException($"{ErrInvalidFilterName}: '*' is reversed");
+            if (top && filter.Name == "") throw new ArgumentException(ErrUnnamedTopFilter);
             if (!top && filter.Name != "" && !Filters.ContainsKey(filter.Name))
-                throw new ArgumentException(nameof(ProcessFilter) + " filter not found");
+                throw new ArgumentException($"{ErrFilterNotFound}: {filter.Name}");
             switch (filter.Op)
             {
                 case Operation.And:
@@ -39,7 +39,7 @@ namespace Neo.FileStorage.API.Netmap
                     }
                 default:
                     {
-                        if (0 < filter.Filters.Count) throw new ArgumentException(nameof(ProcessFilter) + " simple filter must not contain sub filters");
+                        if (0 < filter.Filters.Count) throw new ArgumentException(ErrNonEmptyFilters);
                         if (!top && filter.Name != "") return;
                         switch (filter.Op)
                         {
@@ -52,12 +52,12 @@ namespace Neo.FileStorage.API.Netmap
                             case Operation.Le:
                                 {
                                     if (!ulong.TryParse(filter.Value, out ulong n))
-                                        throw new ArgumentException(nameof(ProcessFilter) + " invalid number");
+                                        throw new ArgumentException($"{ErrInvalidNumber}: {filter.Value}");
                                     NumCache[filter] = n;
                                     break;
                                 }
                             default:
-                                throw new InvalidOperationException(nameof(ProcessFilter));
+                                throw new InvalidOperationException($"{ErrInvalidFilterOp}: {filter.Op}");
                         }
                         break;
                     }
@@ -84,7 +84,7 @@ namespace Neo.FileStorage.API.Netmap
                     return true;
                 default:
                     {
-                        UInt64 attribute;
+                        ulong attribute;
                         switch (filter.Key)
                         {
                             case Node.AttributePrice:
@@ -97,7 +97,7 @@ namespace Neo.FileStorage.API.Netmap
                                 {
                                     if (!n.Attributes.ContainsKey(filter.Key))
                                         return false;
-                                    if (!UInt64.TryParse(n.Attributes[filter.Key], out attribute))
+                                    if (!ulong.TryParse(n.Attributes[filter.Key], out attribute))
                                         return false;
                                     break;
                                 }

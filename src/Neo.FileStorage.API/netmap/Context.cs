@@ -7,6 +7,16 @@ namespace Neo.FileStorage.API.Netmap
 {
     public partial class Context
     {
+        public const string ErrMissingField = "netmap: nil field";
+        public const string ErrInvalidFilterName = "netmap: filter name is invalid";
+        public const string ErrInvalidNumber = "netmap: number value expected";
+        public const string ErrInvalidFilterOp = "netmap: invalid filter operation";
+        public const string ErrFilterNotFound = "netmap: filter not found";
+        public const string ErrNonEmptyFilters = "netmap: simple filter must no contain sub-filters";
+        public const string ErrNotEnoughNodes = "netmap: not enough nodes to SELECT from";
+        public const string ErrSelectorNotFound = "netmap: selector not found";
+        public const string ErrUnnamedTopFilter = "netmap: all filters on top level must be named";
+
         public const uint DefaultCBF = 3;
         public NetMap Map;
         public Dictionary<string, Filter> Filters = new();

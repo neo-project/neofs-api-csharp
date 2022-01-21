@@ -1,0 +1,3 @@
+[submodule "tests/Neo.FileStorage.API.UnitTests/Netmap/TestData/neofs-sdk-go"]
+	path = tests/Neo.FileStorage.API.UnitTests/Netmap/TestData/neofs-sdk-go
+	url = https://github.com/nspcc-dev/neofs-sdk-go.git
