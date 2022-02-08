@@ -21,7 +21,7 @@ namespace Neo.FileStorage.API.UnitTests
         {
             List<string> addresses = new() { "MLFfaXvfRNdJuCBBym4aTWuUMpBVaoEsbupgeZxbLNF/C3dicb6rCdmsZF6remRptWhMgfymdCjF4XAvPFk8XoFA" };
             var client = new ControlClient(key, host);
-            client.DropObjects(addresses.Select(p => Address.ParseString(p).ToByteString()).ToArray());
+            client.DropObjects(addresses.Select(p => Address.FromString(p).ToByteString()).ToArray());
             Console.WriteLine("Success!");
         }
 
