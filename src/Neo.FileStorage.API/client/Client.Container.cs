@@ -35,9 +35,7 @@ namespace Neo.FileStorage.API.Client
         public async Task<ContainerWithSignature> GetContainer(GetRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ContainerClient.GetAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.Verify())
-                throw new InvalidOperationException("invalid container get response");
-            CheckStatus(resp);
+            ProcessResponse(resp);
             if (!resp.Body.Signature.VerifyRFC6979(resp.Body.Container))
                 throw new InvalidOperationException("invalid container signature");
             return new()
@@ -72,9 +70,7 @@ namespace Neo.FileStorage.API.Client
         public async Task<ContainerID> PutContainer(PutRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ContainerClient.PutAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.Verify())
-                throw new InvalidOperationException("invalid container put response");
-            CheckStatus(resp);
+            ProcessResponse(resp);
             return resp.Body.ContainerId;
         }
 
@@ -103,9 +99,7 @@ namespace Neo.FileStorage.API.Client
         public async Task DeleteContainer(DeleteRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ContainerClient.DeleteAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.Verify())
-                throw new InvalidOperationException("invalid container delete response");
-            CheckStatus(resp);
+            ProcessResponse(resp);
         }
 
         public async Task<List<ContainerID>> ListContainers(OwnerID owner = null, CallOptions options = null, CancellationToken context = default)
@@ -129,9 +123,7 @@ namespace Neo.FileStorage.API.Client
         public async Task<List<ContainerID>> ListContainers(ListRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ContainerClient.ListAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.Verify())
-                throw new InvalidOperationException("invalid container list response");
-            CheckStatus(resp);
+            ProcessResponse(resp);
             return resp.Body.ContainerIds.ToList();
         }
 
@@ -156,9 +148,7 @@ namespace Neo.FileStorage.API.Client
         public async Task<EAclWithSignature> GetEAcl(GetExtendedACLRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ContainerClient.GetExtendedACLAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.Verify())
-                throw new InvalidOperationException("invalid get eacl response");
-            CheckStatus(resp);
+            ProcessResponse(resp);
             if (!resp.Body.Signature.VerifyRFC6979(resp.Body.Eacl))
                 throw new InvalidOperationException("invalid eacl signature");
             return new EAclWithSignature
@@ -192,8 +182,7 @@ namespace Neo.FileStorage.API.Client
         public async Task SetEACL(SetExtendedACLRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ContainerClient.SetExtendedACLAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.Verify())
-                throw new InvalidOperationException("invalid set eacl response");
+            ProcessResponse(resp);
         }
 
         public async Task AnnounceContainerUsedSpace(List<UsedSpaceAnnouncement> announcements, CallOptions options = null, CancellationToken context = default)
@@ -216,9 +205,7 @@ namespace Neo.FileStorage.API.Client
         public async Task AnnounceContainerUsedSpace(AnnounceUsedSpaceRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ContainerClient.AnnounceUsedSpaceAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.Verify())
-                throw new InvalidOperationException("invalid announce container used space response");
-            CheckStatus(resp);
+            ProcessResponse(resp);
         }
     }
 }

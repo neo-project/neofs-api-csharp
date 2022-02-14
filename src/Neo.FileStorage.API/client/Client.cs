@@ -3,6 +3,7 @@ using Grpc.Net.Client;
 using Neo.FileStorage.API.Accounting;
 using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Container;
+using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Netmap;
 using Neo.FileStorage.API.Object;
 using Neo.FileStorage.API.Reputation;
@@ -90,6 +91,8 @@ namespace Neo.FileStorage.API.Client
             }
         }
 
+        public readonly string Host;
+
         /// <summary>
         /// Construct neofs client.
         /// </summary>
@@ -101,6 +104,7 @@ namespace Neo.FileStorage.API.Client
                 channel = GrpcChannel.ForAddress(host, new() { Credentials = new SslCredentials() });
             else
                 channel = GrpcChannel.ForAddress(host, new() { Credentials = SslCredentials.Insecure });
+            Host = host;
             this.key = key;
         }
 
@@ -142,6 +146,15 @@ namespace Neo.FileStorage.API.Client
             {
                 throw new RpcException(meta.Status.ToGrpcStatus());
             }
+        }
+
+        private void ProcessResponse(IResponse resp)
+        {
+            if (!resp.Verify())
+                throw new FormatException($"invalid response, type={resp.GetType()}");
+            CheckStatus(resp);
+            if (responseHandler is not null)
+                responseHandler(resp);
         }
     }
 }

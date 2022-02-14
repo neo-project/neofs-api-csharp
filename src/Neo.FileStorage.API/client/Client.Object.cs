@@ -59,9 +59,7 @@ namespace Neo.FileStorage.API.Client
             while (await call.ResponseStream.MoveNext())
             {
                 var resp = call.ResponseStream.Current;
-                if (!resp.Verify())
-                    throw new InvalidOperationException("invalid object get response");
-                CheckStatus(resp);
+                ProcessResponse(resp);
                 switch (resp.Body.ObjectPartCase)
                 {
                     case GetResponse.Types.Body.ObjectPartOneofCase.Init:
@@ -103,9 +101,7 @@ namespace Neo.FileStorage.API.Client
             while (await call.ResponseStream.MoveNext())
             {
                 var resp = call.ResponseStream.Current;
-                if (!resp.Verify())
-                    throw new InvalidOperationException("invalid object get response");
-                CheckStatus(resp);
+                ProcessResponse(resp);
                 switch (resp.Body.ObjectPartCase)
                 {
                     case GetResponse.Types.Body.ObjectPartOneofCase.Init:
@@ -257,9 +253,7 @@ namespace Neo.FileStorage.API.Client
         public async Task<Address> DeleteObject(DeleteRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ObjectClient.DeleteAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.Verify())
-                throw new InvalidOperationException("invalid object delete response");
-            CheckStatus(resp);
+            ProcessResponse(resp);
             return resp.Body.Tombstone;
         }
 
@@ -288,9 +282,7 @@ namespace Neo.FileStorage.API.Client
         public async Task<Object.Object> GetObjectHeader(HeadRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ObjectClient.HeadAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.Verify())
-                throw new InvalidOperationException("invalid object get header response");
-            CheckStatus(resp);
+            ProcessResponse(resp);
             var header = new Header();
             var sig = new Signature();
             switch (resp.Body.HeadCase)
@@ -371,9 +363,7 @@ namespace Neo.FileStorage.API.Client
             while (await stream.MoveNext())
             {
                 var resp = stream.Current;
-                if (!resp.Verify())
-                    throw new FormatException("invalid object range response");
-                CheckStatus(resp);
+                ProcessResponse(resp);
                 var chunk = resp.Body.Chunk;
                 chunk.CopyTo(payload, offset);
                 offset += chunk.Length;
@@ -407,9 +397,7 @@ namespace Neo.FileStorage.API.Client
         public async Task<List<byte[]>> GetObjectPayloadRangeHash(GetRangeHashRequest request, DateTime? deadline = null, CancellationToken context = default)
         {
             var resp = await ObjectClient.GetRangeHashAsync(request, deadline: deadline, cancellationToken: context);
-            if (!resp.Verify())
-                throw new FormatException("invalid object range hash response");
-            CheckStatus(resp);
+            ProcessResponse(resp);
             return resp.Body.HashList.Select(p => p.ToByteArray()).ToList();
         }
 
@@ -443,9 +431,7 @@ namespace Neo.FileStorage.API.Client
             while (await stream.MoveNext())
             {
                 var resp = stream.Current;
-                if (!resp.Verify())
-                    throw new FormatException("invalid object search response");
-                CheckStatus(resp);
+                ProcessResponse(resp);
                 if (resp.Body?.IdList is not null)
                     result = result.Concat(resp.Body.IdList).ToList();
             }
