@@ -1,6 +1,5 @@
 using Google.Protobuf;
 using Neo.FileStorage.API.Cryptography.Tz;
-using Neo.IO.Json;
 using System;
 using static Neo.FileStorage.API.Cryptography.Helper;
 
@@ -58,14 +57,6 @@ namespace Neo.FileStorage.API.Refs
                 TzHash.TzHashLength => ChecksumType.Tz,
                 _ => throw new FormatException($"unsupported checksum length {sum_.Length}"),
             };
-        }
-
-        public JObject ToJson()
-        {
-            var json = new JObject();
-            json["type"] = Type.ToString();
-            json["sum"] = Sum.ToBase64();
-            return json;
         }
     }
 }

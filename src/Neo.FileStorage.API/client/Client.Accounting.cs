@@ -13,7 +13,7 @@ namespace Neo.FileStorage.API.Client
         {
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
-            if (owner is null) owner = OwnerID.FromScriptHash(opts.Key.PublicKey().PublicKeyToScriptHash());
+            if (owner is null) owner = opts.Key.OwnerID();
             var req = new BalanceRequest
             {
                 Body = new BalanceRequest.Types.Body

@@ -1,9 +1,7 @@
 using Google.Protobuf;
 using Neo.FileStorage.API.Refs;
 using Neo.FileStorage.API.Cryptography;
-using Neo.IO.Json;
 using System;
-using System.Linq;
 
 namespace Neo.FileStorage.API.Container
 {
@@ -46,14 +44,6 @@ namespace Neo.FileStorage.API.Container
                 public const string SysAttributeName = SysAttributePrefix + "NAME";
                 public const string SysAttributeZone = SysAttributePrefix + "ZONE";
                 public const string SysAttributeZoneDefault = "container";
-
-                public JObject ToJson()
-                {
-                    var json = new JObject();
-                    json["key"] = Key;
-                    json["value"] = Value;
-                    return json;
-                }
             }
         }
 
@@ -107,18 +97,6 @@ namespace Neo.FileStorage.API.Container
                     Value = value,
                 });
             }
-        }
-
-        public JObject ToJson()
-        {
-            var json = new JObject();
-            json["version"] = Version?.ToJson();
-            json["ownerID"] = OwnerId?.ToJson();
-            json["nonce"] = Nonce.ToBase64();
-            json["basicACL"] = BasicAcl;
-            json["attributes"] = new JArray(Attributes.Select(p => p.ToJson()));
-            json["placementPolicy"] = PlacementPolicy?.ToJson();
-            return json;
         }
     }
 }

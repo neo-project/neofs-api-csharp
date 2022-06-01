@@ -1,6 +1,5 @@
 using Google.Protobuf;
-using Neo.Cryptography;
-using Neo.IO.Json;
+using Neo.FileStorage.API.Cryptography;
 using static Neo.FileStorage.API.Cryptography.Helper;
 
 namespace Neo.FileStorage.API.Refs
@@ -26,13 +25,6 @@ namespace Neo.FileStorage.API.Refs
         public string String()
         {
             return Base58.Encode(Value.ToByteArray());
-        }
-
-        public JObject ToJson()
-        {
-            var json = new JObject();
-            json["value"] = Value.ToBase64();
-            return json;
         }
     }
 }

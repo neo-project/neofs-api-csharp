@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Netmap;
-using Neo.IO.Json;
+using Newtonsoft.Json;
 
 namespace Neo.FileStorage.API.UnitTests.TestNetmap
 {
@@ -18,16 +18,6 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
         {
             public byte[] Pivot;
             public int[][] Result;
-
-            public static Placement FromJson(JObject json)
-            {
-                if (json is null) return null;
-                return new()
-                {
-                    Pivot = json["pivot"] is not null ? Convert.FromBase64String(json["pivot"].GetString()) : null,
-                    Result = ((JArray)json["result"])?.Select(p => ((JArray)p).Select(q => int.Parse(q.AsString())).ToArray()).ToArray(),
-                };
-            }
         }
 
         private class TestCase
@@ -38,19 +28,6 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             public int[][] Result;
             public string Error;
             public Placement Placement;
-
-            public static TestCase FromJson(string name, JObject json)
-            {
-                return new()
-                {
-                    Name = name,
-                    Policy = PlacementPolicy.Parser.ParseJson(json["policy"].ToString()),
-                    Pivot = json["pivot"] is not null ? Convert.FromBase64String(json["pivot"].GetString()) : null,
-                    Result = ((JArray)json["result"])?.Select(p => ((JArray)p).Select(q => int.Parse(q.AsString())).ToArray()).ToArray(),
-                    Error = json["error"]?.GetString() ?? "",
-                    Placement = Placement.FromJson(json["placement"])
-                };
-            }
 
             public void Test(TestContext context)
             {
@@ -90,28 +67,21 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
         private class TestContext
         {
             public string Name;
-            public List<Node> Nodes;
-            public TestCase[] Cases;
+            public Node[] Nodes;
+            public TestCase[] Tests;
             public NetMap NetMap;
-            public static TestContext FromJson(JObject json)
-            {
-                return new()
-                {
-                    Name = json["name"].GetString(),
-                    Nodes = ((JArray)json["nodes"]).Select((p, i) => new Node(i, NodeInfo.Parser.ParseJson(p.ToString()))).ToList(),
-                    Cases = json["tests"].Properties.Select(p => TestCase.FromJson(p.Key, p.Value)).ToArray(),
-                };
-            }
 
             public void Test()
             {
                 if (NetMap is null)
-                    NetMap = new(Nodes);
-                foreach (var tc in Cases)
+                    NetMap = new(Nodes.ToList());
+                foreach (var tc in Tests)
                 {
                     tc.Test(this);
                 }
             }
+
+
         }
 
         [TestInitialize]
@@ -121,8 +91,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             {
                 if (File.Exists(path))
                 {
-                    JObject test = JObject.Parse(File.ReadAllText(path));
-                    TestContext context = TestContext.FromJson(test);
+                    var context = JsonConvert.DeserializeObject<TestContext>(File.ReadAllText(path));
                     tests.Add(context);
                 }
             }

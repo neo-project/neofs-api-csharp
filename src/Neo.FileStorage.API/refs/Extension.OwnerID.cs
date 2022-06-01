@@ -1,15 +1,13 @@
 using System;
-using Akka.Util.Internal;
 using Google.Protobuf;
-using Neo.Cryptography;
-using Neo.IO;
-using Neo.IO.Json;
+using Neo.FileStorage.API.Cryptography;
 
 namespace Neo.FileStorage.API.Refs
 {
     public partial class OwnerID
     {
         public const int ValueSize = 25;
+        public const byte AddressVersion = 0x35;
 
         public static OwnerID FromByteArray(byte[] bytes)
         {
@@ -20,12 +18,12 @@ namespace Neo.FileStorage.API.Refs
             };
         }
 
-        public static OwnerID FromScriptHash(UInt160 scriptHash)
+        public static OwnerID FromScriptHash(byte[] scriptHash)
         {
             Span<byte> data = stackalloc byte[21];
-            data[0] = ProtocolSettings.Default.AddressVersion;
-            scriptHash.ToArray().CopyTo(data[1..]);
-            byte[] checksum = data.Sha256().Sha256();
+            data[0] = AddressVersion;
+            scriptHash.CopyTo(data[1..]);
+            byte[] checksum = data.ToArray().Sha256().Sha256();
             Span<byte> value = stackalloc byte[data.Length + 4];
             data.CopyTo(value);
             checksum.AsSpan(..4).CopyTo(value[data.Length..]);
@@ -44,21 +42,23 @@ namespace Neo.FileStorage.API.Refs
             };
         }
 
+        public static OwnerID FromPublicKey(byte[] publicKey)
+        {
+            var bytes = Base58.Decode(publicKey.PublicKeyToAddress());
+            return new OwnerID
+            {
+                Value = ByteString.CopyFrom(bytes),
+            };
+        }
+
         public string ToAddress()
         {
             return Base58.Encode(Value.ToByteArray());
         }
 
-        public UInt160 ToScriptHash()
+        public byte[] ToScriptHash()
         {
-            return new UInt160(Value.ToByteArray().AsSpan()[1..^4]);
-        }
-
-        public JObject ToJson()
-        {
-            var json = new JObject();
-            json["value"] = Value.ToBase64();
-            return json;
+            return Value.ToByteArray()[1..^4];
         }
     }
 }

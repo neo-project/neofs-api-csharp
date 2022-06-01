@@ -3,7 +3,9 @@
 using System;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Object;
+using Neo.FileStorage.API.Refs;
 
 namespace Neo.FileStorage.API.UnitTests.TestObject
 {
@@ -21,6 +23,14 @@ namespace Neo.FileStorage.API.UnitTests.TestObject
             Assert.AreEqual(ObjectType.Tombstone, "TOMBSTONE".ToObjectType());
             Assert.AreEqual(ObjectType.StorageGroup, "STORAGE_GROUP".ToObjectType());
             Assert.ThrowsException<InvalidOperationException>(() => "Regular".ToObjectType());
+        }
+
+        [TestMethod]
+        public void TestJson()
+        {
+            Header header = new();
+            header.ContainerId = ContainerID.FromValue((new byte[] { 1, 2, 3 }).Sha256());
+            Console.WriteLine(header.ToString());
         }
     }
 }

@@ -1,6 +1,6 @@
 using System;
 using Google.Protobuf;
-using Neo.Cryptography;
+using Neo.FileStorage.API.Cryptography;
 
 namespace Neo.FileStorage.API.Reputation
 {

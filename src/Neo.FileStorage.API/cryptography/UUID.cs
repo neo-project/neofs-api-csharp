@@ -1,5 +1,4 @@
 ﻿using Google.Protobuf;
-using Neo.Cryptography;
 using System;
 
 namespace Neo.FileStorage.API.Cryptography

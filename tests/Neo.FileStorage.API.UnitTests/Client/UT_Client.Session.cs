@@ -15,7 +15,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             using var source = new CancellationTokenSource();
             source.CancelAfter(10000);
             var token = client.CreateSession(ulong.MaxValue, context: source.Token).Result;
-            Assert.AreEqual(OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()), token.Body.OwnerId);
+            Assert.AreEqual(key.OwnerID(), token.Body.OwnerId);
             Console.WriteLine($"id={token.Body.Id.ToUUID()}, key={token.Body.SessionKey.ToByteArray().ToHexString()}");
         }
     }

@@ -1,5 +1,4 @@
 using System;
-using Neo.IO.Json;
 
 namespace Neo.FileStorage.API.Refs
 {
@@ -27,14 +26,6 @@ namespace Neo.FileStorage.API.Refs
                 ContainerId = cid,
                 ObjectId = oid,
             };
-        }
-
-        public JObject ToJson()
-        {
-            var json = new JObject();
-            json["containerID"] = ContainerId?.ToJson();
-            json["objectID"] = ObjectId?.ToJson();
-            return json;
         }
     }
 }

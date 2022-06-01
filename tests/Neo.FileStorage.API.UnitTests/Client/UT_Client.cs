@@ -2,7 +2,6 @@ using System;
 using System.Security.Cryptography;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Neo.Cryptography;
 using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Cryptography.Tz;
 using Neo.FileStorage.API.Object;
@@ -44,7 +43,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
                 Header = new Header
                 {
                     Version = Refs.Version.SDKVersion(),
-                    OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
+                    OwnerId = key.OwnerID(),
                     ContainerId = cid,
                     ObjectType = ObjectType.Regular,
                     PayloadHash = new Checksum

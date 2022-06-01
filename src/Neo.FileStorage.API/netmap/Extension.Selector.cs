@@ -1,5 +1,3 @@
-using Neo.IO.Json;
-
 namespace Neo.FileStorage.API.Netmap
 {
     public partial class Selector
@@ -11,17 +9,6 @@ namespace Neo.FileStorage.API.Netmap
             clause_ = clause;
             count_ = count;
             filter_ = filter;
-        }
-
-        public JObject ToJson()
-        {
-            var json = new JObject();
-            json["name"] = Name;
-            json["count"] = Count;
-            json["clause"] = Clause.ToString();
-            json["attribute"] = Attribute;
-            json["filter"] = Filter;
-            return json;
         }
     }
 }
