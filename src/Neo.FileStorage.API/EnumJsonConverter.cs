@@ -29,7 +29,17 @@ namespace Neo.FileStorage.API
 
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
-            writer.WriteValue(value?.ToString()?.ToUpper());
+            if (value is null)
+            {
+                writer.WriteValue(value);
+                return;
+            }
+            string s = "";
+            if ((int)value == 0)
+            {
+                s = value.GetType().Name.ToUpper() + "_" + value?.ToString()?.ToUpper();
+            }
+            writer.WriteValue(s);
         }
     }
 }
