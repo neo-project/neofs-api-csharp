@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Netmap;
 using Newtonsoft.Json;
@@ -46,7 +47,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
                 }
                 catch (Exception e)
                 {
-                    if (Error != "") Assert.IsTrue(e.Message.Contains(Error));
+                    if (Error is not null && Error != "") Assert.IsTrue(e.Message.Contains(Error));
                 }
             }
 
@@ -64,20 +65,41 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             }
         }
 
+        private class TAttribute
+        {
+            public string Key;
+            public string Value;
+        }
+
+        private class TestNode
+        {
+            public List<TAttribute> Attributes;
+
+            public Node ToNode(int i)
+            {
+                NodeInfo ni = new();
+                foreach (var attr in Attributes)
+                {
+                    ni.Attributes.Add(new NodeInfo.Types.Attribute() { Key = attr.Key, Value = attr.Value });
+                }
+                return new Node(i, ni);
+            }
+        }
+
         private class TestContext
         {
             public string Name;
-            public Node[] Nodes;
-            public TestCase[] Tests;
+            public List<TestNode> Nodes;
+            public Dictionary<string, TestCase> Tests;
             public NetMap NetMap;
 
             public void Test()
             {
                 if (NetMap is null)
-                    NetMap = new(Nodes.ToList());
+                    NetMap = new(Nodes.Select((n, i) => n.ToNode(i)).ToList());
                 foreach (var tc in Tests)
                 {
-                    tc.Test(this);
+                    tc.Value.Test(this);
                 }
             }
 
@@ -91,7 +113,7 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             {
                 if (File.Exists(path))
                 {
-                    var context = JsonConvert.DeserializeObject<TestContext>(File.ReadAllText(path));
+                    var context = JsonConvert.DeserializeObject<TestContext>(File.ReadAllText(path), new EnumJsonConverter());
                     tests.Add(context);
                 }
             }

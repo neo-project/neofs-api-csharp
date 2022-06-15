@@ -13,8 +13,8 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
     public partial class UT_Client
     {
         // private readonly string host = "https://st1.storage.fs.neo.org:8082";
-        // private readonly string host = "https://st01.testnet.fs.neo.org";
-        private readonly string host = "http://s01.neofs.devenv:8080";
+        private readonly string host = "https://rpc01.morph.testnet.fs.neo.org:51331";
+        // private readonly string host = "http://s01.neofs.devenv:8080";
         // private readonly string host = "http://localhost:8081";
         // private readonly ContainerID cid = ContainerID.FromString("8tqfNtRyBFhzRZnFkddVBxsYEQWjJes37Lfdq3p9R7Ge");//not in policy
         // private readonly ObjectID oid = ObjectID.FromString("CkQsya9r9cAgiHqk5GLXY34zdTWUKwQ7KmVSsMXfrKVe");//small
