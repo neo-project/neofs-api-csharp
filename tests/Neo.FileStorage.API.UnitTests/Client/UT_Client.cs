@@ -13,18 +13,18 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
     public partial class UT_Client
     {
         // private readonly string host = "https://st1.storage.fs.neo.org:8082"; //mainnet
-        // private readonly string host = "http://st04.testnet.fs.neo.org:8080"; //testnet
+        private readonly string host = "http://st04.testnet.fs.neo.org:8080"; //testnet
         // private readonly string host = "http://s01.neofs.devenv:8080";
-        private readonly string host = "http://localhost:8081";
-        // private readonly ContainerID cid = ContainerID.FromString("CDiEce9WSF9FySHKUJtuzHbVLhFTzSXwiyj91HaZAg4A");//testnet t4
-        // private readonly ObjectID oid = ObjectID.FromString("3Y7k2oTXzAHSzaiMHnFJDBuaX6SxuByVPdRUsYcvYUbs");//testnet t4
+        // private readonly string host = "http://localhost:8081";
+        private readonly ContainerID cid = ContainerID.FromString("CDiEce9WSF9FySHKUJtuzHbVLhFTzSXwiyj91HaZAg4A");//testnet t4
+        private readonly ObjectID oid = ObjectID.FromString("3Y7k2oTXzAHSzaiMHnFJDBuaX6SxuByVPdRUsYcvYUbs");//testnet t4
 
         // private readonly ContainerID cid = ContainerID.FromString("8tqfNtRyBFhzRZnFkddVBxsYEQWjJes37Lfdq3p9R7Ge");//not in policy
         // private readonly ObjectID oid = ObjectID.FromString("CkQsya9r9cAgiHqk5GLXY34zdTWUKwQ7KmVSsMXfrKVe");//small
         // private readonly ObjectID oid = ObjectID.FromString("");//big
         // private readonly ObjectID oid = ObjectID.FromString("HVXgYePb1FKSidNWwdHD6tHNnFN6kfN2J6GUvc8Tg8ym");//split
-        private readonly ContainerID cid = ContainerID.FromString("CDiEce9WSF9FySHKUJtuzHbVLhFTzSXwiyj91HaZAg4A");//the only one in policy
-        private readonly ObjectID oid = ObjectID.FromString("3Y7k2oTXzAHSzaiMHnFJDBuaX6SxuByVPdRUsYcvYUbs");//small
+        // private readonly ContainerID cid = ContainerID.FromString("CDiEce9WSF9FySHKUJtuzHbVLhFTzSXwiyj91HaZAg4A");//the only one in policy
+        // private readonly ObjectID oid = ObjectID.FromString("3Y7k2oTXzAHSzaiMHnFJDBuaX6SxuByVPdRUsYcvYUbs");//small
         // private readonly ObjectID oid = ObjectID.FromString("");//big
         // private readonly ObjectID oid = ObjectID.FromString("JDYccUD7eSk3MNhdGWRK3Hw3vgfSjnBj3KuvopE87m6P");//split
         // private readonly ContainerID cid = ContainerID.FromString("GxDJqnCTJBYGqKRqo6AbNWwmmj8jNNmeEX88cbrB1Myu");//with others in policy 

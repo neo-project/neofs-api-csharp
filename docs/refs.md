@@ -12,6 +12,8 @@
     - [ObjectID](#neo.fs.v2.refs.ObjectID)
     - [OwnerID](#neo.fs.v2.refs.OwnerID)
     - [Signature](#neo.fs.v2.refs.Signature)
+    - [SignatureRFC6979](#neo.fs.v2.refs.SignatureRFC6979)
+    - [SubnetID](#neo.fs.v2.refs.SubnetID)
     - [Version](#neo.fs.v2.refs.Version)
     
 
@@ -147,6 +149,34 @@ Signature of something in NeoFS.
 | ----- | ---- | ----- | ----------- |
 | key | [bytes](#bytes) |  | Public key used for signing |
 | sign | [bytes](#bytes) |  | Signature |
+| scheme | [SignatureScheme](#neo.fs.v2.refs.SignatureScheme) |  | Scheme contains digital signature scheme identifier |
+
+
+<a name="neo.fs.v2.refs.SignatureRFC6979"></a>
+
+### Message SignatureRFC6979
+RFC 6979 signature.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [bytes](#bytes) |  | Public key used for signing |
+| sign | [bytes](#bytes) |  | Deterministic ECDSA with SHA-256 hashing |
+
+
+<a name="neo.fs.v2.refs.SubnetID"></a>
+
+### Message SubnetID
+NeoFS subnetwork identifier.
+
+String representation of a value is base-10 integer.
+
+JSON representation is an object containing single `value` number field.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| value | [fixed32](#fixed32) |  | 4-byte integer subnetwork identifier. |
 
 
 <a name="neo.fs.v2.refs.Version"></a>
@@ -176,6 +206,18 @@ Checksum algorithm type.
 | CHECKSUM_TYPE_UNSPECIFIED | 0 | Unknown. Not used |
 | TZ | 1 | Tillich-Zemor homomorphic hash function |
 | SHA256 | 2 | SHA-256 |
+
+
+
+<a name="neo.fs.v2.refs.SignatureScheme"></a>
+
+### SignatureScheme
+Signature scheme describes digital signing scheme used for (key, signature) pair.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| ECDSA_SHA512 | 0 | ECDSA with SHA-512 hashing (FIPS 186-3) |
+| ECDSA_RFC6979_SHA256 | 1 | Deterministic ECDSA with SHA-256 hashing (RFC 6979) |
 
 
  <!-- end enums -->

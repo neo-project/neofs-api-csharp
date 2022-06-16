@@ -167,13 +167,13 @@ namespace Neo.FileStorage.API.Client
             eacl.Version = Refs.Version.SDKVersion();
             var req = new SetExtendedACLRequest
             {
+                MetaHeader = opts.GetRequestMetaHeader(),
                 Body = new SetExtendedACLRequest.Types.Body
                 {
                     Eacl = eacl,
                     Signature = opts.Key.SignRFC6979(eacl),
                 }
             };
-            req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.Sign(req);
 
             await SetEACL(req, opts.Deadline, context);

@@ -84,6 +84,11 @@ response immediately. After a new block is issued in sidechain, request is
 verified by Inner Ring nodes. After one more block in sidechain, container
 is added into smart contract storage.
 
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  request to save the container has been sent to the sidechain;
+- Common failures (SECTION_FAILURE_COMMON).
+
 | Name | Input | Output |
 | ---- | ----- | ------ |
 | Put | [PutRequest](#neo.fs.v2.container.PutRequest) | [PutResponse](#neo.fs.v2.container.PutResponse) |
@@ -94,6 +99,11 @@ response immediately. After a new block is issued in sidechain, request is
 verified by Inner Ring nodes. After one more block in sidechain, container
 is added into smart contract storage.
 
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  request to remove the container has been sent to the sidechain;
+- Common failures (SECTION_FAILURE_COMMON).
+
 | Name | Input | Output |
 | ---- | ----- | ------ |
 | Delete | [DeleteRequest](#neo.fs.v2.container.DeleteRequest) | [DeleteResponse](#neo.fs.v2.container.DeleteResponse) |
@@ -101,12 +111,24 @@ is added into smart contract storage.
 
 Returns container structure from `Container` smart contract storage.
 
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  container has been successfully read;
+- Common failures (SECTION_FAILURE_COMMON);
+- **CONTAINER_NOT_FOUND** (3072, SECTION_CONTAINER): \
+  requested container not found.
+
 | Name | Input | Output |
 | ---- | ----- | ------ |
 | Get | [GetRequest](#neo.fs.v2.container.GetRequest) | [GetResponse](#neo.fs.v2.container.GetResponse) |
 #### Method List
 
 Returns all owner's containers from 'Container` smart contract' storage.
+
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  container list has been successfully read;
+- Common failures (SECTION_FAILURE_COMMON).
 
 | Name | Input | Output |
 | ---- | ----- | ------ |
@@ -117,6 +139,11 @@ Invokes 'SetEACL' method of 'Container` smart contract and returns response
 immediately. After one more block in sidechain, Extended ACL changes are
 added into smart contract storage.
 
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  request to save container eACL has been sent to the sidechain;
+- Common failures (SECTION_FAILURE_COMMON).
+
 | Name | Input | Output |
 | ---- | ----- | ------ |
 | SetExtendedACL | [SetExtendedACLRequest](#neo.fs.v2.container.SetExtendedACLRequest) | [SetExtendedACLResponse](#neo.fs.v2.container.SetExtendedACLResponse) |
@@ -125,12 +152,24 @@ added into smart contract storage.
 Returns Extended ACL table and signature from `Container` smart contract
 storage.
 
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  container eACL has been successfully read;
+- Common failures (SECTION_FAILURE_COMMON);
+- **CONTAINER_NOT_FOUND** (3072, SECTION_CONTAINER): \
+  container not found.
+
 | Name | Input | Output |
 | ---- | ----- | ------ |
 | GetExtendedACL | [GetExtendedACLRequest](#neo.fs.v2.container.GetExtendedACLRequest) | [GetExtendedACLResponse](#neo.fs.v2.container.GetExtendedACLResponse) |
 #### Method AnnounceUsedSpace
 
 Announce container used space values for P2P synchronization.
+
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  estimation of used space has been successfully announced;
+- Common failures (SECTION_FAILURE_COMMON).
 
 | Name | Input | Output |
 | ---- | ----- | ------ |
@@ -220,7 +259,7 @@ smart contract, so signing algorithm must be supported by NeoVM.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | container_id | [neo.fs.v2.refs.ContainerID](#neo.fs.v2.refs.ContainerID) |  | Identifier of the container to delete from NeoFS |
-| signature | [neo.fs.v2.refs.Signature](#neo.fs.v2.refs.Signature) |  | `ContainerID` signed with the container owner's key according to RFC-6979 |
+| signature | [neo.fs.v2.refs.SignatureRFC6979](#neo.fs.v2.refs.SignatureRFC6979) |  | `ContainerID` signed with the container owner's key according to RFC-6979. |
 
 
 <a name="neo.fs.v2.container.DeleteResponse"></a>
@@ -293,7 +332,7 @@ container creation.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | eacl | [neo.fs.v2.acl.EACLTable](#neo.fs.v2.acl.EACLTable) |  | Extended ACL requested, if available |
-| signature | [neo.fs.v2.refs.Signature](#neo.fs.v2.refs.Signature) |  | Signature of stable-marshalled Extended ACL according to RFC-6979 |
+| signature | [neo.fs.v2.refs.SignatureRFC6979](#neo.fs.v2.refs.SignatureRFC6979) |  | Signature of stable-marshalled Extended ACL according to RFC-6979. |
 | session_token | [neo.fs.v2.session.SessionToken](#neo.fs.v2.session.SessionToken) |  | Session token if Extended ACL was set within a session |
 
 
@@ -344,7 +383,7 @@ was already verified on container creation.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | container | [Container](#neo.fs.v2.container.Container) |  | Requested container structure |
-| signature | [neo.fs.v2.refs.Signature](#neo.fs.v2.refs.Signature) |  | Signature of a stable-marshalled container according to RFC-6979 |
+| signature | [neo.fs.v2.refs.SignatureRFC6979](#neo.fs.v2.refs.SignatureRFC6979) |  | Signature of a stable-marshalled container according to RFC-6979. |
 | session_token | [neo.fs.v2.session.SessionToken](#neo.fs.v2.session.SessionToken) |  | Session token if the container was created within a session |
 
 
@@ -422,7 +461,7 @@ additional signature checks.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | container | [Container](#neo.fs.v2.container.Container) |  | Container structure to register in NeoFS |
-| signature | [neo.fs.v2.refs.Signature](#neo.fs.v2.refs.Signature) |  | Signature of a stable-marshalled container according to RFC-6979 |
+| signature | [neo.fs.v2.refs.SignatureRFC6979](#neo.fs.v2.refs.SignatureRFC6979) |  | Signature of a stable-marshalled container according to RFC-6979. |
 
 
 <a name="neo.fs.v2.container.PutResponse"></a>
@@ -475,7 +514,7 @@ reference. It will be taken from `EACLTable.container_id` field.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | eacl | [neo.fs.v2.acl.EACLTable](#neo.fs.v2.acl.EACLTable) |  | Extended ACL table to set for container |
-| signature | [neo.fs.v2.refs.Signature](#neo.fs.v2.refs.Signature) |  | Signature of stable-marshalled Extended ACL table according to RFC-6979 |
+| signature | [neo.fs.v2.refs.SignatureRFC6979](#neo.fs.v2.refs.SignatureRFC6979) |  | Signature of stable-marshalled Extended ACL table according to RFC-6979. |
 
 
 <a name="neo.fs.v2.container.SetExtendedACLResponse"></a>

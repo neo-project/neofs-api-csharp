@@ -9,13 +9,14 @@ import "refs/types.proto";
 import "session/types.proto";
 
 // Type of the object payload content. Only `REGULAR` type objects can be split,
-// hence `TOMBSTONE` and `STORAGE_GROUP` payload is limited by maximal object
-// size.
+// hence `TOMBSTONE`, `STORAGE_GROUP` and `LOCK` payload is limited by maximal
+// object size.
 //
 // String presentation of object type is the same as definition:
 // * REGULAR
 // * TOMBSTONE
 // * STORAGE_GROUP
+// * LOCK
 enum ObjectType {
   // Just a normal object
   REGULAR = 0;
@@ -25,6 +26,9 @@ enum ObjectType {
 
   // StorageGroup information
   STORAGE_GROUP = 2;
+
+  // Object lock
+  LOCK = 3;
 }
 
 // Type of match expression
@@ -117,6 +121,13 @@ message Header {
   //   Marks smaller parts of a split bigger object
   // * __NEOFS__EXPIRATION_EPOCH \
   //   Tells GC to delete object after that epoch
+  // * __NEOFS__TICK_EPOCH \
+  //   Decimal number that defines what epoch must produce
+  //   object notification with UTF-8 object address in a
+  //   body (`0` value produces notification right after
+  //   object put)
+  // * __NEOFS__TICK_TOPIC \
+  //   UTF-8 string topic ID that is used for object notification
   //
   // And some well-known attributes used by applications only:
   //
@@ -173,6 +184,9 @@ message Header {
 // Object structure. Object is immutable and content-addressed. It means
 // `ObjectID` will change if header or payload changes. It's calculated as a
 // hash of header field, which contains hash of object's payload.
+//
+// For non-regular object types payload format depends on object type specified
+// in the header.
 message Object {
   // Object's unique identifier.
   neo.fs.v2.refs.ObjectID object_id = 1 [json_name = "objectID"];

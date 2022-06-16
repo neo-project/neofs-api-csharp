@@ -92,6 +92,21 @@ messages, except the first one, carry payload chunks. Requested object can
 be restored by concatenation of object message payload and all chunks
 keeping receiving order.
 
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  object has been successfully read;
+- Common failures (SECTION_FAILURE_COMMON);
+- **CONTAINER_NOT_FOUND** (3072, SECTION_CONTAINER): \
+  object container not found;
+- **ACCESS_DENIED** (2048, SECTION_OBJECT): \
+  read access to the object is denied;
+- **OBJECT_NOT_FOUND** (2049, SECTION_OBJECT): \
+  object not found in container;
+- **TOKEN_EXPIRED** (4097, SECTION_SESSION): \
+  provided session token has expired;
+- **OBJECT_ALREADY_REMOVED** (2052, SECTION_OBJECT): \
+  the requested object has been marked as deleted.
+
 | Name | Input | Output |
 | ---- | ----- | ------ |
 | Get | [GetRequest](#neo.fs.v2.object.GetRequest) | [GetResponse](#neo.fs.v2.object.GetResponse) |
@@ -104,6 +119,26 @@ session package). Chunk messages are considered by server as a part of an
 object payload. All messages, except first one, SHOULD be payload chunks.
 Chunk messages SHOULD be sent in direct order of fragmentation.
 
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  object has been successfully saved in the container;
+- Common failures (SECTION_FAILURE_COMMON);
+- **LOCKED** (2050, SECTION_OBJECT): \
+  placement of an object of type TOMBSTONE that includes at least one locked
+  object is prohibited;
+- **LOCK_NON_REGULAR_OBJECT** (2051, SECTION_OBJECT): \
+  placement of an object of type LOCK that includes at least one object of
+  type other than REGULAR is prohibited;
+- **CONTAINER_NOT_FOUND** (3072, SECTION_CONTAINER): \
+  object storage container not found;
+- **ACCESS_DENIED** (2048, SECTION_OBJECT): \
+  write access to the container is denied;
+- **TOKEN_NOT_FOUND** (4096, SECTION_SESSION): \
+  (for trusted object preparation) session private key does not exist or has
+been deleted;
+- **TOKEN_EXPIRED** (4097, SECTION_SESSION): \
+  provided session token has expired.
+
 | Name | Input | Output |
 | ---- | ----- | ------ |
 | Put | [PutRequest](#neo.fs.v2.object.PutRequest) | [PutResponse](#neo.fs.v2.object.PutResponse) |
@@ -111,6 +146,19 @@ Chunk messages SHOULD be sent in direct order of fragmentation.
 
 Delete the object from a container. There is no immediate removal
 guarantee. Object will be marked for removal and deleted eventually.
+
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  object has been successfully marked to be removed from the container;
+- Common failures (SECTION_FAILURE_COMMON);
+- **LOCKED** (2050, SECTION_OBJECT): \
+  deleting a locked object is prohibited;
+- **CONTAINER_NOT_FOUND** (3072, SECTION_CONTAINER): \
+  object container not found;
+- **ACCESS_DENIED** (2048, SECTION_OBJECT): \
+  delete access to the object is denied;
+- **TOKEN_EXPIRED** (4097, SECTION_SESSION): \
+  provided session token has expired.
 
 | Name | Input | Output |
 | ---- | ----- | ------ |
@@ -121,6 +169,21 @@ Returns the object Headers without data payload. By default full header is
 returned. If `main_only` request field is set, the short header with only
 the very minimal information would be returned instead.
 
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  object header has been successfully read;
+- Common failures (SECTION_FAILURE_COMMON);
+- **CONTAINER_NOT_FOUND** (3072, SECTION_CONTAINER): \
+  object container not found;
+- **ACCESS_DENIED** (2048, SECTION_OBJECT): \
+  access to operation HEAD of the object is denied;
+- **OBJECT_NOT_FOUND** (2049, SECTION_OBJECT): \
+  object not found in container;
+- **TOKEN_EXPIRED** (4097, SECTION_SESSION): \
+  provided session token has expired;
+- **OBJECT_ALREADY_REMOVED** (2052, SECTION_OBJECT): \
+  the requested object has been marked as deleted.
+
 | Name | Input | Output |
 | ---- | ----- | ------ |
 | Head | [HeadRequest](#neo.fs.v2.object.HeadRequest) | [HeadResponse](#neo.fs.v2.object.HeadResponse) |
@@ -129,6 +192,17 @@ the very minimal information would be returned instead.
 Search objects in container. Search query allows to match by Object
 Header's filed values. Please see the corresponding NeoFS Technical
 Specification section for more details.
+
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  objects have been successfully selected;
+- Common failures (SECTION_FAILURE_COMMON);
+- **CONTAINER_NOT_FOUND** (3072, SECTION_CONTAINER): \
+  search container not found;
+- **ACCESS_DENIED** (2048, SECTION_OBJECT): \
+  access to operation SEARCH of the object is denied;
+- **TOKEN_EXPIRED** (4097, SECTION_SESSION): \
+  provided session token has expired.
 
 | Name | Input | Output |
 | ---- | ----- | ------ |
@@ -140,6 +214,21 @@ Like in `Get` method, the response uses gRPC stream. Requested range can be
 restored by concatenation of all received payload chunks keeping receiving
 order.
 
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  data range of the object payload has been successfully read;
+- Common failures (SECTION_FAILURE_COMMON);
+- **CONTAINER_NOT_FOUND** (3072, SECTION_CONTAINER): \
+  object container not found;
+- **ACCESS_DENIED** (2048, SECTION_OBJECT): \
+  access to operation RANGE of the object is denied;
+- **OBJECT_NOT_FOUND** (2049, SECTION_OBJECT): \
+  object not found in container;
+- **TOKEN_EXPIRED** (4097, SECTION_SESSION): \
+  provided session token has expired;
+- **OBJECT_ALREADY_REMOVED** (2052, SECTION_OBJECT): \
+  the requested object has been marked as deleted.
+
 | Name | Input | Output |
 | ---- | ----- | ------ |
 | GetRange | [GetRangeRequest](#neo.fs.v2.object.GetRangeRequest) | [GetRangeResponse](#neo.fs.v2.object.GetRangeResponse) |
@@ -149,6 +238,19 @@ Returns homomorphic or regular hash of object's payload range after
 applying XOR operation with the provided `salt`. Ranges are set of (offset,
 length) tuples. Hashes order in response corresponds to ranges order in
 request. Note that hash is calculated for XORed data.
+
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  data range of the object payload has been successfully hashed;
+- Common failures (SECTION_FAILURE_COMMON);
+- **CONTAINER_NOT_FOUND** (3072, SECTION_CONTAINER): \
+  object container not found;
+- **ACCESS_DENIED** (2048, SECTION_OBJECT): \
+  access to operation RANGEHASH of the object is denied;
+- **OBJECT_NOT_FOUND** (2049, SECTION_OBJECT): \
+  object not found in container;
+- **TOKEN_EXPIRED** (4097, SECTION_SESSION): \
+  provided session token has expired.
 
 | Name | Input | Output |
 | ---- | ----- | ------ |
@@ -690,6 +792,13 @@ that affect system behaviour:
   Marks smaller parts of a split bigger object
 * __NEOFS__EXPIRATION_EPOCH \
   Tells GC to delete object after that epoch
+* __NEOFS__TICK_EPOCH \
+  Decimal number that defines what epoch must produce
+  object notification with UTF-8 object address in a
+  body (`0` value produces notification right after
+  object put)
+* __NEOFS__TICK_TOPIC \
+  UTF-8 string topic ID that is used for object notification
 
 And some well-known attributes used by applications only:
 
@@ -737,6 +846,9 @@ must be within the same container.
 Object structure. Object is immutable and content-addressed. It means
 `ObjectID` will change if header or payload changes. It's calculated as a
 hash of header field, which contains hash of object's payload.
+
+For non-regular object types payload format depends on object type specified
+in the header.
 
 
 | Field | Type | Label | Description |
@@ -801,19 +913,21 @@ Type of match expression
 
 ### ObjectType
 Type of the object payload content. Only `REGULAR` type objects can be split,
-hence `TOMBSTONE` and `STORAGE_GROUP` payload is limited by maximal object
-size.
+hence `TOMBSTONE`, `STORAGE_GROUP` and `LOCK` payload is limited by maximal
+object size.
 
 String presentation of object type is the same as definition:
 * REGULAR
 * TOMBSTONE
 * STORAGE_GROUP
+* LOCK
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | REGULAR | 0 | Just a normal object |
 | TOMBSTONE | 1 | Used internally to identify deleted objects |
 | STORAGE_GROUP | 2 | StorageGroup information |
+| LOCK | 3 | Object lock |
 
 
  <!-- end enums -->

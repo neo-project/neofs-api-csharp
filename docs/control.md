@@ -12,18 +12,34 @@
     - [DropObjectsRequest.Body](#control.DropObjectsRequest.Body)
     - [DropObjectsResponse](#control.DropObjectsResponse)
     - [DropObjectsResponse.Body](#control.DropObjectsResponse.Body)
+    - [DumpShardRequest](#control.DumpShardRequest)
+    - [DumpShardRequest.Body](#control.DumpShardRequest.Body)
+    - [DumpShardResponse](#control.DumpShardResponse)
+    - [DumpShardResponse.Body](#control.DumpShardResponse.Body)
     - [HealthCheckRequest](#control.HealthCheckRequest)
     - [HealthCheckRequest.Body](#control.HealthCheckRequest.Body)
     - [HealthCheckResponse](#control.HealthCheckResponse)
     - [HealthCheckResponse.Body](#control.HealthCheckResponse.Body)
+    - [ListShardsRequest](#control.ListShardsRequest)
+    - [ListShardsRequest.Body](#control.ListShardsRequest.Body)
+    - [ListShardsResponse](#control.ListShardsResponse)
+    - [ListShardsResponse.Body](#control.ListShardsResponse.Body)
     - [NetmapSnapshotRequest](#control.NetmapSnapshotRequest)
     - [NetmapSnapshotRequest.Body](#control.NetmapSnapshotRequest.Body)
     - [NetmapSnapshotResponse](#control.NetmapSnapshotResponse)
     - [NetmapSnapshotResponse.Body](#control.NetmapSnapshotResponse.Body)
+    - [RestoreShardRequest](#control.RestoreShardRequest)
+    - [RestoreShardRequest.Body](#control.RestoreShardRequest.Body)
+    - [RestoreShardResponse](#control.RestoreShardResponse)
+    - [RestoreShardResponse.Body](#control.RestoreShardResponse.Body)
     - [SetNetmapStatusRequest](#control.SetNetmapStatusRequest)
     - [SetNetmapStatusRequest.Body](#control.SetNetmapStatusRequest.Body)
     - [SetNetmapStatusResponse](#control.SetNetmapStatusResponse)
     - [SetNetmapStatusResponse.Body](#control.SetNetmapStatusResponse.Body)
+    - [SetShardModeRequest](#control.SetShardModeRequest)
+    - [SetShardModeRequest.Body](#control.SetShardModeRequest.Body)
+    - [SetShardModeResponse](#control.SetShardModeResponse)
+    - [SetShardModeResponse.Body](#control.SetShardModeResponse.Body)
     
 
 - [control/types.proto](#control/types.proto)
@@ -32,6 +48,7 @@
     - [Netmap](#control.Netmap)
     - [NodeInfo](#control.NodeInfo)
     - [NodeInfo.Attribute](#control.NodeInfo.Attribute)
+    - [ShardInfo](#control.ShardInfo)
     - [Signature](#control.Signature)
     
 
@@ -57,6 +74,10 @@ rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
 rpc NetmapSnapshot(NetmapSnapshotRequest) returns (NetmapSnapshotResponse);
 rpc SetNetmapStatus(SetNetmapStatusRequest) returns (SetNetmapStatusResponse);
 rpc DropObjects(DropObjectsRequest) returns (DropObjectsResponse);
+rpc ListShards(ListShardsRequest) returns (ListShardsResponse);
+rpc SetShardMode(SetShardModeRequest) returns (SetShardModeResponse);
+rpc DumpShard(DumpShardRequest) returns (DumpShardResponse);
+rpc RestoreShard(RestoreShardRequest) returns (RestoreShardResponse);
 
 ```
 
@@ -88,6 +109,34 @@ Mark objects to be removed from node's local object storage.
 | Name | Input | Output |
 | ---- | ----- | ------ |
 | DropObjects | [DropObjectsRequest](#control.DropObjectsRequest) | [DropObjectsResponse](#control.DropObjectsResponse) |
+#### Method ListShards
+
+Returns list that contains information about all shards of a node.
+
+| Name | Input | Output |
+| ---- | ----- | ------ |
+| ListShards | [ListShardsRequest](#control.ListShardsRequest) | [ListShardsResponse](#control.ListShardsResponse) |
+#### Method SetShardMode
+
+Sets mode of the shard.
+
+| Name | Input | Output |
+| ---- | ----- | ------ |
+| SetShardMode | [SetShardModeRequest](#control.SetShardModeRequest) | [SetShardModeResponse](#control.SetShardModeResponse) |
+#### Method DumpShard
+
+Dump objects from the shard.
+
+| Name | Input | Output |
+| ---- | ----- | ------ |
+| DumpShard | [DumpShardRequest](#control.DumpShardRequest) | [DumpShardResponse](#control.DumpShardResponse) |
+#### Method RestoreShard
+
+Restore objects from dump.
+
+| Name | Input | Output |
+| ---- | ----- | ------ |
+| RestoreShard | [RestoreShardRequest](#control.RestoreShardRequest) | [RestoreShardResponse](#control.RestoreShardResponse) |
  <!-- end services -->
 
 
@@ -129,6 +178,50 @@ Response to request to drop the objects.
 <a name="control.DropObjectsResponse.Body"></a>
 
 ### Message DropObjectsResponse.Body
+Response body structure.
+
+
+
+<a name="control.DumpShardRequest"></a>
+
+### Message DumpShardRequest
+DumpShard request.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| body | [DumpShardRequest.Body](#control.DumpShardRequest.Body) |  | Body of dump shard request message. |
+| signature | [Signature](#control.Signature) |  | Body signature. |
+
+
+<a name="control.DumpShardRequest.Body"></a>
+
+### Message DumpShardRequest.Body
+Request body structure.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| shard_ID | [bytes](#bytes) |  | ID of the shard. |
+| filepath | [string](#string) |  | Path to the output. |
+| ignore_errors | [bool](#bool) |  | Flag indicating whether object read errors should be ignored. |
+
+
+<a name="control.DumpShardResponse"></a>
+
+### Message DumpShardResponse
+DumpShard response.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| body | [DumpShardResponse.Body](#control.DumpShardResponse.Body) |  | Body of dump shard response message. |
+| signature | [Signature](#control.Signature) |  | Body signature. |
+
+
+<a name="control.DumpShardResponse.Body"></a>
+
+### Message DumpShardResponse.Body
 Response body structure.
 
 
@@ -176,6 +269,48 @@ Health check response body
 | health_status | [HealthStatus](#control.HealthStatus) |  | Health status of storage node application. |
 
 
+<a name="control.ListShardsRequest"></a>
+
+### Message ListShardsRequest
+Request to list all shards of the node.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| body | [ListShardsRequest.Body](#control.ListShardsRequest.Body) |  | Body of the request message. |
+| signature | [Signature](#control.Signature) |  | Body signature. |
+
+
+<a name="control.ListShardsRequest.Body"></a>
+
+### Message ListShardsRequest.Body
+Request body structure.
+
+
+
+<a name="control.ListShardsResponse"></a>
+
+### Message ListShardsResponse
+ListShards response.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| body | [ListShardsResponse.Body](#control.ListShardsResponse.Body) |  | Body of the response message. |
+| signature | [Signature](#control.Signature) |  | Body signature. |
+
+
+<a name="control.ListShardsResponse.Body"></a>
+
+### Message ListShardsResponse.Body
+Response body structure.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| shards | [ShardInfo](#control.ShardInfo) | repeated | List of the node's shards. |
+
+
 <a name="control.NetmapSnapshotRequest"></a>
 
 ### Message NetmapSnapshotRequest
@@ -218,6 +353,50 @@ Get netmap snapshot response body
 | netmap | [Netmap](#control.Netmap) |  | Structure of the requested network map. |
 
 
+<a name="control.RestoreShardRequest"></a>
+
+### Message RestoreShardRequest
+RestoreShard request.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| body | [RestoreShardRequest.Body](#control.RestoreShardRequest.Body) |  | Body of restore shard request message. |
+| signature | [Signature](#control.Signature) |  | Body signature. |
+
+
+<a name="control.RestoreShardRequest.Body"></a>
+
+### Message RestoreShardRequest.Body
+Request body structure.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| shard_ID | [bytes](#bytes) |  | ID of the shard. |
+| filepath | [string](#string) |  | Path to the output. |
+| ignore_errors | [bool](#bool) |  | Flag indicating whether object read errors should be ignored. |
+
+
+<a name="control.RestoreShardResponse"></a>
+
+### Message RestoreShardResponse
+RestoreShard response.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| body | [RestoreShardResponse.Body](#control.RestoreShardResponse.Body) |  | Body of restore shard response message. |
+| signature | [Signature](#control.Signature) |  | Body signature. |
+
+
+<a name="control.RestoreShardResponse.Body"></a>
+
+### Message RestoreShardResponse.Body
+Response body structure.
+
+
+
 <a name="control.SetNetmapStatusRequest"></a>
 
 ### Message SetNetmapStatusRequest
@@ -257,6 +436,50 @@ Set netmap status response.
 
 ### Message SetNetmapStatusResponse.Body
 Set netmap status response body
+
+
+
+<a name="control.SetShardModeRequest"></a>
+
+### Message SetShardModeRequest
+Request to set mode of the shard.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| body | [SetShardModeRequest.Body](#control.SetShardModeRequest.Body) |  | Body of set shard mode request message. |
+| signature | [Signature](#control.Signature) |  | Body signature. |
+
+
+<a name="control.SetShardModeRequest.Body"></a>
+
+### Message SetShardModeRequest.Body
+Request body structure.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| shard_ID | [bytes](#bytes) |  | ID of the shard. |
+| mode | [ShardMode](#control.ShardMode) |  | Mode that requested to be set. |
+| resetErrorCounter | [bool](#bool) |  | Flag signifying whether error counter should be set to 0. |
+
+
+<a name="control.SetShardModeResponse"></a>
+
+### Message SetShardModeResponse
+SetShardMode response.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| body | [SetShardModeResponse.Body](#control.SetShardModeResponse.Body) |  | Body of set shard mode response message. |
+| signature | [Signature](#control.Signature) |  | Body signature. |
+
+
+<a name="control.SetShardModeResponse.Body"></a>
+
+### Message SetShardModeResponse.Body
+Response body structure.
 
 
  <!-- end messages -->
@@ -351,6 +574,22 @@ corresponding section in NeoFS Technical specification.
 | parents | [string](#string) | repeated | Parent keys, if any. For example for `City` it could be `Region` and `Country`. |
 
 
+<a name="control.ShardInfo"></a>
+
+### Message ShardInfo
+Shard description.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| shard_ID | [bytes](#bytes) |  | ID of the shard. |
+| metabase_path | [string](#string) |  | Path to shard's metabase. |
+| blobstor_path | [string](#string) |  | Path to shard's blobstor. |
+| writecache_path | [string](#string) |  | Path to shard's write-cache, empty if disabled. |
+| mode | [ShardMode](#control.ShardMode) |  | Work mode of the shard. |
+| errorCount | [uint32](#uint32) |  | Amount of errors occured. |
+
+
 <a name="control.Signature"></a>
 
 ### Message Signature
@@ -390,6 +629,20 @@ Status of the storage node in the NeoFS network map.
 | ONLINE | 1 | Node is online. |
 | OFFLINE | 2 | Node is offline. |
 | MAINTENANCE | 3 | Node is maintained by the owner. |
+
+
+
+<a name="control.ShardMode"></a>
+
+### ShardMode
+Work mode of the shard.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| SHARD_MODE_UNDEFINED | 0 | Undefined mode, default value. |
+| READ_WRITE | 1 | Read-write. |
+| READ_ONLY | 2 | Read-only. |
+| DEGRADED | 3 | Degraded. |
 
 
  <!-- end enums -->

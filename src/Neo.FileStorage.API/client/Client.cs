@@ -119,20 +119,14 @@ namespace Neo.FileStorage.API.Client
             return this;
         }
 
-        public CallOptions DefaultCallOptions
+        private CallOptions DefaultCallOptions => new()
         {
-            get
-            {
-                return new CallOptions
-                {
-                    Version = Refs.Version.SDKVersion(),
-                    Ttl = 2,
-                    Session = session,
-                    Bearer = bearer,
-                    Key = key,
-                };
-            }
-        }
+            Version = Refs.Version.SDKVersion(),
+            Ttl = 2,
+            Session = session,
+            Bearer = bearer,
+            Key = key,
+        };
 
         private void CheckOptions(CallOptions options)
         {

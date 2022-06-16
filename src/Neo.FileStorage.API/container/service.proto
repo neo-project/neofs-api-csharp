@@ -21,8 +21,8 @@ service ContainerService {
   // is added into smart contract storage.
   //
   // Statuses:
-  // - **OK** (0, SECTION_SUCCESS):
-  // request to save the container has been sent to the sidechain;
+  // - **OK** (0, SECTION_SUCCESS): \
+  //   request to save the container has been sent to the sidechain;
   // - Common failures (SECTION_FAILURE_COMMON).
   rpc Put(PutRequest) returns (PutResponse);
 
@@ -32,24 +32,26 @@ service ContainerService {
   // is added into smart contract storage.
   //
   // Statuses:
-  // - **OK** (0, SECTION_SUCCESS):
-  // request to remove the container has been sent to the sidechain;
+  // - **OK** (0, SECTION_SUCCESS): \
+  //   request to remove the container has been sent to the sidechain;
   // - Common failures (SECTION_FAILURE_COMMON).
   rpc Delete(DeleteRequest) returns (DeleteResponse);
 
   // Returns container structure from `Container` smart contract storage.
   //
   // Statuses:
-  // - **OK** (0, SECTION_SUCCESS):
-  // container has been successfully read;
-  // - Common failures (SECTION_FAILURE_COMMON).
+  // - **OK** (0, SECTION_SUCCESS): \
+  //   container has been successfully read;
+  // - Common failures (SECTION_FAILURE_COMMON);
+  // - **CONTAINER_NOT_FOUND** (3072, SECTION_CONTAINER): \
+  //   requested container not found.
   rpc Get(GetRequest) returns (GetResponse);
 
   // Returns all owner's containers from 'Container` smart contract' storage.
   //
   // Statuses:
-  // - **OK** (0, SECTION_SUCCESS):
-  // container list has been successfully read;
+  // - **OK** (0, SECTION_SUCCESS): \
+  //   container list has been successfully read;
   // - Common failures (SECTION_FAILURE_COMMON).
   rpc List(ListRequest) returns (ListResponse);
 
@@ -58,8 +60,8 @@ service ContainerService {
   // added into smart contract storage.
   //
   // Statuses:
-  // - **OK** (0, SECTION_SUCCESS):
-  // request to save container eACL has been sent to the sidechain;
+  // - **OK** (0, SECTION_SUCCESS): \
+  //   request to save container eACL has been sent to the sidechain;
   // - Common failures (SECTION_FAILURE_COMMON).
   rpc SetExtendedACL(SetExtendedACLRequest) returns (SetExtendedACLResponse);
 
@@ -67,16 +69,18 @@ service ContainerService {
   // storage.
   //
   // Statuses:
-  // - **OK** (0, SECTION_SUCCESS):
-  // container eACL has been successfully read;
-  // - Common failures (SECTION_FAILURE_COMMON).
+  // - **OK** (0, SECTION_SUCCESS): \
+  //   container eACL has been successfully read;
+  // - Common failures (SECTION_FAILURE_COMMON);
+  // - **CONTAINER_NOT_FOUND** (3072, SECTION_CONTAINER): \
+  //   container not found.
   rpc GetExtendedACL(GetExtendedACLRequest) returns (GetExtendedACLResponse);
 
   // Announce container used space values for P2P synchronization.
   //
   // Statuses:
-  // - **OK** (0, SECTION_SUCCESS):
-  // estimation of used space has been successfully announced;
+  // - **OK** (0, SECTION_SUCCESS): \
+  //   estimation of used space has been successfully announced;
   // - Common failures (SECTION_FAILURE_COMMON).
   rpc AnnounceUsedSpace(AnnounceUsedSpaceRequest) returns (AnnounceUsedSpaceResponse);
 }
@@ -92,8 +96,8 @@ message PutRequest {
     // Container structure to register in NeoFS
     container.Container container = 1;
 
-    // Signature of a stable-marshalled container according to RFC-6979
-    neo.fs.v2.refs.Signature signature =2;
+    // Signature of a stable-marshalled container according to RFC-6979.
+    neo.fs.v2.refs.SignatureRFC6979 signature = 2;
   }
   // Body of container put request message.
   Body body = 1;
@@ -140,8 +144,8 @@ message DeleteRequest {
     // Identifier of the container to delete from NeoFS
     neo.fs.v2.refs.ContainerID container_id = 1;
 
-    // `ContainerID` signed with the container owner's key according to RFC-6979
-    neo.fs.v2.refs.Signature signature = 2;
+    // `ContainerID` signed with the container owner's key according to RFC-6979.
+    neo.fs.v2.refs.SignatureRFC6979 signature = 2;
   }
   // Body of container delete request message.
   Body body = 1;
@@ -203,8 +207,8 @@ message GetResponse {
     // Requested container structure
     Container container = 1;
 
-    // Signature of a stable-marshalled container according to RFC-6979
-    neo.fs.v2.refs.Signature signature = 2;
+    // Signature of a stable-marshalled container according to RFC-6979.
+    neo.fs.v2.refs.SignatureRFC6979 signature = 2;
 
     // Session token if the container was created within a session
     neo.fs.v2.session.SessionToken session_token = 3;
@@ -271,8 +275,8 @@ message SetExtendedACLRequest {
     // Extended ACL table to set for container
     neo.fs.v2.acl.EACLTable eacl = 1;
 
-    // Signature of stable-marshalled Extended ACL table according to RFC-6979
-    neo.fs.v2.refs.Signature signature = 2;
+    // Signature of stable-marshalled Extended ACL table according to RFC-6979.
+    neo.fs.v2.refs.SignatureRFC6979 signature = 2;
   }
   // Body of set extended acl request message.
   Body body = 1;
@@ -337,8 +341,8 @@ message GetExtendedACLResponse {
     // Extended ACL requested, if available
     neo.fs.v2.acl.EACLTable eacl = 1;
 
-    // Signature of stable-marshalled Extended ACL according to RFC-6979
-    neo.fs.v2.refs.Signature signature = 2;
+    // Signature of stable-marshalled Extended ACL according to RFC-6979.
+    neo.fs.v2.refs.SignatureRFC6979 signature = 2;
 
     // Session token if Extended ACL was set within a session
     neo.fs.v2.session.SessionToken session_token = 3;

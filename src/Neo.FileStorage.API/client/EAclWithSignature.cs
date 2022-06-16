@@ -7,7 +7,7 @@ namespace Neo.FileStorage.API.Client
     public class EAclWithSignature
     {
         public EACLTable Table;
-        public Signature Signature;
+        public SignatureRFC6979 Signature;
         public SessionToken SessionToken;
     }
 }

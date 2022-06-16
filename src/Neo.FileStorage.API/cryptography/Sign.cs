@@ -37,9 +37,9 @@ namespace Neo.FileStorage.API.Cryptography
             return signature;
         }
 
-        public static Signature SignRFC6979(this ECDsa key, IMessage message)
+        public static SignatureRFC6979 SignRFC6979(this ECDsa key, IMessage message)
         {
-            return new Signature
+            return new SignatureRFC6979
             {
                 Key = ByteString.CopyFrom(key.PublicKey()),
                 Sign = ByteString.CopyFrom(key.SignRFC6979(message.ToByteArray())),
@@ -107,7 +107,7 @@ namespace Neo.FileStorage.API.Cryptography
             return signer.VerifySignature(hash, rs[0], rs[1]);
         }
 
-        public static bool VerifyRFC6979(this Signature signature, IMessage message)
+        public static bool VerifyRFC6979(this SignatureRFC6979 signature, IMessage message)
         {
             return signature.Key.ToByteArray().VerifyRFC6979(message.ToByteArray(), signature.Sign.ToByteArray());
         }

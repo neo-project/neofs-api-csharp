@@ -6,7 +6,7 @@ namespace Neo.FileStorage.API.Client
     public class ContainerWithSignature
     {
         public Container.Container Container;
-        public Signature Signature;
+        public SignatureRFC6979 Signature;
         public SessionToken SessionToken;
     }
 }

@@ -58,6 +58,11 @@ rpc Create(CreateRequest) returns (CreateResponse);
 
 Opens a new session between two peers.
 
+Statuses:
+- **OK** (0, SECTION_SUCCESS):
+session has been successfully opened;
+- Common failures (SECTION_FAILURE_COMMON).
+
 | Name | Input | Output |
 | ---- | ----- | ------ |
 | Create | [CreateRequest](#neo.fs.v2.session.CreateRequest) | [CreateResponse](#neo.fs.v2.session.CreateResponse) |
@@ -169,6 +174,7 @@ request meta headers are folded in matryoshka style.
 | session_token | [SessionToken](#neo.fs.v2.session.SessionToken) |  | Session token within which the request is sent |
 | bearer_token | [neo.fs.v2.acl.BearerToken](#neo.fs.v2.acl.BearerToken) |  | `BearerToken` with eACL overrides for the request |
 | origin | [RequestMetaHeader](#neo.fs.v2.session.RequestMetaHeader) |  | `RequestMetaHeader` of the origin request |
+| magic_number | [uint64](#uint64) |  | NeoFS network magic. Must match the value for the network that the server belongs to. |
 
 
 <a name="neo.fs.v2.session.RequestVerificationHeader"></a>
@@ -198,6 +204,7 @@ Information about the response
 | ttl | [uint32](#uint32) |  | Maximum number of intermediate nodes in the request route |
 | x_headers | [XHeader](#neo.fs.v2.session.XHeader) | repeated | Response X-Headers |
 | origin | [ResponseMetaHeader](#neo.fs.v2.session.ResponseMetaHeader) |  | `ResponseMetaHeader` of the origin request |
+| status | [neo.fs.v2.status.Status](#neo.fs.v2.status.Status) |  | Status return |
 
 
 <a name="neo.fs.v2.session.ResponseVerificationHeader"></a>
