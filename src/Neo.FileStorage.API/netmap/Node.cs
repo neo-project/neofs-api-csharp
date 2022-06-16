@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Neo.FileStorage.API.Cryptography;
-using Neo.IO.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Neo.FileStorage.API.Netmap
 {
@@ -70,24 +70,6 @@ namespace Neo.FileStorage.API.Netmap
                 return 1;
             else
                 return ID.CompareTo(n.ID);
-        }
-
-        public static Node FromJson(JObject json)
-        {
-            int index = int.Parse(json["index"].AsString());
-            NodeInfo ni = NodeInfo.FromJson(json["nodeinfo"]);
-            return new(index, ni);
-        }
-
-        public JObject ToJson()
-        {
-            JObject json = new();
-            json["id"] = ID;
-            json["capacity"] = Capacity;
-            json["index"] = Index;
-            json["price"] = Price;
-            json["nodeinfo"] = Info.ToJson();
-            return json;
         }
     }
 }

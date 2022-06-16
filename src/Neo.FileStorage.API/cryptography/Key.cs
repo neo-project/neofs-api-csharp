@@ -1,30 +1,69 @@
-﻿using System;
+﻿using Google.Protobuf;
+using Neo.FileStorage.API.Refs;
+using Org.BouncyCastle.Asn1.Sec;
+using Org.BouncyCastle.Math;
+using System;
+using System.Buffers.Binary;
 using System.Linq;
-using System.Numerics;
 using System.Security.Cryptography;
-using Google.Protobuf;
-using Neo.Cryptography;
-using Neo.SmartContract;
-using Neo.Wallets;
+using System.Text;
+using static Neo.FileStorage.API.Helper;
 
 namespace Neo.FileStorage.API.Cryptography
 {
     public static class KeyExtension
     {
+        public const byte NeoAddressVersion = 0x35;
         private const int CompressedPublicKeyLength = 33;
         private const int UncompressedPublicKeyLength = 65;
+        private static uint CheckSigDescriptor = BinaryPrimitives.ReadUInt32LittleEndian(Encoding.ASCII.GetBytes("System.Crypto.CheckSig").Sha256());
 
-        private static byte[] Decompress(this byte[] public_key)
+        public static byte[] Compress(this byte[] public_key)
+        {
+            if (public_key.Length != UncompressedPublicKeyLength)
+                throw new FormatException($"{nameof(Compress)} argument isn't uncompressed public key. expected length={UncompressedPublicKeyLength}, actual={public_key.Length}");
+            var secp256r1 = SecNamedCurves.GetByName("secp256r1");
+            var point = secp256r1.Curve.DecodePoint(public_key);
+            return point.GetEncoded(true);
+        }
+
+        public static byte[] Decompress(this byte[] public_key)
         {
             if (public_key.Length != CompressedPublicKeyLength)
                 throw new FormatException($"{nameof(Decompress)} argument isn't compressed public key. expected length={CompressedPublicKeyLength}, actual={public_key.Length}");
-            var point = Neo.Cryptography.ECC.ECPoint.DecodePoint(public_key, Neo.Cryptography.ECC.ECCurve.Secp256r1);
-            return point.EncodePoint(false);
+            var secp256r1 = SecNamedCurves.GetByName("secp256r1");
+            var point = secp256r1.Curve.DecodePoint(public_key);
+            return point.GetEncoded(false);
+        }
+
+        private static byte[] CreateSignatureRedeemScript(this byte[] publicKey)
+        {
+            if (publicKey.Length != CompressedPublicKeyLength)
+                throw new FormatException($"{nameof(CreateSignatureRedeemScript)} argument isn't compressed public key. expected length={CompressedPublicKeyLength}, actual={publicKey.Length}");
+            var script = new byte[] { 0x0c, CompressedPublicKeyLength }; //PUSHDATA1 33
+            script = Concat(script, publicKey);
+            script = Concat(script, new byte[] { 0x41 }); //SYSCALL
+            script = Concat(script, BitConverter.GetBytes(CheckSigDescriptor)); //Neo_Crypto_CheckSig
+            return script;
+        }
+
+        public static byte[] GetScriptHash(this byte[] publicKey)
+        {
+            var script = publicKey.CreateSignatureRedeemScript();
+            return script.Sha256().RIPEMD160();
+        }
+
+        private static string ToAddress(this byte[] script_hash, byte version)
+        {
+            Span<byte> data = stackalloc byte[21];
+            data[0] = version;
+            script_hash.CopyTo(data[1..]);
+            return Base58.Base58CheckEncode(data);
         }
 
         private static byte[] GetPrivateKeyFromWIF(string wif)
         {
-            if (wif == null) throw new ArgumentNullException(nameof(wif));
+            if (wif == null) throw new ArgumentNullException();
             byte[] data = wif.Base58CheckDecode();
             if (data.Length != 34 || data[0] != 0x80 || data[33] != 0x01)
                 throw new FormatException();
@@ -34,10 +73,21 @@ namespace Neo.FileStorage.API.Cryptography
             return privateKey;
         }
 
-        public static UInt160 PublicKeyToScriptHash(this byte[] public_key)
+        public static string Address(this ECDsa key)
         {
-            var point = Neo.Cryptography.ECC.ECPoint.DecodePoint(public_key, Neo.Cryptography.ECC.ECCurve.Secp256r1);
-            return Contract.CreateSignatureRedeemScript(point).ToScriptHash();
+            return key.PublicKey().PublicKeyToAddress();
+        }
+
+        public static OwnerID OwnerID(this ECDsa key)
+        {
+            return Refs.OwnerID.FromPublicKey(key.PublicKey());
+        }
+
+        public static string PublicKeyToAddress(this byte[] publicKey)
+        {
+            if (publicKey.Length != CompressedPublicKeyLength)
+                throw new FormatException(nameof(publicKey) + $" isn't encoded compressed public key. expected length={CompressedPublicKeyLength}, actual={publicKey.Length}");
+            return publicKey.GetScriptHash().ToAddress(NeoAddressVersion);
         }
 
         public static byte[] PublicKey(this ECDsa key)
@@ -47,7 +97,7 @@ namespace Neo.FileStorage.API.Cryptography
             var pos = 33 - param.Q.X.Length;
 
             param.Q.X.CopyTo(pubkey, pos);
-            if (new BigInteger(param.Q.Y.Reverse().Concat(new byte[] { 0x00 }).ToArray()).IsEven)
+            if (new System.Numerics.BigInteger(param.Q.Y.Reverse().Concat(new byte[] { 0x00 }).ToArray()).IsEven)
             {
                 pubkey[0] = 0x2;
             }
@@ -66,8 +116,8 @@ namespace Neo.FileStorage.API.Cryptography
 
         public static ECDsa LoadPrivateKey(this byte[] private_key)
         {
-            var kp = new KeyPair(private_key);
-            var public_key = kp.PublicKey.EncodePoint(false)[1..];
+            var secp256r1 = SecNamedCurves.GetByName("secp256r1");
+            var public_key = secp256r1.G.Multiply(new BigInteger(1, private_key)).GetEncoded(false)[1..];
             var key = ECDsa.Create(new ECParameters
             {
                 Curve = ECCurve.NamedCurves.nistP256,
@@ -87,18 +137,9 @@ namespace Neo.FileStorage.API.Cryptography
             return LoadPrivateKey(private_key);
         }
 
-        public static ECDsa LoadPublicKey(this ByteString public_key)
-        {
-            return public_key.ToByteArray().LoadPublicKey();
-        }
-
         public static ECDsa LoadPublicKey(this byte[] public_key)
         {
-            if (public_key.Length == CompressedPublicKeyLength)
-                public_key = public_key.Decompress();
-            if (public_key.Length != UncompressedPublicKeyLength)
-                throw new FormatException($"{nameof(LoadPublicKey)} argument isn't public key");
-            var public_key_full = public_key[1..];
+            var public_key_full = public_key.Decompress()[1..];
             var key = ECDsa.Create(new ECParameters
             {
                 Curve = ECCurve.NamedCurves.nistP256,

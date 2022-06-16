@@ -6,7 +6,6 @@ using Google.Protobuf;
 using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Refs;
 using Neo.FileStorage.API.Session;
-using Neo.IO.Json;
 
 namespace Neo.FileStorage.API.Object
 {
@@ -178,16 +177,6 @@ namespace Neo.FileStorage.API.Object
             var obj = Clone();
             obj.payload_ = ByteString.Empty;
             return obj;
-        }
-
-        public JObject ToJson()
-        {
-            var json = new JObject();
-            json["objectID"] = ObjectId?.ToJson();
-            json["signature"] = Signature?.ToJson();
-            json["header"] = Header?.ToJson();
-            json["payload"] = Payload?.ToBase64();
-            return json;
         }
     }
 }

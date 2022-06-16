@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Neo.FileStorage.API.Netmap;
-using Neo.IO.Json;
 using Sprache;
 
 namespace Neo.FileStorage.API.Policy
@@ -376,91 +375,6 @@ namespace Neo.FileStorage.API.Policy
         public static Filter FilterFromSimpleExpr(SimpleExpr se)
         {
             return new Filter("", se.Key, se.Value, se.Op.ToOperation(), new Filter[] { });
-        }
-
-        // json.go
-        public static JObject ToJson(this PlacementPolicy np)
-        {
-            JObject json = new JObject();
-            json["replicas"] = np.Replicas.Select(p => p.ToJson()).ToArray();
-            if (np.ContainerBackupFactor != 0)
-                json["container_backup_factor"] = np.ContainerBackupFactor.ToString();
-            if (np.Selectors != null && np.Selectors.Count != 0)
-                json["selectors"] = np.Selectors.Select(p => p.ToJson()).ToArray();
-            if (np.Filters != null && np.Filters.Count != 0)
-                json["filters"] = np.Filters.Select(p => p.ToJson()).ToArray();
-            return json;
-        }
-
-        public static PlacementPolicy PolicyFromJson(this JObject json)
-        {
-            return new PlacementPolicy(json.ContainsProperty("container_backup_factor") ? uint.Parse(json["container_backup_factor"].AsString()) : 0,
-                (json["replicas"] as JArray).Select(p => ReplicaFromJson(p)).ToArray(),
-                json.ContainsProperty("selectors") ? (json["selectors"] as JArray).Select(p => SelectorFromJson(p)).ToArray() : new Selector[] { },
-                json.ContainsProperty("filters") ? (json["filters"] as JArray).Select(p => FilterFromJson(p)).ToArray() : new Filter[] { });
-        }
-
-        public static JObject ToJson(this Replica rep)
-        {
-            JObject json = new JObject();
-            json["count"] = rep.Count.ToString();
-            if (!string.IsNullOrEmpty(rep.Selector))
-                json["selector"] = rep.Selector;
-            return json;
-        }
-
-        public static Replica ReplicaFromJson(this JObject json)
-        {
-            return new Replica(uint.Parse(json["count"].AsString()),
-                json["selector"].AsString());
-        }
-
-        public static JObject ToJson(this Selector selector)
-        {
-            JObject json = new JObject();
-            json["count"] = selector.Count.ToString();
-            json["attribute"] = selector.Attribute;
-            //if (!string.IsNullOrEmpty(selector.Filter))
-            json["filter"] = selector.Filter;
-            if (!string.IsNullOrEmpty(selector.Name))
-                json["name"] = selector.Name;
-            if (!string.IsNullOrEmpty(selector.Clause.AsString()))
-                json["clause"] = selector.Clause.AsString();
-            return json;
-        }
-
-        public static Selector SelectorFromJson(this JObject json)
-        {
-            return new Selector(json.ContainsProperty("name") ? json["name"].AsString() : "",
-                json["attribute"].AsString(),
-                json.ContainsProperty("clause") ? json["clause"].AsString().ToClause() : Clause.Unspecified,
-                uint.Parse(json["count"].AsString()),
-                json["filter"].AsString());
-        }
-
-        public static JObject ToJson(this Filter filter)
-        {
-            JObject json = new JObject();
-            if (!string.IsNullOrEmpty(filter.Name))
-                json["name"] = filter.Name;
-            if (!string.IsNullOrEmpty(filter.Key))
-                json["key"] = filter.Key;
-            if (!string.IsNullOrEmpty(filter.Op.AsString()))
-                json["op"] = filter.Op.AsString();
-            if (!string.IsNullOrEmpty(filter.Value))
-                json["value"] = filter.Value;
-            if (filter.Filters != null && filter.Filters.Count != 0)
-                json["filters"] = filter.Filters.Select(p => p.ToJson()).ToArray();
-            return json;
-        }
-
-        public static Filter FilterFromJson(this JObject json)
-        {
-            return new Filter(json.ContainsProperty("name") ? json["name"].AsString() : "",
-                json.ContainsProperty("key") ? json["key"].AsString() : "",
-                json.ContainsProperty("value") ? json["value"].AsString() : "",
-                json.ContainsProperty("op") ? json["op"].AsString().ToOperation() : Operation.Unspecified,
-                json.ContainsProperty("filters") ? (json["filters"] as JArray).Select(p => FilterFromJson(p)).ToArray() : null);
         }
 
 

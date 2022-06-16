@@ -28,7 +28,7 @@ namespace Neo.FileStorage.API.Client
             {
                 Body = new CreateRequest.Types.Body
                 {
-                    OwnerId = OwnerID.FromScriptHash(opts.Key.PublicKey().PublicKeyToScriptHash()),
+                    OwnerId = opts.Key.OwnerID(),
                     Expiration = expiration,
                 }
             };

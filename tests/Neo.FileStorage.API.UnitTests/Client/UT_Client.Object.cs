@@ -38,7 +38,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             {
                 Header = new Header
                 {
-                    OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
+                    OwnerId = key.OwnerID(),
                     ContainerId = cid,
                 },
                 Payload = ByteString.CopyFrom(payload),
@@ -46,8 +46,8 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(10));
-            var session = client.CreateSession(20).Result;
-            var o = client.PutObject(obj, new CallOptions { Ttl = 1, Session = session }, source.Token).Result;
+            var session = client.CreateSession(uint.MaxValue).Result;
+            var o = client.PutObject(obj, new CallOptions { Ttl = 2, Session = session }, source.Token).Result;
             Console.WriteLine(o.String());
             Assert.AreNotEqual("", o.String());
         }
@@ -67,7 +67,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             {
                 Header = new Header
                 {
-                    OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
+                    OwnerId = key.OwnerID(),
                     ContainerId = cid,
                 },
             };
@@ -121,7 +121,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             {
                 Header = new Header
                 {
-                    OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
+                    OwnerId = key.OwnerID(),
                     ContainerId = cid,
                     ObjectType = ObjectType.StorageGroup,
                 },
@@ -197,7 +197,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectHeader(address, false, false, new CallOptions { Ttl = 1 }, source.Token).Result;
+            var o = client.GetObjectHeader(address, false, false, new CallOptions { Ttl = 2 }, source.Token).Result;
             Console.WriteLine(o);
             Assert.AreEqual(oid, o.ObjectId);
         }

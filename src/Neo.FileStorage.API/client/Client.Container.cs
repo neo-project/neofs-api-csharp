@@ -52,7 +52,7 @@ namespace Neo.FileStorage.API.Client
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
             container.Version = Refs.Version.SDKVersion();
-            if (container.OwnerId is null) container.OwnerId = OwnerID.FromScriptHash(opts.Key.PublicKey().PublicKeyToScriptHash());
+            if (container.OwnerId is null) container.OwnerId = opts.Key.OwnerID();
             var req = new PutRequest
             {
                 Body = new PutRequest.Types.Body
@@ -106,7 +106,7 @@ namespace Neo.FileStorage.API.Client
         {
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
-            if (owner is null) owner = OwnerID.FromScriptHash(opts.Key.PublicKey().PublicKeyToScriptHash());
+            if (owner is null) owner = opts.Key.OwnerID();
             var req = new ListRequest
             {
                 Body = new ListRequest.Types.Body

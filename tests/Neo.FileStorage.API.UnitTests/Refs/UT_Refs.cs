@@ -55,9 +55,9 @@ namespace Neo.FileStorage.API.UnitTests.TestRefs
         public void TestOwnerIDToScriptHash()
         {
             var key = "L4kWTNckyaWn2QdUrACCJR1qJNgFFGhTCy63ERk7ZK3NvBoXap6t".LoadWif();
-            var scriptHash = key.PublicKey().PublicKeyToScriptHash();
+            var scriptHash = key.PublicKey().GetScriptHash();
             var owner = OwnerID.FromScriptHash(scriptHash);
-            Assert.AreEqual(scriptHash, owner.ToScriptHash());
+            Assert.AreEqual(scriptHash.ToHexString(), owner.ToScriptHash().ToHexString());
         }
 
         [TestMethod]
@@ -71,7 +71,7 @@ namespace Neo.FileStorage.API.UnitTests.TestRefs
         public void TestOwnerIDFromKey()
         {
             string pk = "A/9ltq55E0pNzp0NOdOFHpurTul6v4boHhxbvFDNKCau";
-            var address = OwnerID.FromScriptHash(Convert.FromBase64String(pk).PublicKeyToScriptHash()).ToAddress();
+            var address = Convert.FromBase64String(pk).PublicKeyToAddress();
             Console.WriteLine(address);
         }
 

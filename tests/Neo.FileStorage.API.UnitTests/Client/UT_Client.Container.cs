@@ -26,7 +26,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var container = new Container.Container
             {
                 Version = Refs.Version.SDKVersion(),
-                OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
+                OwnerId = key.OwnerID(),
                 Nonce = Guid.NewGuid().ToByteString(),
                 BasicAcl = BasicAcl.PublicBasicRule,
                 PlacementPolicy = policy,
@@ -54,7 +54,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var container = new Container.Container
             {
                 Version = Refs.Version.SDKVersion(),
-                OwnerId = OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()),
+                OwnerId = key.OwnerID(),
                 Nonce = Guid.NewGuid().ToByteString(),
                 BasicAcl = BasicAcl.PublicBasicRule,
                 PlacementPolicy = policy,
@@ -97,7 +97,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(10000);
-            var cids = client.ListContainers(OwnerID.FromScriptHash(key.PublicKey().PublicKeyToScriptHash()), context: source.Token).Result;
+            var cids = client.ListContainers(key.OwnerID(), context: source.Token).Result;
             Console.WriteLine(string.Join(", ", cids.Select(p => p.String())));
             Assert.AreEqual(1, cids.Count);
             Assert.AreEqual(cid.String(), cids[0].String());
