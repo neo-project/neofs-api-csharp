@@ -42,6 +42,7 @@
     <Protobuf Include="tombstone\types.proto" GrpcServices="None" Link="tombstone\types.proto" />
     <Protobuf Include="control\service.proto" GrpcServices="Both" Link="control\service.proto" />
     <Protobuf Include="control\types.proto" GrpcServices="None" Link="control\types.proto" />
+    <Protobuf Include="lock\types.proto" GrpcServices="None" Link="lock\types.proto" />
   </ItemGroup>
 
   <ItemGroup>
