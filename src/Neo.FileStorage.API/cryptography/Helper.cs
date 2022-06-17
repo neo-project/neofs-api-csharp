@@ -12,7 +12,7 @@ namespace Neo.FileStorage.API.Cryptography
     {
         public const int Sha256HashLength = 32;
 
-        public static byte[] RIPEMD160(this byte[] value)
+        internal static byte[] RIPEMD160(this byte[] value)
         {
             var hash = new byte[20];
             var digest = new RipeMD160Digest();
@@ -21,19 +21,19 @@ namespace Neo.FileStorage.API.Cryptography
             return hash;
         }
 
-        public static byte[] Sha256(this byte[] value)
+        internal static byte[] Sha256(this byte[] value)
         {
             using var sha256 = SHA256.Create();
             return sha256.ComputeHash(value);
         }
 
-        public static byte[] Sha256(this byte[] value, int offset, int count)
+        internal static byte[] Sha256(this byte[] value, int offset, int count)
         {
             using var sha256 = SHA256.Create();
             return sha256.ComputeHash(value, offset, count);
         }
 
-        public static byte[] Sha256(this ReadOnlySpan<byte> value)
+        internal static byte[] Sha256(this ReadOnlySpan<byte> value)
         {
             byte[] buffer = new byte[32];
             using var sha256 = SHA256.Create();

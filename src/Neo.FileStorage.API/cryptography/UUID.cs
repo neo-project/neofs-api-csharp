@@ -5,10 +5,6 @@ namespace Neo.FileStorage.API.Cryptography
 {
     public static class UUIDExtension
     {
-        public static string ToCID(this ByteString id)
-        {
-            return Base58.Encode(id.ToByteArray());
-        }
 
         public static Guid ToUUID(this ByteString id)
         {
