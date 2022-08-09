@@ -35,9 +35,9 @@ namespace Neo.FileStorage.API.Client
             CheckOptions(opts);
             var req = new LocalNodeInfoRequest
             {
+                MetaHeader = opts.GetRequestMetaHeader(),
                 Body = new LocalNodeInfoRequest.Types.Body { }
             };
-            req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.Sign(req);
 
             return await Epoch(req, opts.Deadline, context);
@@ -48,6 +48,27 @@ namespace Neo.FileStorage.API.Client
             var resp = await NetmapClient.LocalNodeInfoAsync(request, deadline: deadline, cancellationToken: context);
             ProcessResponse(resp);
             return resp.MetaHeader.Epoch;
+        }
+
+        public async Task<Refs.Version> Version(CallOptions options = null, CancellationToken context = default)
+        {
+            var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
+            var req = new LocalNodeInfoRequest
+            {
+                MetaHeader = opts.GetRequestMetaHeader(),
+                Body = new LocalNodeInfoRequest.Types.Body { }
+            };
+            opts.Key.Sign(req);
+
+            return await Version(req, opts.Deadline, context);
+        }
+
+        public async Task<Refs.Version> Version(LocalNodeInfoRequest request, DateTime? deadline = null, CancellationToken context = default)
+        {
+            var resp = await NetmapClient.LocalNodeInfoAsync(request, deadline: deadline, cancellationToken: context);
+            ProcessResponse(resp);
+            return resp.Body.Version;
         }
 
         public async Task<NetworkInfo> NetworkInfo(CallOptions options = null, CancellationToken context = default)
