@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Cryptography;
-using Neo.FileStorage.API.Refs;
 using Neo.FileStorage.API.Session;
 
 namespace Neo.FileStorage.API.Client
@@ -26,13 +25,13 @@ namespace Neo.FileStorage.API.Client
             CheckOptions(opts);
             var req = new CreateRequest
             {
+                MetaHeader = opts?.GetRequestMetaHeader() ?? RequestMetaHeader.Default,
                 Body = new CreateRequest.Types.Body
                 {
                     OwnerId = opts.Key.OwnerID(),
                     Expiration = expiration,
                 }
             };
-            req.MetaHeader = opts?.GetRequestMetaHeader() ?? RequestMetaHeader.Default;
             opts.Key.Sign(req);
 
             return await CreateSession(req, opts.Deadline, context);
@@ -48,7 +47,13 @@ namespace Neo.FileStorage.API.Client
                 {
                     Id = resp.Body.Id,
                     SessionKey = resp.Body.SessionKey,
-                    OwnerId = request.Body.OwnerId
+                    OwnerId = request.Body.OwnerId,
+                    Lifetime = new()
+                    {
+                        Exp = request.Body.Expiration,
+                        Iat = resp.MetaHeader.Epoch,
+                        Nbf = resp.MetaHeader.Epoch,
+                    }
                 }
             };
         }

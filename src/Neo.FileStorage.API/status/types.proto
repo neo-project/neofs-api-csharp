@@ -23,12 +23,12 @@ option csharp_namespace = "Neo.FileStorage.API.Status";
 //
 // All outcomes are divided into successful and failed, which corresponds
 // to the success or failure of the operation. The definition of success
-// follows from the semantics of RPC and the description of its purpose.
-// The server must not attach code that is the opposite of outcome type.
+// follows the semantics of RPC and the description of its purpose.
+// The server must not attach code that is the opposite of the outcome type.
 //
 // See the set of return codes in the description for calls.
 //
-// Each status can carry developer-facing error message. It should be human
+// Each status can carry a developer-facing error message. It should be a human
 // readable text in English. The server should not transmit (and the client
 // should not expect) useful information in the message. Field `details`
 // should make the return more detailed.
@@ -95,6 +95,9 @@ enum CommonFail {
     //  - [**0**] Magic number of the served NeoFS network (big-endian 64-bit
     //  unsigned integer).
     WRONG_MAGIC_NUMBER = 1;
+
+    // [**1026**] Signature verification failure.
+    SIGNATURE_VERIFICATION_FAIL = 2;
 }
 
 // Section of statuses for object-related operations.
@@ -115,6 +118,9 @@ enum Object {
 
     // [**2052**] Object has been marked deleted.
     OBJECT_ALREADY_REMOVED = 4;
+
+    // [**2053**] Invalid range has been requested for an object.
+    OUT_OF_RANGE = 5;
 }
 
 // Section of statuses for container-related operations.

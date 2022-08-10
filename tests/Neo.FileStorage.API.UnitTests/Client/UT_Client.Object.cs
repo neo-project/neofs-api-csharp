@@ -45,8 +45,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             };
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
-            source.CancelAfter(TimeSpan.FromMinutes(10));
-            var session = client.CreateSession(uint.MaxValue).Result;
+            var session = client.CreateSession(100).Result;
             var o = client.PutObject(obj, new CallOptions { Ttl = 2, Session = session }, source.Token).Result;
             Console.WriteLine(o.String());
             Assert.AreNotEqual("", o.String());
@@ -78,9 +77,8 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             });
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
-            source.CancelAfter(TimeSpan.FromMinutes(10));
-            var session = client.CreateSession(20).Result;
-            var o = client.PutObject(obj.Header, file, new CallOptions { Ttl = 1, Session = session }, source.Token).Result;
+            var session = client.CreateSession(100).Result;
+            var o = client.PutObject(obj.Header, file, new CallOptions { Ttl = 2, Session = session }, source.Token).Result;
             Console.WriteLine(o.String());
             Assert.AreNotEqual("", o.String());
             File.Delete(path);
@@ -144,7 +142,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromSeconds(10));
-            var o = client.GetObject(Address, false, new CallOptions { Ttl = 1 }, source.Token).Result;
+            var o = client.GetObject(Address, false, new CallOptions { Ttl = 2 }, source.Token).Result;
             Console.WriteLine(o.Header.ToString());
             Console.WriteLine(o.Payload.Length);
             Assert.AreEqual(oid, o.ObjectId);

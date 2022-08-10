@@ -40,6 +40,10 @@
     - [SetShardModeRequest.Body](#control.SetShardModeRequest.Body)
     - [SetShardModeResponse](#control.SetShardModeResponse)
     - [SetShardModeResponse.Body](#control.SetShardModeResponse.Body)
+    - [SynchronizeTreeRequest](#control.SynchronizeTreeRequest)
+    - [SynchronizeTreeRequest.Body](#control.SynchronizeTreeRequest.Body)
+    - [SynchronizeTreeResponse](#control.SynchronizeTreeResponse)
+    - [SynchronizeTreeResponse.Body](#control.SynchronizeTreeResponse.Body)
     
 
 - [control/types.proto](#control/types.proto)
@@ -78,6 +82,7 @@ rpc ListShards(ListShardsRequest) returns (ListShardsResponse);
 rpc SetShardMode(SetShardModeRequest) returns (SetShardModeResponse);
 rpc DumpShard(DumpShardRequest) returns (DumpShardResponse);
 rpc RestoreShard(RestoreShardRequest) returns (RestoreShardResponse);
+rpc SynchronizeTree(SynchronizeTreeRequest) returns (SynchronizeTreeResponse);
 
 ```
 
@@ -137,6 +142,13 @@ Restore objects from dump.
 | Name | Input | Output |
 | ---- | ----- | ------ |
 | RestoreShard | [RestoreShardRequest](#control.RestoreShardRequest) | [RestoreShardResponse](#control.RestoreShardResponse) |
+#### Method SynchronizeTree
+
+Synchronizes all log operations for the specified tree.
+
+| Name | Input | Output |
+| ---- | ----- | ------ |
+| SynchronizeTree | [SynchronizeTreeRequest](#control.SynchronizeTreeRequest) | [SynchronizeTreeResponse](#control.SynchronizeTreeResponse) |
  <!-- end services -->
 
 
@@ -482,6 +494,50 @@ SetShardMode response.
 Response body structure.
 
 
+
+<a name="control.SynchronizeTreeRequest"></a>
+
+### Message SynchronizeTreeRequest
+SynchronizeTree request.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| body | [SynchronizeTreeRequest.Body](#control.SynchronizeTreeRequest.Body) |  | Body of restore shard request message. |
+| signature | [Signature](#control.Signature) |  | Body signature. |
+
+
+<a name="control.SynchronizeTreeRequest.Body"></a>
+
+### Message SynchronizeTreeRequest.Body
+Request body structure.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| container_id | [bytes](#bytes) |  |  |
+| tree_id | [string](#string) |  |  |
+| height | [uint64](#uint64) |  | Starting height for the synchronization. Can be omitted. |
+
+
+<a name="control.SynchronizeTreeResponse"></a>
+
+### Message SynchronizeTreeResponse
+SynchronizeTree response.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| body | [SynchronizeTreeResponse.Body](#control.SynchronizeTreeResponse.Body) |  | Body of restore shard response message. |
+| signature | [Signature](#control.Signature) |  | Body signature. |
+
+
+<a name="control.SynchronizeTreeResponse.Body"></a>
+
+### Message SynchronizeTreeResponse.Body
+Response body structure.
+
+
  <!-- end messages -->
 
  <!-- end enums -->
@@ -588,6 +644,7 @@ Shard description.
 | writecache_path | [string](#string) |  | Path to shard's write-cache, empty if disabled. |
 | mode | [ShardMode](#control.ShardMode) |  | Work mode of the shard. |
 | errorCount | [uint32](#uint32) |  | Amount of errors occured. |
+| pilorama_path | [string](#string) |  | Path to shard's pilorama storage. |
 
 
 <a name="control.Signature"></a>
@@ -643,6 +700,7 @@ Work mode of the shard.
 | READ_WRITE | 1 | Read-write. |
 | READ_ONLY | 2 | Read-only. |
 | DEGRADED | 3 | Degraded. |
+| DEGRADED_READ_ONLY | 4 | DegradedReadOnly. |
 
 
  <!-- end enums -->

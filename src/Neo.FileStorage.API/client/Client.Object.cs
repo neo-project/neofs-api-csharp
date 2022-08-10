@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,15 +23,14 @@ namespace Neo.FileStorage.API.Client
             CheckOptions(opts);
             var req = new GetRequest
             {
+                MetaHeader = opts.GetRequestMetaHeader(),
                 Body = new GetRequest.Types.Body
                 {
                     Raw = raw,
                     Address = address,
                 }
             };
-            var meta = opts.GetRequestMetaHeader();
-            AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Get);
-            req.MetaHeader = meta;
+            PrepareObjectSessionToken(req.MetaHeader, opts.Key, address, ObjectSessionContext.Types.Verb.Get);
             opts.Key.Sign(req);
 
             return await GetObject(req, opts.Deadline, context);
@@ -43,15 +43,14 @@ namespace Neo.FileStorage.API.Client
             CheckOptions(opts);
             var req = new GetRequest
             {
+                MetaHeader = opts.GetRequestMetaHeader(),
                 Body = new GetRequest.Types.Body
                 {
                     Raw = raw,
                     Address = address,
                 }
             };
-            var meta = opts.GetRequestMetaHeader();
-            AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Get);
-            req.MetaHeader = meta;
+            PrepareObjectSessionToken(req.MetaHeader, opts.Key, address, ObjectSessionContext.Types.Verb.Get);
             opts.Key.Sign(req);
             using var call = ObjectClient.Get(req, cancellationToken: context);
             var obj = new Object.Object();
@@ -143,15 +142,15 @@ namespace Neo.FileStorage.API.Client
             CheckOptions(opts);
             var req = new PutRequest
             {
+                MetaHeader = opts.GetRequestMetaHeader(),
                 Body = new()
+                {
+                    Init = new PutRequest.Types.Body.Types.Init
+                    {
+                        Header = header,
+                    },
+                }
             };
-            var meta = opts.GetRequestMetaHeader();
-            req.MetaHeader = meta;
-            var init = new PutRequest.Types.Body.Types.Init
-            {
-                Header = header,
-            };
-            req.Body.Init = init;
             opts.Key.Sign(req);
 
             using var stream = await PutObject(req, context: context);
@@ -179,25 +178,25 @@ namespace Neo.FileStorage.API.Client
             if (obj.Header is null) throw new ArgumentException($"No Header in {nameof(obj)}");
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
-            var req = new PutRequest();
-            var body = new PutRequest.Types.Body();
-            req.Body = body;
-
             var address = new Address
             {
                 ContainerId = obj.Header.ContainerId,
                 ObjectId = obj.ObjectId ?? obj.CalculateID(),
             };
-            var meta = opts.GetRequestMetaHeader();
-            AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Put);
-            req.MetaHeader = meta;
-            var init = new PutRequest.Types.Body.Types.Init
+            var req = new PutRequest()
             {
-                ObjectId = obj.ObjectId,
-                Signature = obj.Signature,
-                Header = obj.Header,
+                MetaHeader = opts.GetRequestMetaHeader(),
+                Body = new PutRequest.Types.Body
+                {
+                    Init = new PutRequest.Types.Body.Types.Init
+                    {
+                        ObjectId = obj.ObjectId,
+                        Signature = obj.Signature,
+                        Header = obj.Header,
+                    },
+                }
             };
-            req.Body.Init = init;
+            PrepareObjectSessionToken(req.MetaHeader, opts.Key, address, ObjectSessionContext.Types.Verb.Put);
             opts.Key.Sign(req);
 
             using var stream = await PutObject(req, context: context);
@@ -207,11 +206,10 @@ namespace Neo.FileStorage.API.Client
             {
                 var end = offset + Object.Object.ChunkSize > obj.Payload.Length ? obj.Payload.Length : offset + Object.Object.ChunkSize;
                 var chunk = ByteString.CopyFrom(obj.Payload.ToByteArray()[offset..end]);
-                var chunk_body = new PutRequest.Types.Body
+                req.Body = new()
                 {
                     Chunk = chunk,
                 };
-                req.Body = chunk_body;
                 req.VerifyHeader = null;
                 opts.Key.Sign(req);
                 await stream.Write(req);
@@ -237,14 +235,13 @@ namespace Neo.FileStorage.API.Client
             CheckOptions(opts);
             var req = new DeleteRequest
             {
+                MetaHeader = opts.GetRequestMetaHeader(),
                 Body = new DeleteRequest.Types.Body
                 {
                     Address = address,
                 }
             };
-            var meta = opts.GetRequestMetaHeader();
-            AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Delete);
-            req.MetaHeader = meta;
+            PrepareObjectSessionToken(req.MetaHeader, opts.Key, address, ObjectSessionContext.Types.Verb.Delete);
             opts.Key.Sign(req);
 
             return await DeleteObject(req, opts.Deadline, context);
@@ -264,6 +261,7 @@ namespace Neo.FileStorage.API.Client
             CheckOptions(opts);
             var req = new HeadRequest
             {
+                MetaHeader = opts.GetRequestMetaHeader(),
                 Body = new HeadRequest.Types.Body
                 {
                     Address = address,
@@ -271,9 +269,7 @@ namespace Neo.FileStorage.API.Client
                     Raw = raw,
                 }
             };
-            var meta = opts.GetRequestMetaHeader();
-            AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Head);
-            req.MetaHeader = meta;
+            PrepareObjectSessionToken(req.MetaHeader, opts.Key, address, ObjectSessionContext.Types.Verb.Head);
             opts.Key.Sign(req);
 
             return await GetObjectHeader(req, opts.Deadline, context);
@@ -340,6 +336,7 @@ namespace Neo.FileStorage.API.Client
             CheckOptions(opts);
             var req = new GetRangeRequest
             {
+                MetaHeader = opts.GetRequestMetaHeader(),
                 Body = new GetRangeRequest.Types.Body
                 {
                     Address = address,
@@ -347,9 +344,7 @@ namespace Neo.FileStorage.API.Client
                     Raw = raw,
                 }
             };
-            var meta = opts.GetRequestMetaHeader();
-            AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Range);
-            req.MetaHeader = meta;
+            PrepareObjectSessionToken(req.MetaHeader, opts.Key, address, ObjectSessionContext.Types.Verb.Range);
             opts.Key.Sign(req);
 
             return await GetObjectPayloadRangeData(req, opts.Deadline, context);
@@ -364,9 +359,8 @@ namespace Neo.FileStorage.API.Client
             {
                 var resp = stream.Current;
                 ProcessResponse(resp);
-                var chunk = resp.Body.Chunk;
-                chunk.CopyTo(payload, offset);
-                offset += chunk.Length;
+                resp.Body.Chunk.CopyTo(payload, offset);
+                offset += resp.Body.Chunk.Length;
             }
             return payload;
         }
@@ -378,6 +372,7 @@ namespace Neo.FileStorage.API.Client
             CheckOptions(opts);
             var req = new GetRangeHashRequest
             {
+                MetaHeader = opts.GetRequestMetaHeader(),
                 Body = new GetRangeHashRequest.Types.Body
                 {
                     Address = address,
@@ -386,9 +381,7 @@ namespace Neo.FileStorage.API.Client
                 }
             };
             req.Body.Ranges.AddRange(ranges);
-            var meta = opts.GetRequestMetaHeader();
-            AttachObjectSessionToken(opts, meta, address, ObjectSessionContext.Types.Verb.Rangehash);
-            req.MetaHeader = meta;
+            PrepareObjectSessionToken(req.MetaHeader, opts.Key, address, ObjectSessionContext.Types.Verb.Rangehash);
             opts.Key.Sign(req);
 
             return await GetObjectPayloadRangeHash(req, opts.Deadline, context);
@@ -409,6 +402,7 @@ namespace Neo.FileStorage.API.Client
             CheckOptions(opts);
             var req = new SearchRequest
             {
+                MetaHeader = opts.GetRequestMetaHeader(),
                 Body = new SearchRequest.Types.Body
                 {
                     ContainerId = cid,
@@ -416,9 +410,7 @@ namespace Neo.FileStorage.API.Client
                 }
             };
             req.Body.Filters.AddRange(filters.Filters);
-            var meta = opts.GetRequestMetaHeader();
-            AttachObjectSessionToken(opts, meta, new Address { ContainerId = cid }, ObjectSessionContext.Types.Verb.Search);
-            req.MetaHeader = meta;
+            PrepareObjectSessionToken(req.MetaHeader, opts.Key, new Address { ContainerId = cid }, ObjectSessionContext.Types.Verb.Search);
             opts.Key.Sign(req);
 
             return await SearchObject(req, opts.Deadline, context);
@@ -438,39 +430,17 @@ namespace Neo.FileStorage.API.Client
             return result;
         }
 
-        private void AttachObjectSessionToken(CallOptions options, RequestMetaHeader meta, Address address, ObjectSessionContext.Types.Verb verb,
-            ulong exp = 0, ulong nbf = 0, ulong iat = 0)
+        private void PrepareObjectSessionToken(RequestMetaHeader meta, ECDsa key, Address address, ObjectSessionContext.Types.Verb verb)
         {
-            if (options.Session is null) return;
-            if (options.Session.Signature != null)
-            {
-                meta.SessionToken = options.Session;
+            if (meta.SessionToken is null || meta.SessionToken.Signature != null)
                 return;
-            }
-
-            var token = new SessionToken
-            {
-                Body = options.Session.Body
-            };
-
             var ctx = new ObjectSessionContext
             {
                 Address = address,
                 Verb = verb,
             };
-
-            var lt = new SessionToken.Types.Body.Types.TokenLifetime
-            {
-                Iat = iat,
-                Exp = exp,
-                Nbf = nbf,
-            };
-
-            token.Body.Object = ctx;
-            token.Body.Lifetime = lt;
-            token.Signature = options.Key.SignMessagePart(token.Body);
-
-            meta.SessionToken = token;
+            meta.SessionToken.Body.Object = ctx;
+            meta.SessionToken.Signature = key.SignMessagePart(meta.SessionToken.Body);
         }
     }
 }

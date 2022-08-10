@@ -28,6 +28,16 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
         }
 
         [TestMethod]
+        public void TestVersion()
+        {
+            using var client = new Client.Client(key, host);
+            using var source = new CancellationTokenSource();
+            source.CancelAfter(TimeSpan.FromMinutes(1));
+            var epoch = client.Version(context: source.Token).Result;
+            Console.WriteLine(epoch);
+        }
+
+        [TestMethod]
         public void TestNetworkInfo()
         {
             using var client = new Client.Client(key, host);

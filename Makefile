@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-PROTO_VERSION=v2.12.0
+PROTO_VERSION=v2.13.0
 PROTO_URL=https://github.com/nspcc-dev/neofs-api/archive/$(PROTO_VERSION).tar.gz
 CONTROL_SERVICE_PROTO_UTL=https://raw.githubusercontent.com/nspcc-dev/neofs-node/master/pkg/services/control
 
@@ -30,7 +30,9 @@ PROTO_TOOLS_PATH=${HOME}/.nuget/packages/grpc.tools
 PROTO_TOOLS_VERSION=$(shell ls $(PROTO_TOOLS_PATH) | sort -V | tail -n1)
 PROTO_TOOLS_BIN=$(PROTO_TOOLS_PATH)/$(PROTO_TOOLS_VERSION)/tools/$(os_type)_$(os_build)/
 
-.PHONY: deps docgen
+.PHONY: default deps docgen
+
+default: deps docgen
 
 # Dependencies
 deps:
