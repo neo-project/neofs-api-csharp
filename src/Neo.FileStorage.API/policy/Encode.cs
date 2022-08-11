@@ -17,7 +17,7 @@ namespace Neo.FileStorage.API.Policy
             p.Selectors.CopyTo(selectors, 0);
             var filters = new Filter[p.Filters.Count];
             p.Filters.CopyTo(filters, 0);
-            List<string> res = new List<string>();
+            List<string> res = new();
 
             // print replicas
             res.AddRange(EncodeReplicas(replicas));
@@ -112,8 +112,8 @@ namespace Neo.FileStorage.API.Policy
             if (filters is null)
                 return null;
 
-            List<string> res = new List<string>();
-            StringBuilder sb = new StringBuilder();
+            List<string> res = new();
+            StringBuilder sb = new();
             foreach (var filter in filters)
             {
                 sb.Append("FILTER ");
@@ -131,16 +131,19 @@ namespace Neo.FileStorage.API.Policy
             if (filter is null)
                 return null;
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             var unspecified = filter.Op == Operation.Unspecified;
 
             if (filter.Key != "")
             {
                 sb.Append(filter.Key);
-                sb.Append(" ");
+                sb.Append(' ');
                 sb.Append(filter.Op.AsString());
-                sb.Append(" ");
-                sb.Append(filter.Value);
+                sb.Append(' ');
+                if (filter.Value.Contains(' '))
+                    sb.Append(@"""" + filter.Value + @"""");
+                else
+                    sb.Append(filter.Value);
             }
             else if (unspecified && filter.Name != "")
             {

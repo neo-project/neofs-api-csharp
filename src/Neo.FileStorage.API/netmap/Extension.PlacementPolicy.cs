@@ -1,10 +1,11 @@
-using System.Linq;
+
+using System.Collections.Generic;
 
 namespace Neo.FileStorage.API.Netmap
 {
     public partial class PlacementPolicy
     {
-        public PlacementPolicy(uint cbf, Replica[] replicas, Selector[] selectors, Filter[] filters)
+        public PlacementPolicy(uint cbf, IEnumerable<Replica> replicas, IEnumerable<Selector> selectors, IEnumerable<Filter> filters)
         {
             containerBackupFactor_ = cbf;
             if (replicas != null) replicas_.AddRange(replicas);

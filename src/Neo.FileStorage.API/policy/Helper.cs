@@ -8,6 +8,8 @@ namespace Neo.FileStorage.API.Policy
 {
     public static class Helper
     {
+        public const char ExprSpliter = '|';
+
         public static Operation ToOperation(this string str)
         {
             var s = str.ToUpper();
@@ -70,54 +72,66 @@ namespace Neo.FileStorage.API.Policy
 
 
         #region query
-        public static Parser<string> BlankParser =
+
+        public static readonly Parser<string> QuoteNameParser =
+            from _1 in Parse.Chars('"', '\'')
+            from n1 in NameParser
+            from n2 in SpaceNameParser.Many()
+            from _2 in Parse.Chars('"', '\'')
+            select n1 + string.Join("", n2);
+
+        public static readonly Parser<string> SpaceNameParser =
+            from _ in Parse.Char(' ')
+            from n in NameParser.AtLeastOnce()
+            select " " + string.Join("", n);
+
+        public static readonly Parser<string> NameParser =
+            from first in Parse.Letter.Once()
+            from body in Parse.LetterOrDigit.Or(Parse.Chars('-')).Many()
+            select new string(first.Concat(body).ToArray());
+
+        public static readonly Parser<string> BlankParser =
            from s in Parse.WhiteSpace.Many().Text().Or(Parse.LineEnd).Or(Parse.String("\t").Text())
            select s;
 
-        public static Parser<char> Digit1Parser =                       // '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' 
+        public static readonly Parser<char> Digit1Parser =                       // '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' 
             from leading in BlankParser.Many()
             from digit1 in Parse.Digit.Except(Parse.Char('0'))
             select digit1;
 
-        public static Parser<uint> Number1Parser =                      // Digit1[Digit];
+        public static readonly Parser<uint> Number1Parser =                      // Digit1[Digit];
             from leading in BlankParser.Many()
             from n1 in Digit1Parser // cannot start with '0'
             from n in Parse.Digit.Many()
             select uint.Parse(new string(new char[] { n1 }.Concat(n).ToArray()));
 
-        //public static Parser<uint> NumberParser =
-        //    from leading in BlankParser.Many()
-        //    from n in Parse.Digit.AtLeastOnce()
-        //    select uint.Parse(n.ToArray());
-
-        public static Parser<string> NumberParser =
+        public static readonly Parser<string> NumberParser =
             from leading in BlankParser.Many()
             from n in Parse.Digit.AtLeastOnce()
             select new string(n.ToArray());
 
-        public static Parser<string> IdentParser =
-            from leading in BlankParser.Many()
-            from a1 in Parse.Letter.Once() // assuming identity only starts with letters
-            from a in Parse.LetterOrDigit.Many()
-            select new string(a1.Concat(a).ToArray());
+        public static readonly Parser<string> IdentParser =
+            from _ in BlankParser.Many()
+            from n in NameParser.Or(QuoteNameParser)
+            select n;
 
-        public static Parser<string> AtIdentParser =
+        public static readonly Parser<string> AtIdentParser =
             from leading in BlankParser.Many()
             from at in Parse.Char('@')
             from id in IdentParser
             select new string(at.ToString().Concat(id).ToArray());
 
-        public static Parser<string> StringParser =
+        public static readonly Parser<string> StringParser =
             from leading in BlankParser.Many()
             from s in Parse.AtLeastOnce(Parse.CharExcept(' '))
             select new string(s.ToArray());
 
-        public static Parser<string> ValueParser =
+        public static readonly Parser<string> ValueParser =
             from leading in BlankParser.Many()
             from v in IdentParser.Or(NumberParser).Or(StringParser)
             select v;
 
-        public static Parser<string> OpParser =
+        public static readonly Parser<string> OpParser =
             from leading in BlankParser.Many()
             from op in Parse.String("EQ")
                 .Or(Parse.String("NE"))
@@ -127,16 +141,16 @@ namespace Neo.FileStorage.API.Policy
                 .Or(Parse.String("LT"))
             select new string(op.ToArray());
 
-        public static Parser<string> AttributeFilterParser =
+        public static readonly Parser<string> AttributeFilterParser =
             from leading in BlankParser.Many()
             from ident in IdentParser
             from space1 in BlankParser.AtLeastOnce()
             from op in OpParser
             from space2 in BlankParser.AtLeastOnce()
             from value in ValueParser
-            select new string(ident.Concat(" ").Concat(op).Concat(" ").Concat(value).ToArray());
+            select string.Join(ExprSpliter, new[] { ident, op, value });
 
-        public static Parser<SimpleExpr> SimpleExprParser =
+        public static readonly Parser<SimpleExpr> SimpleExprParser =
             from leading in BlankParser.Many()
             from key in IdentParser
             from space1 in BlankParser.AtLeastOnce()
@@ -149,12 +163,12 @@ namespace Neo.FileStorage.API.Policy
         //    '@' Ident(* filter reference *)
         //  | Ident, Op, Value(* attribute filter *)
         //;
-        public static Parser<FilterOrExpr> FilterOrExprParser =
+        public static readonly Parser<FilterOrExpr> FilterOrExprParser =
             from leading in BlankParser.Many()
             from expr in AtIdentParser.Or(AttributeFilterParser)
             select new FilterOrExpr(expr);
 
-        public static Parser<FilterOrExpr> AndExprParser =
+        public static readonly Parser<FilterOrExpr> AndExprParser =
            from leading in BlankParser.Many()
            from and in Parse.String("AND")
            from space1 in BlankParser.AtLeastOnce()
@@ -164,14 +178,14 @@ namespace Neo.FileStorage.API.Policy
         //AndChain::=
         //    Expr, ['AND', Expr]
         //;
-        public static Parser<AndChain> AndChainParser =
+        public static readonly Parser<AndChain> AndChainParser =
             from leading in BlankParser.Many()
             from expr1 in FilterOrExprParser
             from space1 in BlankParser.AtLeastOnce()
             from exprs in AndExprParser.Many()
             select new AndChain(new FilterOrExpr[] { expr1 }.Concat(exprs).ToArray());
 
-        public static Parser<AndChain> OrExprParser =
+        public static readonly Parser<AndChain> OrExprParser =
             from leading in BlankParser.Many()
             from or in Parse.String("OR")
             from space1 in BlankParser.AtLeastOnce()
@@ -181,21 +195,21 @@ namespace Neo.FileStorage.API.Policy
         //OrChain::=
         //    AndChain, ['OR', AndChain]
         //;
-        public static Parser<OrChain> OrChainParser =
+        public static readonly Parser<OrChain> OrChainParser =
             from leading in BlankParser.Many()
             from and1 in AndChainParser
             from space1 in BlankParser.AtLeastOnce()
             from ands in OrExprParser.Many()
             select new OrChain(new AndChain[] { and1 }.Concat(ands).ToArray());
 
-        public static Parser<string> AsIdentParser =
+        public static readonly Parser<string> AsIdentParser =
             from leading in BlankParser.Many()
             from a in Parse.String("AS")
             from space1 in BlankParser.AtLeastOnce()
             from id in IdentParser
             select id;
 
-        public static Parser<string> InIdentParser =
+        public static readonly Parser<string> InIdentParser =
             from leading in BlankParser.Many()
             from a in Parse.String("IN")
             from space1 in BlankParser.AtLeastOnce()
@@ -206,7 +220,7 @@ namespace Neo.FileStorage.API.Policy
         //    'FILTER', AndChain, ['OR', AndChain],
         //    'AS', Ident (* obligatory filter name *)
         //;
-        public static Parser<FilterStmt> FilterStmtParser =
+        public static readonly Parser<FilterStmt> FilterStmtParser =
             from leading in BlankParser.Many()
             from filter in Parse.String("FILTER")
             from space1 in BlankParser.AtLeastOnce()
@@ -215,12 +229,12 @@ namespace Neo.FileStorage.API.Policy
             from a in AsIdentParser
             select new FilterStmt(or, a);
 
-        public static Parser<string> ClauseStringParser =
+        public static readonly Parser<string> ClauseStringParser =
             from leading in BlankParser.Many()
             from c in Parse.String("SAME").Or(Parse.String("DISTINCT"))
             select new string(c.ToArray());
 
-        public static Parser<string[]> InClauseIdentParser =
+        public static readonly Parser<string[]> InClauseIdentParser =
             from leading in BlankParser.Many()
             from a in Parse.String("IN")
             from space1 in BlankParser.AtLeastOnce()
@@ -235,7 +249,7 @@ namespace Neo.FileStorage.API.Policy
         //    FROM, (Ident | '*'),     (* filter reference or whole netmap*)
         //    ('AS', Ident)?           (* optional selector name*)
         //;
-        public static Parser<SelectorStmt> SelectorStmtParser =
+        public static readonly Parser<SelectorStmt> SelectorStmtParser =
             from leading in BlankParser.Many()
             from selectStr in Parse.String("SELECT")
             from space1 in BlankParser.AtLeastOnce()
@@ -247,16 +261,16 @@ namespace Neo.FileStorage.API.Policy
             from space4 in BlankParser.AtLeastOnce()
             from filter in IdentParser.Or(Parse.String("*")).Text()
             from name in AsIdentParser.Optional()
-            select new SelectorStmt(n1, ss.GetOrElse(new string[0]), filter, name.GetOrElse(""));
+            select new SelectorStmt(n1, ss.GetOrElse(Array.Empty<string>()), filter, name.GetOrElse(""));
 
-        public static Parser<uint> CbfParser =
+        public static readonly Parser<uint> CbfParser =
             from leading in BlankParser.Many()
             from cbf in Parse.String("CBF")
             from space1 in BlankParser.AtLeastOnce()
             from n in Number1Parser
             select n;
 
-        public static Parser<ReplicaStmt> ReplicaStmtParser =
+        public static readonly Parser<ReplicaStmt> ReplicaStmtParser =
             from leading in BlankParser.Many()
             from rep in Parse.String("REP")
             from space1 in BlankParser.AtLeastOnce()
@@ -265,7 +279,7 @@ namespace Neo.FileStorage.API.Policy
             from selector in InIdentParser.Optional()
             select new ReplicaStmt(n1, selector.GetOrElse(""));
 
-        public static Parser<Query> QueryParser =
+        public static readonly Parser<Query> QueryParser =
             from leading in BlankParser.Many()
             from replicas in ReplicaStmtParser.AtLeastOnce()
             from space1 in BlankParser.Many()
@@ -283,21 +297,21 @@ namespace Neo.FileStorage.API.Policy
             var q = Query.Parse(s);
 
             var seenFilters = new Dictionary<string, bool>();
-            var fs = new Filter[0];
+            var fs = new List<Filter>();
             foreach (var qf in q.Filters)
             {
                 var f = FilterFromOrChain(qf.Value, seenFilters);
                 f.Name = qf.Name;
-                fs = fs.Append(f).ToArray();
+                fs.Add(f);
                 seenFilters[qf.Name] = true;
             }
 
             var seenSelectors = new Dictionary<string, bool>();
-            var ss = new Selector[0];
+            var ss = new List<Selector>();
             foreach (var qs in q.Selectors)
             {
                 if (qs.Filter != "*" && (!seenFilters.ContainsKey(qs.Filter) || !seenFilters[qs.Filter]))
-                    throw new ParseException("unknown filter" + qs.Filter);
+                    throw new ParseException("unknown filter " + qs.Filter);
 
                 var sel = new Selector();
                 switch (qs.Bucket.Length)
@@ -317,10 +331,10 @@ namespace Neo.FileStorage.API.Policy
                     throw new ParseException("policy: expected positive integer");
                 sel.Count = qs.Count;
 
-                ss = ss.Append(sel).ToArray();
+                ss.Add(sel);
             }
 
-            var rs = new Replica[0];
+            var rs = new List<Replica>();
             foreach (var qr in q.Replicas)
             {
                 var r = new Replica();
@@ -334,7 +348,7 @@ namespace Neo.FileStorage.API.Policy
                 if (qr.Count == 0)
                     throw new ParseException("policy: expected positive integer");
                 r.Count = qr.Count;
-                rs = rs.Append(r).ToArray();
+                rs.Add(r);
             }
 
             return new PlacementPolicy(q.CBF, rs, ss, fs);
@@ -343,21 +357,21 @@ namespace Neo.FileStorage.API.Policy
 
         public static Filter FilterFromOrChain(OrChain expr, Dictionary<string, bool> seen)
         {
-            var fs = new Filter[] { };
+            var fs = new List<Filter>();
             foreach (var ac in expr.Clauses)
             {
                 var f = FilterFromAndChain(ac, seen);
-                fs = fs.Append(f).ToArray();
+                fs.Add(f);
             }
-            if (fs.Length == 1)
+            if (fs.Count == 1)
                 return fs[0];
 
-            return new Filter("", "", "", Operation.Or, fs);
+            return new Filter("", "", "", Operation.Or, fs.ToArray());
         }
 
         public static Filter FilterFromAndChain(AndChain expr, Dictionary<string, bool> seen)
         {
-            var fs = new Filter[] { };
+            var fs = new List<Filter>();
             foreach (var fe in expr.Clauses)
             {
                 Filter f;
@@ -365,16 +379,16 @@ namespace Neo.FileStorage.API.Policy
                     f = FilterFromSimpleExpr(fe.Expr);
                 else
                     f = new Filter() { Name = fe.Reference };
-                fs = fs.Append(f).ToArray();
+                fs.Add(f);
             }
-            if (fs.Length == 1)
+            if (fs.Count == 1)
                 return fs[0];
-            return new Filter("", "", "", Operation.And, fs);
+            return new Filter("", "", "", Operation.And, fs.ToArray());
         }
 
         public static Filter FilterFromSimpleExpr(SimpleExpr se)
         {
-            return new Filter("", se.Key, se.Value, se.Op.ToOperation(), new Filter[] { });
+            return new Filter("", se.Key, se.Value, se.Op.ToOperation(), null);
         }
 
 

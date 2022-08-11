@@ -33,5 +33,15 @@ FILTER City EQ SPB AND SSD EQ true OR City EQ SPB AND Rating GE 5 AS SPBSSD"
             }
         }
 
+
+        [TestMethod]
+        public void TestDecode()
+        {
+            string tc = @"REP 2 IN X CBF 2 SELECT 2 FROM F AS X FILTER UN-LOCODE EQ ""DE FRA"" AS F";
+            var pp = ParsePlacementPolicy(tc);
+            var got = Encode.EncodePlacementPolicy(pp);
+            var res = string.Join(" ", got);
+            Assert.AreEqual(tc, res);
+        }
     }
 }

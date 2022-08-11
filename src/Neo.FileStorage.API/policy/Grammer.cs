@@ -98,9 +98,9 @@ namespace Neo.FileStorage.API.Policy
             }
             else
             {
-                var values = value.Split(" ");
+                var values = value.Split(Helper.ExprSpliter);
                 if (values.Length != 3)
-                    throw new ArgumentException();
+                    throw new ArgumentException($"invalid filter expression {value}");
                 this.Expr = new SimpleExpr(values[0], values[1], values[2]);
                 this.Reference = "";
             }
