@@ -45,7 +45,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             };
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
-            var session = client.CreateSession(100).Result;
+            var session = client.CreateSession(uint.MaxValue).Result;
             var o = client.PutObject(obj, new CallOptions { Ttl = 2, Session = session }, source.Token).Result;
             Console.WriteLine(o.String());
             Assert.AreNotEqual("", o.String());
@@ -77,7 +77,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             });
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
-            var session = client.CreateSession(100).Result;
+            var session = client.CreateSession(uint.MaxValue).Result;
             var o = client.PutObject(obj.Header, file, new CallOptions { Ttl = 2, Session = session }, source.Token).Result;
             Console.WriteLine(o.String());
             Assert.AreNotEqual("", o.String());

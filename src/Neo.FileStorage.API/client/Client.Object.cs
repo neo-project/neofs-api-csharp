@@ -140,6 +140,14 @@ namespace Neo.FileStorage.API.Client
             if (header is null) throw new ArgumentNullException(nameof(header));
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
             CheckOptions(opts);
+            var address = new Address
+            {
+                ContainerId = header.ContainerId,
+                ObjectId = new()
+                {
+                    Value = header.Sha256()
+                }
+            };
             var req = new PutRequest
             {
                 MetaHeader = opts.GetRequestMetaHeader(),
@@ -151,6 +159,7 @@ namespace Neo.FileStorage.API.Client
                     },
                 }
             };
+            PrepareObjectSessionToken(req.MetaHeader, opts.Key, address, ObjectSessionContext.Types.Verb.Put);
             opts.Key.Sign(req);
 
             using var stream = await PutObject(req, context: context);

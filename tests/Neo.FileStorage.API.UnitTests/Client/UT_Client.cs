@@ -13,14 +13,14 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
     public partial class UT_Client
     {
         // private readonly string host = "https://st1.storage.fs.neo.org:8082"; //mainnet
-        // private readonly string host = "http://st1.t5.fs.neo.org:8080"; //testnet
-        private readonly string host = "http://s01.neofs.devenv:8080";
+        private readonly string host = "http://st1.t5.fs.neo.org:8080"; //testnet
+        // private readonly string host = "http://s01.neofs.devenv:8080";
         // private readonly string host = "http://localhost:8081";
-        // private readonly ContainerID cid = ContainerID.FromString("CGrjkpGeE7iVYS4x3SgmTRovJkB78T671M3zxMSPokGJ");//testnet t5
-        // private readonly ObjectID oid = ObjectID.FromString("C9tTwyJYgFPvEoNTMr6WQYvBmYMsGcvQM4ropu59mLZR");//testnet t5
+        private readonly ContainerID cid = ContainerID.FromString("CGrjkpGeE7iVYS4x3SgmTRovJkB78T671M3zxMSPokGJ");//testnet t5
+        private readonly ObjectID oid = ObjectID.FromString("C9tTwyJYgFPvEoNTMr6WQYvBmYMsGcvQM4ropu59mLZR");//testnet t5
 
-        private readonly ContainerID cid = ContainerID.FromString("B9q3Njur7g38A9M3AvyuJLdQDLV4eyLgQRg79Titzyag");//not in policy
-        private readonly ObjectID oid = ObjectID.FromString("CkQsya9r9cAgiHqk5GLXY34zdTWUKwQ7KmVSsMXfrKVe");//small
+        // private readonly ContainerID cid = ContainerID.FromString("B9q3Njur7g38A9M3AvyuJLdQDLV4eyLgQRg79Titzyag");//not in policy
+        // private readonly ObjectID oid = ObjectID.FromString("CkQsya9r9cAgiHqk5GLXY34zdTWUKwQ7KmVSsMXfrKVe");//small
         // private readonly ObjectID oid = ObjectID.FromString("");//big
         // private readonly ObjectID oid = ObjectID.FromString("HVXgYePb1FKSidNWwdHD6tHNnFN6kfN2J6GUvc8Tg8ym");//split
         // private readonly ContainerID cid = ContainerID.FromString("CDiEce9WSF9FySHKUJtuzHbVLhFTzSXwiyj91HaZAg4A");//the only one in policy
