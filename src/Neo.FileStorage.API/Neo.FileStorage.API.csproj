@@ -5,7 +5,7 @@
     <AssemblyTitle>Neo.FileStorage.API</AssemblyTitle>
     <Version>0.1.2</Version>
     <Authors>The Neo Project</Authors>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <PackageId>NeoFS.API</PackageId>
     <PackageTags>NEO;NeoFS</PackageTags>
     <PackageProjectUrl>https://github.com/neo-ngd/neofs-api-csharp</PackageProjectUrl>
