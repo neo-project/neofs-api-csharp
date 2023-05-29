@@ -1,9 +1,3 @@
-using Google.Protobuf;
-using Grpc.Core;
-using Neo.FileStorage.API.Cryptography;
-using Neo.FileStorage.API.Object;
-using Neo.FileStorage.API.Refs;
-using Neo.FileStorage.API.Session;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +5,12 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
+using Google.Protobuf;
+using Grpc.Core;
+using Neo.FileStorage.API.Cryptography;
+using Neo.FileStorage.API.Object;
+using Neo.FileStorage.API.Refs;
+using Neo.FileStorage.API.Session;
 
 namespace Neo.FileStorage.API.Client
 {
@@ -36,7 +36,29 @@ namespace Neo.FileStorage.API.Client
             return await GetObject(req, opts.Deadline, context);
         }
 
-        public async Task<Object.Object> GetObject(Address address, Stream writer, bool raw = false, CallOptions options = null, CancellationToken context = default)
+        public ObjectReader GetObjectInit(Address address, bool raw = false, CallOptions options = null, CancellationToken context = default)
+        {
+            if (address is null) throw new ArgumentNullException(nameof(address));
+            var opts = DefaultCallOptions.ApplyCustomOptions(options);
+            CheckOptions(opts);
+            var req = new GetRequest
+            {
+                MetaHeader = opts.GetRequestMetaHeader(),
+                Body = new GetRequest.Types.Body
+                {
+                    Raw = raw,
+                    Address = address,
+                }
+            };
+            PrepareObjectSessionToken(req.MetaHeader, opts.Key, address, ObjectSessionContext.Types.Verb.Get);
+            opts.Key.Sign(req);
+            return new ObjectReader
+            {
+                Call = ObjectClient.Get(req, cancellationToken: context)
+            };
+        }
+
+        public async Task<Object.Object> GetObject(Address address, Stream payloadWriter, bool raw = false, CallOptions options = null, CancellationToken context = default)
         {
             if (address is null) throw new ArgumentNullException(nameof(address));
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -74,7 +96,7 @@ namespace Neo.FileStorage.API.Client
                             var chunk = resp.Body.Chunk.ToByteArray();
                             if (obj.PayloadSize < (ulong)(offset + chunk.Length))
                                 throw new InvalidOperationException("data exceeds PayloadSize");
-                            writer.Write(chunk, 0, chunk.Length);
+                            payloadWriter.Write(chunk, 0, chunk.Length);
                             offset += chunk.Length;
                             break;
                         }
