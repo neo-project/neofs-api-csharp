@@ -7,13 +7,13 @@ using Neo.FileStorage.API.Session;
 
 namespace Neo.FileStorage.API.Client
 {
-    public class PutStream : IClientStream, IDisposable
+    public sealed class PutStream : IClientStream, IDisposable
     {
         public AsyncClientStreamingCall<PutRequest, PutResponse> Call { get; init; }
 
         public void Dispose()
         {
-            Call.Dispose();
+            Call?.Dispose();
         }
 
         public async Task Write(IRequest request)

@@ -4,7 +4,7 @@ using Neo.FileStorage.API.Object;
 
 namespace Neo.FileStorage.API.Client
 {
-    public class ObjectReader
+    public sealed class ObjectReader : IDisposable
     {
         public AsyncServerStreamingCall<GetResponse> Call { get; init; }
 
@@ -31,6 +31,11 @@ namespace Neo.FileStorage.API.Client
             if (response.Body.ObjectPartCase != GetResponse.Types.Body.ObjectPartOneofCase.Chunk)
                 throw new InvalidOperationException("unexpect message type");
             return (response.Body.Chunk.ToByteArray(), true);
+        }
+
+        public void Dispose()
+        {
+            Call?.Dispose();
         }
     }
 }
