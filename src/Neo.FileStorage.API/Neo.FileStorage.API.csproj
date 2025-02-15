@@ -46,15 +46,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.15.6" />
-    <PackageReference Include="Grpc.Net.Client" Version="2.36.0" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.36.0" />
-    <PackageReference Include="Grpc.Tools" Version="2.36.1">
+    <PackageReference Include="Google.Protobuf" Version="3.29.3" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.67.0" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.67.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.69.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="BouncyCastle.NetCore" Version="1.9.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="BouncyCastle.NetCore" Version="2.2.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Sprache" Version="2.3.1" />
   </ItemGroup>
 

@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentAssertions;
 using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Netmap;
 using Neo.FileStorage.API.Netmap.Aggregator;
 using Neo.FileStorage.API.Netmap.Normalize;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Neo.FileStorage.API.UnitTests.TestNetmap
 {
@@ -259,7 +257,8 @@ namespace Neo.FileStorage.API.UnitTests.TestNetmap
             Assert.AreEqual(4, result[1].Count);
             foreach (var ni in result[1])
             {
-                ni.Attributes["Continent"].Should().BeOneOf("NA", "SA");
+                var value = ni.Attributes["Continent"];
+                Assert.IsTrue(value == "NA" || value == "SA");
             }
 
             //with pivot
