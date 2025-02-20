@@ -1,11 +1,19 @@
+// Copyright (C) 2015-2025 The Neo Project.
+//
+// UT_ObjectType.cs file belongs to the neo project and is free
+// software distributed under the MIT software license, see the
+// accompanying file LICENSE in the main directory of the
+// repository or http://www.opensource.org/licenses/mit-license.php
+// for more details.
+//
+// Redistribution and use in source and binary forms with or without
+// modifications are permitted.
 
-
-using System;
-using Google.Protobuf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Object;
 using Neo.FileStorage.API.Refs;
+using System;
 
 namespace Neo.FileStorage.API.UnitTests.TestObject
 {
@@ -28,8 +36,10 @@ namespace Neo.FileStorage.API.UnitTests.TestObject
         [TestMethod]
         public void TestJson()
         {
-            Header header = new();
-            header.ContainerId = ContainerID.FromValue((new byte[] { 1, 2, 3 }).Sha256());
+            Header header = new()
+            {
+                ContainerId = ContainerID.FromValue((new byte[] { 1, 2, 3 }).Sha256())
+            };
             Console.WriteLine(header.ToString());
         }
     }

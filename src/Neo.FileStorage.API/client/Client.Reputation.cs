@@ -1,9 +1,20 @@
+// Copyright (C) 2015-2025 The Neo Project.
+//
+// Client.Reputation.cs file belongs to the neo project and is free
+// software distributed under the MIT software license, see the
+// accompanying file LICENSE in the main directory of the
+// repository or http://www.opensource.org/licenses/mit-license.php
+// for more details.
+//
+// Redistribution and use in source and binary forms with or without
+// modifications are permitted.
+
+using Neo.FileStorage.API.Cryptography;
+using Neo.FileStorage.API.Reputation;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Neo.FileStorage.API.Cryptography;
-using Neo.FileStorage.API.Reputation;
 
 namespace Neo.FileStorage.API.Client
 {
@@ -46,9 +57,9 @@ namespace Neo.FileStorage.API.Client
                     Epoch = epoch,
                     Iteration = iter,
                     Trust = trust,
-                }
+                },
+                MetaHeader = opts.GetRequestMetaHeader()
             };
-            req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.Sign(req);
             var resp = await ReputationClient.AnnounceIntermediateResultAsync(req, cancellationToken: context);
             if (!resp.Verify())

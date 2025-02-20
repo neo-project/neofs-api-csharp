@@ -1,15 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Threading;
-using System.Threading.Tasks;
+// Copyright (C) 2015-2025 The Neo Project.
+//
+// Client.Container.cs file belongs to the neo project and is free
+// software distributed under the MIT software license, see the
+// accompanying file LICENSE in the main directory of the
+// repository or http://www.opensource.org/licenses/mit-license.php
+// for more details.
+//
+// Redistribution and use in source and binary forms with or without
+// modifications are permitted.
+
 using Google.Protobuf;
 using Neo.FileStorage.API.Acl;
 using Neo.FileStorage.API.Container;
 using Neo.FileStorage.API.Cryptography;
 using Neo.FileStorage.API.Refs;
 using Neo.FileStorage.API.Session;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Threading;
+using System.Threading.Tasks;
 using UsedSpaceAnnouncement = Neo.FileStorage.API.Container.AnnounceUsedSpaceRequest.Types.Body.Types.Announcement;
 
 namespace Neo.FileStorage.API.Client

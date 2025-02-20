@@ -1,4 +1,15 @@
-﻿using System;
+// Copyright (C) 2015-2025 The Neo Project.
+//
+// TzHash.cs file belongs to the neo project and is free
+// software distributed under the MIT software license, see the
+// accompanying file LICENSE in the main directory of the
+// repository or http://www.opensource.org/licenses/mit-license.php
+// for more details.
+//
+// Redistribution and use in source and binary forms with or without
+// modifications are permitted.
+
+using System;
 using System.Collections.Generic;
 using System.Security;
 using System.Security.Cryptography;
@@ -18,17 +29,17 @@ namespace Neo.FileStorage.API.Cryptography.Tz
 
         public override void Initialize()
         {
-            this.x = new GF127[4];
-            this.Reset();
+            x = new GF127[4];
+            Reset();
             HashValue = null;
         }
 
         public void Reset()
         {
-            this.x[0] = new GF127(1, 0);
-            this.x[1] = new GF127(0, 0);
-            this.x[2] = new GF127(0, 0);
-            this.x[3] = new GF127(1, 0);
+            x[0] = new GF127(1, 0);
+            x[1] = new GF127(0, 0);
+            x[2] = new GF127(0, 0);
+            x[3] = new GF127(1, 0);
         }
 
         public byte[] ToByteArray()
@@ -36,7 +47,7 @@ namespace Neo.FileStorage.API.Cryptography.Tz
             var buff = new byte[HashSize];
             for (int i = 0; i < 4; i++)
             {
-                Array.Copy(this.x[i].ToByteArray(), 0, buff, i * 16, 16);
+                Array.Copy(x[i].ToByteArray(), 0, buff, i * 16, 16);
             }
             return buff;
         }

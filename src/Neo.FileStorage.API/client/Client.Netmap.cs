@@ -1,8 +1,19 @@
+// Copyright (C) 2015-2025 The Neo Project.
+//
+// Client.Netmap.cs file belongs to the neo project and is free
+// software distributed under the MIT software license, see the
+// accompanying file LICENSE in the main directory of the
+// repository or http://www.opensource.org/licenses/mit-license.php
+// for more details.
+//
+// Redistribution and use in source and binary forms with or without
+// modifications are permitted.
+
+using Neo.FileStorage.API.Cryptography;
+using Neo.FileStorage.API.Netmap;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Neo.FileStorage.API.Cryptography;
-using Neo.FileStorage.API.Netmap;
 
 namespace Neo.FileStorage.API.Client
 {
@@ -14,9 +25,9 @@ namespace Neo.FileStorage.API.Client
             CheckOptions(opts);
             var req = new LocalNodeInfoRequest
             {
-                Body = new LocalNodeInfoRequest.Types.Body { }
+                Body = new LocalNodeInfoRequest.Types.Body { },
+                MetaHeader = opts.GetRequestMetaHeader()
             };
-            req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.Sign(req);
 
             return await LocalNodeInfo(req, opts.Deadline, context);
@@ -77,9 +88,9 @@ namespace Neo.FileStorage.API.Client
             CheckOptions(opts);
             var req = new NetworkInfoRequest
             {
-                Body = new NetworkInfoRequest.Types.Body { }
+                Body = new NetworkInfoRequest.Types.Body { },
+                MetaHeader = opts.GetRequestMetaHeader()
             };
-            req.MetaHeader = opts.GetRequestMetaHeader();
             opts.Key.Sign(req);
             var resp = await NetmapClient.NetworkInfoAsync(req, cancellationToken: context);
             ProcessResponse(resp);
