@@ -56,7 +56,7 @@
     <PackageReference Include="Grpc.Net.Client" Version="2.71.0" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
     <PackageReference Include="Grpc.Tools" Version="2.72.0" PrivateAssets="all" />
-    <PackageReference Include="BouncyCastle.NetCore" Version="2.6.*" />
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.6.*" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.*" />
     <PackageReference Include="Sprache" Version="2.3.*" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.*" />
