@@ -33,7 +33,7 @@ jobs:
 
     - name: Pack NuGet Packages
       run: |
-        dotnet pack ./neo.sln \
+        dotnet pack ./neofs-api-sharp.sln \
         --configuration Release \
         --output ./pkgs \
         --verbosity normal \
