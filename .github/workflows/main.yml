@@ -81,7 +81,8 @@ jobs:
             --source https://nuget.pkg.github.com/neo-project/index.json \
             --api-key "${{ secrets.GITHUB_TOKEN }}" \
             --disable-buffering \
-            --no-service-endpoint
+            --no-service-endpoint \
+            --skip-duplicate
 
     - name: Publish to myGet
       working-directory: ./out
@@ -90,4 +91,5 @@ jobs:
             --source https://www.myget.org/F/neo/api/v3/index.json \
             --api-key "${{ secrets.MYGET_TOKEN }}" \
             --disable-buffering \
-            --no-service-endpoint
+            --no-service-endpoint \
+            --skip-duplicate
