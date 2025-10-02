@@ -1,5 +1,16 @@
-using System;
+// Copyright (C) 2015-2025 The Neo Project.
+//
+// Grammer.cs file belongs to the neo project and is free
+// software distributed under the MIT software license, see the
+// accompanying file LICENSE in the main directory of the
+// repository or http://www.opensource.org/licenses/mit-license.php
+// for more details.
+//
+// Redistribution and use in source and binary forms with or without
+// modifications are permitted.
+
 using Sprache;
+using System;
 
 namespace Neo.FileStorage.API.Policy
 {
@@ -12,10 +23,10 @@ namespace Neo.FileStorage.API.Policy
 
         public Query(ReplicaStmt[] replicas, uint cbf, SelectorStmt[] selectors, FilterStmt[] filters)
         {
-            this.Replicas = replicas;
-            this.CBF = cbf;
-            this.Selectors = selectors;
-            this.Filters = filters;
+            Replicas = replicas;
+            CBF = cbf;
+            Selectors = selectors;
+            Filters = filters;
         }
 
         public static Query Parse(string s)
@@ -31,8 +42,8 @@ namespace Neo.FileStorage.API.Policy
 
         public ReplicaStmt(uint count, string selector)
         {
-            this.Count = count;
-            this.Selector = selector;
+            Count = count;
+            Selector = selector;
         }
     }
 
@@ -45,10 +56,10 @@ namespace Neo.FileStorage.API.Policy
 
         public SelectorStmt(uint count, string[] bucket, string filter, string name)
         {
-            this.Count = count;
-            this.Bucket = bucket;
-            this.Filter = filter;
-            this.Name = name;
+            Count = count;
+            Bucket = bucket;
+            Filter = filter;
+            Name = name;
         }
     }
 
@@ -59,8 +70,8 @@ namespace Neo.FileStorage.API.Policy
 
         public FilterStmt(OrChain value, string name)
         {
-            this.Value = value;
-            this.Name = name;
+            Value = value;
+            Name = name;
         }
     }
 
@@ -70,7 +81,7 @@ namespace Neo.FileStorage.API.Policy
 
         public OrChain(AndChain[] clauses)
         {
-            this.Clauses = clauses;
+            Clauses = clauses;
         }
     }
 
@@ -80,7 +91,7 @@ namespace Neo.FileStorage.API.Policy
 
         public AndChain(FilterOrExpr[] clauses)
         {
-            this.Clauses = clauses;
+            Clauses = clauses;
         }
     }
 
@@ -93,16 +104,16 @@ namespace Neo.FileStorage.API.Policy
         {
             if (value.StartsWith("@"))
             {
-                this.Reference = value[1..];
-                this.Expr = null;
+                Reference = value[1..];
+                Expr = null;
             }
             else
             {
                 var values = value.Split(Helper.ExprSpliter);
                 if (values.Length != 3)
                     throw new ArgumentException($"invalid filter expression {value}");
-                this.Expr = new SimpleExpr(values[0], values[1], values[2]);
-                this.Reference = "";
+                Expr = new SimpleExpr(values[0], values[1], values[2]);
+                Reference = "";
             }
         }
     }
@@ -115,9 +126,9 @@ namespace Neo.FileStorage.API.Policy
 
         public SimpleExpr(string key, string op, string value)
         {
-            this.Key = key;
-            this.Op = op;
-            this.Value = value;
+            Key = key;
+            Op = op;
+            Value = value;
         }
     }
 }

@@ -1,23 +1,29 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Copyright>2020-2021 The Neo Project</Copyright>
-    <AssemblyTitle>Neo.FileStorage.API</AssemblyTitle>
-    <Version>3.5.0</Version>
-    <Authors>The Neo Project</Authors>
-	<TargetFramework>net9.0</TargetFramework>
-    <PackageId>NeoFS.API</PackageId>
-    <PackageTags>NEO;NeoFS</PackageTags>
-    <PackageProjectUrl>https://github.com/neo-ngd/neofs-api-csharp</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/neo-ngd/neofs-api-csharp.git</RepositoryUrl>
-    <RootNamespace>Neo.FileStorage.API</RootNamespace>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
-    <Company>The Neo Project</Company>
+    <TargetFramework>net9.0</TargetFramework>
+    <Copyright>2015-2025 The Neo Project</Copyright>
     <Description>NeoFS API for CSharp</Description>
-    <DefineConstants>$(DefineConstants);GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE</DefineConstants>
+    <LangVersion>latest</LangVersion>
+    <Authors>The Neo Project</Authors>
+    <IsPackable>true</IsPackable>
+    <PackageId>$(MSBuildProjectName)</PackageId>
+    <PackageIcon>neo.png</PackageIcon>
+    <PackageTags>NEO;NeoFS</PackageTags>
+    <PackageProjectUrl>https://github.com/neo-project/neofs-api-csharp</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/neo-project/neofs-api-csharp.git</RepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Company>The Neo Project</Company>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <VersionPrefix>3.7.5</VersionPrefix>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <OutputPath>../../bin/$(PackageId)</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -56,6 +62,7 @@
     <PackageReference Include="BouncyCastle.NetCore" Version="2.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Sprache" Version="2.3.1" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>
 
 </Project>

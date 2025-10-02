@@ -1,0 +1,27 @@
+name: Package Cleanup
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Run every day at 24:00
+
+jobs:
+  
+  delete-git-nuget-pkgs:
+    name: Delete Old Nuget Packages
+    strategy:
+      matrix:
+        pkgs:
+          - "Neo.FileStorage.API"
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Delete ${{ matrix.pkgs }} Package
+      uses: actions/delete-package-versions@v4
+      continue-on-error: true
+      with:
+        package-name: ${{ matrix.pkgs }}
+        package-type: nuget
+        min-versions-to-keep: 3
+        delete-only-pre-release-versions: "true"
+        token: "${{ secrets.GITHUB_TOKEN }}"
