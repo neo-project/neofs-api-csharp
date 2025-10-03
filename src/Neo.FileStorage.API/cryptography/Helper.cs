@@ -17,100 +17,101 @@ using System;
 using System.Buffers.Binary;
 using System.Security.Cryptography;
 
-namespace Neo.FileStorage.API.Cryptography;
-
-public static class Helper
+namespace Neo.FileStorage.API.Cryptography
 {
-    public const int Sha256HashLength = 32;
-
-    internal static byte[] RIPEMD160(this byte[] value)
+    public static class Helper
     {
-        var hash = new byte[20];
-        var digest = new RipeMD160Digest();
-        digest.BlockUpdate(value, 0, value.Length);
-        digest.DoFinal(hash, 0);
-        return hash;
-    }
+        public const int Sha256HashLength = 32;
 
-    public static byte[] Sha256(this byte[] value)
-    {
-        using var sha256 = SHA256.Create();
-        return sha256.ComputeHash(value);
-    }
-
-    internal static byte[] Sha256(this byte[] value, int offset, int count)
-    {
-        using var sha256 = SHA256.Create();
-        return sha256.ComputeHash(value, offset, count);
-    }
-
-    internal static byte[] Sha256(this ReadOnlySpan<byte> value)
-    {
-        var buffer = new byte[32];
-        using var sha256 = SHA256.Create();
-        sha256.TryComputeHash(value, buffer, out _);
-        return buffer;
-    }
-
-    public static ByteString Sha256(this IMessage data)
-    {
-        return ByteString.CopyFrom(data.ToByteArray().Sha256());
-    }
-
-    public static ByteString Sha256(this ByteString data)
-    {
-        return ByteString.CopyFrom(data.ToByteArray().Sha256());
-    }
-
-    public static Checksum Sha256Checksum(this IMessage data)
-    {
-        return new Checksum
+        internal static byte[] RIPEMD160(this byte[] value)
         {
-            Type = ChecksumType.Sha256,
-            Sum = data.Sha256()
-        };
-    }
+            var hash = new byte[20];
+            var digest = new RipeMD160Digest();
+            digest.BlockUpdate(value, 0, value.Length);
+            digest.DoFinal(hash, 0);
+            return hash;
+        }
 
-    public static Checksum Sha256Checksum(this ByteString data)
-    {
-        return new Checksum
+        public static byte[] Sha256(this byte[] value)
         {
-            Type = ChecksumType.Sha256,
-            Sum = data.Sha256()
-        };
-    }
+            using var sha256 = SHA256.Create();
+            return sha256.ComputeHash(value);
+        }
 
-    public static ByteString TzHash(this IMessage data)
-    {
-        return ByteString.CopyFrom(new TzHash().ComputeHash(data.ToByteArray()));
-    }
-
-    public static ByteString TzHash(this ByteString data)
-    {
-        return ByteString.CopyFrom(new TzHash().ComputeHash(data.ToByteArray()));
-    }
-
-    public static Checksum TzChecksum(this IMessage data)
-    {
-        return new Checksum
+        internal static byte[] Sha256(this byte[] value, int offset, int count)
         {
-            Type = ChecksumType.Sha256,
-            Sum = data.TzHash()
-        };
-    }
+            using var sha256 = SHA256.Create();
+            return sha256.ComputeHash(value, offset, count);
+        }
 
-    public static Checksum TzChecksum(this ByteString data)
-    {
-        return new Checksum
+        internal static byte[] Sha256(this ReadOnlySpan<byte> value)
         {
-            Type = ChecksumType.Sha256,
-            Sum = data.TzHash()
-        };
-    }
+            var buffer = new byte[32];
+            using var sha256 = SHA256.Create();
+            sha256.TryComputeHash(value, buffer, out _);
+            return buffer;
+        }
 
-    public static ulong Murmur64(this byte[] value, uint seed)
-    {
-        using var murmur = new Murmur3_128(seed);
-        return BinaryPrimitives.ReadUInt64LittleEndian(murmur.ComputeHash(value));
+        public static ByteString Sha256(this IMessage data)
+        {
+            return ByteString.CopyFrom(data.ToByteArray().Sha256());
+        }
+
+        public static ByteString Sha256(this ByteString data)
+        {
+            return ByteString.CopyFrom(data.ToByteArray().Sha256());
+        }
+
+        public static Checksum Sha256Checksum(this IMessage data)
+        {
+            return new Checksum
+            {
+                Type = ChecksumType.Sha256,
+                Sum = data.Sha256()
+            };
+        }
+
+        public static Checksum Sha256Checksum(this ByteString data)
+        {
+            return new Checksum
+            {
+                Type = ChecksumType.Sha256,
+                Sum = data.Sha256()
+            };
+        }
+
+        public static ByteString TzHash(this IMessage data)
+        {
+            return ByteString.CopyFrom(new TzHash().ComputeHash(data.ToByteArray()));
+        }
+
+        public static ByteString TzHash(this ByteString data)
+        {
+            return ByteString.CopyFrom(new TzHash().ComputeHash(data.ToByteArray()));
+        }
+
+        public static Checksum TzChecksum(this IMessage data)
+        {
+            return new Checksum
+            {
+                Type = ChecksumType.Sha256,
+                Sum = data.TzHash()
+            };
+        }
+
+        public static Checksum TzChecksum(this ByteString data)
+        {
+            return new Checksum
+            {
+                Type = ChecksumType.Sha256,
+                Sum = data.TzHash()
+            };
+        }
+
+        public static ulong Murmur64(this byte[] value, uint seed)
+        {
+            using var murmur = new Murmur3_128(seed);
+            return BinaryPrimitives.ReadUInt64LittleEndian(murmur.ComputeHash(value));
+        }
     }
 }

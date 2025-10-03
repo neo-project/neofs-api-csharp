@@ -14,28 +14,29 @@ using Neo.FileStorage.API.Cryptography;
 using System;
 using static Neo.FileStorage.API.Cryptography.Helper;
 
-namespace Neo.FileStorage.API.Refs;
-
-public partial class ContainerID
+namespace Neo.FileStorage.API.Refs
 {
-    public const int ValueSize = Sha256HashLength;
-
-    public static ContainerID FromValue(byte[] hash)
+    public partial class ContainerID
     {
-        if (hash.Length != Sha256HashLength) throw new FormatException("ContainerID must be a hash256");
-        return new ContainerID
+        public const int ValueSize = Sha256HashLength;
+
+        public static ContainerID FromValue(byte[] hash)
         {
-            Value = ByteString.CopyFrom(hash)
-        };
-    }
+            if (hash.Length != Sha256HashLength) throw new FormatException("ContainerID must be a hash256");
+            return new ContainerID
+            {
+                Value = ByteString.CopyFrom(hash)
+            };
+        }
 
-    public static ContainerID FromString(string id)
-    {
-        return FromValue(Base58.Decode(id));
-    }
+        public static ContainerID FromString(string id)
+        {
+            return FromValue(Base58.Decode(id));
+        }
 
-    public string String()
-    {
-        return Base58.Encode(Value.ToByteArray());
+        public string String()
+        {
+            return Base58.Encode(Value.ToByteArray());
+        }
     }
 }
