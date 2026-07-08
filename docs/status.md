@@ -89,6 +89,9 @@ Section of failed statuses independent of the operation.
 | INTERNAL | 0 | [**1024**] Internal server error, default failure. Not detailed. If the server cannot match failed outcome to the code, it should use this code. |
 | WRONG_MAGIC_NUMBER | 1 | [**1025**] Wrong magic of the NeoFS network. Details: - [**0**] Magic number of the served NeoFS network (big-endian 64-bit unsigned integer). |
 | SIGNATURE_VERIFICATION_FAIL | 2 | [**1026**] Signature verification failure. |
+| NODE_UNDER_MAINTENANCE | 3 | [**1027**] Node is under maintenance. |
+| BAD_REQUEST | 4 | [**1028**] Malformed, syntactically or semantically incorrect request, client-side error. |
+| BUSY | 5 | [**1029**] Some node resources are exhausted and request can't be processed. This is likely to be a transient state and request can be retried in future. |
 
 
 
@@ -100,6 +103,9 @@ Section of statuses for container-related operations.
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | CONTAINER_NOT_FOUND | 0 | [**3072**] Container not found. |
+| EACL_NOT_FOUND | 1 | [**3073**] eACL table not found. |
+| CONTAINER_LOCKED | 2 | [**3074**] Operation rejected by the container lock. |
+| CONTAINER_AWAIT_TIMEOUT | 3 | [**3075**] Async container operation timed out. |
 
 
 
@@ -116,6 +122,7 @@ Section of statuses for object-related operations.
 | LOCK_NON_REGULAR_OBJECT | 3 | [**2051**] Locking an object with a non-REGULAR type rejected. |
 | OBJECT_ALREADY_REMOVED | 4 | [**2052**] Object has been marked deleted. |
 | OUT_OF_RANGE | 5 | [**2053**] Invalid range has been requested for an object. |
+| QUOTA_EXCEEDED | 6 | [**2054**] Quota was exceeded; no further PUTs will be allowed within current settings. |
 
 
 
@@ -154,6 +161,7 @@ Section of NeoFS successful return codes.
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | OK | 0 | [**0**] Default success. Not detailed. If the server cannot match successful outcome to the code, it should use this code. |
+| INCOMPLETE | 1 | [**1**] Incomplete success, only a part of the request done which may or may not be sufficient for the client. Examples are object PUT making 2 out of 3 required replicas or distributed SEARCH getting result from 4 out of 5 nodes. |
 
 
  <!-- end enums -->

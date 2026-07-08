@@ -3,47 +3,54 @@
 
 ## Table of Contents
 
-- [storagegroup/types.proto](#storagegroup/types.proto)
+- [link/types.proto](#link/types.proto)
 
   - Messages
-    - [StorageGroup](#neo.fs.v2.storagegroup.StorageGroup)
+    - [Link](#neo.fs.v2.link.Link)
+    - [Link.MeasuredObject](#neo.fs.v2.link.Link.MeasuredObject)
     
 
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="storagegroup/types.proto"></a>
+<a name="link/types.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## storagegroup/types.proto
+## link/types.proto
 
 
  <!-- end services -->
 
 
-<a name="neo.fs.v2.storagegroup.StorageGroup"></a>
+<a name="neo.fs.v2.link.Link"></a>
 
-### Message StorageGroup
-StorageGroup keeps verification information for Data Audit sessions. Objects
-that require paid storage guarantees are gathered in `StorageGroups` with
-additional information used for the proof of storage. `StorageGroup` only
-contains objects from the same container.
-
-Being an object payload, StorageGroup may have expiration Epoch set with
-`__NEOFS__EXPIRATION_EPOCH` well-known attribute. When expired, StorageGroup
-will be ignored by InnerRing nodes during Data Audit cycles and will be
-deleted by Storage Nodes.
-
-DEPRECATED: storage groups are no longer used for audit since 2.18.
+### Message Link
+Link is a payload of helper objects that contain the full list of the split
+chain objects' IDs. It is created only after the whole split chain is known
+and signed. This object is the only object that refers to every "child object"
+ID. It is NOT required for the original object assembling. It MUST have ALL
+the "child objects" IDs. Child objects MUST be ordered according to the
+original payload split, meaning the first payload part holder MUST be placed
+at the first place in the corresponding link object. Sizes MUST NOT be omitted
+and MUST be a real object payload size in bytes.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| validation_data_size | [uint64](#uint64) |  | Total size of the payloads of objects in the storage group |
-| validation_hash | [neo.fs.v2.refs.Checksum](#neo.fs.v2.refs.Checksum) |  | Homomorphic hash from the concatenation of the payloads of the storage group members. The order of concatenation is the same as the order of the members in the `members` field. |
-| expiration_epoch | [uint64](#uint64) |  | DEPRECATED. Last NeoFS epoch number of the storage group lifetime |
-| members | [neo.fs.v2.refs.ObjectID](#neo.fs.v2.refs.ObjectID) | repeated | Strictly ordered list of storage group member objects. Members MUST be unique |
+| children | [Link.MeasuredObject](#neo.fs.v2.link.Link.MeasuredObject) | repeated | Full list of the "child" object descriptors. |
+
+
+<a name="neo.fs.v2.link.Link.MeasuredObject"></a>
+
+### Message Link.MeasuredObject
+Object ID with its object's payload size.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [neo.fs.v2.refs.ObjectID](#neo.fs.v2.refs.ObjectID) |  | Object ID. |
+| size | [uint32](#uint32) |  | Object size in bytes. |
 
  <!-- end messages -->
 

@@ -60,6 +60,7 @@ owner with additional information preventing token abuse.
 | eacl_table | [EACLTable](#neo.fs.v2.acl.EACLTable) |  | Table of Extended ACL rules to use instead of the ones attached to the container. If it contains `container_id` field, bearer token is only valid for this specific container. Otherwise, any container of the same owner is allowed. |
 | owner_id | [neo.fs.v2.refs.OwnerID](#neo.fs.v2.refs.OwnerID) |  | `OwnerID` defines to whom the token was issued. It must match the request originator's `OwnerID`. If empty, any token bearer will be accepted. |
 | lifetime | [BearerToken.Body.TokenLifetime](#neo.fs.v2.acl.BearerToken.Body.TokenLifetime) |  | Token expiration and valid time period parameters |
+| issuer | [neo.fs.v2.refs.OwnerID](#neo.fs.v2.refs.OwnerID) |  | Token issuer's user ID in NeoFS. It must equal to the related container's owner. |
 
 
 <a name="neo.fs.v2.acl.BearerToken.Body.TokenLifetime"></a>
@@ -71,8 +72,8 @@ Lifetime parameters of the token. Field names taken from
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| exp | [uint64](#uint64) |  | Expiration Epoch |
-| nbf | [uint64](#uint64) |  | Not valid before Epoch |
+| exp | [uint64](#uint64) |  | Expiration epoch, the last epoch when token is valid. |
+| nbf | [uint64](#uint64) |  | Not valid before epoch, the first epoch when token is valid. |
 | iat | [uint64](#uint64) |  | Issued at Epoch |
 
 
@@ -95,9 +96,14 @@ Describes a single eACL rule.
 ### Message EACLRecord.Filter
 Filter to check particular properties of the request or the object.
 
+The `value` field must be empty if `match_type` is an unary operator
+(e.g. `NOT_PRESENT`). If `match_type` field is numeric (e.g. `NUM_GT`),
+the `value` field must be a base-10 integer.
+
 By default `key` field refers to the corresponding object's `Attribute`.
 Some Object's header fields can also be accessed by adding `$Object:`
-prefix to the name. Here is the list of fields available via this prefix:
+prefix to the name. For such attributes, field 'match_type' must not be
+'NOT_PRESENT'. Here is the list of fields available via this prefix:
 
 * $Object:version \
   version
@@ -118,7 +124,10 @@ prefix to the name. Here is the list of fields available via this prefix:
 * $Object:homomorphicHash \
   homomorphic_hash
 
-Please note, that if request or response does not have object's headers or
+Numeric `match_type` field can only be used with `$Object:creationEpoch`
+and `$Object:payloadLength` system attributes.
+
+Please note, that if request or response does not have object's headers of
 full object (Range, RangeHash, Search, Delete), it will not be possible to
 filter by object header fields or user attributes. From the well-known list
 only `$Object:objectID` and `$Object:containerID` will be available, as
@@ -143,7 +152,7 @@ keys to match.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | role | [Role](#neo.fs.v2.acl.Role) |  | Target subject's role class |
-| keys | [bytes](#bytes) | repeated | List of public keys to identify target subject |
+| keys | [bytes](#bytes) | repeated | List of 25-byte accounts to identify target subjects. 33-byte public keys are also supported, however, they are deprecated and script hashes should be derived from them. |
 
 
 <a name="neo.fs.v2.acl.EACLTable"></a>
@@ -202,6 +211,11 @@ MatchType is an enumeration of match types.
 | MATCH_TYPE_UNSPECIFIED | 0 | Unspecified match type, default value. |
 | STRING_EQUAL | 1 | Return true if strings are equal |
 | STRING_NOT_EQUAL | 2 | Return true if strings are different |
+| NOT_PRESENT | 3 | Absence of attribute |
+| NUM_GT | 4 | Numeric 'greater than' |
+| NUM_GE | 5 | Numeric 'greater or equal than' |
+| NUM_LT | 6 | Numeric 'less than' |
+| NUM_LE | 7 | Numeric 'less or equal than' |
 
 
 
@@ -219,8 +233,8 @@ request.
 | PUT | 3 | Put |
 | DELETE | 4 | Delete |
 | SEARCH | 5 | Search |
-| GETRANGE | 6 | GetRange |
-| GETRANGEHASH | 7 | GetRangeHash |
+| GETRANGE | 6 | GetRange. DEPRECATED: use parameterized Get instead. |
+| GETRANGEHASH | 7 | GetRangeHash. DEPRECATED: should not be used. |
 
 
 

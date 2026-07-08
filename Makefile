@@ -1,12 +1,12 @@
 SHELL := /bin/bash
 
-PROTO_VERSION=v2.13.0
+PROTO_VERSION=v2.23.0
 PROTO_URL=https://github.com/nspcc-dev/neofs-api/archive/$(PROTO_VERSION).tar.gz
 
-GOGO_VERSION=v1.3.1
+GOGO_VERSION=v1.3.2
 GOGO_URL=https://github.com/gogo/protobuf/archive/$(GOGO_VERSION).tar.gz
 
-DOC_GEN_URL=https://github.com/pseudomuto/protoc-gen-doc/releases/download/v1.4.1/protoc-gen-doc-1.4.1.$(shell uname -s)-amd64.go1.15.2.tar.gz
+DOC_GEN_URL=https://github.com/pseudomuto/protoc-gen-doc/releases/download/v1.5.1/protoc-gen-doc_1.5.1_linux_amd64.tar.gz
 
 B=\033[0;1m
 G=\033[0;92m
@@ -51,7 +51,7 @@ deps:
 	@curl -sL -o vendor/gogo.tar.gz $(GOGO_URL)
 	@tar -xzf vendor/gogo.tar.gz --strip-components 1 -C vendor/github.com/gogo/protobuf
 	@curl -sL -o vendor/protoc-gen-doc.tar.gz $(DOC_GEN_URL)
-	@tar -xzf vendor/protoc-gen-doc.tar.gz --strip-components 1 -C vendor/github.com/pseudomuto/protoc-gen-doc
+	@tar -xzf vendor/protoc-gen-doc.tar.gz -C vendor/github.com/pseudomuto/protoc-gen-doc
 
 	@printf "${B}${G}⇒ NeoFS Proto files ${R}\n"
 	@for f in `find vendor/proto -type f -name '*.proto' -exec dirname {} \; | sort -u `; do \

@@ -19,13 +19,19 @@
   - Messages
     - [ContainerSessionContext](#neo.fs.v2.session.ContainerSessionContext)
     - [ObjectSessionContext](#neo.fs.v2.session.ObjectSessionContext)
+    - [ObjectSessionContext.Target](#neo.fs.v2.session.ObjectSessionContext.Target)
     - [RequestMetaHeader](#neo.fs.v2.session.RequestMetaHeader)
     - [RequestVerificationHeader](#neo.fs.v2.session.RequestVerificationHeader)
     - [ResponseMetaHeader](#neo.fs.v2.session.ResponseMetaHeader)
     - [ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader)
+    - [SessionContextV2](#neo.fs.v2.session.SessionContextV2)
     - [SessionToken](#neo.fs.v2.session.SessionToken)
     - [SessionToken.Body](#neo.fs.v2.session.SessionToken.Body)
     - [SessionToken.Body.TokenLifetime](#neo.fs.v2.session.SessionToken.Body.TokenLifetime)
+    - [SessionTokenV2](#neo.fs.v2.session.SessionTokenV2)
+    - [SessionTokenV2.Body](#neo.fs.v2.session.SessionTokenV2.Body)
+    - [Target](#neo.fs.v2.session.Target)
+    - [TokenLifetime](#neo.fs.v2.session.TokenLifetime)
     - [XHeader](#neo.fs.v2.session.XHeader)
     
 
@@ -91,7 +97,7 @@ Session creation request body
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | owner_id | [neo.fs.v2.refs.OwnerID](#neo.fs.v2.refs.OwnerID) |  | Session initiating user's or node's key derived `OwnerID` |
-| expiration | [uint64](#uint64) |  | Session expiration `Epoch` |
+| expiration | [uint64](#uint64) |  | Session expiration epoch, the last epoch when session is valid. |
 
 
 <a name="neo.fs.v2.session.CreateResponse"></a>
@@ -104,7 +110,7 @@ Information about the opened session.
 | ----- | ---- | ----- | ----------- |
 | body | [CreateResponse.Body](#neo.fs.v2.session.CreateResponse.Body) |  | Body of create session token response message. |
 | meta_header | [ResponseMetaHeader](#neo.fs.v2.session.ResponseMetaHeader) |  | Carries response meta information. Header data is used only to regulate message transport and does not affect request execution. |
-| verify_header | [ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. |
+| verify_header | [ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. DEPRECATED: the field is no longer used for verifications. Servers MUST attach it for requests with `meta_header.version` <= 2.21. |
 
 
 <a name="neo.fs.v2.session.CreateResponse.Body"></a>
@@ -155,7 +161,19 @@ Context information for Session Tokens related to ObjectService requests
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | verb | [ObjectSessionContext.Verb](#neo.fs.v2.session.ObjectSessionContext.Verb) |  | Type of request for which the token is issued |
-| address | [neo.fs.v2.refs.Address](#neo.fs.v2.refs.Address) |  | Related Object address |
+| target | [ObjectSessionContext.Target](#neo.fs.v2.session.ObjectSessionContext.Target) |  | Object session target. MUST be correctly formed and set. If `objects` field is not empty, then the session applies only to these elements, otherwise, to all objects from the specified container. |
+
+
+<a name="neo.fs.v2.session.ObjectSessionContext.Target"></a>
+
+### Message ObjectSessionContext.Target
+Carries objects involved in the object session.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| container | [neo.fs.v2.refs.ContainerID](#neo.fs.v2.refs.ContainerID) |  | Indicates which container the session is spread to. Field MUST be set and correct. |
+| objects | [neo.fs.v2.refs.ObjectID](#neo.fs.v2.refs.ObjectID) | repeated | Indicates which objects the session is spread to. Objects are expected to be stored in the NeoFS container referenced by `container` field. Each element MUST have correct format. |
 
 
 <a name="neo.fs.v2.session.RequestMetaHeader"></a>
@@ -172,6 +190,7 @@ request meta headers are folded in matryoshka style.
 | ttl | [uint32](#uint32) |  | Maximum number of intermediate nodes in the request route |
 | x_headers | [XHeader](#neo.fs.v2.session.XHeader) | repeated | Request X-Headers |
 | session_token | [SessionToken](#neo.fs.v2.session.SessionToken) |  | Session token within which the request is sent |
+| session_token_v2 | [SessionTokenV2](#neo.fs.v2.session.SessionTokenV2) |  | Session token v2 with delegation chain support. Requests are invalid if both session_token and session_token_v2 are set. |
 | bearer_token | [neo.fs.v2.acl.BearerToken](#neo.fs.v2.acl.BearerToken) |  | `BearerToken` with eACL overrides for the request |
 | origin | [RequestMetaHeader](#neo.fs.v2.session.RequestMetaHeader) |  | `RequestMetaHeader` of the origin request |
 | magic_number | [uint64](#uint64) |  | NeoFS network magic. Must match the value for the network that the server belongs to. |
@@ -212,6 +231,8 @@ Information about the response
 ### Message ResponseVerificationHeader
 Verification info for the response signed by all intermediate nodes
 
+DEPRECATED: was eliminated from the protocol starting from version `v2.22`.
+
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -219,6 +240,18 @@ Verification info for the response signed by all intermediate nodes
 | meta_signature | [neo.fs.v2.refs.Signature](#neo.fs.v2.refs.Signature) |  | Response Meta signature is added and signed by each intermediate node |
 | origin_signature | [neo.fs.v2.refs.Signature](#neo.fs.v2.refs.Signature) |  | Signature of previous hops |
 | origin | [ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Chain of previous hops signatures |
+
+
+<a name="neo.fs.v2.session.SessionContextV2"></a>
+
+### Message SessionContextV2
+SessionContextV2 carries unified context for both ObjectService and ContainerService requests.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| container | [neo.fs.v2.refs.ContainerID](#neo.fs.v2.refs.ContainerID) |  | Container where operation is allowed. For container operations, this is the container being operated on. For object operations, this is the container holding the objects. Empty container ID means wildcard (applies to all containers). |
+| verbs | [Verb](#neo.fs.v2.session.Verb) | repeated | Operations authorized for this context. Must contain at least one verb (empty list is invalid). Verbs must be sorted in ascending order. Maximum number of verbs: 12. |
 
 
 <a name="neo.fs.v2.session.SessionToken"></a>
@@ -257,9 +290,71 @@ Lifetime parameters of the token. Field names taken from rfc7519.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| exp | [uint64](#uint64) |  | Expiration Epoch |
-| nbf | [uint64](#uint64) |  | Not valid before Epoch |
+| exp | [uint64](#uint64) |  | Expiration epoch, the last epoch when token is valid. |
+| nbf | [uint64](#uint64) |  | Not valid before epoch, the first epoch when token is valid. |
 | iat | [uint64](#uint64) |  | Issued at Epoch |
+
+
+<a name="neo.fs.v2.session.SessionTokenV2"></a>
+
+### Message SessionTokenV2
+SessionTokenV2 represents NeoFS Session Token with delegation support.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| body | [SessionTokenV2.Body](#neo.fs.v2.session.SessionTokenV2.Body) |  | Session token body. |
+| signature | [neo.fs.v2.refs.Signature](#neo.fs.v2.refs.Signature) |  | Signature of the body by the issuer. |
+| origin | [SessionTokenV2](#neo.fs.v2.session.SessionTokenV2) |  | Origin token that was delegated to create this token. This creates a chain of trust through token embedding. When B receives a token from A and wants to delegate to C, B creates a new SessionTokenV2 and embeds A's token here.
+
+Delegation validation rules: 1. Lifetime must be within origin's lifetime (exp >= origin.exp, nbf <= origin.nbf). 2. Contexts must be narrowed (see contexts field validation rules). 3. If origin.final is true, delegation is forbidden. 4. Maximum chain depth: 4 tokens. |
+
+
+<a name="neo.fs.v2.session.SessionTokenV2.Body"></a>
+
+### Message SessionTokenV2.Body
+Session Token body.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| version | [uint32](#uint32) |  | Token version. |
+| appdata | [bytes](#bytes) |  | Application-specific data that can be used to store additional context. This field is optional and can contain any application-defined data. Maximum size: 1024 bytes. |
+| issuer | [neo.fs.v2.refs.OwnerID](#neo.fs.v2.refs.OwnerID) |  | Account that issued this token (who signed it). |
+| subjects | [Target](#neo.fs.v2.session.Target) | repeated | Accounts authorized by this token (who can use it). Maximum number of subjects: 8. |
+| lifetime | [TokenLifetime](#neo.fs.v2.session.TokenLifetime) |  | Lifetime of this token. |
+| contexts | [SessionContextV2](#neo.fs.v2.session.SessionContextV2) | repeated | Unified session contexts for both object and container operations. Multiple contexts allow authorization for different combinations.
+
+Validation rules: 1. Only one wildcard context (empty container ID) is allowed per token. Wildcard context must come first if present. 2. Contexts must be sorted in ascending order by ContainerID. 3. Duplicate containers are not allowed (each container can appear only once). 4. Each context must have at least one verb (enforced by SessionContextV2). 5. Verbs within each context must be sorted in ascending order (enforced by SessionContextV2). 6. Maximum number of contexts: 16.
+
+Delegation rules (when origin token is present): 1. New contexts (containers) can only be added if origin token has a wildcard context. 2. All rights must be narrowed during delegation: - Verbs must be a subset of origin's verbs for the same container - Cannot add new verbs not present in origin for the same container |
+| final | [bool](#bool) |  | final is a flag indicating whether further delegation is allowed. If set to true, subjects of this token cannot delegate their rights further. |
+
+
+<a name="neo.fs.v2.session.Target"></a>
+
+### Message Target
+Target account for SessionTokenV2.
+It can be either direct (OwnerID) or indirect (NNS domain).
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| owner_id | [neo.fs.v2.refs.OwnerID](#neo.fs.v2.refs.OwnerID) |  | Direct account reference via OwnerID (hash of verification script). |
+| nns_name | [string](#string) |  | Indirect account reference via NeoFS Name Service. NNS name is a domain name that resolves to an OwnerID through the NeoFS Name Service. The name must be a valid DNS-like domain name (e.g., "example.neofs") that is registered in the NNS contract on the Neo blockchain. The NNS record should contain a string record with the corresponding OwnerID value in NEP-18 address format. |
+
+
+<a name="neo.fs.v2.session.TokenLifetime"></a>
+
+### Message TokenLifetime
+Lifetime parameters of the token v2. Field names taken from rfc7519.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| exp | [uint64](#uint64) |  | Expiration, the last valid Unix timestamp. |
+| nbf | [uint64](#uint64) |  | Not valid before, the first valid Unix timestamp. |
+| iat | [uint64](#uint64) |  | Issued at, the Unix timestamp when the token was issued. |
 
 
 <a name="neo.fs.v2.session.XHeader"></a>
@@ -278,12 +373,12 @@ affect system behaviour:
 * __NEOFS__NETMAP_EPOCH \
   Netmap epoch to use for object placement calculation. The `value` is string
   encoded `uint64` in decimal presentation. If set to '0' or not set, the
-  current epoch only will be used.
+  current epoch only will be used. DEPRECATED: header ignored by servers.
 * __NEOFS__NETMAP_LOOKUP_DEPTH \
   If object can't be found using current epoch's netmap, this header limits
   how many past epochs the node can look up through. The `value` is string
   encoded `uint64` in decimal presentation. If set to '0' or not set, only the
-  current epoch will be used.
+  current epoch will be used. DEPRECATED: header ignored by servers.
 
 
 | Field | Type | Label | Description |
@@ -305,6 +400,8 @@ Container request verbs
 | PUT | 1 | Refers to container.Put RPC call |
 | DELETE | 2 | Refers to container.Delete RPC call |
 | SETEACL | 3 | Refers to container.SetExtendedACL RPC call |
+| SETATTRIBUTE | 4 | Refers to container.SetAttribute RPC call |
+| REMOVEATTRIBUTE | 5 | Refers to container.RemoveAttribute RPC call |
 
 
 
@@ -323,6 +420,31 @@ Object request verbs
 | DELETE | 5 | Refers to object.Delete RPC call |
 | RANGE | 6 | Refers to object.GetRange RPC call |
 | RANGEHASH | 7 | Refers to object.GetRangeHash RPC call |
+
+
+
+<a name="neo.fs.v2.session.Verb"></a>
+
+### Verb
+Verb represents all possible operations in NeoFS that can be authorized
+via session tokens or delegation chains. This enum covers both object and
+container service operations.
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| VERB_UNSPECIFIED | 0 | Unknown verb |
+| OBJECT_PUT | 1 | Refers to object.Put RPC call |
+| OBJECT_GET | 2 | Refers to object.Get RPC call |
+| OBJECT_HEAD | 3 | Refers to object.Head RPC call |
+| OBJECT_SEARCH | 4 | Refers to object.Search RPC call |
+| OBJECT_DELETE | 5 | Refers to object.Delete RPC call |
+| OBJECT_RANGE | 6 | Refers to object.GetRange RPC call. DEPRECATED: use parameterized Get instead. |
+| OBJECT_RANGEHASH | 7 | Refers to object.GetRangeHash RPC call. DEPRECATED: should not be used. |
+| CONTAINER_PUT | 8 | Refers to container.Put RPC call |
+| CONTAINER_DELETE | 9 | Refers to container.Delete RPC call |
+| CONTAINER_SETEACL | 10 | Refers to container.SetExtendedACL RPC call |
+| CONTAINER_SETATTRIBUTE | 11 | Refers to container.SetAttribute RPC call |
+| CONTAINER_REMOVEATTRIBUTE | 12 | Refers to container.RemoveAttribute RPC call |
 
 
  <!-- end enums -->

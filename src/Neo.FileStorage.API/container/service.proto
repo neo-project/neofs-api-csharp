@@ -2,39 +2,49 @@ syntax = "proto3";
 
 package neo.fs.v2.container;
 
-option go_package = "github.com/nspcc-dev/neofs-api-go/v2/container/grpc;container";
-option csharp_namespace = "Neo.FileStorage.API.Container";
-
 import "acl/types.proto";
 import "container/types.proto";
 import "refs/types.proto";
 import "session/types.proto";
+import "status/types.proto";
+
+option csharp_namespace = "Neo.FileStorage.API.Container";
+option go_package = "github.com/nspcc-dev/neofs-sdk-go/proto/container";
 
 // `ContainerService` provides API to interact with `Container` smart contract
-// in NeoFS sidechain via other NeoFS nodes. All of those actions can be done
-// equivalently by directly issuing transactions and RPC calls to sidechain
+// in FS chain via other NeoFS nodes. All of those actions can be done
+// equivalently by directly issuing transactions and RPC calls to FS chain
 // nodes.
 service ContainerService {
-  // `Put` invokes `Container` smart contract's `Put` method and returns
-  // response immediately. After a new block is issued in sidechain, request is
-  // verified by Inner Ring nodes. After one more block in sidechain, the container
-  // is added into smart contract storage.
+  // Sends transaction calling contract method to create container, and waits
+  // for the transaction to be executed. Deadline is determined by the
+  // transport protocol (e.g. `grpc-timeout` header). If the deadline is not
+  // set, server waits 15s after submitting the transaction.
   //
   // Statuses:
   // - **OK** (0, SECTION_SUCCESS): \
-  //   request to save the container has been sent to the sidechain;
-  // - Common failures (SECTION_FAILURE_COMMON).
+  //   container successfully created;
+  // - Common failures (SECTION_FAILURE_COMMON);
+  // - **CONTAINER_AWAIT_TIMEOUT** (3075, SECTION_CONTAINER): \
+  //   transaction was sent but not executed within the deadline.
   rpc Put(PutRequest) returns (PutResponse);
 
-  // `Delete` invokes `Container` smart contract's `Delete` method and returns
-  // response immediately. After a new block is issued in sidechain, request is
-  // verified by Inner Ring nodes. After one more block in sidechain, the container
-  // is added into smart contract storage.
+  // Sends transaction calling contract method to delete container, and waits
+  // for the transaction to be executed. Deadline is determined by the
+  // transport protocol (e.g. `grpc-timeout` header). If the deadline is not
+  // set, server waits 15s after submitting the transaction.
+  // NOTE: a container deletion leads to the removal of every object in that
+  // container, regardless of any restrictions on the object removal (e.g. lock/locked
+  // object would be also removed).
   //
   // Statuses:
   // - **OK** (0, SECTION_SUCCESS): \
-  //   request to remove the container has been sent to the sidechain;
-  // - Common failures (SECTION_FAILURE_COMMON).
+  //   container successfully removed;
+  // - Common failures (SECTION_FAILURE_COMMON);
+  // - **CONTAINER_LOCKED** (3074, SECTION_CONTAINER): \
+  //   deleting a locked container is prohibited;
+  // - **CONTAINER_AWAIT_TIMEOUT** (3075, SECTION_CONTAINER): \
+  //   transaction was sent but not executed within the deadline.
   rpc Delete(DeleteRequest) returns (DeleteResponse);
 
   // Returns container structure from `Container` smart contract storage.
@@ -55,14 +65,17 @@ service ContainerService {
   // - Common failures (SECTION_FAILURE_COMMON).
   rpc List(ListRequest) returns (ListResponse);
 
-  // Invokes 'SetEACL' method of 'Container` smart contract and returns response
-  // immediately. After one more block in sidechain, changes in an Extended ACL are
-  // added into smart contract storage.
+  // Sends transaction calling contract method to set container's extended ACL,
+  // and waits for the transaction to be executed. Deadline is determined by
+  // the transport protocol (e.g. `grpc-timeout` header). If the deadline is
+  // not set, server waits 15s after submitting the transaction.
   //
   // Statuses:
   // - **OK** (0, SECTION_SUCCESS): \
-  //   request to save container eACL has been sent to the sidechain;
-  // - Common failures (SECTION_FAILURE_COMMON).
+  //   container eACL successfully set;
+  // - Common failures (SECTION_FAILURE_COMMON);
+  // - **CONTAINER_AWAIT_TIMEOUT** (3075, SECTION_CONTAINER): \
+  //   transaction was sent but not executed within the deadline.
   rpc SetExtendedACL(SetExtendedACLRequest) returns (SetExtendedACLResponse);
 
   // Returns Extended ACL table and signature from `Container` smart contract
@@ -73,7 +86,9 @@ service ContainerService {
   //   container eACL has been successfully read;
   // - Common failures (SECTION_FAILURE_COMMON);
   // - **CONTAINER_NOT_FOUND** (3072, SECTION_CONTAINER): \
-  //   container not found.
+  //   container not found;
+  // - **EACL_NOT_FOUND** (3073, SECTION_CONTAINER): \
+  //   eACL table not found.
   rpc GetExtendedACL(GetExtendedACLRequest) returns (GetExtendedACLResponse);
 
   // Announces the space values used by the container for P2P synchronization.
@@ -82,13 +97,42 @@ service ContainerService {
   // - **OK** (0, SECTION_SUCCESS): \
   //   estimation of used space has been successfully announced;
   // - Common failures (SECTION_FAILURE_COMMON).
+  //
+  // DEPRECATED: every storage node must send storage load directly to `container`
+  // contract.
   rpc AnnounceUsedSpace(AnnounceUsedSpaceRequest) returns (AnnounceUsedSpaceResponse);
+
+  // Sends transaction calling contract method to set container attribute, and
+  // waits for the transaction to be executed. Deadline is determined by the
+  // transport protocol (e.g. `grpc-timeout` header). If the deadline is not
+  // set, server waits 15s after submitting the transaction.
+  //
+  // Statuses:
+  // - **OK** (0, SECTION_SUCCESS): \
+  //   attribute successfully set;
+  // - Common failures (SECTION_FAILURE_COMMON);
+  // - **CONTAINER_AWAIT_TIMEOUT** (3075, SECTION_CONTAINER): \
+  //   transaction was sent but not executed within the deadline.
+  rpc SetAttribute(SetAttributeRequest) returns (SetAttributeResponse);
+
+  // Sends transaction calling contract method to remove container attribute,
+  // and waits for the transaction to be executed. Deadline is determined by
+  // the transport protocol (e.g. `grpc-timeout` header). If the deadline is
+  // not set, server waits 15s after submitting the transaction.
+  //
+  // Statuses:
+  // - **OK** (0, SECTION_SUCCESS): \
+  //   attribute successfully removed;
+  // - Common failures (SECTION_FAILURE_COMMON);
+  // - **CONTAINER_AWAIT_TIMEOUT** (3075, SECTION_CONTAINER): \
+  //   transaction was sent but not executed within the deadline.
+  rpc RemoveAttribute(RemoveAttributeRequest) returns (RemoveAttributeResponse);
 }
 
 // New NeoFS Container creation request
 message PutRequest {
   // Container creation request has container structure's signature as a
-  // separate field. It's not stored in sidechain, just verified on container
+  // separate field. It's not stored in FS chain, just verified on container
   // creation by `Container` smart contract. `ContainerID` is a SHA256 hash of
   // the stable-marshalled container strucutre, hence there is no need for
   // additional signature checks.
@@ -132,6 +176,8 @@ message PutResponse {
   // Carries response verification information. This header is used to
   // authenticate the nodes of the message route and check the correctness of
   // transmission.
+  // DEPRECATED: the field is no longer used for verifications. Servers MUST
+  // attach it for requests with `meta_header.version` <= 2.21.
   neo.fs.v2.session.ResponseVerificationHeader verify_header = 3;
 }
 
@@ -176,6 +222,8 @@ message DeleteResponse {
   // Carries response verification information. This header is used to
   // authenticate the nodes of the message route and check the correctness of
   // transmission.
+  // DEPRECATED: the field is no longer used for verifications. Servers MUST
+  // attach it for requests with `meta_header.version` <= 2.21.
   neo.fs.v2.session.ResponseVerificationHeader verify_header = 3;
 }
 
@@ -223,6 +271,8 @@ message GetResponse {
   // Carries response verification information. This header is used to
   // authenticate the nodes of the message route and check the correctness of
   // transmission.
+  // DEPRECATED: the field is no longer used for verifications. Servers MUST
+  // attach it for requests with `meta_header.version` <= 2.21.
   neo.fs.v2.session.ResponseVerificationHeader verify_header = 3;
 }
 
@@ -264,6 +314,8 @@ message ListResponse {
   // Carries response verification information. This header is used to
   // authenticate the nodes of the message route and check the correctness of
   // transmission.
+  // DEPRECATED: the field is no longer used for verifications. Servers MUST
+  // attach it for requests with `meta_header.version` <= 2.21.
   neo.fs.v2.session.ResponseVerificationHeader verify_header = 3;
 }
 
@@ -295,8 +347,8 @@ message SetExtendedACLRequest {
 message SetExtendedACLResponse {
   // `SetExtendedACLResponse` has an empty body because the operation is
   // asynchronous and the update should be reflected in `Container` smart contract's
-  // storage after next block is issued in sidechain.
-  message Body { }
+  // storage after next block is issued in FS chain.
+  message Body {}
 
   // Body of set extended acl response message.
   Body body = 1;
@@ -308,6 +360,8 @@ message SetExtendedACLResponse {
   // Carries response verification information. This header is used to
   // authenticate the nodes of the message route and check the correctness of
   // transmission.
+  // DEPRECATED: the field is no longer used for verifications. Servers MUST
+  // attach it for requests with `meta_header.version` <= 2.21.
   neo.fs.v2.session.ResponseVerificationHeader verify_header = 3;
 }
 
@@ -357,10 +411,15 @@ message GetExtendedACLResponse {
   // Carries response verification information. This header is used to
   // authenticate the nodes of the message route and check the correctness of
   // transmission.
+  // DEPRECATED: the field is no longer used for verifications. Servers MUST
+  // attach it for requests with `meta_header.version` <= 2.21.
   neo.fs.v2.session.ResponseVerificationHeader verify_header = 3;
 }
 
 // Announce container used space
+//
+// DEPRECATED: every storage node must send storage load directly to `container`
+// contract.
 message AnnounceUsedSpaceRequest {
   // Container used space announcement body.
   message Body {
@@ -396,10 +455,13 @@ message AnnounceUsedSpaceRequest {
 }
 
 // Announce container used space
+//
+// DEPRECATED: every storage node must send storage load directly to `container`
+// contract.
 message AnnounceUsedSpaceResponse {
   // `AnnounceUsedSpaceResponse` has an empty body because announcements are
   // one way communication.
-  message Body { }
+  message Body {}
 
   // Body of announce used space response message.
   Body body = 1;
@@ -411,5 +473,146 @@ message AnnounceUsedSpaceResponse {
   // Carries response verification information. This header is used to
   // authenticate the nodes of the message route and check the correctness of
   // transmission.
+  // DEPRECATED: the field is no longer used for verifications. Servers MUST
+  // attach it for requests with `meta_header.version` <= 2.21.
   neo.fs.v2.session.ResponseVerificationHeader verify_header = 3;
+}
+
+// Attribute setting request
+message SetAttributeRequest {
+  // Request payload message.
+  message Body {
+    // Op parameters message.
+    //
+    // If container does not have the `attribute`, it is added. Otherwise, its
+    // value is swapped.
+    //
+    // `valid_until` is required request expiration time in Unix Timestamp
+    // format.
+    //
+    // `attribute` must be one of:
+    //  - `CORS`;
+    //  - `S3_TAGS`;
+    //  - `S3_SETTINGS`;
+    //  - `S3_NOTIFICATIONS`;
+    //  - `__NEOFS__LOCK_UNTIL`.
+    //
+    // In general, requirements for `value` are the same as for container
+    // creation. Attribute-specific requirements:
+    //  - `__NEOFS__LOCK_UNTIL`: new timestamp must be after the current one if any
+    //  - `S3_TAGS`: must be a valid JSON object
+    //  - `S3_SETTINGS`: must be a valid JSON object
+    //  - `S3_NOTIFICATIONS`: must be a valid JSON object
+    message Parameters {
+      // Identifier of the container to set attribute for.
+      neo.fs.v2.refs.ContainerID container_id = 1;
+
+      // Attribute to be set.
+      string attribute = 2;
+
+      // New attribute value.
+      string value = 3;
+
+      // Request expiration time.
+      uint64 valid_until = 4;
+    }
+
+    // Op parameters.
+    Parameters parameters = 1;
+
+    // N3 witness of stable-marshalled `parameters` field. The
+    // signature must authenticate either container owner or one of subjects in
+    // the `session_token` field if any. Signature according to
+    // `ECDSA_RFC6979_SHA256` scheme is also supported.
+    neo.fs.v2.refs.SignatureRFC6979 signature = 2;
+
+    // Optional session token. The token must be issued by the container owner.
+    // The token must have at least one subject authenticated by `signature`
+    // field. The token must have at least one context with this container and
+    // `CONTAINER_SETATTRIBUTE` verb.
+    neo.fs.v2.session.SessionTokenV2 session_token = 3;
+
+    // Optional session token (V1). It must not be set together with
+    // `session_token` field that is highly recommended to be used instead.
+    // Requirements are the same for both.
+    neo.fs.v2.session.SessionToken session_token_v1 = 4;
+  }
+
+  // Request payload.
+  Body body = 1;
+
+  // Signature of stable-marshalled `body` field.
+  neo.fs.v2.refs.Signature body_signature = 2;
+}
+
+// Attribute setting response
+message SetAttributeResponse {
+  // Operation execution status.
+  neo.fs.v2.status.Status status = 1;
+}
+
+// Attribute removal request
+message RemoveAttributeRequest {
+  // Request payload message.
+  message Body {
+    // Op parameters message.
+    //
+    // If container does not have the `attribute`, nothing is done and status
+    // `OK` is returned.
+    //
+    // `valid_until` is required request expiration time in Unix Timestamp
+    // format.
+    //
+    // `attribute` must be one of:
+    //  - `CORS`;
+    //  - `S3_TAGS`;
+    //  - `S3_SETTINGS`;
+    //  - `S3_NOTIFICATIONS`;
+    //  - `__NEOFS__LOCK_UNTIL`.
+    //
+    // Attribute-specific requirements:
+    //  - `__NEOFS__LOCK_UNTIL`: current timestamp must have already passed if any
+    message Parameters {
+      // Identifier of the container to remove attribute from.
+      neo.fs.v2.refs.ContainerID container_id = 1;
+
+      // Attribute to be removed.
+      string attribute = 2;
+
+      // Request expiration time.
+      uint64 valid_until = 3;
+    }
+
+    // Op parameters.
+    Parameters parameters = 1;
+
+    // N3 witness of stable-marshalled `parameters` field. The
+    // signature must authenticate either container owner or one of subjects in
+    // the `session_token` field if any. Signature according to
+    // `ECDSA_RFC6979_SHA256` scheme is also supported.
+    neo.fs.v2.refs.SignatureRFC6979 signature = 2;
+
+    // Optional session token. The token must be issued by the container owner.
+    // The token must have at least one subject authenticated by `signature`
+    // field. The token must have at least one context with this container and
+    // `CONTAINER_REMOVEATTRIBUTE` verb.
+    neo.fs.v2.session.SessionTokenV2 session_token = 3;
+
+    // Optional session token (V1). It must not be set together with
+    // `session_token` field that is highly recommended to be used instead.
+    // Requirements are the same for both.
+    neo.fs.v2.session.SessionToken session_token_v1 = 4;
+  }
+
+  // Request payload.
+  Body body = 1;
+
+  // Signature of stable-marshalled `body` field.
+  neo.fs.v2.refs.Signature body_signature = 2;
+}
+
+// Attribute removal response
+message RemoveAttributeResponse {
+  // Operation execution status.
+  neo.fs.v2.status.Status status = 1;
 }
