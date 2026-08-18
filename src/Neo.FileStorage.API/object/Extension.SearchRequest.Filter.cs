@@ -11,16 +11,8 @@
 
 namespace Neo.FileStorage.API.Object
 {
-    public partial class SearchRequest
+    public partial class SearchFilter
     {
-        public static partial class Types
-        {
-            public sealed partial class Body
-            {
-                public static partial class Types
-                {
-                    public sealed partial class Filter
-                    {
                         // ReservedFilterPrefix is a prefix of key to object header value or property.
                         public const string ReservedFilterPrefix = "$Object:";
 
@@ -71,8 +63,4 @@ namespace Neo.FileStorage.API.Object
                         // BooleanPropertyValueFalse is a false value for boolean property filters.
                         public const string BooleanPropertyValueFalse = "";
                     }
-                }
-            }
-        }
-    }
 }
