@@ -155,8 +155,6 @@ namespace Neo.FileStorage.API.Client
 
         private void ProcessResponse(IResponse resp)
         {
-            if (!resp.Verify())
-                throw new FormatException($"invalid response, type={resp.GetType()}");
             CheckStatus(resp);
             if (responseHandler is not null)
                 responseHandler(resp);
