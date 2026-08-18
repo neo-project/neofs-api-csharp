@@ -478,9 +478,14 @@ namespace Neo.FileStorage.API.Client
                 return;
             var ctx = new ObjectSessionContext
             {
-                Address = address,
+                Target = new ObjectSessionContext.Types.Target
+		{
+		    Container = address.ContainerId,
+		},
                 Verb = verb,
             };
+	    if (address.ObjectId is not null)
+		ctx.Target.Objects.Add(address.ObjectId);
             meta.SessionToken.Body.Object = ctx;
             meta.SessionToken.Signature = key.SignMessagePart(meta.SessionToken.Body);
         }
