@@ -79,7 +79,7 @@ namespace Neo.FileStorage.API.Client
         Task<ulong> Epoch(LocalNodeInfoRequest request, DateTime? deadline = null, CancellationToken context = default);
     }
 
-    public interface IObjectClient : IObjectDeleteClient, IObjectPutClient, IObjectGetClient, IObjectSearchClient { }
+    public interface IObjectClient : IObjectDeleteClient, IObjectPutClient, IObjectGetClient { }
 
     public interface IObjectDeleteClient
     {
@@ -99,12 +99,7 @@ namespace Neo.FileStorage.API.Client
         Task<List<byte[]>> GetObjectPayloadRangeHash(Address address, IEnumerable<Object.Range> ranges, ChecksumType type, byte[] salt, CallOptions options = null, CancellationToken context = default);
     }
 
-    public interface IObjectSearchClient
-    {
-        Task<List<ObjectID>> SearchObject(ContainerID cid, SearchFilters filters, CallOptions options = null, CancellationToken context = default);
-    }
-
-    public interface IRawObjectClient : IRawObjectGetClient, IRawObjectPutClient, IRawObjectSearchClient, IRawObjectDeleteClient { }
+    public interface IRawObjectClient : IRawObjectGetClient, IRawObjectPutClient, IRawObjectDeleteClient { }
 
     public interface IRawObjectGetClient
     {
@@ -117,11 +112,6 @@ namespace Neo.FileStorage.API.Client
     public interface IRawObjectPutClient
     {
         Task<IClientStream> PutObject(Object.PutRequest init, DateTime? deadline = null, CancellationToken context = default);
-    }
-
-    public interface IRawObjectSearchClient
-    {
-        Task<List<ObjectID>> SearchObject(SearchRequest request, DateTime? deadline = null, CancellationToken context = default);
     }
 
     public interface IRawObjectDeleteClient

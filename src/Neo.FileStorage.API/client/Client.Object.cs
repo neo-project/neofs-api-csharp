@@ -436,42 +436,6 @@ namespace Neo.FileStorage.API.Client
             return resp.Body.HashList.Select(p => p.ToByteArray()).ToList();
         }
 
-        public async Task<List<ObjectID>> SearchObject(ContainerID cid, SearchFilters filters, CallOptions options = null, CancellationToken context = default)
-        {
-            if (cid is null) throw new ArgumentNullException(nameof(cid));
-            if (filters is null) throw new ArgumentNullException(nameof(filters));
-            var opts = DefaultCallOptions.ApplyCustomOptions(options);
-            CheckOptions(opts);
-            var req = new SearchRequest
-            {
-                MetaHeader = opts.GetRequestMetaHeader(),
-                Body = new SearchRequest.Types.Body
-                {
-                    ContainerId = cid,
-                    Version = SearchObjectVersion,
-                }
-            };
-            req.Body.Filters.AddRange(filters.Filters);
-            PrepareObjectSessionToken(req.MetaHeader, opts.Key, new Address { ContainerId = cid }, ObjectSessionContext.Types.Verb.Search);
-            opts.Key.Sign(req);
-
-            return await SearchObject(req, opts.Deadline, context);
-        }
-
-        public async Task<List<ObjectID>> SearchObject(SearchRequest request, DateTime? deadline = null, CancellationToken context = default)
-        {
-            var stream = ObjectClient.Search(request, deadline: deadline, cancellationToken: context).ResponseStream;
-            var result = new List<ObjectID>();
-            while (await stream.MoveNext())
-            {
-                var resp = stream.Current;
-                ProcessResponse(resp);
-                if (resp.Body?.IdList is not null)
-                    result = result.Concat(resp.Body.IdList).ToList();
-            }
-            return result;
-        }
-
         private void PrepareObjectSessionToken(RequestMetaHeader meta, ECDsa key, Address address, ObjectSessionContext.Types.Verb verb)
         {
             if (meta.SessionToken is null || meta.SessionToken.Signature != null)
