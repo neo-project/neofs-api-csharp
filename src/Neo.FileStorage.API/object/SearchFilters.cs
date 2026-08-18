@@ -9,10 +9,10 @@
 // Redistribution and use in source and binary forms with or without
 // modifications are permitted.
 
+using Neo.FileStorage.API.Object;
 using Neo.FileStorage.API.Refs;
 using System.Collections.Generic;
 using System.Linq;
-using Neo.FileStorage.API.Object;
 
 namespace Neo.FileStorage.API.Object
 {

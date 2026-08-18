@@ -443,13 +443,13 @@ namespace Neo.FileStorage.API.Client
             var ctx = new ObjectSessionContext
             {
                 Target = new ObjectSessionContext.Types.Target
-		{
-		    Container = address.ContainerId,
-		},
+                {
+                    Container = address.ContainerId,
+                },
                 Verb = verb,
             };
-	    if (address.ObjectId is not null)
-		ctx.Target.Objects.Add(address.ObjectId);
+            if (address.ObjectId is not null)
+                ctx.Target.Objects.Add(address.ObjectId);
             meta.SessionToken.Body.Object = ctx;
             meta.SessionToken.Signature = key.SignMessagePart(meta.SessionToken.Body);
         }
