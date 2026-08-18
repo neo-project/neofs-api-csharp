@@ -222,15 +222,5 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             Console.WriteLine(o.Length);
             Console.WriteLine(o.ToHexString());
         }
-
-        [TestMethod]
-        public void TestObjectGetRangeHash()
-        {
-            using var client = new Client.Client(key, host);
-            using var source = new CancellationTokenSource();
-            source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectPayloadRangeHash(Address, new List<Object.Range> { new Object.Range { Offset = 0, Length = 100 } }, ChecksumType.Sha256, new byte[] { }, new CallOptions { Ttl = 2 }, source.Token).Result;
-            Console.WriteLine($"{o.Count} {string.Join(", ", o.Select(p => p.ToHexString()))}");
-        }
     }
 }

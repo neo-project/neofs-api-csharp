@@ -96,7 +96,6 @@ namespace Neo.FileStorage.API.Client
         Task<Object.Object> GetObject(Address address, bool raw = false, CallOptions options = null, CancellationToken context = default);
         Task<Object.Object> GetObjectHeader(Address address, bool minimal = false, bool raw = false, CallOptions options = null, CancellationToken context = default);
         Task<byte[]> GetObjectPayloadRangeData(Address address, Object.Range range, bool raw = false, CallOptions options = null, CancellationToken context = default);
-        Task<List<byte[]>> GetObjectPayloadRangeHash(Address address, IEnumerable<Object.Range> ranges, ChecksumType type, byte[] salt, CallOptions options = null, CancellationToken context = default);
     }
 
     public interface IRawObjectClient : IRawObjectGetClient, IRawObjectPutClient, IRawObjectDeleteClient { }
@@ -106,7 +105,6 @@ namespace Neo.FileStorage.API.Client
         Task<Object.Object> GetObject(Object.GetRequest request, DateTime? deadline = null, CancellationToken context = default);
         Task<Object.Object> GetObjectHeader(HeadRequest request, DateTime? deadline = null, CancellationToken context = default);
         Task<byte[]> GetObjectPayloadRangeData(GetRangeRequest request, DateTime? deadline = null, CancellationToken context = default);
-        Task<List<byte[]>> GetObjectPayloadRangeHash(GetRangeHashRequest request, DateTime? deadline = null, CancellationToken context = default);
     }
 
     public interface IRawObjectPutClient

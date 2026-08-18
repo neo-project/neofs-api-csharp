@@ -407,35 +407,6 @@ namespace Neo.FileStorage.API.Client
             return payload;
         }
 
-        public async Task<List<byte[]>> GetObjectPayloadRangeHash(Address address, IEnumerable<Object.Range> ranges, ChecksumType type, byte[] salt, CallOptions options = null, CancellationToken context = default)
-        {
-            if (address is null) throw new ArgumentNullException(nameof(address));
-            var opts = DefaultCallOptions.ApplyCustomOptions(options);
-            CheckOptions(opts);
-            var req = new GetRangeHashRequest
-            {
-                MetaHeader = opts.GetRequestMetaHeader(),
-                Body = new GetRangeHashRequest.Types.Body
-                {
-                    Address = address,
-                    Salt = salt is null ? ByteString.Empty : ByteString.CopyFrom(salt),
-                    Type = type,
-                }
-            };
-            req.Body.Ranges.AddRange(ranges);
-            PrepareObjectSessionToken(req.MetaHeader, opts.Key, address, ObjectSessionContext.Types.Verb.Rangehash);
-            opts.Key.Sign(req);
-
-            return await GetObjectPayloadRangeHash(req, opts.Deadline, context);
-        }
-
-        public async Task<List<byte[]>> GetObjectPayloadRangeHash(GetRangeHashRequest request, DateTime? deadline = null, CancellationToken context = default)
-        {
-            var resp = await ObjectClient.GetRangeHashAsync(request, deadline: deadline, cancellationToken: context);
-            ProcessResponse(resp);
-            return resp.Body.HashList.Select(p => p.ToByteArray()).ToList();
-        }
-
         private void PrepareObjectSessionToken(RequestMetaHeader meta, ECDsa key, Address address, ObjectSessionContext.Types.Verb verb)
         {
             if (meta.SessionToken is null || meta.SessionToken.Signature != null)
