@@ -113,7 +113,7 @@ namespace Neo.FileStorage.API.Cryptography
             var pos = 33 - param.Q.X.Length;
 
             param.Q.X.CopyTo(pubkey, pos);
-            if (new BigInteger(param.Q.Y.Reverse().Concat(new byte[] { 0x00 }).ToArray()).IsEven)
+            if (new BigInteger(Enumerable.Reverse(param.Q.Y).Concat(new byte[] { 0x00 }).ToArray()).IsEven)
                 pubkey[0] = 0x2;
             else
                 pubkey[0] = 0x3;
