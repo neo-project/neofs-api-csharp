@@ -24,7 +24,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
     public partial class UT_Client
     {
         // private readonly string host = "https://st1.storage.fs.neo.org:8082"; //mainnet
-        private readonly string host = "http://st1.t5.fs.neo.org:8080"; //testnet
+        private readonly string host = "https://st1.t5.fs.neo.org:8082"; //testnet
         // private readonly string host = "http://s01.neofs.devenv:8080";
         // private readonly string host = "http://localhost:8081";
         private readonly ContainerID cid = ContainerID.FromString("CGrjkpGeE7iVYS4x3SgmTRovJkB78T671M3zxMSPokGJ");//testnet t5
