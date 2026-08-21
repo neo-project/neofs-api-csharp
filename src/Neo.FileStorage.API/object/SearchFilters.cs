@@ -74,6 +74,11 @@ namespace Neo.FileStorage.API.Object
             AddFilter(SearchFilter.FilterHeaderObjectID, oid.String(), op);
         }
 
+        public void AddFirstIDFilter(MatchType op, ObjectID oid)
+        {
+            AddFilter(SearchFilter.FilterHeaderFirstID, oid.String(), op);
+        }
+
         public void AddSplitIDFilter(MatchType op, SplitID sid)
         {
             AddFilter(SearchFilter.FilterHeaderSplitID, sid.ToString(), op);

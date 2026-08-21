@@ -50,6 +50,9 @@ namespace Neo.FileStorage.API.Object
         // FilterHeaderSplitID is a filter key to "split.splitID" field of the object header.
         public const string FilterHeaderSplitID = ReservedFilterPrefix + "split.splitID";
 
+        // FilterHeaderFirstID is a filter key to "split.first" field of the object header.
+        public const string FilterHeaderFirstID = ReservedFilterPrefix + "split.first";
+
         // FilterPropertyRoot is a filter key to check if regular object is on top of split hierarchy.
         public const string FilterPropertyRoot = ReservedFilterPrefix + "ROOT";
 
