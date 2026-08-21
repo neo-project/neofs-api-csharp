@@ -26,10 +26,14 @@ namespace Neo.FileStorage.API.UnitTests.TestObject
             Assert.AreEqual("REGULAR", ObjectType.Regular.String());
             Assert.AreEqual("TOMBSTONE", ObjectType.Tombstone.String());
             Assert.AreEqual("STORAGE_GROUP", ObjectType.StorageGroup.String());
+            Assert.AreEqual("LOCK", ObjectType.Lock.String());
+            Assert.AreEqual("LINK", ObjectType.Link.String());
             Assert.ThrowsException<InvalidOperationException>(() => ((ObjectType)3).String());
             Assert.AreEqual(ObjectType.Regular, "REGULAR".ToObjectType());
             Assert.AreEqual(ObjectType.Tombstone, "TOMBSTONE".ToObjectType());
             Assert.AreEqual(ObjectType.StorageGroup, "STORAGE_GROUP".ToObjectType());
+            Assert.AreEqual(ObjectType.Lock, "LOCK".ToObjectType());
+            Assert.AreEqual(ObjectType.Link, "LINK".ToObjectType());
             Assert.ThrowsException<InvalidOperationException>(() => "Regular".ToObjectType());
         }
 

@@ -20,13 +20,17 @@ namespace Neo.FileStorage.API.Object
         {
             { ObjectType.Regular, "REGULAR" },
             { ObjectType.Tombstone, "TOMBSTONE" },
-            { ObjectType.StorageGroup, "STORAGE_GROUP" }
+            { ObjectType.StorageGroup, "STORAGE_GROUP" },
+            { ObjectType.Lock, "LOCK" },
+            { ObjectType.Link, "LINK" },
         };
         private static readonly Dictionary<string, ObjectType> ObjectTypeValues = new()
         {
             { "REGULAR", ObjectType.Regular },
             { "TOMBSTONE", ObjectType.Tombstone },
-            { "STORAGE_GROUP", ObjectType.StorageGroup }
+            { "STORAGE_GROUP", ObjectType.StorageGroup },
+            { "LOCK", ObjectType.Lock },
+            { "LINK", ObjectType.Link },
         };
 
         public static string String(this ObjectType t)
