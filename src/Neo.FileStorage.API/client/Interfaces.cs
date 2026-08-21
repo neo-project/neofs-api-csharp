@@ -94,7 +94,7 @@ namespace Neo.FileStorage.API.Client
     public interface IObjectGetClient
     {
         Task<Object.Object> GetObject(Address address, bool raw = false, CallOptions options = null, CancellationToken context = default);
-        Task<Object.Object> GetObjectHeader(Address address, bool minimal = false, bool raw = false, CallOptions options = null, CancellationToken context = default);
+        Task<Object.Object> GetObjectHeader(Address address, bool raw = false, CallOptions options = null, CancellationToken context = default);
         Task<byte[]> GetObjectPayloadRangeData(Address address, Object.Range range, bool raw = false, CallOptions options = null, CancellationToken context = default);
     }
 

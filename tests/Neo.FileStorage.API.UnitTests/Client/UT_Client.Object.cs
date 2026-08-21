@@ -108,7 +108,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
                 var address = new Address(cid, oid);
                 using var source = new CancellationTokenSource();
                 source.CancelAfter(TimeSpan.FromMinutes(1));
-                var oo = client.GetObjectHeader(address, false, false, new CallOptions { Ttl = 2 }, source.Token).Result;
+                var oo = client.GetObjectHeader(address, false, new CallOptions { Ttl = 2 }, source.Token).Result;
                 if (tzh is null)
                     tzh = oo.PayloadHomomorphicHash.Sum.ToByteArray();
                 else
@@ -207,7 +207,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectHeader(address, false, false, new CallOptions { Ttl = 1 }, source.Token).Result;
+            var o = client.GetObjectHeader(address, false, new CallOptions { Ttl = 1 }, source.Token).Result;
             Console.WriteLine(o);
             Assert.AreEqual(oid, o.ObjectId);
         }

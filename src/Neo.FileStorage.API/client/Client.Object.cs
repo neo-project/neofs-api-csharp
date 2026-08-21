@@ -296,7 +296,7 @@ namespace Neo.FileStorage.API.Client
             return resp.Body.Tombstone;
         }
 
-        public async Task<Object.Object> GetObjectHeader(Address address, bool minimal = false, bool raw = false, CallOptions options = null, CancellationToken context = default)
+        public async Task<Object.Object> GetObjectHeader(Address address, bool raw = false, CallOptions options = null, CancellationToken context = default)
         {
             if (address is null) throw new ArgumentNullException(nameof(address));
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -307,7 +307,6 @@ namespace Neo.FileStorage.API.Client
                 Body = new HeadRequest.Types.Body
                 {
                     Address = address,
-                    MainOnly = minimal,
                     Raw = raw,
                 }
             };
@@ -325,24 +324,8 @@ namespace Neo.FileStorage.API.Client
             var sig = new Signature();
             switch (resp.Body.HeadCase)
             {
-                case HeadResponse.Types.Body.HeadOneofCase.ShortHeader:
-                    {
-                        if (!request.Body.MainOnly) throw new FormatException("expect full header received short");
-                        var short_header = resp.Body.ShortHeader;
-                        if (short_header is null)
-                            throw new FormatException("malformed object header");
-                        header.PayloadLength = short_header.PayloadLength;
-                        header.Version = short_header.Version;
-                        header.OwnerId = short_header.OwnerId;
-                        header.ObjectType = short_header.ObjectType;
-                        header.CreationEpoch = short_header.CreationEpoch;
-                        header.PayloadHash = short_header.PayloadHash;
-                        header.HomomorphicHash = short_header.HomomorphicHash;
-                        break;
-                    }
                 case HeadResponse.Types.Body.HeadOneofCase.Header:
                     {
-                        if (request.Body.MainOnly) throw new FormatException("expect short header received full");
                         var full_header = resp.Body.Header;
                         if (full_header is null)
                             throw new FormatException("malformed object header");
