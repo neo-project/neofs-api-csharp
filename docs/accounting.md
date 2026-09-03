@@ -35,7 +35,7 @@
 <a name="neo.fs.v2.accounting.AccountingService"></a>
 
 ### Service "neo.fs.v2.accounting.AccountingService"
-Accounting service provides methods for interaction with NeoFS sidechain via
+Accounting service provides methods for interaction with FS chain via
 other NeoFS nodes to get information about the account balance. Deposit and
 Withdraw operations can't be implemented here, as they require Mainnet NeoFS
 smart contract invocation. Transfer operations between internal NeoFS
@@ -78,7 +78,7 @@ BalanceRequest message
 
 ### Message BalanceRequest.Body
 To indicate the account for which the balance is requested, its identifier
-is used. It can be any existing account in NeoFS sidechain `Balance` smart
+is used. It can be any existing account in FS chain `Balance` smart
 contract. If omitted, client implementation MUST set it to the request's
 signer `OwnerID`.
 
@@ -98,7 +98,7 @@ BalanceResponse message
 | ----- | ---- | ----- | ----------- |
 | body | [BalanceResponse.Body](#neo.fs.v2.accounting.BalanceResponse.Body) |  | Body of the balance response message. |
 | meta_header | [neo.fs.v2.session.ResponseMetaHeader](#neo.fs.v2.session.ResponseMetaHeader) |  | Carries response meta information. Header data is used only to regulate message transport and does not affect request execution. |
-| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. |
+| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. DEPRECATED: the field is no longer used for verifications. Servers MUST attach it for requests with `meta_header.version` <= 2.21. |
 
 
 <a name="neo.fs.v2.accounting.BalanceResponse.Body"></a>

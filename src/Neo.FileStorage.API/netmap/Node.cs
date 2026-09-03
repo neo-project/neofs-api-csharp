@@ -20,7 +20,6 @@ namespace Neo.FileStorage.API.Netmap
     {
         public const string AttributeCapacity = "Capacity";
         public const string AttributePrice = "Price";
-        public const string AttributeSubnet = "Subnet";
         public const string AttributeUNLOCODE = "UN-LOCODE";
         public const string AttributeCountryCode = "ConuntryCode";
         public const string AttributeCountry = "Country";

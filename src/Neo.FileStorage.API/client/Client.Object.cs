@@ -296,7 +296,7 @@ namespace Neo.FileStorage.API.Client
             return resp.Body.Tombstone;
         }
 
-        public async Task<Object.Object> GetObjectHeader(Address address, bool minimal = false, bool raw = false, CallOptions options = null, CancellationToken context = default)
+        public async Task<Object.Object> GetObjectHeader(Address address, bool raw = false, CallOptions options = null, CancellationToken context = default)
         {
             if (address is null) throw new ArgumentNullException(nameof(address));
             var opts = DefaultCallOptions.ApplyCustomOptions(options);
@@ -307,7 +307,6 @@ namespace Neo.FileStorage.API.Client
                 Body = new HeadRequest.Types.Body
                 {
                     Address = address,
-                    MainOnly = minimal,
                     Raw = raw,
                 }
             };
@@ -325,24 +324,8 @@ namespace Neo.FileStorage.API.Client
             var sig = new Signature();
             switch (resp.Body.HeadCase)
             {
-                case HeadResponse.Types.Body.HeadOneofCase.ShortHeader:
-                    {
-                        if (!request.Body.MainOnly) throw new FormatException("expect full header received short");
-                        var short_header = resp.Body.ShortHeader;
-                        if (short_header is null)
-                            throw new FormatException("malformed object header");
-                        header.PayloadLength = short_header.PayloadLength;
-                        header.Version = short_header.Version;
-                        header.OwnerId = short_header.OwnerId;
-                        header.ObjectType = short_header.ObjectType;
-                        header.CreationEpoch = short_header.CreationEpoch;
-                        header.PayloadHash = short_header.PayloadHash;
-                        header.HomomorphicHash = short_header.HomomorphicHash;
-                        break;
-                    }
                 case HeadResponse.Types.Body.HeadOneofCase.Header:
                     {
-                        if (request.Body.MainOnly) throw new FormatException("expect short header received full");
                         var full_header = resp.Body.Header;
                         if (full_header is null)
                             throw new FormatException("malformed object header");
@@ -407,80 +390,20 @@ namespace Neo.FileStorage.API.Client
             return payload;
         }
 
-        public async Task<List<byte[]>> GetObjectPayloadRangeHash(Address address, IEnumerable<Object.Range> ranges, ChecksumType type, byte[] salt, CallOptions options = null, CancellationToken context = default)
-        {
-            if (address is null) throw new ArgumentNullException(nameof(address));
-            var opts = DefaultCallOptions.ApplyCustomOptions(options);
-            CheckOptions(opts);
-            var req = new GetRangeHashRequest
-            {
-                MetaHeader = opts.GetRequestMetaHeader(),
-                Body = new GetRangeHashRequest.Types.Body
-                {
-                    Address = address,
-                    Salt = salt is null ? ByteString.Empty : ByteString.CopyFrom(salt),
-                    Type = type,
-                }
-            };
-            req.Body.Ranges.AddRange(ranges);
-            PrepareObjectSessionToken(req.MetaHeader, opts.Key, address, ObjectSessionContext.Types.Verb.Rangehash);
-            opts.Key.Sign(req);
-
-            return await GetObjectPayloadRangeHash(req, opts.Deadline, context);
-        }
-
-        public async Task<List<byte[]>> GetObjectPayloadRangeHash(GetRangeHashRequest request, DateTime? deadline = null, CancellationToken context = default)
-        {
-            var resp = await ObjectClient.GetRangeHashAsync(request, deadline: deadline, cancellationToken: context);
-            ProcessResponse(resp);
-            return resp.Body.HashList.Select(p => p.ToByteArray()).ToList();
-        }
-
-        public async Task<List<ObjectID>> SearchObject(ContainerID cid, SearchFilters filters, CallOptions options = null, CancellationToken context = default)
-        {
-            if (cid is null) throw new ArgumentNullException(nameof(cid));
-            if (filters is null) throw new ArgumentNullException(nameof(filters));
-            var opts = DefaultCallOptions.ApplyCustomOptions(options);
-            CheckOptions(opts);
-            var req = new SearchRequest
-            {
-                MetaHeader = opts.GetRequestMetaHeader(),
-                Body = new SearchRequest.Types.Body
-                {
-                    ContainerId = cid,
-                    Version = SearchObjectVersion,
-                }
-            };
-            req.Body.Filters.AddRange(filters.Filters);
-            PrepareObjectSessionToken(req.MetaHeader, opts.Key, new Address { ContainerId = cid }, ObjectSessionContext.Types.Verb.Search);
-            opts.Key.Sign(req);
-
-            return await SearchObject(req, opts.Deadline, context);
-        }
-
-        public async Task<List<ObjectID>> SearchObject(SearchRequest request, DateTime? deadline = null, CancellationToken context = default)
-        {
-            var stream = ObjectClient.Search(request, deadline: deadline, cancellationToken: context).ResponseStream;
-            var result = new List<ObjectID>();
-            while (await stream.MoveNext())
-            {
-                var resp = stream.Current;
-                ProcessResponse(resp);
-                if (resp.Body?.IdList is not null)
-                    result = result.Concat(resp.Body.IdList).ToList();
-            }
-            return result;
-        }
-
         private void PrepareObjectSessionToken(RequestMetaHeader meta, ECDsa key, Address address, ObjectSessionContext.Types.Verb verb)
         {
             if (meta.SessionToken is null || meta.SessionToken.Signature != null)
                 return;
             var ctx = new ObjectSessionContext
             {
-                Address = address,
+                Target = new ObjectSessionContext.Types.Target
+                {
+                    Container = address.ContainerId,
+                },
                 Verb = verb,
             };
+            if (address.ObjectId is not null)
+                ctx.Target.Objects.Add(address.ObjectId);
             meta.SessionToken.Body.Object = ctx;
             meta.SessionToken.Signature = key.SignMessagePart(meta.SessionToken.Body);
         }

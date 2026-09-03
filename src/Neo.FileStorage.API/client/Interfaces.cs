@@ -79,7 +79,7 @@ namespace Neo.FileStorage.API.Client
         Task<ulong> Epoch(LocalNodeInfoRequest request, DateTime? deadline = null, CancellationToken context = default);
     }
 
-    public interface IObjectClient : IObjectDeleteClient, IObjectPutClient, IObjectGetClient, IObjectSearchClient { }
+    public interface IObjectClient : IObjectDeleteClient, IObjectPutClient, IObjectGetClient { }
 
     public interface IObjectDeleteClient
     {
@@ -94,34 +94,22 @@ namespace Neo.FileStorage.API.Client
     public interface IObjectGetClient
     {
         Task<Object.Object> GetObject(Address address, bool raw = false, CallOptions options = null, CancellationToken context = default);
-        Task<Object.Object> GetObjectHeader(Address address, bool minimal = false, bool raw = false, CallOptions options = null, CancellationToken context = default);
+        Task<Object.Object> GetObjectHeader(Address address, bool raw = false, CallOptions options = null, CancellationToken context = default);
         Task<byte[]> GetObjectPayloadRangeData(Address address, Object.Range range, bool raw = false, CallOptions options = null, CancellationToken context = default);
-        Task<List<byte[]>> GetObjectPayloadRangeHash(Address address, IEnumerable<Object.Range> ranges, ChecksumType type, byte[] salt, CallOptions options = null, CancellationToken context = default);
     }
 
-    public interface IObjectSearchClient
-    {
-        Task<List<ObjectID>> SearchObject(ContainerID cid, SearchFilters filters, CallOptions options = null, CancellationToken context = default);
-    }
-
-    public interface IRawObjectClient : IRawObjectGetClient, IRawObjectPutClient, IRawObjectSearchClient, IRawObjectDeleteClient { }
+    public interface IRawObjectClient : IRawObjectGetClient, IRawObjectPutClient, IRawObjectDeleteClient { }
 
     public interface IRawObjectGetClient
     {
         Task<Object.Object> GetObject(Object.GetRequest request, DateTime? deadline = null, CancellationToken context = default);
         Task<Object.Object> GetObjectHeader(HeadRequest request, DateTime? deadline = null, CancellationToken context = default);
         Task<byte[]> GetObjectPayloadRangeData(GetRangeRequest request, DateTime? deadline = null, CancellationToken context = default);
-        Task<List<byte[]>> GetObjectPayloadRangeHash(GetRangeHashRequest request, DateTime? deadline = null, CancellationToken context = default);
     }
 
     public interface IRawObjectPutClient
     {
         Task<IClientStream> PutObject(Object.PutRequest init, DateTime? deadline = null, CancellationToken context = default);
-    }
-
-    public interface IRawObjectSearchClient
-    {
-        Task<List<ObjectID>> SearchObject(SearchRequest request, DateTime? deadline = null, CancellationToken context = default);
     }
 
     public interface IRawObjectDeleteClient

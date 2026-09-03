@@ -1,13 +1,12 @@
 SHELL := /bin/bash
 
-PROTO_VERSION=v2.13.0
+PROTO_VERSION=v2.23.0
 PROTO_URL=https://github.com/nspcc-dev/neofs-api/archive/$(PROTO_VERSION).tar.gz
-CONTROL_SERVICE_PROTO_UTL=https://raw.githubusercontent.com/nspcc-dev/neofs-node/master/pkg/services/control
 
-GOGO_VERSION=v1.3.1
+GOGO_VERSION=v1.3.2
 GOGO_URL=https://github.com/gogo/protobuf/archive/$(GOGO_VERSION).tar.gz
 
-DOC_GEN_URL=https://github.com/pseudomuto/protoc-gen-doc/releases/download/v1.4.1/protoc-gen-doc-1.4.1.$(shell uname -s)-amd64.go1.15.2.tar.gz
+DOC_GEN_URL=https://github.com/pseudomuto/protoc-gen-doc/releases/download/v1.5.1/protoc-gen-doc_1.5.1_linux_amd64.tar.gz
 
 B=\033[0;1m
 G=\033[0;92m
@@ -52,27 +51,13 @@ deps:
 	@curl -sL -o vendor/gogo.tar.gz $(GOGO_URL)
 	@tar -xzf vendor/gogo.tar.gz --strip-components 1 -C vendor/github.com/gogo/protobuf
 	@curl -sL -o vendor/protoc-gen-doc.tar.gz $(DOC_GEN_URL)
-	@tar -xzf vendor/protoc-gen-doc.tar.gz --strip-components 1 -C vendor/github.com/pseudomuto/protoc-gen-doc
+	@tar -xzf vendor/protoc-gen-doc.tar.gz -C vendor/github.com/pseudomuto/protoc-gen-doc
 
 	@printf "${B}${G}⇒ NeoFS Proto files ${R}\n"
 	@for f in `find vendor/proto -type f -name '*.proto' -exec dirname {} \; | sort -u `; do \
 		mkdir -p src/Neo.FileStorage.API/$$(basename $$f); \
 		cp $$f/*.proto src/Neo.FileStorage.API/$$(basename $$f)/; \
 	done
-
-	@printf "NeoFS Node ControlService Proto files\n"
-	@printf "Downloading proto files...\n"
-	@curl -sL -o src/Neo.FileStorage.API/control/service.proto $(CONTROL_SERVICE_PROTO_UTL)/service.proto
-	@curl -sL -o src/Neo.FileStorage.API/control/types.proto $(CONTROL_SERVICE_PROTO_UTL)/types.proto
-	@printf "Replacing import path...\n"
-	@sed -i "" "s/pkg\/services\/control\/types.proto/control\/types.proto/g" src/Neo.FileStorage.API/control/service.proto
-	@printf "Inserting csharp namespace...\n"
-	@sed -i '' '/go_package/ a\
-	option csharp_namespace = "Neo.FileStorage.API.Control\";\
-	' src/Neo.FileStorage.API/control/service.proto
-	@sed -i '' '/go_package/ a\
-	option csharp_namespace = "Neo.FileStorage.API.Control\";\
-	' src/Neo.FileStorage.API/control/types.proto
 
 	@printf "${B}${G}⇒ Cleanup ${R}\n"
 	@rm -rf vendor/proto

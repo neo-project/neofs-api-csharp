@@ -9,29 +9,29 @@
 // Redistribution and use in source and binary forms with or without
 // modifications are permitted.
 
+using Neo.FileStorage.API.Object;
 using Neo.FileStorage.API.Refs;
 using System.Collections.Generic;
 using System.Linq;
-using static Neo.FileStorage.API.Object.SearchRequest.Types.Body.Types;
 
 namespace Neo.FileStorage.API.Object
 {
     public class SearchFilters
     {
-        private readonly List<Filter> filters = new();
+        private readonly List<SearchFilter> filters = new();
 
-        public Filter[] Filters => filters.ToArray();
+        public SearchFilter[] Filters => filters.ToArray();
 
         public SearchFilters() { }
 
-        public SearchFilters(IEnumerable<Filter> fs)
+        public SearchFilters(IEnumerable<SearchFilter> fs)
         {
             filters = fs.ToList();
         }
 
         public void AddFilter(string name, string value, MatchType op)
         {
-            filters.Add(new Filter
+            filters.Add(new SearchFilter
             {
                 Key = name,
                 Value = value,
@@ -41,47 +41,52 @@ namespace Neo.FileStorage.API.Object
 
         public void AddObjectVersionFilter(MatchType op, Version v)
         {
-            AddFilter(Filter.FilterHeaderVersion, v.String(), op);
+            AddFilter(SearchFilter.FilterHeaderVersion, v.String(), op);
         }
 
         public void AddObjectContainerIDFilter(MatchType op, ContainerID cid)
         {
-            AddFilter(Filter.FilterHeaderContainerID, cid.String(), op);
+            AddFilter(SearchFilter.FilterHeaderContainerID, cid.String(), op);
         }
 
         public void AddObjectOwnerIDFilter(MatchType op, OwnerID oid)
         {
-            AddFilter(Filter.FilterHeaderOwnerID, oid.ToAddress(), op);
+            AddFilter(SearchFilter.FilterHeaderOwnerID, oid.ToAddress(), op);
         }
 
         public void AddRootFilter()
         {
-            AddFilter(Filter.FilterPropertyRoot, "", MatchType.Unspecified);
+            AddFilter(SearchFilter.FilterPropertyRoot, "", MatchType.Unspecified);
         }
 
         public void AddPhyFilter()
         {
-            AddFilter(Filter.FilterPropertyPhy, "", MatchType.Unspecified);
+            AddFilter(SearchFilter.FilterPropertyPhy, "", MatchType.Unspecified);
         }
 
         public void AddParentIDFilter(MatchType op, ObjectID oid)
         {
-            AddFilter(Filter.FilterHeaderParent, oid.String(), op);
+            AddFilter(SearchFilter.FilterHeaderParent, oid.String(), op);
         }
 
         public void AddObjectIDFilter(MatchType op, ObjectID oid)
         {
-            AddFilter(Filter.FilterHeaderObjectID, oid.String(), op);
+            AddFilter(SearchFilter.FilterHeaderObjectID, oid.String(), op);
+        }
+
+        public void AddFirstIDFilter(MatchType op, ObjectID oid)
+        {
+            AddFilter(SearchFilter.FilterHeaderFirstID, oid.String(), op);
         }
 
         public void AddSplitIDFilter(MatchType op, SplitID sid)
         {
-            AddFilter(Filter.FilterHeaderSplitID, sid.ToString(), op);
+            AddFilter(SearchFilter.FilterHeaderSplitID, sid.ToString(), op);
         }
 
         public void AddTypeFilter(MatchType op, ObjectType typ)
         {
-            AddFilter(Filter.FilterHeaderObjectType, typ.String(), op);
+            AddFilter(SearchFilter.FilterHeaderObjectType, typ.String(), op);
         }
     }
 }

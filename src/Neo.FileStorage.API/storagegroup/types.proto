@@ -2,10 +2,10 @@ syntax = "proto3";
 
 package neo.fs.v2.storagegroup;
 
-option go_package = "github.com/nspcc-dev/neofs-api-go/v2/storagegroup/grpc;storagegroup";
-option csharp_namespace = "Neo.FileStorage.API.StorageGroup";
-
 import "refs/types.proto";
+
+option csharp_namespace = "Neo.FileStorage.API.StorageGroup";
+option go_package = "github.com/nspcc-dev/neofs-sdk-go/proto/storagegroup";
 
 // StorageGroup keeps verification information for Data Audit sessions. Objects
 // that require paid storage guarantees are gathered in `StorageGroups` with
@@ -17,6 +17,7 @@ import "refs/types.proto";
 // will be ignored by InnerRing nodes during Data Audit cycles and will be
 // deleted by Storage Nodes.
 //
+// DEPRECATED: storage groups are no longer used for audit since 2.18.
 message StorageGroup {
   // Total size of the payloads of objects in the storage group
   uint64 validation_data_size = 1 [json_name = "validationDataSize"];
@@ -27,7 +28,10 @@ message StorageGroup {
   neo.fs.v2.refs.Checksum validation_hash = 2 [json_name = "validationHash"];
 
   // DEPRECATED. Last NeoFS epoch number of the storage group lifetime
-  uint64 expiration_epoch = 3 [json_name = "expirationEpoch", deprecated = true];
+  uint64 expiration_epoch = 3 [
+    json_name = "expirationEpoch",
+    deprecated = true
+  ];
 
   // Strictly ordered list of storage group member objects. Members MUST be unique
   repeated neo.fs.v2.refs.ObjectID members = 4 [json_name = "members"];

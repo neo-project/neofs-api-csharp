@@ -12,6 +12,10 @@
     - [LocalNodeInfoRequest.Body](#neo.fs.v2.netmap.LocalNodeInfoRequest.Body)
     - [LocalNodeInfoResponse](#neo.fs.v2.netmap.LocalNodeInfoResponse)
     - [LocalNodeInfoResponse.Body](#neo.fs.v2.netmap.LocalNodeInfoResponse.Body)
+    - [NetmapSnapshotRequest](#neo.fs.v2.netmap.NetmapSnapshotRequest)
+    - [NetmapSnapshotRequest.Body](#neo.fs.v2.netmap.NetmapSnapshotRequest.Body)
+    - [NetmapSnapshotResponse](#neo.fs.v2.netmap.NetmapSnapshotResponse)
+    - [NetmapSnapshotResponse.Body](#neo.fs.v2.netmap.NetmapSnapshotResponse.Body)
     - [NetworkInfoRequest](#neo.fs.v2.netmap.NetworkInfoRequest)
     - [NetworkInfoRequest.Body](#neo.fs.v2.netmap.NetworkInfoRequest.Body)
     - [NetworkInfoResponse](#neo.fs.v2.netmap.NetworkInfoResponse)
@@ -22,12 +26,15 @@
 
   - Messages
     - [Filter](#neo.fs.v2.netmap.Filter)
+    - [Netmap](#neo.fs.v2.netmap.Netmap)
     - [NetworkConfig](#neo.fs.v2.netmap.NetworkConfig)
     - [NetworkConfig.Parameter](#neo.fs.v2.netmap.NetworkConfig.Parameter)
     - [NetworkInfo](#neo.fs.v2.netmap.NetworkInfo)
     - [NodeInfo](#neo.fs.v2.netmap.NodeInfo)
     - [NodeInfo.Attribute](#neo.fs.v2.netmap.NodeInfo.Attribute)
     - [PlacementPolicy](#neo.fs.v2.netmap.PlacementPolicy)
+    - [PlacementPolicy.ECRule](#neo.fs.v2.netmap.PlacementPolicy.ECRule)
+    - [PlacementPolicy.Initial](#neo.fs.v2.netmap.PlacementPolicy.Initial)
     - [Replica](#neo.fs.v2.netmap.Replica)
     - [Selector](#neo.fs.v2.netmap.Selector)
     
@@ -48,19 +55,20 @@
 
 ### Service "neo.fs.v2.netmap.NetmapService"
 `NetmapService` provides methods to work with `Network Map` and the information
-required to build it. The resulting `Network Map` is stored in sidechain
+required to build it. The resulting `Network Map` is stored in FS chain
 `Netmap` smart contract, while related information can be obtained from other
 NeoFS nodes.
 
 ```
 rpc LocalNodeInfo(LocalNodeInfoRequest) returns (LocalNodeInfoResponse);
 rpc NetworkInfo(NetworkInfoRequest) returns (NetworkInfoResponse);
+rpc NetmapSnapshot(NetmapSnapshotRequest) returns (NetmapSnapshotResponse);
 
 ```
 
 #### Method LocalNodeInfo
 
-Get NodeInfo structure from the particular node directly. 
+Get NodeInfo structure from the particular node directly.
 Node information can be taken from `Netmap` smart contract. In some cases, though,
 one may want to get recent information directly or to talk to the node not yet
 present in the `Network Map` to find out what API version can be used for
@@ -86,6 +94,18 @@ information about the current network state has been successfully read;
 | Name | Input | Output |
 | ---- | ----- | ------ |
 | NetworkInfo | [NetworkInfoRequest](#neo.fs.v2.netmap.NetworkInfoRequest) | [NetworkInfoResponse](#neo.fs.v2.netmap.NetworkInfoResponse) |
+#### Method NetmapSnapshot
+
+Returns network map snapshot of the current NeoFS epoch.
+
+Statuses:
+- **OK** (0, SECTION_SUCCESS):
+information about the current network map has been successfully read;
+- Common failures (SECTION_FAILURE_COMMON).
+
+| Name | Input | Output |
+| ---- | ----- | ------ |
+| NetmapSnapshot | [NetmapSnapshotRequest](#neo.fs.v2.netmap.NetmapSnapshotRequest) | [NetmapSnapshotResponse](#neo.fs.v2.netmap.NetmapSnapshotResponse) |
  <!-- end services -->
 
 
@@ -119,7 +139,7 @@ Local Node Info, including API Version in use
 | ----- | ---- | ----- | ----------- |
 | body | [LocalNodeInfoResponse.Body](#neo.fs.v2.netmap.LocalNodeInfoResponse.Body) |  | Body of the balance response message. |
 | meta_header | [neo.fs.v2.session.ResponseMetaHeader](#neo.fs.v2.session.ResponseMetaHeader) |  | Carries response meta information. Header data is used only to regulate message transport and does not affect response execution. |
-| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. |
+| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. DEPRECATED: the field is no longer used for verifications. Servers MUST attach it for requests with `meta_header.version` <= 2.21. |
 
 
 <a name="neo.fs.v2.netmap.LocalNodeInfoResponse.Body"></a>
@@ -132,6 +152,50 @@ Local Node Info, including API Version in use.
 | ----- | ---- | ----- | ----------- |
 | version | [neo.fs.v2.refs.Version](#neo.fs.v2.refs.Version) |  | Latest NeoFS API version in use |
 | node_info | [NodeInfo](#neo.fs.v2.netmap.NodeInfo) |  | NodeInfo structure with recent information from node itself |
+
+
+<a name="neo.fs.v2.netmap.NetmapSnapshotRequest"></a>
+
+### Message NetmapSnapshotRequest
+Get netmap snapshot request
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| body | [NetmapSnapshotRequest.Body](#neo.fs.v2.netmap.NetmapSnapshotRequest.Body) |  | Body of get netmap snapshot request message. |
+| meta_header | [neo.fs.v2.session.RequestMetaHeader](#neo.fs.v2.session.RequestMetaHeader) |  | Carries request meta information. Header data is used only to regulate message transport and does not affect request execution. |
+| verify_header | [neo.fs.v2.session.RequestVerificationHeader](#neo.fs.v2.session.RequestVerificationHeader) |  | Carries request verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. |
+
+
+<a name="neo.fs.v2.netmap.NetmapSnapshotRequest.Body"></a>
+
+### Message NetmapSnapshotRequest.Body
+Get netmap snapshot request body.
+
+
+
+<a name="neo.fs.v2.netmap.NetmapSnapshotResponse"></a>
+
+### Message NetmapSnapshotResponse
+Response with current netmap snapshot
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| body | [NetmapSnapshotResponse.Body](#neo.fs.v2.netmap.NetmapSnapshotResponse.Body) |  | Body of get netmap snapshot response message. |
+| meta_header | [neo.fs.v2.session.ResponseMetaHeader](#neo.fs.v2.session.ResponseMetaHeader) |  | Carries response meta information. Header data is used only to regulate message transport and does not affect response execution. |
+| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. DEPRECATED: the field is no longer used for verifications. Servers MUST attach it for requests with `meta_header.version` <= 2.21. |
+
+
+<a name="neo.fs.v2.netmap.NetmapSnapshotResponse.Body"></a>
+
+### Message NetmapSnapshotResponse.Body
+Get netmap snapshot response body
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| netmap | [Netmap](#neo.fs.v2.netmap.Netmap) |  | Structure of the requested network map. |
 
 
 <a name="neo.fs.v2.netmap.NetworkInfoRequest"></a>
@@ -158,14 +222,14 @@ NetworkInfo request body is empty.
 
 ### Message NetworkInfoResponse
 Response with NetworkInfo structure including current epoch and
-sidechain magic number.
+FS chain magic number.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | body | [NetworkInfoResponse.Body](#neo.fs.v2.netmap.NetworkInfoResponse.Body) |  | Body of the NetworkInfo response message. |
 | meta_header | [neo.fs.v2.session.ResponseMetaHeader](#neo.fs.v2.session.ResponseMetaHeader) |  | Carries response meta information. Header data is used only to regulate message transport and does not affect response execution. |
-| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. |
+| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. DEPRECATED: the field is no longer used for verifications. Servers MUST attach it for requests with `meta_header.version` <= 2.21. |
 
 
 <a name="neo.fs.v2.netmap.NetworkInfoResponse.Body"></a>
@@ -209,6 +273,18 @@ results that will satisfy filter's conditions.
 | filters | [Filter](#neo.fs.v2.netmap.Filter) | repeated | List of inner filters. Top level operation will be applied to the whole list. |
 
 
+<a name="neo.fs.v2.netmap.Netmap"></a>
+
+### Message Netmap
+Network map structure
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| epoch | [uint64](#uint64) |  | Network map revision number. |
+| nodes | [NodeInfo](#neo.fs.v2.netmap.NodeInfo) | repeated | Nodes presented in network. |
+
+
 <a name="neo.fs.v2.netmap.NetworkConfig"></a>
 
 ### Message NetworkConfig
@@ -223,12 +299,52 @@ NeoFS network configuration
 <a name="neo.fs.v2.netmap.NetworkConfig.Parameter"></a>
 
 ### Message NetworkConfig.Parameter
-Single configuration parameter
+Single configuration parameter. Key MUST be network-unique.
+
+System parameters:
+- **AuditFee** \
+  Fee paid by the storage group owner to the Inner Ring member.
+  Value: little-endian integer. Default: 0.
+- **BasicIncomeRate** \
+  Cost of storing one gigabyte of data for a period of one epoch. Paid by
+  container owner to container nodes.
+  Value: little-endian integer. Default: 0.
+- **ContainerAliasFee** \
+  Fee paid for named container's creation by the container owner.
+  Value: little-endian integer. Default: 0.
+- **ContainerFee** \
+  Fee paid for container creation by the container owner.
+  Value: little-endian integer. Default: 0.
+- **EigenTrustAlpha** \
+  Alpha parameter of EigenTrust algorithm used in the Reputation system.
+  Value: decimal floating-point number in UTF-8 string representation.
+  Default: 0.
+- **EigenTrustIterations** \
+  Number of EigenTrust algorithm iterations to pass in the Reputation system.
+  Value: little-endian integer. Default: 0.
+- **EpochDuration** \
+  NeoFS epoch duration measured in seconds.
+  Value: little-endian integer. Default: 0.
+- **HomomorphicHashingDisabled** \
+  Flag of disabling the homomorphic hashing of objects' payload.
+  Value: true if any byte != 0. Default: false.
+- **InnerRingCandidateFee** \
+  Fee for entrance to the Inner Ring paid by the candidate.
+  Value: little-endian integer. Default: 0.
+- **MaintenanceModeAllowed** \
+  Flag allowing setting the MAINTENANCE state to storage nodes.
+  Value: true if any byte != 0. Default: false.
+- **MaxObjectSize** \
+  Maximum size of physically stored NeoFS object measured in bytes.
+  Value: little-endian integer. Default: 0.
+- **WithdrawFee** \
+  Fee paid for withdrawal of funds paid by the account owner.
+  Value: little-endian integer. Default: 0.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| key | [bytes](#bytes) |  | Parameter key. UTF-8 encoded string |
+| key | [bytes](#bytes) |  | Parameter key. UTF-8 encoded string (with no zero bytes). |
 | value | [bytes](#bytes) |  | Parameter value |
 
 
@@ -241,8 +357,8 @@ Information about NeoFS network
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | current_epoch | [uint64](#uint64) |  | Number of the current epoch in the NeoFS network |
-| magic_number | [uint64](#uint64) |  | Magic number of the sidechain of the NeoFS network |
-| ms_per_block | [int64](#int64) |  | MillisecondsPerBlock network parameter of the sidechain of the NeoFS network |
+| magic_number | [uint64](#uint64) |  | Magic number of FS chain of the NeoFS network |
+| ms_per_block | [int64](#int64) |  | MillisecondsPerBlock network parameter of FS chain of the NeoFS network |
 | network_config | [NetworkConfig](#neo.fs.v2.netmap.NetworkConfig) |  | NeoFS network configuration |
 
 
@@ -256,7 +372,7 @@ NeoFS node description
 | ----- | ---- | ----- | ----------- |
 | public_key | [bytes](#bytes) |  | Public key of the NeoFS node in a binary format |
 | addresses | [string](#string) | repeated | Ways to connect to a node |
-| attributes | [NodeInfo.Attribute](#neo.fs.v2.netmap.NodeInfo.Attribute) | repeated | Carries list of the NeoFS node attributes in a key-value form. Key name must be a node-unique valid UTF-8 string. Value can't be empty. NodeInfo structures with duplicated attribute names or attributes with empty values will be considered invalid. |
+| attributes | [NodeInfo.Attribute](#neo.fs.v2.netmap.NodeInfo.Attribute) | repeated | Carries list of the NeoFS node attributes in a key-value form. Key name must be a node-unique valid UTF-8 string (without zero bytes). Value can't be empty. NodeInfo structures with duplicated attribute names or attributes with empty values will be considered invalid. |
 | state | [NodeInfo.State](#neo.fs.v2.netmap.NodeInfo.State) |  | Carries state of the NeoFS node |
 
 
@@ -266,7 +382,7 @@ NeoFS node description
 Administrator-defined Attributes of the NeoFS Storage Node.
 
 `Attribute` is a Key-Value metadata pair. Key name must be a valid UTF-8
-string. Value can't be empty.
+string (without zero bytes that are forbidden). Value can't be empty.
 
 Attributes can be constructed into a chain of attributes: any attribute can
 have a parent attribute and a child attribute (except the first and the last
@@ -293,12 +409,8 @@ explicitly set:
   point delimiter for decimal part. In the Network Map it will be saved as
   64-bit unsigned integer representing number of minimal token fractions.
 * __NEOFS__SUBNET_%s \
-  `True` or `False`. Defines if the node is included in the `%s` subnetwork
-  or not. `%s` must be an existing subnetwork's ID (non-negative integer number).
-  A node can be included in more than one subnetwork and, therefore, can contain
-  more than one subnet attribute. A missing attribute is equivalent to the
-  presence of the attribute with `False` value (except default zero subnetwork
-  (with `%s` == 0) for which missing attribute means inclusion in that network).
+  DEPRECATED. Defined if the node is included in the `%s` subnetwork
+  or not. Currently ignored.
 * UN-LOCODE \
   Node's geographic location in
   [UN/LOCODE](https://www.unece.org/cefact/codesfortrade/codes_index.html)
@@ -330,6 +442,25 @@ explicitly set:
   Node's continent name according to the [Seven-Continent model]
   (https://en.wikipedia.org/wiki/Continent#Number). Calculated
   automatically from `UN-LOCODE` attribute.
+* ExternalAddr
+  Node's preferred way for communications with external clients.
+  Clients SHOULD use these addresses if possible.
+  Must contain a comma-separated list of multi-addresses.
+  DEPRECATED. Use 'addresses' field instead.
+* Version
+  Node implementation's version in a free string form.
+* VerifiedNodesDomain
+  Confirmation of admission to a group of storage nodes.
+  The value is the domain name registered in the NeoFS NNS. If attribute
+  is specified, the storage node requesting entry into the NeoFS network
+  map with this attribute must be included in the access list located on
+  the specified domain. The access list is represented by a set of TXT
+  records: Neo addresses resolved from public keys. To be admitted to the
+  network, Neo address of the node's public key declared in 'public_key'
+  field must be present in domain records. Otherwise, registration will be
+  denied.
+  Value must be a valid NeoFS NNS domain name. Note that if this attribute
+  is absent, this check is not carried out.
 
 For detailed description of each well-known attribute please see the
 corresponding section in NeoFS Technical Specification.
@@ -352,11 +483,94 @@ storage policy definition languages.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| replicas | [Replica](#neo.fs.v2.netmap.Replica) | repeated | Rules to set number of object replicas and place each one into a named bucket |
-| container_backup_factor | [uint32](#uint32) |  | Container backup factor controls how deep NeoFS will search for nodes alternatives to include into container's nodes subset |
+| replicas | [Replica](#neo.fs.v2.netmap.Replica) | repeated | Rules to set number of object replicas and place each one into a named bucket. Limited to 256 items. |
+| container_backup_factor | [uint32](#uint32) |  | Container backup factor (CBF) controls how deep NeoFS will search for alternative nodes to include into container's nodes subset. In total, the number of container nodes is Selector (used by Replica) count times CBF. This number is limited to 64 per-Replica and 512 overall. |
 | selectors | [Selector](#neo.fs.v2.netmap.Selector) | repeated | Set of Selectors to form the container's nodes subset |
 | filters | [Filter](#neo.fs.v2.netmap.Filter) | repeated | List of named filters to reference in selectors |
-| subnet_id | [neo.fs.v2.refs.SubnetID](#neo.fs.v2.refs.SubnetID) |  | Subnetwork ID to select nodes from. Zero subnet (default) represents all of the nodes which didn't explicitly opt out of membership. |
+| subnet_id | [neo.fs.v2.refs.SubnetID](#neo.fs.v2.refs.SubnetID) |  | DEPRECATED. Was used for subnetwork ID to select nodes from, currently ignored. |
+| ec_rules | [PlacementPolicy.ECRule](#neo.fs.v2.netmap.PlacementPolicy.ECRule) | repeated | Erasure coding rules. Limited to 4 items. |
+| initial | [PlacementPolicy.Initial](#neo.fs.v2.netmap.PlacementPolicy.Initial) |  | Initial placement rules. |
+
+
+<a name="neo.fs.v2.netmap.PlacementPolicy.ECRule"></a>
+
+### Message PlacementPolicy.ECRule
+Erasure coding rule for container objects.
+
+For each original object, the payload is split into `data_part_num` data
+and `parity_part_num` parity parts. Each part is the same size. Data parts
+contain the original payload. If its length is not divisible by
+`data_part_num`, the last part is aligned with zero bytes. Both
+`data_part_num` and `parity_part_num` MUST NOT be zero or exceed 64,
+including in total. Hashes from all parts are written in the
+`__NEOFS__EC_PART_HASHES` attribute of the original object's header.
+
+For each payload part, a part object is created. Original object's ID,
+signature and header is written in `header.split.parent`,
+`header.split.parent_signature` and `header.split.parent_header` fields
+correspondingly. Part index is written in the `__NEOFS__EC_PART_IDX`
+attribute as base-10 integer. Rule index in `PlacementPolicy.ec_rules`
+list is written in the `__NEOFS__EC_RULE_IDX` attribute as base-10
+integer.
+
+Each part object is stored in the container in one copy. Storage nodes are
+selected from the network map similar to `PlacementPolicy.replicas` rules.
+Optional `selector` acts the same way. The object for the `i`-th part is
+placed in the `i`-th node. If it is unavailable, the backup nodes with
+indexes `m * n + i` (`n = data_part_num + parity_part_num`,
+`m = 1, ..., CBF-1`). If all nodes for the `i`-th part
+are unavailable, nodes for the `i+1`-th (0 for the last) part are tried,
+and so on.
+
+Once part objects are stored in the container, the original object remains
+available if at least `data_part_num` of any part objects are available.
+In other words, unavailability (including complete loss) of any of
+`parity_part_num` part objects does not violate availability of the
+original one.
+
+Objects of TOMBSTONE and LOCK types are not encoded and stored as they are
+because they have no payload.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| data_part_num | [uint32](#uint32) |  | Number of data parts |
+| parity_part_num | [uint32](#uint32) |  | Number of parity parts |
+| selector | [string](#string) |  | Name of the linked selector |
+
+
+<a name="neo.fs.v2.netmap.PlacementPolicy.Initial"></a>
+
+### Message PlacementPolicy.Initial
+Rules applied during initial data placement.
+
+`replica_limits` allows to override `Replica.count` and EC partitions. If
+set, `replica_limits` must have a length equal to the sum of `replicas`
+(`RN`) and `ec_rules` length. Each of first `RN` elements of
+`replica_limits` must be less than or equal to corresponding
+`Replica.count`. The remaining elements must be either 0 (corresponding
+EC rule is skipped) or 1 (done). At least one `replica_limits` element
+must be non-zero.
+
+`max_replicas` allows to limit total number of replicas and EC partitions
+for successful operation. If set, `max_replicas` must not overflow total
+replica limit (`replica_limits` or main ones).
+
+`prefer_local` allows to tell server to try to store `MaxReplicas`
+replicas in locations that include this server. `prefer_local` must be set
+along with `max_replicas` only.
+
+Either `replica_limits` or `max_replicas` must be specified.
+
+Initial policy must not repeat the main one. In particular, policy with
+`replica_limits` equal to main ones only is invalid.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| replica_limits | [uint32](#uint32) | repeated | Limits on the number of replicas and EC partitions |
+| max_replicas | [uint32](#uint32) |  | Maximum total number of replicas |
+| prefer_local | [bool](#bool) |  | Flag to prefer local placement over regular one |
 
 
 <a name="neo.fs.v2.netmap.Replica"></a>
@@ -369,7 +583,7 @@ default.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| count | [uint32](#uint32) |  | How many object replicas to put |
+| count | [uint32](#uint32) |  | How many object replicas to put. Limited to 8. |
 | selector | [string](#string) |  | Named selector bucket to put replicas |
 
 
@@ -416,6 +630,7 @@ Represents the enumeration of various states of the NeoFS node.
 | UNSPECIFIED | 0 | Unknown state |
 | ONLINE | 1 | Active state in the network |
 | OFFLINE | 2 | Network unavailable state |
+| MAINTENANCE | 3 | Maintenance state |
 
 
 

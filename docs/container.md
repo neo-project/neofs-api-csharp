@@ -33,6 +33,14 @@
     - [PutRequest.Body](#neo.fs.v2.container.PutRequest.Body)
     - [PutResponse](#neo.fs.v2.container.PutResponse)
     - [PutResponse.Body](#neo.fs.v2.container.PutResponse.Body)
+    - [RemoveAttributeRequest](#neo.fs.v2.container.RemoveAttributeRequest)
+    - [RemoveAttributeRequest.Body](#neo.fs.v2.container.RemoveAttributeRequest.Body)
+    - [RemoveAttributeRequest.Body.Parameters](#neo.fs.v2.container.RemoveAttributeRequest.Body.Parameters)
+    - [RemoveAttributeResponse](#neo.fs.v2.container.RemoveAttributeResponse)
+    - [SetAttributeRequest](#neo.fs.v2.container.SetAttributeRequest)
+    - [SetAttributeRequest.Body](#neo.fs.v2.container.SetAttributeRequest.Body)
+    - [SetAttributeRequest.Body.Parameters](#neo.fs.v2.container.SetAttributeRequest.Body.Parameters)
+    - [SetAttributeResponse](#neo.fs.v2.container.SetAttributeResponse)
     - [SetExtendedACLRequest](#neo.fs.v2.container.SetExtendedACLRequest)
     - [SetExtendedACLRequest.Body](#neo.fs.v2.container.SetExtendedACLRequest.Body)
     - [SetExtendedACLResponse](#neo.fs.v2.container.SetExtendedACLResponse)
@@ -62,8 +70,8 @@
 
 ### Service "neo.fs.v2.container.ContainerService"
 `ContainerService` provides API to interact with `Container` smart contract
-in NeoFS sidechain via other NeoFS nodes. All of those actions can be done
-equivalently by directly issuing transactions and RPC calls to sidechain
+in FS chain via other NeoFS nodes. All of those actions can be done
+equivalently by directly issuing transactions and RPC calls to FS chain
 nodes.
 
 ```
@@ -74,35 +82,46 @@ rpc List(ListRequest) returns (ListResponse);
 rpc SetExtendedACL(SetExtendedACLRequest) returns (SetExtendedACLResponse);
 rpc GetExtendedACL(GetExtendedACLRequest) returns (GetExtendedACLResponse);
 rpc AnnounceUsedSpace(AnnounceUsedSpaceRequest) returns (AnnounceUsedSpaceResponse);
+rpc SetAttribute(SetAttributeRequest) returns (SetAttributeResponse);
+rpc RemoveAttribute(RemoveAttributeRequest) returns (RemoveAttributeResponse);
 
 ```
 
 #### Method Put
 
-`Put` invokes `Container` smart contract's `Put` method and returns
-response immediately. After a new block is issued in sidechain, request is
-verified by Inner Ring nodes. After one more block in sidechain, the container
-is added into smart contract storage.
+Sends transaction calling contract method to create container, and waits
+for the transaction to be executed. Deadline is determined by the
+transport protocol (e.g. `grpc-timeout` header). If the deadline is not
+set, server waits 15s after submitting the transaction.
 
 Statuses:
 - **OK** (0, SECTION_SUCCESS): \
-  request to save the container has been sent to the sidechain;
-- Common failures (SECTION_FAILURE_COMMON).
+  container successfully created;
+- Common failures (SECTION_FAILURE_COMMON);
+- **CONTAINER_AWAIT_TIMEOUT** (3075, SECTION_CONTAINER): \
+  transaction was sent but not executed within the deadline.
 
 | Name | Input | Output |
 | ---- | ----- | ------ |
 | Put | [PutRequest](#neo.fs.v2.container.PutRequest) | [PutResponse](#neo.fs.v2.container.PutResponse) |
 #### Method Delete
 
-`Delete` invokes `Container` smart contract's `Delete` method and returns
-response immediately. After a new block is issued in sidechain, request is
-verified by Inner Ring nodes. After one more block in sidechain, the container
-is added into smart contract storage.
+Sends transaction calling contract method to delete container, and waits
+for the transaction to be executed. Deadline is determined by the
+transport protocol (e.g. `grpc-timeout` header). If the deadline is not
+set, server waits 15s after submitting the transaction.
+NOTE: a container deletion leads to the removal of every object in that
+container, regardless of any restrictions on the object removal (e.g. lock/locked
+object would be also removed).
 
 Statuses:
 - **OK** (0, SECTION_SUCCESS): \
-  request to remove the container has been sent to the sidechain;
-- Common failures (SECTION_FAILURE_COMMON).
+  container successfully removed;
+- Common failures (SECTION_FAILURE_COMMON);
+- **CONTAINER_LOCKED** (3074, SECTION_CONTAINER): \
+  deleting a locked container is prohibited;
+- **CONTAINER_AWAIT_TIMEOUT** (3075, SECTION_CONTAINER): \
+  transaction was sent but not executed within the deadline.
 
 | Name | Input | Output |
 | ---- | ----- | ------ |
@@ -135,14 +154,17 @@ Statuses:
 | List | [ListRequest](#neo.fs.v2.container.ListRequest) | [ListResponse](#neo.fs.v2.container.ListResponse) |
 #### Method SetExtendedACL
 
-Invokes 'SetEACL' method of 'Container` smart contract and returns response
-immediately. After one more block in sidechain, changes in an Extended ACL are
-added into smart contract storage.
+Sends transaction calling contract method to set container's extended ACL,
+and waits for the transaction to be executed. Deadline is determined by
+the transport protocol (e.g. `grpc-timeout` header). If the deadline is
+not set, server waits 15s after submitting the transaction.
 
 Statuses:
 - **OK** (0, SECTION_SUCCESS): \
-  request to save container eACL has been sent to the sidechain;
-- Common failures (SECTION_FAILURE_COMMON).
+  container eACL successfully set;
+- Common failures (SECTION_FAILURE_COMMON);
+- **CONTAINER_AWAIT_TIMEOUT** (3075, SECTION_CONTAINER): \
+  transaction was sent but not executed within the deadline.
 
 | Name | Input | Output |
 | ---- | ----- | ------ |
@@ -157,7 +179,9 @@ Statuses:
   container eACL has been successfully read;
 - Common failures (SECTION_FAILURE_COMMON);
 - **CONTAINER_NOT_FOUND** (3072, SECTION_CONTAINER): \
-  container not found.
+  container not found;
+- **EACL_NOT_FOUND** (3073, SECTION_CONTAINER): \
+  eACL table not found.
 
 | Name | Input | Output |
 | ---- | ----- | ------ |
@@ -171,9 +195,46 @@ Statuses:
   estimation of used space has been successfully announced;
 - Common failures (SECTION_FAILURE_COMMON).
 
+DEPRECATED: every storage node must send storage load directly to `container`
+contract.
+
 | Name | Input | Output |
 | ---- | ----- | ------ |
 | AnnounceUsedSpace | [AnnounceUsedSpaceRequest](#neo.fs.v2.container.AnnounceUsedSpaceRequest) | [AnnounceUsedSpaceResponse](#neo.fs.v2.container.AnnounceUsedSpaceResponse) |
+#### Method SetAttribute
+
+Sends transaction calling contract method to set container attribute, and
+waits for the transaction to be executed. Deadline is determined by the
+transport protocol (e.g. `grpc-timeout` header). If the deadline is not
+set, server waits 15s after submitting the transaction.
+
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  attribute successfully set;
+- Common failures (SECTION_FAILURE_COMMON);
+- **CONTAINER_AWAIT_TIMEOUT** (3075, SECTION_CONTAINER): \
+  transaction was sent but not executed within the deadline.
+
+| Name | Input | Output |
+| ---- | ----- | ------ |
+| SetAttribute | [SetAttributeRequest](#neo.fs.v2.container.SetAttributeRequest) | [SetAttributeResponse](#neo.fs.v2.container.SetAttributeResponse) |
+#### Method RemoveAttribute
+
+Sends transaction calling contract method to remove container attribute,
+and waits for the transaction to be executed. Deadline is determined by
+the transport protocol (e.g. `grpc-timeout` header). If the deadline is
+not set, server waits 15s after submitting the transaction.
+
+Statuses:
+- **OK** (0, SECTION_SUCCESS): \
+  attribute successfully removed;
+- Common failures (SECTION_FAILURE_COMMON);
+- **CONTAINER_AWAIT_TIMEOUT** (3075, SECTION_CONTAINER): \
+  transaction was sent but not executed within the deadline.
+
+| Name | Input | Output |
+| ---- | ----- | ------ |
+| RemoveAttribute | [RemoveAttributeRequest](#neo.fs.v2.container.RemoveAttributeRequest) | [RemoveAttributeResponse](#neo.fs.v2.container.RemoveAttributeResponse) |
  <!-- end services -->
 
 
@@ -181,6 +242,9 @@ Statuses:
 
 ### Message AnnounceUsedSpaceRequest
 Announce container used space
+
+DEPRECATED: every storage node must send storage load directly to `container`
+contract.
 
 
 | Field | Type | Label | Description |
@@ -219,12 +283,15 @@ Announcement contains used space information for a single container.
 ### Message AnnounceUsedSpaceResponse
 Announce container used space
 
+DEPRECATED: every storage node must send storage load directly to `container`
+contract.
+
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | body | [AnnounceUsedSpaceResponse.Body](#neo.fs.v2.container.AnnounceUsedSpaceResponse.Body) |  | Body of announce used space response message. |
 | meta_header | [neo.fs.v2.session.ResponseMetaHeader](#neo.fs.v2.session.ResponseMetaHeader) |  | Carries response meta information. Header data is used only to regulate message transport and does not affect request execution. |
-| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. |
+| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. DEPRECATED: the field is no longer used for verifications. Servers MUST attach it for requests with `meta_header.version` <= 2.21. |
 
 
 <a name="neo.fs.v2.container.AnnounceUsedSpaceResponse.Body"></a>
@@ -273,7 +340,7 @@ and done via consensus in Inner Ring nodes.
 | ----- | ---- | ----- | ----------- |
 | body | [DeleteResponse.Body](#neo.fs.v2.container.DeleteResponse.Body) |  | Body of container delete response message. |
 | meta_header | [neo.fs.v2.session.ResponseMetaHeader](#neo.fs.v2.session.ResponseMetaHeader) |  | Carries response meta information. Header data is used only to regulate message transport and does not affect request execution. |
-| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. |
+| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. DEPRECATED: the field is no longer used for verifications. Servers MUST attach it for requests with `meta_header.version` <= 2.21. |
 
 
 <a name="neo.fs.v2.container.DeleteResponse.Body"></a>
@@ -318,7 +385,7 @@ Get Extended ACL
 | ----- | ---- | ----- | ----------- |
 | body | [GetExtendedACLResponse.Body](#neo.fs.v2.container.GetExtendedACLResponse.Body) |  | Body of get extended acl response message. |
 | meta_header | [neo.fs.v2.session.ResponseMetaHeader](#neo.fs.v2.session.ResponseMetaHeader) |  | Carries response meta information. Header data is used only to regulate message transport and does not affect request execution. |
-| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. |
+| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. DEPRECATED: the field is no longer used for verifications. Servers MUST attach it for requests with `meta_header.version` <= 2.21. |
 
 
 <a name="neo.fs.v2.container.GetExtendedACLResponse.Body"></a>
@@ -370,7 +437,7 @@ Get container structure
 | ----- | ---- | ----- | ----------- |
 | body | [GetResponse.Body](#neo.fs.v2.container.GetResponse.Body) |  | Body of container get response message. |
 | meta_header | [neo.fs.v2.session.ResponseMetaHeader](#neo.fs.v2.session.ResponseMetaHeader) |  | Carries response meta information. Header data is used only to regulate message transport and does not affect request execution. |
-| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. |
+| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. DEPRECATED: the field is no longer used for verifications. Servers MUST attach it for requests with `meta_header.version` <= 2.21. |
 
 
 <a name="neo.fs.v2.container.GetResponse.Body"></a>
@@ -421,7 +488,7 @@ List containers
 | ----- | ---- | ----- | ----------- |
 | body | [ListResponse.Body](#neo.fs.v2.container.ListResponse.Body) |  | Body of list containers response message. |
 | meta_header | [neo.fs.v2.session.ResponseMetaHeader](#neo.fs.v2.session.ResponseMetaHeader) |  | Carries response meta information. Header data is used only to regulate message transport and does not affect request execution. |
-| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. |
+| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. DEPRECATED: the field is no longer used for verifications. Servers MUST attach it for requests with `meta_header.version` <= 2.21. |
 
 
 <a name="neo.fs.v2.container.ListResponse.Body"></a>
@@ -452,7 +519,7 @@ New NeoFS Container creation request
 
 ### Message PutRequest.Body
 Container creation request has container structure's signature as a
-separate field. It's not stored in sidechain, just verified on container
+separate field. It's not stored in FS chain, just verified on container
 creation by `Container` smart contract. `ContainerID` is a SHA256 hash of
 the stable-marshalled container strucutre, hence there is no need for
 additional signature checks.
@@ -474,7 +541,7 @@ New NeoFS Container creation response
 | ----- | ---- | ----- | ----------- |
 | body | [PutResponse.Body](#neo.fs.v2.container.PutResponse.Body) |  | Body of container put response message. |
 | meta_header | [neo.fs.v2.session.ResponseMetaHeader](#neo.fs.v2.session.ResponseMetaHeader) |  | Carries response meta information. Header data is used only to regulate message transport and does not affect request execution. |
-| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. |
+| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. DEPRECATED: the field is no longer used for verifications. Servers MUST attach it for requests with `meta_header.version` <= 2.21. |
 
 
 <a name="neo.fs.v2.container.PutResponse.Body"></a>
@@ -489,6 +556,143 @@ returned here to make sure everything has been done as expected.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | container_id | [neo.fs.v2.refs.ContainerID](#neo.fs.v2.refs.ContainerID) |  | Unique identifier of the newly created container |
+
+
+<a name="neo.fs.v2.container.RemoveAttributeRequest"></a>
+
+### Message RemoveAttributeRequest
+Attribute removal request
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| body | [RemoveAttributeRequest.Body](#neo.fs.v2.container.RemoveAttributeRequest.Body) |  | Request payload. |
+| body_signature | [neo.fs.v2.refs.Signature](#neo.fs.v2.refs.Signature) |  | Signature of stable-marshalled `body` field. |
+
+
+<a name="neo.fs.v2.container.RemoveAttributeRequest.Body"></a>
+
+### Message RemoveAttributeRequest.Body
+Request payload message.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| parameters | [RemoveAttributeRequest.Body.Parameters](#neo.fs.v2.container.RemoveAttributeRequest.Body.Parameters) |  | Op parameters. |
+| signature | [neo.fs.v2.refs.SignatureRFC6979](#neo.fs.v2.refs.SignatureRFC6979) |  | N3 witness of stable-marshalled `parameters` field. The signature must authenticate either container owner or one of subjects in the `session_token` field if any. Signature according to `ECDSA_RFC6979_SHA256` scheme is also supported. |
+| session_token | [neo.fs.v2.session.SessionTokenV2](#neo.fs.v2.session.SessionTokenV2) |  | Optional session token. The token must be issued by the container owner. The token must have at least one subject authenticated by `signature` field. The token must have at least one context with this container and `CONTAINER_REMOVEATTRIBUTE` verb. |
+| session_token_v1 | [neo.fs.v2.session.SessionToken](#neo.fs.v2.session.SessionToken) |  | Optional session token (V1). It must not be set together with `session_token` field that is highly recommended to be used instead. Requirements are the same for both. |
+
+
+<a name="neo.fs.v2.container.RemoveAttributeRequest.Body.Parameters"></a>
+
+### Message RemoveAttributeRequest.Body.Parameters
+Op parameters message.
+
+If container does not have the `attribute`, nothing is done and status
+`OK` is returned.
+
+`valid_until` is required request expiration time in Unix Timestamp
+format.
+
+`attribute` must be one of:
+ - `CORS`;
+ - `S3_TAGS`;
+ - `S3_SETTINGS`;
+ - `S3_NOTIFICATIONS`;
+ - `__NEOFS__LOCK_UNTIL`.
+
+Attribute-specific requirements:
+ - `__NEOFS__LOCK_UNTIL`: current timestamp must have already passed if any
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| container_id | [neo.fs.v2.refs.ContainerID](#neo.fs.v2.refs.ContainerID) |  | Identifier of the container to remove attribute from. |
+| attribute | [string](#string) |  | Attribute to be removed. |
+| valid_until | [uint64](#uint64) |  | Request expiration time. |
+
+
+<a name="neo.fs.v2.container.RemoveAttributeResponse"></a>
+
+### Message RemoveAttributeResponse
+Attribute removal response
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| status | [neo.fs.v2.status.Status](#neo.fs.v2.status.Status) |  | Operation execution status. |
+
+
+<a name="neo.fs.v2.container.SetAttributeRequest"></a>
+
+### Message SetAttributeRequest
+Attribute setting request
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| body | [SetAttributeRequest.Body](#neo.fs.v2.container.SetAttributeRequest.Body) |  | Request payload. |
+| body_signature | [neo.fs.v2.refs.Signature](#neo.fs.v2.refs.Signature) |  | Signature of stable-marshalled `body` field. |
+
+
+<a name="neo.fs.v2.container.SetAttributeRequest.Body"></a>
+
+### Message SetAttributeRequest.Body
+Request payload message.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| parameters | [SetAttributeRequest.Body.Parameters](#neo.fs.v2.container.SetAttributeRequest.Body.Parameters) |  | Op parameters. |
+| signature | [neo.fs.v2.refs.SignatureRFC6979](#neo.fs.v2.refs.SignatureRFC6979) |  | N3 witness of stable-marshalled `parameters` field. The signature must authenticate either container owner or one of subjects in the `session_token` field if any. Signature according to `ECDSA_RFC6979_SHA256` scheme is also supported. |
+| session_token | [neo.fs.v2.session.SessionTokenV2](#neo.fs.v2.session.SessionTokenV2) |  | Optional session token. The token must be issued by the container owner. The token must have at least one subject authenticated by `signature` field. The token must have at least one context with this container and `CONTAINER_SETATTRIBUTE` verb. |
+| session_token_v1 | [neo.fs.v2.session.SessionToken](#neo.fs.v2.session.SessionToken) |  | Optional session token (V1). It must not be set together with `session_token` field that is highly recommended to be used instead. Requirements are the same for both. |
+
+
+<a name="neo.fs.v2.container.SetAttributeRequest.Body.Parameters"></a>
+
+### Message SetAttributeRequest.Body.Parameters
+Op parameters message.
+
+If container does not have the `attribute`, it is added. Otherwise, its
+value is swapped.
+
+`valid_until` is required request expiration time in Unix Timestamp
+format.
+
+`attribute` must be one of:
+ - `CORS`;
+ - `S3_TAGS`;
+ - `S3_SETTINGS`;
+ - `S3_NOTIFICATIONS`;
+ - `__NEOFS__LOCK_UNTIL`.
+
+In general, requirements for `value` are the same as for container
+creation. Attribute-specific requirements:
+ - `__NEOFS__LOCK_UNTIL`: new timestamp must be after the current one if any
+ - `S3_TAGS`: must be a valid JSON object
+ - `S3_SETTINGS`: must be a valid JSON object
+ - `S3_NOTIFICATIONS`: must be a valid JSON object
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| container_id | [neo.fs.v2.refs.ContainerID](#neo.fs.v2.refs.ContainerID) |  | Identifier of the container to set attribute for. |
+| attribute | [string](#string) |  | Attribute to be set. |
+| value | [string](#string) |  | New attribute value. |
+| valid_until | [uint64](#uint64) |  | Request expiration time. |
+
+
+<a name="neo.fs.v2.container.SetAttributeResponse"></a>
+
+### Message SetAttributeResponse
+Attribute setting response
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| status | [neo.fs.v2.status.Status](#neo.fs.v2.status.Status) |  | Operation execution status. |
 
 
 <a name="neo.fs.v2.container.SetExtendedACLRequest"></a>
@@ -527,7 +731,7 @@ Set Extended ACL
 | ----- | ---- | ----- | ----------- |
 | body | [SetExtendedACLResponse.Body](#neo.fs.v2.container.SetExtendedACLResponse.Body) |  | Body of set extended acl response message. |
 | meta_header | [neo.fs.v2.session.ResponseMetaHeader](#neo.fs.v2.session.ResponseMetaHeader) |  | Carries response meta information. Header data is used only to regulate message transport and does not affect request execution. |
-| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. |
+| verify_header | [neo.fs.v2.session.ResponseVerificationHeader](#neo.fs.v2.session.ResponseVerificationHeader) |  | Carries response verification information. This header is used to authenticate the nodes of the message route and check the correctness of transmission. DEPRECATED: the field is no longer used for verifications. Servers MUST attach it for requests with `meta_header.version` <= 2.21. |
 
 
 <a name="neo.fs.v2.container.SetExtendedACLResponse.Body"></a>
@@ -535,7 +739,7 @@ Set Extended ACL
 ### Message SetExtendedACLResponse.Body
 `SetExtendedACLResponse` has an empty body because the operation is
 asynchronous and the update should be reflected in `Container` smart contract's
-storage after next block is issued in sidechain.
+storage after next block is issued in FS chain.
 
 
  <!-- end messages -->
@@ -576,18 +780,18 @@ of stable-marshalled container message.
 
 ### Message Container.Attribute
 `Attribute` is a user-defined Key-Value metadata pair attached to the
-container. Container attributes are immutable. They are set at the moment of
-container creation and can never be added or updated.
+container.
 
 Key name must be a container-unique valid UTF-8 string. Value can't be
 empty. Containers with duplicated attribute names or attributes with empty
-values will be considered invalid.
+values will be considered invalid. Zero byte is also forbidden in UTF-8
+strings.
 
 There are some "well-known" attributes affecting system behaviour:
 
 * __NEOFS__SUBNET \
-  String ID of a container's storage subnet. Any container can be attached to
-  one subnet only.
+  DEPRECATED. Was used for a string ID of a container's storage subnet.
+  Currently doesn't affect anything.
 * __NEOFS__NAME \
   String of a human-friendly container name registered as a domain in
   NNS contract.
@@ -600,6 +804,24 @@ There are some "well-known" attributes affecting system behaviour:
   accepted in a NeoFS network only if the global network hashing configuration
   value corresponds with that attribute's value. After container inclusion, network
   setting is ignored.
+* __NEOFS__METAINFO_CONSISTENCY \
+  Policy rule that defines the condition under which an object is considered
+  processed. Acceptable values and meanings:
+    1. "strict": SN processes objects' meta information, it is validated,
+      indexed and signed accordingly by a required minimal number of nodes
+      that are included in the container, a corresponding object inclusion
+      notification can be caught
+    2. "optimistic": the same as "strict" but a successful PUT operation
+      does not mean objects' meta information has been multi signed and
+      indexed correctly, however, SNs will try to do it asynchronously;
+      in general PUT operations are expected to be faster than in the
+      "strict" case
+    3. <other cases>: SN does not process objects' meta
+      information, it is not indexed and object presence/number of copies
+      is not proven after a successful object PUT operation; the behavior
+      is the same as it was before this attribute introduction
+* __NEOFS__LOCK_UNTIL \
+  Timestamp until which the container cannot be deleted in Unix Timestamp format
 
 And some well-known attributes used by applications only:
 
@@ -607,6 +829,33 @@ And some well-known attributes used by applications only:
   Human-friendly name
 * Timestamp \
   User-defined local time of container creation in Unix Timestamp format
+* CORS \
+  It is used to configure your container to allow cross-origin requests (CORS). The rules are represented as a JSON
+  array of objects with the following fields:
+    1. "AllowedMethods": In this element, you specify allowed HTTP methods: GET, PUT, POST, DELETE, HEAD.
+    2. "AllowedOrigins": In this element, you specify the origins that you want to allow cross-domain requests from,
+    for example, http://www.example.com. The origin string can contain only one "*" wildcard character,
+    such as http://*.example.com. You can optionally specify "*" as the origin to enable all the origins to send
+    cross-origin requests. You can also specify https to enable only secure origins.
+    3. "AllowedHeaders": The element specifies which headers are allowed in a preflight request through the
+    "Access-Control-Request-Headers" request header. Each AllowedHeaders string in your configuration can contain
+    at most one "*" wildcard character. For example, x-app-*.
+    4. "ExposeHeaders": Each ExposeHeader element identifies a header in the response that you want customers
+    to be able to access from their applications (for example, from a JavaScript XMLHttpRequest object).
+    5. "MaxAgeSeconds": The element specifies the time in seconds that your browser can cache the response for a
+    preflight request as identified by the resource, the HTTP method, and the origin.
+    
+    The CORS schema is based on Amazon S3 CORS (https://docs.aws.amazon.com/AmazonS3/latest/userguide/cors.html)
+    configuration.
+* S3_TAGS \
+  It is used to store S3 gate-specific container tags. The value is controlled by the gate itself.
+  Despite it, the value must be valid JSON object.
+* S3_SETTINGS \
+  It is used to store S3 gate-specific container settings. The value is controlled by the gate itself.
+  Despite it, the value must be valid JSON object.
+* S3_NOTIFICATIONS \
+  It is used to store S3 gate-specific container notification settings. The value is controlled by the gate itself.
+  Despite it, the value must be valid JSON object.
 
 
 | Field | Type | Label | Description |

@@ -3,35 +3,54 @@
 
 ## Table of Contents
 
-- [subnet/types.proto](#subnet/types.proto)
+- [link/types.proto](#link/types.proto)
 
   - Messages
-    - [SubnetInfo](#neo.fs.v2.subnet.SubnetInfo)
+    - [Link](#neo.fs.v2.link.Link)
+    - [Link.MeasuredObject](#neo.fs.v2.link.Link.MeasuredObject)
     
 
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="subnet/types.proto"></a>
+<a name="link/types.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## subnet/types.proto
+## link/types.proto
 
 
  <!-- end services -->
 
 
-<a name="neo.fs.v2.subnet.SubnetInfo"></a>
+<a name="neo.fs.v2.link.Link"></a>
 
-### Message SubnetInfo
-NeoFS subnetwork description
+### Message Link
+Link is a payload of helper objects that contain the full list of the split
+chain objects' IDs. It is created only after the whole split chain is known
+and signed. This object is the only object that refers to every "child object"
+ID. It is NOT required for the original object assembling. It MUST have ALL
+the "child objects" IDs. Child objects MUST be ordered according to the
+original payload split, meaning the first payload part holder MUST be placed
+at the first place in the corresponding link object. Sizes MUST NOT be omitted
+and MUST be a real object payload size in bytes.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [neo.fs.v2.refs.SubnetID](#neo.fs.v2.refs.SubnetID) |  | Unique subnet identifier. Missing ID is equivalent to zero (default subnetwork) ID. |
-| owner | [neo.fs.v2.refs.OwnerID](#neo.fs.v2.refs.OwnerID) |  | Identifier of the subnetwork owner |
+| children | [Link.MeasuredObject](#neo.fs.v2.link.Link.MeasuredObject) | repeated | Full list of the "child" object descriptors. |
+
+
+<a name="neo.fs.v2.link.Link.MeasuredObject"></a>
+
+### Message Link.MeasuredObject
+Object ID with its object's payload size.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [neo.fs.v2.refs.ObjectID](#neo.fs.v2.refs.ObjectID) |  | Object ID. |
+| size | [uint32](#uint32) |  | Object size in bytes. |
 
  <!-- end messages -->
 

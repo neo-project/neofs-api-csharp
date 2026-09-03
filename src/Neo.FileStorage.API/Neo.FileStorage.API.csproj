@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Copyright>2015-2025 The Neo Project</Copyright>
     <Description>NeoFS API for CSharp</Description>
     <LangVersion>latest</LangVersion>
@@ -44,10 +44,8 @@
     <Protobuf Include="session\types.proto" GrpcServices="None" Link="session\types.proto" />
     <Protobuf Include="status\types.proto" GrpcServices="None" Link="status\types.proto" />
     <Protobuf Include="storagegroup\types.proto" GrpcServices="None" Link="storagegroup\types.proto" />
-    <Protobuf Include="subnet\types.proto" GrpcServices="None" Link="subnet\types.proto" />
     <Protobuf Include="tombstone\types.proto" GrpcServices="None" Link="tombstone\types.proto" />
-    <Protobuf Include="control\service.proto" GrpcServices="Both" Link="control\service.proto" />
-    <Protobuf Include="control\types.proto" GrpcServices="None" Link="control\types.proto" />
+    <Protobuf Include="link\types.proto" GrpcServices="None" Link="link\types.proto" />
     <Protobuf Include="lock\types.proto" GrpcServices="None" Link="lock\types.proto" />
   </ItemGroup>
 
@@ -59,7 +57,6 @@
     <PackageReference Include="BouncyCastle.Cryptography" Version="2.6.*" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.*" />
     <PackageReference Include="Sprache" Version="2.3.*" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.*" />
   </ItemGroup>
 
   <ItemGroup>

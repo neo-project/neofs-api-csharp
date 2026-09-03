@@ -66,12 +66,13 @@ Depending on checksum algorithm type, the string presentation may vary:
 <a name="neo.fs.v2.refs.ContainerID"></a>
 
 ### Message ContainerID
-NeoFS container identifier. Container structures are immutable and
-content-addressed.
+NeoFS container identifier.
 
 `ContainerID` is a 32 byte long
 [SHA256](https://csrc.nist.gov/publications/detail/fips/180/4/final) hash of
-stable-marshalled container message.
+stable-marshalled container message used for creation. ID consisting of all
+zero bytes is reserved for undefined value and must not be specified as a
+field.
 
 String presentation is a
 [base58](https://tools.ietf.org/html/draft-msporny-base58-02) encoded string.
@@ -97,7 +98,8 @@ It means `ObjectID` will change if the `header` or the `payload` changes.
 `ObjectID` is a 32 byte long
 [SHA256](https://csrc.nist.gov/publications/detail/fips/180/4/final) hash of
 the object's `header` field, which, in it's turn, contains the hash of the object's
-payload.
+payload. ID consisting of all zero bytes is reserved for undefined value and
+must not be specified as a field.
 
 String presentation is a
 [base58](https://tools.ietf.org/html/draft-msporny-base58-02) encoded string.
@@ -147,8 +149,8 @@ Signature of something in NeoFS.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| key | [bytes](#bytes) |  | Public key used for signing |
-| sign | [bytes](#bytes) |  | Signature |
+| key | [bytes](#bytes) |  | Public key used for signing. For N3 `scheme`, the field represents a verification script. The maximum allowed length is 1024 bytes. |
+| sign | [bytes](#bytes) |  | Signature. For N3 `scheme`, the field represents an invocation script. The maximum allowed length is 1024 bytes. |
 | scheme | [SignatureScheme](#neo.fs.v2.refs.SignatureScheme) |  | Scheme contains digital signature scheme identifier |
 
 
@@ -160,8 +162,8 @@ RFC 6979 signature.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| key | [bytes](#bytes) |  | Public key used for signing |
-| sign | [bytes](#bytes) |  | Deterministic ECDSA with SHA-256 hashing |
+| key | [bytes](#bytes) |  | Public key used for signing. For N3 auth scheme, the field represents a verification script. The maximum allowed length is 1024 bytes. |
+| sign | [bytes](#bytes) |  | Deterministic ECDSA with SHA-256 hashing. For N3 auth scheme, the field represents an invocation script. The maximum allowed length is 1024 bytes. |
 
 
 <a name="neo.fs.v2.refs.SubnetID"></a>
@@ -172,6 +174,8 @@ NeoFS subnetwork identifier.
 String representation of a value is base-10 integer.
 
 JSON representation is an object containing a single `value` number field.
+
+DEPRECATED. Kept for compatibility only.
 
 
 | Field | Type | Label | Description |
@@ -204,7 +208,7 @@ Checksum algorithm type.
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | CHECKSUM_TYPE_UNSPECIFIED | 0 | Unknown. Not used |
-| TZ | 1 | Tillich-Zemor homomorphic hash function |
+| TZ | 1 | Tillich-Zemor homomorphic hash function DEPRECATED starting from 2.23 API version. |
 | SHA256 | 2 | SHA-256 |
 
 
@@ -219,6 +223,7 @@ Signature scheme describes digital signing scheme used for (key, signature) pair
 | ECDSA_SHA512 | 0 | ECDSA with SHA-512 hashing (FIPS 186-3) |
 | ECDSA_RFC6979_SHA256 | 1 | Deterministic ECDSA with SHA-256 hashing (RFC 6979) |
 | ECDSA_RFC6979_SHA256_WALLET_CONNECT | 2 | Deterministic ECDSA with SHA-256 hashing using WalletConnect API. Here the algorithm is the same, but the message format differs. |
+| N3 | 3 | Neo N3 witness. |
 
 
  <!-- end enums -->

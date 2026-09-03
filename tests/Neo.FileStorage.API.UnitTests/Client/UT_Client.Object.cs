@@ -108,7 +108,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
                 var address = new Address(cid, oid);
                 using var source = new CancellationTokenSource();
                 source.CancelAfter(TimeSpan.FromMinutes(1));
-                var oo = client.GetObjectHeader(address, false, false, new CallOptions { Ttl = 2 }, source.Token).Result;
+                var oo = client.GetObjectHeader(address, false, new CallOptions { Ttl = 2 }, source.Token).Result;
                 if (tzh is null)
                     tzh = oo.PayloadHomomorphicHash.Sum.ToByteArray();
                 else
@@ -207,7 +207,7 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             using var client = new Client.Client(key, host);
             using var source = new CancellationTokenSource();
             source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectHeader(address, false, false, new CallOptions { Ttl = 1 }, source.Token).Result;
+            var o = client.GetObjectHeader(address, false, new CallOptions { Ttl = 1 }, source.Token).Result;
             Console.WriteLine(o);
             Assert.AreEqual(oid, o.ObjectId);
         }
@@ -221,29 +221,6 @@ namespace Neo.FileStorage.API.UnitTests.FSClient
             var o = client.GetObjectPayloadRangeData(Address, new Object.Range { Offset = 0, Length = 100 }, false, new CallOptions { Ttl = 1 }, source.Token).Result;
             Console.WriteLine(o.Length);
             Console.WriteLine(o.ToHexString());
-        }
-
-        [TestMethod]
-        public void TestObjectGetRangeHash()
-        {
-            using var client = new Client.Client(key, host);
-            using var source = new CancellationTokenSource();
-            source.CancelAfter(TimeSpan.FromMinutes(1));
-            var o = client.GetObjectPayloadRangeHash(Address, new List<Object.Range> { new Object.Range { Offset = 0, Length = 100 } }, ChecksumType.Sha256, new byte[] { }, new CallOptions { Ttl = 2 }, source.Token).Result;
-            Console.WriteLine($"{o.Count} {string.Join(", ", o.Select(p => p.ToHexString()))}");
-        }
-
-        [TestMethod]
-        public void TestObjectSearch()
-        {
-            using var client = new Client.Client(key, host);
-            using var source = new CancellationTokenSource();
-            source.CancelAfter(TimeSpan.FromMinutes(1));
-            var filter = new SearchFilters();
-            filter.AddTypeFilter(Object.MatchType.StringEqual, ObjectType.Regular);
-            var o = client.SearchObject(cid, filter, new CallOptions { Ttl = 1 }, source.Token).Result;
-            Console.WriteLine($"{o.Count} {string.Join(", ", o.Select(p => p.String()))}");
-            Assert.IsTrue(o.Contains(oid));
         }
     }
 }
